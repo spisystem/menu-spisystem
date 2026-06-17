@@ -3,953 +3,958 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Menù Spi System</title>
-  
-  <!-- Font eleganti -->
-  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-
-  <!-- Libreria i18next -->
+  <title>Menù — SPI System</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/i18next@21.6.3/i18next.min.js"></script>
 
   <style>
-    /* RESET */
-    * { margin:0; padding:0; box-sizing:border-box; }
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 
-    /* PALETTE MODERNA */
     :root {
-      --bg-main: #0f0f0f;
-      --bg-card: #1a1a1a;
-      --accent: #c6a75e;
-      --text-main: #f5f5f5;
-      --text-soft: #bdbdbd;
-      --border-soft: rgba(255,255,255,0.08);
+      --bg: #0a0a0a;
+      --card: #141414;
+      --gold: #c6a75e;
+      --gold-soft: rgba(198,167,94,0.12);
+      --text: #f0ece4;
+      --muted: #888;
+      --border: rgba(255,255,255,0.07);
     }
+
+    html { scroll-behavior: smooth; }
 
     body {
       font-family: 'Poppins', sans-serif;
-      background: var(--bg-main);
-      color: var(--text-main);
+      background: var(--bg);
+      color: var(--text);
       min-height: 100vh;
-      padding-top: 140px;
-      letter-spacing: 0.3px;
+      padding-top: 110px;
     }
 
-    /* NAVBAR */
+    /* ── NAV ── */
     nav {
       position: fixed;
       top: 0; width: 100%;
-      background: rgba(15, 15, 15, 0.9);
-      backdrop-filter: blur(12px);
-      padding: 18px 40px;
+      background: rgba(10,10,10,0.9);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 32px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
       z-index: 1000;
     }
 
-    nav .logo img {
-      height: 105px;
-      width: auto;
-      transition: transform 0.3s ease;
+    .nav-left { display: flex; align-items: center; gap: 20px; }
+
+    .back-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      letter-spacing: 0.04em;
+      padding: 7px 14px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      transition: color 0.2s, border-color 0.2s, background 0.2s;
     }
+    .back-btn:hover {
+      color: var(--gold);
+      border-color: rgba(198,167,94,0.3);
+      background: var(--gold-soft);
+    }
+    .back-btn svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; }
 
-    nav .logo img:hover { transform: scale(1.05); }
+    .nav-logo img {
+      height: 75px;
+      width: auto;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .nav-logo img:hover { transform: scale(1.05); opacity: 0.85; }
 
-    /* LINGUE */
+    /* ── LINGUA ── */
     .language-selector {
       position: relative;
       display: flex;
       align-items: center;
+      gap: 6px;
       cursor: pointer;
+      padding: 6px 10px;
+      border-radius: 8px;
+      transition: background 0.2s;
     }
+    .language-selector:hover { background: var(--gold-soft); }
 
-    .language-selector span:first-child {
-      font-size: 1.9rem;
+    .lang-flag { font-size: 1.8rem; line-height: 1; }
+    .lang-arrow {
+      font-size: 0.75rem;
+      color: var(--muted);
+      transition: transform 0.3s;
     }
-
-    .arrow {
-      font-size: 1.4rem;
-      margin-left: 6px;
-      color: var(--text-soft);
-    }
+    .language-selector.open .lang-arrow { transform: rotate(180deg); }
 
     .language-dropdown {
       display: none;
       position: absolute;
-      top: 40px;
+      top: calc(100% + 8px);
       right: 0;
-      background: var(--bg-card);
-      border: 1px solid var(--border-soft);
-      border-radius: 10px;
+      background: #1c1c1c;
+      border: 1px solid var(--border);
+      border-radius: 12px;
       overflow: hidden;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-      z-index: 1001;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.6);
+      z-index: 1002;
+      min-width: 130px;
     }
+    .language-dropdown.open { display: block; }
 
     .language-dropdown a {
-      display: block;
-      padding: 10px 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 11px 16px;
       text-decoration: none;
-      color: var(--text-main);
-      transition: background 0.2s ease;
+      color: var(--text);
+      font-size: 0.9rem;
+      transition: background 0.2s;
     }
+    .language-dropdown a:hover { background: var(--gold-soft); }
 
-    .language-dropdown a:hover { background: rgba(255,255,255,0.05); }
-
-    /* MENU */
-   .menu {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 40px 25px 80px;
-}
-
-.category {
-  background: var(--bg-card);
-  margin-bottom: 40px;
-  padding: 35px 40px; /* assicura spazio interno */
-  border-radius: 18px;
-  border: 1px solid var(--border-soft);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fadeInUp 0.6s forwards;
-}
-
-    .category:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 25px 50px rgba(0,0,0,0.6);
+    /* ── HEADER MENU ── */
+    .menu-header {
+      text-align: center;
+      padding: 40px 24px 20px;
     }
-
-    @keyframes fadeInUp {
-      to { opacity: 1; transform: translateY(0); }
+    .menu-header-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 10px;
     }
-
-    .category h2 {
+    .menu-header-title {
       font-family: 'Lora', serif;
-      font-size: 1.8rem;
-      font-weight: 700;
-      margin-bottom: 25px;
-      color: var(--accent);
-      letter-spacing: 1px;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      color: var(--text);
+    }
+    .menu-header-sub {
+      margin-top: 10px;
+      font-size: 0.88rem;
+      color: var(--muted);
+    }
+    .gold-rule {
+      width: 48px;
+      height: 2px;
+      background: var(--gold);
+      margin: 18px auto 0;
+      border-radius: 2px;
+      opacity: 0.6;
     }
 
-    /* HEADER CATEGORIA CLICCABILE */
+    /* ── MENU ── */
+    .menu {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 32px 20px 100px;
+    }
+
+    /* ── CATEGORIA ── */
+    .category {
+      background: var(--card);
+      margin-bottom: 16px;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    .category.visible {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.55s ease, transform 0.55s ease, border-color 0.3s, box-shadow 0.3s;
+    }
+    .category:hover {
+      border-color: rgba(198,167,94,0.18);
+      box-shadow: 0 12px 35px rgba(0,0,0,0.45);
+    }
+
+    /* HEADER CATEGORIA */
     .category-header {
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
+      align-items: center;
+      padding: 22px 28px;
       cursor: pointer;
+      user-select: none;
       gap: 12px;
+      transition: background 0.2s;
+    }
+    .category-header:hover { background: rgba(255,255,255,0.03); }
+
+    .category-header h2 {
+      font-family: 'Lora', serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 0.03em;
     }
 
     .category-toggle {
-      font-size: 1.8rem;
-      color: var(--accent);
-      font-weight: bold;
-      margin-top: 4px;
-      transition: transform 0.3s ease;
-    }
-
-    .category.open .category-toggle {
-      transform: rotate(180deg);
-    }
-
-    /* ANIMAZIONE APERTURA */
-    .products {
-      overflow: hidden;
-      transition: max-height 0.4s ease, opacity 0.3s ease;
-    }
-
-    .category.closed .products {
-      max-height: 0;
-      opacity: 0;
-      padding-top: 0;
-    }
-
-    .category.open .products {
-      max-height: 500px;
-      opacity: 1;
-    }
-
-    .products { list-style: none; }
-
-    .products li {
+      width: 28px;
+      height: 28px;
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      padding: 12px 0;
-      font-size: 1rem;
-      color: var(--text-soft);
-      border-bottom: 1px solid var(--border-soft);
-      position: relative;
+      justify-content: center;
+      border-radius: 50%;
+      background: var(--gold-soft);
+      flex-shrink: 0;
+      transition: transform 0.35s ease, background 0.2s;
+    }
+    .category-toggle svg {
+      width: 14px;
+      height: 14px;
+      stroke: var(--gold);
+      fill: none;
+      stroke-width: 2.2;
+      stroke-linecap: round;
+    }
+    .category.open .category-toggle { transform: rotate(180deg); }
+
+    /* PRODOTTI — altezza dinamica con JS */
+    .products-wrapper {
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height 0.45s ease;
+    }
+    .category.open .products-wrapper {
+      /* max-height viene impostato via JS */
     }
 
-    .products li:last-child { border-bottom: none; }
-
-    .products li span:last-child { color: var(--text-main); font-weight: 600; }
-
-    /* FOOTER */
-    footer {
-      border-top: 1px solid var(--border-soft);
-      background: #111;
-      padding: 40px 20px;
-      text-align: center;
-      color: var(--text-soft);
-      font-size: 0.9rem;
+    .products {
+      list-style: none;
+      padding: 0 28px 20px;
     }
 
-    @media (max-width: 768px){
-      nav { padding: 15px 20px; }
-      .category { padding: 25px; }
-      .products li {
-        font-size: 0.95rem;
-        flex-direction: column;
-        align-items: flex-start;
+    /* ITEM PRODOTTO */
+    .product-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+      border-radius: 6px;
+      transition: background 0.2s;
+      flex-wrap: nowrap;
+    }
+    .product-item:last-child { border-bottom: none; }
+    .product-item:hover { background: rgba(255,255,255,0.03); }
+    .product-item.no-modal { cursor: default; }
+    .product-item.no-modal:hover { background: transparent; }
+
+    .product-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .product-left img {
+      width: 54px;
+      height: 54px;
+      border-radius: 10px;
+      object-fit: cover;
+      flex-shrink: 0;
+      transition: transform 0.25s, box-shadow 0.25s;
+      border: 1px solid var(--border);
+    }
+    .product-item:hover .product-left img {
+      transform: scale(1.04);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+    }
+
+    .product-info { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+
+    .product-name {
+      font-size: 0.97rem;
+      color: var(--text);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    @media (max-width: 768px) {
+      .product-name {
+        white-space: normal;
+        overflow: visible;
+        text-overflow: unset;
+        line-height: 1.35;
       }
-      .products li span:last-child { margin-top: 5px; }
     }
-    .footer-line {
-  border: 0;
-  height: 1px;
-  background: linear-gradient(to right, transparent, #c6a75e, transparent);
-  margin: 0 20px 15px;
-  opacity: 0.7;
-}/* LISTA */
-.products{
-  list-style:none;
-}
 
- /* LISTA */.products{
-  list-style:none;
-}
+    .product-detail-hint {
+      font-size: 0.72rem;
+      color: var(--gold);
+      opacity: 0.7;
+      letter-spacing: 0.04em;
+    }
 
-/* BLOCCA QUALSIASI COMPORTAMENTO STRANO */
-.product-item{
-  display:flex !important;
-  flex-direction:row !important;
-  align-items:center;
-  justify-content:space-between;
+    .product-price {
+      flex-shrink: 0;
+      white-space: nowrap;
+      min-width: 60px;
+      text-align: right;
+      color: var(--gold);
+      font-weight: 700;
+      font-size: 1rem;
+    }
 
-  width:100%;
-  padding:12px 0;
-  border-bottom:1px solid var(--border-soft);
-  gap:12px;
-  flex-wrap:nowrap; /* IMPORTANTISSIMO */
-}
+    /* ── MODAL ── */
+    .image-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.88);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.28s ease, visibility 0.28s ease;
+      z-index: 9999;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      padding: 20px;
+    }
+    .image-modal.active {
+      opacity: 1;
+      visibility: visible;
+    }
 
-/* PARTE SINISTRA */
-.product-left{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  flex:1;
-  min-width:0;
-}
+    .modal-card {
+      max-width: 480px;
+      width: 100%;
+      background: #1a1a1a;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+      transform: scale(0.9);
+      transition: transform 0.28s ease;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.7);
+    }
+    .image-modal.active .modal-card { transform: scale(1); }
 
-/* IMMAGINE */
-.product-left img{
-  width:50px;
-  height:50px;
-  border-radius:12px;
-  object-fit:cover;
-  flex-shrink:0;
-}
+    .modal-img-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 4/3;
+      overflow: hidden;
+      background: #111;
+    }
+    .modal-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
 
-/* NOME */
-.product-name{
-  font-family:'Poppins', sans-serif;
-  font-size:1rem;
-  color:var(--text-main);
-  min-width:0;
-}
+    .close-modal {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      width: 36px;
+      height: 36px;
+      background: rgba(0,0,0,0.6);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: #fff;
+      font-size: 1.2rem;
+      transition: background 0.2s, transform 0.2s;
+      line-height: 1;
+    }
+    .close-modal:hover { background: rgba(0,0,0,0.85); transform: scale(1.1); }
 
-/* DESKTOP: resta compatto su una riga */
-@media (min-width: 769px){
-  .product-name{
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
-  }
-}
+    .modal-body {
+      padding: 24px 28px 28px;
+      text-align: center;
+    }
+    #modalTitle {
+      font-family: 'Lora', serif;
+      font-size: 1.35rem;
+      color: var(--gold);
+      margin-bottom: 10px;
+    }
+    #modalDescription {
+      font-size: 0.92rem;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-bottom: 14px;
+    }
+    #modalAllergens {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 16px;
+    }
+    #modalPrice {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--gold);
+    }
 
-/* MOBILE: mostra tutto */
-@media (max-width: 768px){
-  .product-name{
-    white-space:normal;
-    overflow:visible;
-    text-overflow:unset;
-    line-height:1.3;
-  }
-}
+    /* ── SCROLL TOP ── */
+    .scroll-top {
+      position: fixed;
+      right: 24px;
+      bottom: 24px;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(198,167,94,0.25);
+      border-radius: 50%;
+      background: rgba(20,20,20,0.8);
+      backdrop-filter: blur(8px);
+      color: var(--gold);
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(16px);
+      transition: opacity 0.3s, transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+      z-index: 2000;
+    }
+    .scroll-top.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+    .scroll-top:hover {
+      border-color: rgba(198,167,94,0.6);
+      box-shadow: 0 0 20px rgba(198,167,94,0.15);
+      transform: translateY(-4px);
+    }
+    .scroll-top svg {
+      width: 16px;
+      height: 16px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+    }
 
-/* PREZZO BLOCCATO A DESTRA */
-.product-price{
-  flex-shrink:0;
-  white-space:nowrap;
-  min-width:70px;
-  text-align:right;
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      background: #080808;
+      padding: 36px 20px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+    footer .footer-brand {
+      font-family: 'Lora', serif;
+      color: var(--gold);
+      margin-bottom: 6px;
+    }
 
-  color:var(--accent);
-  font-weight:700;
-}
-    /* LIGHTBOX MODERNA */
-.image-modal{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,0.92);
-
-  display:flex;
-  justify-content:center;
-  align-items:center;
-
-  opacity:0;
-  visibility:hidden;
-
-  transition:all .25s ease;
-  z-index:9999;
-
-  backdrop-filter:blur(8px);
-}
-
-.image-modal.active{
-  opacity:1;
-  visibility:visible;
-}
-
-.modal-image{
-  max-width:92%;
-  max-height:88vh;
-
-  border-radius:18px;
-
-  transform:scale(.85);
-  transition:transform .25s ease;
-
-  box-shadow:
-    0 20px 60px rgba(0,0,0,.6),
-    0 0 0 1px rgba(255,255,255,.08);
-}
-
-.image-modal.active .modal-image{
-  transform:scale(1);
-}
-
-.close-modal{
-  position:absolute;
-  top:25px;
-  right:30px;
-
-  font-size:42px;
-  color:white;
-  cursor:pointer;
-
-  transition:.2s;
-}
-
-.close-modal:hover{
-  transform:scale(1.1);
-  opacity:.8;
-}
-
-/* CURSORE IMMAGINI */
-.product-left img{
-  cursor:pointer;
-  transition:transform .25s ease;
-}
-
-.product-left img:hover{
-  transform:scale(1.06);
-}
-    /* SCROLL TO TOP */
-.scroll-top{
-  position: fixed;
-  right: 28px;
-  bottom: 28px;
-
-  width: 52px;
-  height: 52px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  border: 1px solid rgba(198,167,94,.25);
-  border-radius: 50%;
-
-  background: rgba(26,26,26,.75);
-  backdrop-filter: blur(12px);
-
-  color: var(--accent);
-
-  cursor: pointer;
-
-  opacity: 0;
-  visibility: hidden;
-
-  transform: translateY(20px);
-
-  transition:
-    opacity .35s ease,
-    transform .35s ease,
-    border-color .3s ease,
-    box-shadow .3s ease;
-
-  z-index: 2000;
-}
-
-.scroll-top.show{
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
-}
-
-.scroll-top:hover{
-  border-color: rgba(198,167,94,.7);
-  box-shadow:
-    0 0 25px rgba(198,167,94,.15),
-    0 10px 30px rgba(0,0,0,.4);
-
-  transform: translateY(-4px);
-}
-
-.scroll-top svg{
-  width: 18px;
-  height: 18px;
-  stroke-width: 1.8;
-}
-
-@media(max-width:768px){
-  .scroll-top{
-    width:48px;
-    height:48px;
-    right:20px;
-    bottom:20px;
-  }
-}
-    .product-modal-card{
-  max-width:500px;
-  width:92%;
-
-  background:#1a1a1a;
-
-  border:1px solid rgba(255,255,255,.08);
-
-  border-radius:20px;
-
-  padding:24px;
-
-  text-align:center;
-
-  box-shadow:0 20px 60px rgba(0,0,0,.6);
-}
-
-#modalTitle{
-  margin-top:18px;
-  color:var(--accent);
-  font-size:1.5rem;
-}
-
-#modalDescription{
-  margin-top:12px;
-  color:var(--text-soft);
-  line-height:1.6;
-}
-
-#modalAllergens{
-  margin-top:15px;
-  color:#d9d9d9;
-  font-size:.95rem;
-}
-
-#modalPrice{
-  margin-top:18px;
-  font-size:1.3rem;
-  font-weight:700;
-  color:var(--accent);
-}
-.product-info{
-  display:flex;
-  flex-direction:column;
-  gap:4px;
-}
-
-.info-btn{
-  background:transparent;
-  border:1px solid var(--accent);
-  color:var(--accent);
-  font-size:12px;
-  padding:4px 10px;
-  border-radius:999px;
-  cursor:pointer;
-  width:fit-content;
-  transition:all .25s ease;
-}
-
-.info-btn:hover{
-  background:var(--accent);
-  color:#111;
-  transform:scale(1.05);
-}
-   .product-name-wrapper{
-  display:flex;
-  align-items:center;
-  gap:8px;
-}
-
-.info-icon{
-  font-size:16px;
-  color:var(--accent);
-  cursor:pointer;
-  transition:transform .2s ease, opacity .2s ease;
-}
-
-.info-icon:hover{
-  transform:scale(1.2);
-  opacity:0.8;
-} 
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      nav { padding: 10px 16px; }
+      .nav-logo img { height: 55px; }
+      .category-header { padding: 18px 20px; }
+      .products { padding: 0 20px 16px; }
+    }
   </style>
 </head>
 <body>
 
+  <!-- NAV -->
   <nav>
-    <div class="logo">
-      <img src="images/logospi1.PNG" alt="Logo">
+    <div class="nav-left">
+      <a class="back-btn" href="index.html" id="back-btn" aria-label="Torna indietro">
+        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+        <span id="back-label">Indietro</span>
+      </a>
+      <div class="nav-logo">
+        <img src="images/logospi1.PNG" alt="SPI System Logo">
+      </div>
     </div>
-    <div class="language-selector" onclick="toggleDropdown()">
-      <span>🇮🇹</span>
-      <span class="arrow">&#8595;</span>
-      <div class="language-dropdown">
-        <a href="#" onclick="changeLanguage(event, 'it')">🇮🇹</a>
-        <a href="#" onclick="changeLanguage(event, 'en')">🇬🇧</a>
-        <a href="#" onclick="changeLanguage(event, 'es')">🇪🇸</a>
-        <a href="#" onclick="changeLanguage(event, 'fr')">🇫🇷</a>
-        <a href="#" onclick="changeLanguage(event, 'de')">🇩🇪</a>
+
+    <div class="language-selector" id="langSelector">
+      <span class="lang-flag" id="currentFlag">🇮🇹</span>
+      <svg class="lang-arrow" viewBox="0 0 24 24" style="width:12px;height:12px;stroke:var(--muted);fill:none;stroke-width:2.5;stroke-linecap:round;transition:transform 0.3s">
+        <polyline points="6 9 12 15 18 9"/>
+      </svg>
+      <div class="language-dropdown" id="langDropdown">
+        <a href="#" onclick="changeLanguage(event,'it')">🇮🇹 Italiano</a>
+        <a href="#" onclick="changeLanguage(event,'en')">🇬🇧 English</a>
+        <a href="#" onclick="changeLanguage(event,'es')">🇪🇸 Español</a>
+        <a href="#" onclick="changeLanguage(event,'fr')">🇫🇷 Français</a>
+        <a href="#" onclick="changeLanguage(event,'de')">🇩🇪 Deutsch</a>
       </div>
     </div>
   </nav>
+
+  <!-- HEADER MENU -->
+  <div class="menu-header">
+    <p class="menu-header-label" id="menu-label">Scopri le nostre proposte</p>
+    <h1 class="menu-header-title" id="menu-title">Il nostro Menù</h1>
+    <p class="menu-header-sub" id="menu-sub">Tocca una categoria per esplorare</p>
+    <div class="gold-rule"></div>
+  </div>
+
+  <!-- CATEGORIE -->
   <div class="menu">
-  <div class="category closed" id="rosticceria">
-  <div class="category-header" onclick="toggleCategory(this)">
-    <h2 id="rosticceria-title">Rosticceria</h2>
-    <span class="category-toggle">⌄</span>
-  </div>
-  <ul class="products" id="rosticceria-products">
-  <li class="product-item" onclick="openProductModal(
-  'images/focaccia.JPG',
-  'ruota_focaccia',
-  'ruota_focaccia_desc',
-  'ruota_focaccia_allergens',
-  '€5.00'
-)">
 
-  <div class="product-left">
-    <img src="images/focaccia.JPG">
-
-    <div class="product-name-wrapper">
-      <span class="product-name" data-key="ruota_focaccia">
-        Ruota di focaccia
-      </span>
-
-      <span class="info-icon"
-            onclick="event.stopPropagation(); openProductModal(
-              'images/focaccia.JPG',
-              'ruota_focaccia',
-              'ruota_focaccia_desc',
-              'ruota_focaccia_allergens',
-              '€5.00'
-            )">
-        ⓘ
-      </span>
+    <!-- Rosticceria -->
+    <div class="category" id="cat-rosticceria">
+      <div class="category-header" onclick="toggleCategory(this)">
+        <h2 id="rosticceria-title">Rosticceria</h2>
+        <span class="category-toggle">
+          <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </span>
+      </div>
+      <div class="products-wrapper">
+        <ul class="products">
+          <li class="product-item" onclick="openModal('images/focaccia.JPG','ruota_focaccia','ruota_focaccia_desc','ruota_focaccia_allergens','€5.00')">
+            <div class="product-left">
+              <img src="images/focaccia.JPG" alt="Ruota di focaccia">
+              <div class="product-info">
+                <span class="product-name" data-key="ruota_focaccia">Ruota di focaccia</span>
+                <span class="product-detail-hint" id="detail-hint-1">Tocca per dettagli</span>
+              </div>
+            </div>
+            <span class="product-price">€5.00</span>
+          </li>
+          <li class="product-item no-modal">
+            <div class="product-left">
+              <img src="images/arancino.JPG" alt="Arancino">
+              <div class="product-info">
+                <span class="product-name" data-key="arancino">Arancino</span>
+              </div>
+            </div>
+            <span class="product-price">€2.00</span>
+          </li>
+        </ul>
+      </div>
     </div>
-  </div>
 
-  <span class="product-price">€5.00</span>
+    <!-- Panzerotti -->
+    <div class="category" id="cat-panzerotti">
+      <div class="category-header" onclick="toggleCategory(this)">
+        <h2 id="panzerotti-title">Panzerotti</h2>
+        <span class="category-toggle">
+          <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </span>
+      </div>
+      <div class="products-wrapper">
+        <ul class="products">
+          <li class="product-item no-modal">
+            <div class="product-left">
+              <img src="images/panzerotto.JPG" alt="Panzerotto mozzarella e pomodoro">
+              <div class="product-info">
+                <span class="product-name" data-key="panzerotto_mozzarella_pomodoro">Panzerotto mozzarella e pomodoro</span>
+              </div>
+            </div>
+            <span class="product-price">€1.50</span>
+          </li>
+          <li class="product-item no-modal">
+            <div class="product-left">
+              <img src="images/panzerottog.JPG" alt="Panzerotto gorgonzola">
+              <div class="product-info">
+                <span class="product-name" data-key="panzerotto_gorgonzola">Panzerotto farcito con gorgonzola</span>
+              </div>
+            </div>
+            <span class="product-price">€2.00</span>
+          </li>
+        </ul>
+      </div>
+    </div>
 
-</li>
-    <li class="product-item">
-  <div class="product-left">
- <img src="images/arancino.JPG">
-    <span class="product-name">Arancino</span>
-  </div>
+    <!-- Panzerotti Speciali -->
+    <div class="category" id="cat-panzerotti-speciali">
+      <div class="category-header" onclick="toggleCategory(this)">
+        <h2 id="panzerotti_speciali-title">Panzerotti Speciali</h2>
+        <span class="category-toggle">
+          <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </span>
+      </div>
+      <div class="products-wrapper">
+        <ul class="products">
+          <li class="product-item no-modal">
+            <div class="product-left">
+              <img src="images/panzerotttocp.JPG" alt="Panzerotto cacio e pepe">
+              <div class="product-info">
+                <span class="product-name" data-key="panzerotto_cacio_pepe">Panzerotto cacio e pepe</span>
+              </div>
+            </div>
+            <span class="product-price">€3.00</span>
+          </li>
+          <li class="product-item no-modal">
+            <div class="product-left">
+              <img src="images/panzerottob.JPG" alt="Panzerotto braciola">
+              <div class="product-info">
+                <span class="product-name" data-key="panzerotto_braciola">Panzerotto braciola</span>
+              </div>
+            </div>
+            <span class="product-price">€3.00</span>
+          </li>
+        </ul>
+      </div>
+    </div>
 
-  <span class="product-price">€2.00</span>
-</li>
-  </ul>
-</div>
-
- 
-   <!-- Panzerotti -->
-<div class="category closed" id="panzerotti">
-  <div class="category-header" onclick="toggleCategory(this)">
-    <h2 id="panzerotti-title">Panzerotti</h2>
-    <span class="category-toggle">⌄</span>
-  </div>
-  <ul class="products" id="panzerotti-products">
-    <li class="product-item">
-  <div class="product-left">
-    <img src="images/panzerotto.JPG">
-    <span class="product-name" data-key="panzerotto_mozzarella_pomodoro">Panzerotto mozzarella e pomodoro</span>
-  </div>
-
-  <span class="product-price">€1.50</span>
-</li> 
-    <li class="product-item">
-  <div class="product-left">
-    <img src="images/panzerottog.JPG">
-    <span class="product-name" data-key="panzerotto_gorgonzola">Panzerotto farcito con gorgonzola </span>
-  </div>
-
-  <span class="product-price">€2.00</span>
-</li> 
-  </ul>
-</div>
-
-<div class="category closed" id="panzerotti-speciali">
-  <div class="category-header" onclick="toggleCategory(this)">
-    <h2 id="panzerotti_speciali-title">Panzerotti Speciali</h2>
-    <span class="category-toggle">⌄</span>
-  </div>
-  <ul class="products" id="panzerotti_speciali-products">
-    <li class="product-item">
-  <div class="product-left">
-    <img src="images/panzerotttocp.JPG">
-    <span class="product-name" data-key="panzerotto_cacio_pepe">Panzerotto cacio e pepe </span>
-  </div>
-
-  <span class="product-price">€3.00</span>
-</li> 
-    <li class="product-item">
-  <div class="product-left">
-    <img src="images/panzerottob.JPG">
-    <span class="product-name" data-key="panzerotto_braciola">Panzerotto braciola </span>
-  </div>
-
-  <span class="product-price">€3.00</span>
-</li> 
-  </ul>
-</div>
     <!-- Bevande -->
-    <div class="category closed" id="bevande">
+    <div class="category" id="cat-bevande">
       <div class="category-header" onclick="toggleCategory(this)">
         <h2 id="bevande-title">Bevande</h2>
-        <span class="category-toggle">⌄</span>
+        <span class="category-toggle">
+          <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </span>
       </div>
-      <ul class="products" id="bevande-products">
-        <li class="product-item">
-  <div class="product-left">
-    <img src="images/coca.JPG">
-    <span class="product-name" data-key="cocacola">Coca cola </span>
-  </div>
-
-  <span class="product-price">€1.80</span>
-</li> 
-        <li class="product-item">
-  <div class="product-left">
-    <img src="images/acqua.JPG">
-    <span class="product-name" data-key="acqua">Acqua </span>
-  </div>
-
-  <span class="product-price">€1.00</span>
-</li> 
-      </ul>
+      <div class="products-wrapper">
+        <ul class="products">
+          <li class="product-item no-modal">
+            <div class="product-left">
+              <img src="images/coca.JPG" alt="Coca Cola">
+              <div class="product-info">
+                <span class="product-name" data-key="cocacola">Coca-Cola</span>
+              </div>
+            </div>
+            <span class="product-price">€1.80</span>
+          </li>
+          <li class="product-item no-modal">
+            <div class="product-left">
+              <img src="images/acqua.JPG" alt="Acqua">
+              <div class="product-info">
+                <span class="product-name" data-key="acqua">Acqua</span>
+              </div>
+            </div>
+            <span class="product-price">€1.00</span>
+          </li>
+        </ul>
+      </div>
     </div>
 
     <!-- Alcolici -->
-    <div class="category closed" id="alcolici">
+    <div class="category" id="cat-alcolici">
       <div class="category-header" onclick="toggleCategory(this)">
         <h2 id="alcolici-title">Alcolici</h2>
-        <span class="category-toggle">⌄</span>
+        <span class="category-toggle">
+          <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </span>
       </div>
-      <ul class="products" id="alcolici-products">
-            <li class="product-item">
-  <div class="product-left">
-    <img src="images/peroni.JPG">
-    <span class="product-name" data-key="birra">Birra </span>
-  </div>
+      <div class="products-wrapper">
+        <ul class="products">
+          <li class="product-item no-modal">
+            <div class="product-left">
+              <img src="images/peroni.JPG" alt="Birra">
+              <div class="product-info">
+                <span class="product-name" data-key="birra">Birra</span>
+              </div>
+            </div>
+            <span class="product-price">€2.00</span>
+          </li>
+          <li class="product-item no-modal">
+            <div class="product-left">
+              <img src="images/vino.JPG" alt="Vino">
+              <div class="product-info">
+                <span class="product-name" data-key="vino">Vino</span>
+              </div>
+            </div>
+            <span class="product-price">€4.00</span>
+          </li>
+        </ul>
+      </div>
+    </div>
 
-  <span class="product-price">€2.00</span>
-</li> 
-          <li class="product-item">
-  <div class="product-left">
-    <img src="images/vino.JPG">
-    <span class="product-name" data-key="vino">Vino </span>
-  </div>
+  </div><!-- end .menu -->
 
-  <span class="product-price">€4.00</span>
-</li> 
-      </ul>
+  <!-- FOOTER -->
+  <footer>
+    <p class="footer-brand">L'arte della focaccia 2 di Francesco Dirello — P. IVA 07628060729</p>
+    <p>&copy; 2026 Menù — SPI System</p>
+  </footer>
+
+  <!-- SCROLL TOP -->
+  <button class="scroll-top" id="scrollTopBtn" aria-label="Torna in cima">
+    <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+  </button>
+
+  <!-- MODAL -->
+  <div class="image-modal" id="imageModal">
+    <div class="modal-card">
+      <div class="modal-img-wrap">
+        <img id="modalImage" src="" alt="">
+        <button class="close-modal" onclick="closeModal()" aria-label="Chiudi">&#10005;</button>
+      </div>
+      <div class="modal-body">
+        <h2 id="modalTitle"></h2>
+        <p id="modalDescription"></p>
+        <p id="modalAllergens"></p>
+        <div id="modalPrice"></div>
+      </div>
     </div>
   </div>
 
-<footer>
-  <hr class="footer-line">
-  <p id="footer-text">
-   L'arte della focaccia 2 di Francesco Dirello<br>
-    P. IVA: 07628060729
-  </p>
-  <p>&copy; 2026 Menù L'arte della focaccia 2</p>
-</footer>
-<div class="scroll-top" id="scrollTopBtn" aria-label="Torna su">
-  <svg xmlns="http://www.w3.org/2000/svg"
-       fill="none"
-       viewBox="0 0 24 24"
-       stroke="currentColor">
-    <path stroke-linecap="round"
-          stroke-linejoin="round"
-          d="M12 19V5m0 0l-6 6m6-6l6 6"/>
-  </svg>
-</div>
   <script>
-    // CONFIG LINGUE
-    i18next.init({
-      lng: localStorage.getItem('selectedLanguage') || 'it',
-  resources: {
-        it:{translation:{
-      "footer_text": "Contattaci: info@bar.com | Telefono: 123-456-7890",
-      "rosticceria": "Rosticceria",
-      "panzerotti": "Panzerotti",
-      "panzerotti_speciali": "Panzerotti Speciali",
-      "bevande": "Bevande",
-      "alcolici": "Alcolici",
-      "panzerotto_mozzarella_pomodoro": "Panzerotto, mozzarella e pomodoro",
-      "panzerotto_gorgonzola": "Panzerotto farcito con gorgonzola",
-      "panzerotto_cacio_pepe": "Panzerotto cacio e pepe",
-      "panzerotto_braciola": "Panzerotto braciola* - Tipica Braciola di carne barese",
-      "ruota_focaccia": "Ruota di focaccia",
-      "cocacola": "Coca-Cola",
-      "acqua": "Acqua",
-      "birra": "Birra",
-      "vino": "Vino",
-      "arancino": "Arancino",
-     "ruota_focaccia_desc":"Focaccia barese con pomodoro, olive e olio extravergine.",
-     "ruota_focaccia_allergens":"Glutine",
-          "allergens_label": "Allergeni"
-    }},
-  en: {
-    translation: {
-      "footer_text": "Contact us: info@bar.com | Phone: 123-456-7890",
-      "rosticceria": "Savoury Snack",  // Cambiato da "Snacks" a "Savoury Snack"
-      "panzerotti": "Panzerotti",
-      "panzerotti_speciali": "Special Panzerotti",
-      "bevande": "Drinks",
-      "alcolici": "Alcohol",
-      "panzerotto_mozzarella_pomodoro": "Panzerotto, mozzarella and tomato",
-      "panzerotto_gorgonzola": "Panzerotto stuffed with gorgonzola",
-      "panzerotto_cacio_pepe": "Panzerotto cacio e pepe",
-      "panzerotto_braciola": "Panzerotto braciola* - Typical Bari Meat Roll",
-      "ruota_focaccia": "Focaccia Wheel",
-      "cocacola": "Coca-Cola",
-      "acqua": "Water",
-      "birra": "Beer",
-      "vino": "Wine",
-      "arancino": "Arancino",
-      "ruota_focaccia_desc":"Bari-style focaccia with tomato, olives and extra virgin olive oil.",
+    // ── DROPDOWN LINGUA ──
+    const langSelector = document.getElementById('langSelector');
+    const langDropdown = document.getElementById('langDropdown');
 
-    "ruota_focaccia_allergens":"Gluten",
-      "allergens_label": "Allergens"
-    }
-  },
-  es: {
-    translation: {
-      "footer_text": "Contáctanos: info@bar.com | Teléfono: 123-456-7890",
-      "rosticceria": "Comida rápida",
-      "panzerotti": "Panzerotti",
-      "panzerotti_speciali": "Panzerotti Especiales",
-      "bevande": "Bebidas",
-      "alcolici": "Alcohol",
-      "panzerotto_mozzarella_pomodoro": "Panzerotto, mozzarella y tomate",
-      "panzerotto_gorgonzola": "Panzerotto relleno con gorgonzola",
-      "panzerotto_cacio_pepe": "Panzerotto cacio e pepe",
-      "panzerotto_braciola": "Panzerotto braciola* - Rollo de carne típico de Bari",
-      "ruota_focaccia": "Rueda de focaccia",
-      "cocacola": "Coca-Cola",
-      "acqua": "Agua",
-      "birra": "Cerveza",
-      "vino": "Vino",
-      "arancino": "Arancino",
-      "ruota_focaccia_desc": "Focaccia típica de Bari con tomate, aceitunas y aceite de oliva virgen extra.",
-      "ruota_focaccia_allergens": "Gluten",
-     "allergens_label": "Alérgenos"
-    }
-  },
-  fr: {
-    translation: {
-      "footer_text": "Contactez-nous: info@bar.com | Téléphone: 123-456-7890",
-      "rosticceria": "Snack",
-      "panzerotti": "Panzerotti",
-      "panzerotti_speciali": "Panzerotti Spéciaux",
-      "bevande": "Boissons",
-      "alcolici": "Alcool",
-      "panzerotto_mozzarella_pomodoro": "Panzerotto, mozzarella et tomate",
-      "panzerotto_gorgonzola": "Panzerotto farci de gorgonzola",
-      "panzerotto_cacio_pepe": "Panzerotto cacio e pepe",
-      "panzerotto_braciola": "Panzerotto braciola* - Rôti de viande typique de Bari",
-      "ruota_focaccia": "Roue de focaccia",
-      "cocacola": "Coca-Cola",
-      "acqua": "Eau",
-      "birra": "Bière",
-      "vino": "Vin",
-      "arancino": "Arancino",
-      "ruota_focaccia_desc": "Focaccia typique de Bari avec tomate, olives et huile d'olive extra vierge.",
-      "ruota_focaccia_allergens": "Gluten",
-      "allergens_label": "Allergènes"
-    }
-  },
-  de: {
-    translation: {
-      "footer_text": "Kontaktieren Sie uns: info@bar.com | Telefon: 123-456-7890",
-      "rosticceria": "Snacks",
-      "panzerotti": "Panzerotti",
-      "panzerotti_speciali": "Spezielle Panzerotti",
-      "bevande": "Getränke",
-      "alcolici": "Alkohol",
-      "panzerotto_mozzarella_pomodoro": "Panzerotto, Mozzarella und Tomaten",
-      "panzerotto_gorgonzola": "Panzerotto gefüllt mit Gorgonzola",
-      "panzerotto_cacio_pepe": "Panzerotto cacio e pepe",
-      "panzerotto_braciola": "Panzerotto braciola* - Typisches Bari Fleischgericht",
-      "ruota_focaccia": "Focaccia Rad",
-      "cocacola": "Coca-Cola",
-      "acqua": "Wasser",
-      "birra": "Bier",
-      "vino": "Wein",
-      "arancino": "Arancino",
-      "ruota_focaccia_desc": "Focaccia nach Bari-Art mit Tomaten, Oliven und nativem Olivenöl extra.",
-      "ruota_focaccia_allergens": "Gluten",
-      "allergens_label": "Allergene"
-    }}
-  }
+    langSelector.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = langDropdown.classList.toggle('open');
+      langSelector.classList.toggle('open', isOpen);
+      // ruota la freccia SVG
+      const arrow = langSelector.querySelector('svg.lang-arrow');
+      if (arrow) arrow.style.transform = isOpen ? 'rotate(180deg)' : 'rotate(0)';
     });
 
-   function updateTexts(){
-  // Categorie
-  document.querySelector('#rosticceria-title').textContent = i18next.t('rosticceria');
-  document.querySelector('#panzerotti-title').textContent = i18next.t('panzerotti');
-  document.querySelector('#panzerotti_speciali-title').textContent = i18next.t('panzerotti_speciali'); // Corretto
-  document.querySelector('#bevande-title').textContent = i18next.t('bevande');
-  document.querySelector('#alcolici-title').textContent = i18next.t('alcolici');
+    document.addEventListener('click', () => {
+      langDropdown.classList.remove('open');
+      langSelector.classList.remove('open');
+      const arrow = langSelector.querySelector('svg.lang-arrow');
+      if (arrow) arrow.style.transform = 'rotate(0)';
+    });
 
-      // Prodotti
-      document.querySelectorAll('[data-key]').forEach(el=>{
-        const key = el.getAttribute('data-key');
-        el.textContent = i18next.t(key);
-      });
-      
+    // ── TOGGLE CATEGORIA con altezza dinamica ──
+    function toggleCategory(header) {
+      const cat = header.parentElement;
+      const wrapper = cat.querySelector('.products-wrapper');
+      const isOpen = cat.classList.contains('open');
 
-      // Bandiera
-      const langSpan = document.querySelector('.language-selector span:first-child');
-      switch(i18next.language){
-        case 'en': langSpan.textContent='🇬🇧'; break;
-        case 'es': langSpan.textContent='🇪🇸'; break;
-        case 'fr': langSpan.textContent='🇫🇷'; break;
-        case 'de': langSpan.textContent='🇩🇪'; break;
-        default: langSpan.textContent='🇮🇹';
-      }
-    }
-
-    const savedLang = localStorage.getItem('selectedLanguage');
-    if(savedLang){ i18next.changeLanguage(savedLang, updateTexts); }
-    else{ updateTexts(); }
-
-    function changeLanguage(event, language){
-      event.preventDefault();
-      localStorage.setItem('selectedLanguage', language);
-      i18next.changeLanguage(language, updateTexts);
-      setTimeout(()=>document.querySelector('.language-dropdown').style.display='none',200);
-    }
-
-    function toggleDropdown(){
-      const dropdown = document.querySelector('.language-dropdown');
-      dropdown.style.display = dropdown.style.display==='block' ? 'none' : 'block';
-    }
-
-    function toggleCategory(element){
-      const category = element.parentElement;
-      if(category.classList.contains('open')){
-        category.classList.remove('open');
-        category.classList.add('closed');
+      if (isOpen) {
+        // chiudi
+        wrapper.style.maxHeight = wrapper.scrollHeight + 'px';
+        requestAnimationFrame(() => { wrapper.style.maxHeight = '0'; });
+        cat.classList.remove('open');
       } else {
-        category.classList.remove('closed');
-        category.classList.add('open');
+        // apri
+        cat.classList.add('open');
+        wrapper.style.maxHeight = wrapper.scrollHeight + 'px';
+        // rimuovi maxHeight fisso dopo la transizione (per contenuto dinamico)
+        wrapper.addEventListener('transitionend', () => {
+          if (cat.classList.contains('open')) wrapper.style.maxHeight = 'none';
+        }, { once: true });
       }
     }
-    function openProductModal(src, titleKey, descKey, allergenKey, price){
 
-  document.getElementById("modalImage").src = src;
+    // ── MODAL ──
+    function openModal(src, titleKey, descKey, allergenKey, price) {
+      document.getElementById('modalImage').src = src;
+      document.getElementById('modalTitle').textContent       = i18next.t(titleKey);
+      document.getElementById('modalDescription').textContent = i18next.t(descKey) || '';
+      const allergenLabel = i18next.t('allergens_label') || 'Allergeni';
+      const allergenVal   = i18next.t(allergenKey) || '';
+      document.getElementById('modalAllergens').textContent   = allergenVal ? allergenLabel + ': ' + allergenVal : '';
+      document.getElementById('modalPrice').textContent       = price;
+      document.getElementById('imageModal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
 
-  document.getElementById("modalTitle").textContent =
-  i18next.t(titleKey);
+    function closeModal() {
+      document.getElementById('imageModal').classList.remove('active');
+      document.body.style.overflow = '';
+    }
 
-document.getElementById("modalDescription").textContent =
-  i18next.t(descKey);
+    document.getElementById('imageModal').addEventListener('click', (e) => {
+      if (e.target === document.getElementById('imageModal')) closeModal();
+    });
 
-document.getElementById("modalAllergens").textContent =
-  i18next.t("allergens_label") + ": " + i18next.t(allergenKey);
-document.getElementById("modalPrice").textContent =
-  price;
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModal();
+    });
 
-  document.getElementById("imageModal").classList.add("active");
-}
+    // ── SCROLL TOP ──
+    const scrollTopBtn = document.getElementById('scrollTopBtn');
+    window.addEventListener('scroll', () => {
+      scrollTopBtn.classList.toggle('show', window.scrollY > 200);
+    });
+    scrollTopBtn.addEventListener('click', () => window.scrollTo({ top:0, behavior:'smooth' }));
 
-function closeImageModal(){
-  document.getElementById("imageModal").classList.remove("active");
-}
+    // ── SCROLL REVEAL categorie ──
+    const catObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry, idx) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), idx * 100);
+          catObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08 });
 
-document.addEventListener("click", function(e){
-  const modal = document.getElementById("imageModal");
+    document.querySelectorAll('.category').forEach(c => catObserver.observe(c));
 
-  if(e.target === modal){
-    closeImageModal();
-  }
-});
+    // ── I18N ──
+    i18next.init({
+      lng: localStorage.getItem('selectedLanguage') || 'it',
+      resources: {
+        it: { translation: {
+          back: "Indietro",
+          menu_label: "Scopri le nostre proposte",
+          menu_title: "Il nostro Menù",
+          menu_sub: "Tocca una categoria per esplorare",
+          detail_hint: "Tocca per dettagli",
+          rosticceria: "Rosticceria",
+          panzerotti: "Panzerotti",
+          panzerotti_speciali: "Panzerotti Speciali",
+          bevande: "Bevande",
+          alcolici: "Alcolici",
+          ruota_focaccia: "Ruota di focaccia",
+          ruota_focaccia_desc: "Focaccia barese con pomodoro, olive e olio extravergine.",
+          ruota_focaccia_allergens: "Glutine",
+          arancino: "Arancino",
+          panzerotto_mozzarella_pomodoro: "Panzerotto mozzarella e pomodoro",
+          panzerotto_gorgonzola: "Panzerotto farcito con gorgonzola",
+          panzerotto_cacio_pepe: "Panzerotto cacio e pepe",
+          panzerotto_braciola: "Panzerotto braciola* – Tipica braciola di carne barese",
+          cocacola: "Coca-Cola",
+          acqua: "Acqua",
+          birra: "Birra",
+          vino: "Vino",
+          allergens_label: "Allergeni"
+        }},
+        en: { translation: {
+          back: "Back",
+          menu_label: "Discover our selection",
+          menu_title: "Our Menu",
+          menu_sub: "Tap a category to explore",
+          detail_hint: "Tap for details",
+          rosticceria: "Savoury Snacks",
+          panzerotti: "Panzerotti",
+          panzerotti_speciali: "Special Panzerotti",
+          bevande: "Drinks",
+          alcolici: "Alcohol",
+          ruota_focaccia: "Focaccia Wheel",
+          ruota_focaccia_desc: "Bari-style focaccia with tomato, olives and extra virgin olive oil.",
+          ruota_focaccia_allergens: "Gluten",
+          arancino: "Arancino",
+          panzerotto_mozzarella_pomodoro: "Panzerotto mozzarella and tomato",
+          panzerotto_gorgonzola: "Panzerotto stuffed with gorgonzola",
+          panzerotto_cacio_pepe: "Panzerotto cacio e pepe",
+          panzerotto_braciola: "Panzerotto braciola* – Typical Bari meat roll",
+          cocacola: "Coca-Cola",
+          acqua: "Water",
+          birra: "Beer",
+          vino: "Wine",
+          allergens_label: "Allergens"
+        }},
+        es: { translation: {
+          back: "Volver",
+          menu_label: "Descubre nuestras propuestas",
+          menu_title: "Nuestro Menú",
+          menu_sub: "Toca una categoría para explorar",
+          detail_hint: "Toca para detalles",
+          rosticceria: "Comida rápida",
+          panzerotti: "Panzerotti",
+          panzerotti_speciali: "Panzerotti Especiales",
+          bevande: "Bebidas",
+          alcolici: "Alcohol",
+          ruota_focaccia: "Rueda de focaccia",
+          ruota_focaccia_desc: "Focaccia típica de Bari con tomate, aceitunas y aceite de oliva virgen extra.",
+          ruota_focaccia_allergens: "Gluten",
+          arancino: "Arancino",
+          panzerotto_mozzarella_pomodoro: "Panzerotto mozzarella y tomate",
+          panzerotto_gorgonzola: "Panzerotto relleno con gorgonzola",
+          panzerotto_cacio_pepe: "Panzerotto cacio e pepe",
+          panzerotto_braciola: "Panzerotto braciola* – Rollo de carne típico de Bari",
+          cocacola: "Coca-Cola",
+          acqua: "Agua",
+          birra: "Cerveza",
+          vino: "Vino",
+          allergens_label: "Alérgenos"
+        }},
+        fr: { translation: {
+          back: "Retour",
+          menu_label: "Découvrez nos propositions",
+          menu_title: "Notre Menu",
+          menu_sub: "Appuyez sur une catégorie pour explorer",
+          detail_hint: "Appuyer pour détails",
+          rosticceria: "Snacks",
+          panzerotti: "Panzerotti",
+          panzerotti_speciali: "Panzerotti Spéciaux",
+          bevande: "Boissons",
+          alcolici: "Alcool",
+          ruota_focaccia: "Roue de focaccia",
+          ruota_focaccia_desc: "Focaccia typique de Bari avec tomate, olives et huile d'olive extra vierge.",
+          ruota_focaccia_allergens: "Gluten",
+          arancino: "Arancino",
+          panzerotto_mozzarella_pomodoro: "Panzerotto mozzarella et tomate",
+          panzerotto_gorgonzola: "Panzerotto farci de gorgonzola",
+          panzerotto_cacio_pepe: "Panzerotto cacio e pepe",
+          panzerotto_braciola: "Panzerotto braciola* – Rôti de viande typique de Bari",
+          cocacola: "Coca-Cola",
+          acqua: "Eau",
+          birra: "Bière",
+          vino: "Vin",
+          allergens_label: "Allergènes"
+        }},
+        de: { translation: {
+          back: "Zurück",
+          menu_label: "Entdecken Sie unsere Angebote",
+          menu_title: "Unsere Speisekarte",
+          menu_sub: "Kategorie antippen zum Erkunden",
+          detail_hint: "Antippen für Details",
+          rosticceria: "Snacks",
+          panzerotti: "Panzerotti",
+          panzerotti_speciali: "Spezielle Panzerotti",
+          bevande: "Getränke",
+          alcolici: "Alkohol",
+          ruota_focaccia: "Focaccia-Rad",
+          ruota_focaccia_desc: "Focaccia nach Bari-Art mit Tomaten, Oliven und nativem Olivenöl extra.",
+          ruota_focaccia_allergens: "Gluten",
+          arancino: "Arancino",
+          panzerotto_mozzarella_pomodoro: "Panzerotto Mozzarella und Tomate",
+          panzerotto_gorgonzola: "Panzerotto gefüllt mit Gorgonzola",
+          panzerotto_cacio_pepe: "Panzerotto cacio e pepe",
+          panzerotto_braciola: "Panzerotto braciola* – Typisches Bari-Fleischgericht",
+          cocacola: "Coca-Cola",
+          acqua: "Wasser",
+          birra: "Bier",
+          vino: "Wein",
+          allergens_label: "Allergene"
+        }}
+      }
+    }, updateTexts);
 
-document.addEventListener("keydown", function(e){
-  if(e.key === "Escape"){
-    closeImageModal();
-  }
-});
-    
-   /* BOTTONE TORNA SU */
-const scrollTopBtn = document.getElementById("scrollTopBtn");
+    const FLAGS = { it:'🇮🇹', en:'🇬🇧', es:'🇪🇸', fr:'🇫🇷', de:'🇩🇪' };
 
-window.addEventListener("scroll", () => {
-  if(window.scrollY > 0){
-    scrollTopBtn.classList.add("show");
-  }else{
-    scrollTopBtn.classList.remove("show");
-  }
-});
+    function updateTexts() {
+      // Nav & header
+      document.getElementById('back-label').textContent      = i18next.t('back');
+      document.getElementById('menu-label').textContent      = i18next.t('menu_label');
+      document.getElementById('menu-title').textContent      = i18next.t('menu_title');
+      document.getElementById('menu-sub').textContent        = i18next.t('menu_sub');
+      document.getElementById('currentFlag').textContent     = FLAGS[i18next.language] || '🇮🇹';
+      // Hint dettagli
+      document.querySelectorAll('.product-detail-hint').forEach(el => {
+        el.textContent = i18next.t('detail_hint');
+      });
+      // Titoli categorie
+      document.getElementById('rosticceria-title').textContent        = i18next.t('rosticceria');
+      document.getElementById('panzerotti-title').textContent         = i18next.t('panzerotti');
+      document.getElementById('panzerotti_speciali-title').textContent = i18next.t('panzerotti_speciali');
+      document.getElementById('bevande-title').textContent            = i18next.t('bevande');
+      document.getElementById('alcolici-title').textContent           = i18next.t('alcolici');
+      // Prodotti
+      document.querySelectorAll('[data-key]').forEach(el => {
+        el.textContent = i18next.t(el.getAttribute('data-key'));
+      });
+    }
 
-scrollTopBtn.addEventListener("click", () => {
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth"
-  });
-}); 
+    function changeLanguage(event, lang) {
+      event.preventDefault();
+      event.stopPropagation();
+      localStorage.setItem('selectedLanguage', lang);
+      i18next.changeLanguage(lang, updateTexts);
+      langDropdown.classList.remove('open');
+      langSelector.classList.remove('open');
+    }
   </script>
-<div id="imageModal" class="image-modal">
-
-  <span class="close-modal"
-        onclick="closeImageModal()">&times;</span>
-
-  <div class="product-modal-card">
-
-    <img id="modalImage"
-         class="modal-image"
-         src=""
-         alt="">
-
-    <h2 id="modalTitle"></h2>
-
-    <p id="modalDescription"></p>
-
-    <p id="modalAllergens"></p>
-
-    <div id="modalPrice"></div>
-
-  </div>
-
-</div>
-
 </body>
 </html>
