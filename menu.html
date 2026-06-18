@@ -14,7 +14,7 @@
       --text:#f0ece4;--muted:#777;--border:rgba(255,255,255,.06);
     }
     html{scroll-behavior:smooth}
-    body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding-top:80px}
+    body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding-top:96px}
 
     /* NAV */
     nav{
@@ -22,7 +22,7 @@
       background:rgba(8,8,8,.93);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
       border-bottom:1px solid var(--border);
       padding:0 24px;display:flex;justify-content:space-between;align-items:center;
-      height:80px;z-index:1000;
+      height:96px;z-index:1000;
     }
     .nav-left{display:flex;align-items:center;gap:14px}
     .back-btn{
@@ -34,7 +34,7 @@
     }
     .back-btn:hover{color:var(--gold);border-color:var(--gold-border);background:var(--gold-soft)}
     .back-btn svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.5;flex-shrink:0}
-    .nav-logo img{height:54px;width:auto;display:block;transition:transform .3s,opacity .3s}
+    .nav-logo img{height:78px;width:auto;display:block;transition:transform .3s,opacity .3s}
     .nav-logo img:hover{transform:scale(1.05);opacity:.82}
 
     /* LINGUA */
@@ -263,8 +263,8 @@
     footer .footer-copy{opacity:.5;margin-top:4px}
 
     @media(max-width:600px){
-      nav{padding:0 14px;height:70px}
-      .nav-logo img{height:48px}
+      nav{padding:0 14px;height:80px}
+      .nav-logo img{height:60px}
       .category-header{padding:16px 18px}
       .products{padding:0 18px 14px}
       .search-wrap{padding:0 14px}
@@ -551,7 +551,6 @@ const searchEmpty  = document.getElementById('searchEmpty');
 
 function doSearch() {
   const q = searchInput.value.trim().toLowerCase();
-  // mostra/nascondi X
   searchClear.classList.toggle('visible', q.length > 0);
 
   let totalVisible = 0;
@@ -578,18 +577,22 @@ function doSearch() {
     });
     const wrapper = cat.querySelector('.products-wrapper');
     if (q && catVisible > 0) {
+      // ricerca attiva con risultati: apri la categoria
       cat.classList.add('open');
       wrapper.style.maxHeight = 'none';
       cat.style.display = '';
     } else if (q && catVisible === 0) {
+      // ricerca attiva senza risultati: nascondi la categoria
       cat.style.display = 'none';
     } else {
+      // ricerca vuota (campo svuotato manualmente): richiudi tutto
       cat.style.display = '';
+      cat.classList.remove('open');
+      wrapper.style.maxHeight = '0';
     }
   });
   searchEmpty.style.display = (q && totalVisible === 0) ? 'block' : 'none';
 
-  // scroll alla prima categoria con risultati
   if (q && totalVisible > 0) {
     const first = document.querySelector('.category:not([style*="none"])');
     if (first) first.scrollIntoView({ behavior:'smooth', block:'start' });
@@ -598,13 +601,17 @@ function doSearch() {
 
 searchInput.addEventListener('input', doSearch);
 
-// Pulsante X cancella ricerca e ripristina tutto
+// Pulsante X cancella ricerca e richiude tutte le categorie
 searchClear.addEventListener('click', () => {
   searchInput.value = '';
   searchClear.classList.remove('visible');
   searchEmpty.style.display = 'none';
   document.querySelectorAll('.category').forEach(cat => {
     cat.style.display = '';
+    // richiudi la categoria (era stata aperta automaticamente dalla ricerca)
+    cat.classList.remove('open');
+    const wrapper = cat.querySelector('.products-wrapper');
+    wrapper.style.maxHeight = '0';
     cat.querySelectorAll('.product-item').forEach(item => {
       item.classList.remove('search-hidden');
       const nameEl = item.querySelector('.product-name');
