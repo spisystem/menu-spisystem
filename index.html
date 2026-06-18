@@ -9,326 +9,202 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-
 :root {
-  --bg: #0a0a0a;
-  --card: #141414;
-  --gold: #c6a75e;
-  --gold-soft: rgba(198,167,94,0.12);
-  --text: #f0ece4;
-  --muted: #888;
-  --border: rgba(255,255,255,0.07);
+  --bg:#080808; --card:#111111; --card2:#161616;
+  --gold:#c6a75e; --gold-light:#d9ba74;
+  --gold-soft:rgba(198,167,94,0.10); --gold-border:rgba(198,167,94,0.18);
+  --text:#f0ece4; --muted:#777; --border:rgba(255,255,255,0.06);
 }
-
-html { scroll-behavior: smooth; }
-
-body {
-  font-family: 'Poppins', sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  overflow-x: hidden;
-}
+html { scroll-behavior:smooth; }
+body { font-family:'Poppins',sans-serif; background:var(--bg); color:var(--text); overflow-x:hidden; }
 
 /* NAV */
 nav {
-  position: fixed;
-  top: 0; left: 0; width: 100%;
-  background: rgba(10,10,10,0.88);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--border);
-  padding: 10px 28px;
-  z-index: 1000;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 80px;
+  position:fixed; top:0; left:0; width:100%;
+  background:rgba(8,8,8,0.92); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+  padding:0 32px; z-index:1000;
+  display:flex; align-items:center; justify-content:space-between; height:76px;
 }
-
-.nav-logo img {
-  height: 60px;
-  width: auto;
-  display: block;
-  transition: transform 0.3s, opacity 0.3s;
-}
-.nav-logo img:hover { transform: scale(1.05); opacity: 0.85; }
+.nav-logo img { height:54px; width:auto; display:block; transition:transform 0.3s, opacity 0.3s; }
+.nav-logo img:hover { transform:scale(1.04); opacity:0.82; }
 
 /* LINGUA */
 .language-selector {
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  cursor: pointer;
-  padding: 7px 12px;
-  border-radius: 10px;
-  border: 1px solid var(--border);
-  background: rgba(255,255,255,0.03);
-  transition: background 0.2s, border-color 0.2s;
-  white-space: nowrap;
-  user-select: none;
+  position:relative; display:flex; align-items:center; gap:7px; cursor:pointer;
+  padding:8px 13px; border-radius:10px; border:1px solid var(--border);
+  background:rgba(255,255,255,0.02); transition:background 0.2s, border-color 0.2s;
+  white-space:nowrap; user-select:none;
 }
-.language-selector:hover { background: var(--gold-soft); border-color: rgba(198,167,94,0.25); }
-
-.lang-flag { font-size: 1.5rem; line-height: 1; flex-shrink: 0; }
-.lang-chevron {
-  width: 14px; height: 14px;
-  stroke: var(--muted); fill: none; stroke-width: 2.5; stroke-linecap: round;
-  transition: transform 0.3s;
-  flex-shrink: 0;
-}
-.language-selector.open .lang-chevron { transform: rotate(180deg); }
-
+.language-selector:hover { background:var(--gold-soft); border-color:var(--gold-border); }
+.lang-flag { font-size:1.45rem; line-height:1; flex-shrink:0; }
+.lang-chevron { width:13px; height:13px; stroke:var(--muted); fill:none; stroke-width:2.5; stroke-linecap:round; transition:transform 0.3s; flex-shrink:0; }
+.language-selector.open .lang-chevron { transform:rotate(180deg); }
 .language-dropdown {
-  display: none;
-  position: absolute;
-  top: calc(100% + 10px);
-  right: 0;
-  background: #1c1c1c;
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  overflow: hidden;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.7);
-  z-index: 1002;
-  min-width: 150px;
+  display:none; position:absolute; top:calc(100% + 10px); right:0;
+  background:#181818; border:1px solid var(--border); border-radius:14px;
+  overflow:hidden; box-shadow:0 24px 60px rgba(0,0,0,0.8); z-index:1002; min-width:155px;
 }
-.language-dropdown.open { display: block; }
-
+.language-dropdown.open { display:block; animation:dropIn 0.18s ease; }
+@keyframes dropIn { from{opacity:0;transform:translateY(-6px)} to{opacity:1;transform:translateY(0)} }
 .language-dropdown a {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 12px 16px;
-  text-decoration: none;
-  color: var(--text);
-  font-size: 0.9rem;
-  white-space: nowrap;
-  transition: background 0.2s;
+  display:flex; align-items:center; gap:10px; padding:12px 16px;
+  text-decoration:none; color:var(--text); font-size:0.88rem; white-space:nowrap; transition:background 0.18s;
 }
-.language-dropdown a .flag { font-size: 1.3rem; flex-shrink: 0; }
-.language-dropdown a:hover { background: var(--gold-soft); }
+.language-dropdown a .flag { font-size:1.25rem; flex-shrink:0; }
+.language-dropdown a:hover { background:var(--gold-soft); }
 
 /* HERO */
 .hero {
-  position: relative;
-  height: 100vh;
-  min-height: 600px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  overflow: hidden;
+  position:relative; height:100vh; min-height:620px;
+  display:flex; flex-direction:column; justify-content:flex-end;
+  align-items:center; text-align:center; overflow:hidden;
 }
-
 .hero-bg {
-  position: absolute;
-  inset: 0;
-  background-image: url('images/sfondomenuqr.PNG');
-  background-size: cover;
-  background-position: center;
-  transform: scale(1.06);
-  animation: heroZoom 14s ease forwards;
+  position:absolute; inset:0;
+  background-image:url('images/sfondomenuqr.PNG');
+  background-size:cover; background-position:center;
+  transform:scale(1.06); animation:heroZoom 16s ease forwards;
 }
-@keyframes heroZoom { to { transform: scale(1); } }
-
+@keyframes heroZoom { to { transform:scale(1); } }
 .hero-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to bottom, rgba(10,10,10,0.5) 0%, rgba(10,10,10,0.25) 40%, rgba(10,10,10,0.8) 100%);
+  position:absolute; inset:0;
+  background:linear-gradient(180deg,
+    rgba(8,8,8,0.25) 0%,
+    rgba(8,8,8,0.10) 30%,
+    rgba(8,8,8,0.60) 70%,
+    rgba(8,8,8,0.95) 100%
+  );
 }
 
-.hero-content {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 24px;
-  padding: 0 24px;
-  animation: fadeUp 1s ease 0.3s both;
+/* Pulsante e freccia — in basso, non al centro */
+.hero-bottom {
+  position:relative; z-index:2;
+  display:flex; flex-direction:column; align-items:center; gap:22px;
+  padding-bottom:56px;
+  animation:fadeUp 1s ease 0.5s both;
 }
-@keyframes fadeUp { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:translateY(0); } }
+@keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
 
-.hero-tagline {
-  font-family: 'Lora', serif;
-  font-style: italic;
-  font-size: clamp(0.9rem, 2vw, 1.15rem);
-  color: var(--gold);
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-}
-
-.hero-title {
-  font-family: 'Lora', serif;
-  font-size: clamp(2.2rem, 7vw, 4rem);
-  font-weight: 700;
-  color: #fff;
-  line-height: 1.1;
-  text-shadow: 0 4px 28px rgba(0,0,0,0.5);
-}
-
-.hero-subtitle {
-  font-size: clamp(0.85rem, 1.8vw, 1rem);
-  color: rgba(255,255,255,0.65);
-  font-weight: 300;
-  letter-spacing: 0.04em;
-  max-width: 400px;
-}
-
+/* Pulsante elegante, minimal, non pacchiano */
 .hero-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  background: var(--gold);
-  color: #0a0a0a;
-  font-family: 'Poppins', sans-serif;
-  font-size: 0.9rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  padding: 15px 36px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  text-decoration: none;
-  transition: background 0.25s, transform 0.2s, box-shadow 0.25s;
-  box-shadow: 0 8px 32px rgba(198,167,94,0.35);
+  display:inline-flex; align-items:center; gap:10px;
+  background:transparent;
+  color:var(--text);
+  border:1px solid rgba(255,255,255,0.35);
+  font-family:'Poppins',sans-serif;
+  font-size:0.82rem; font-weight:500;
+  letter-spacing:0.12em; text-transform:uppercase;
+  padding:13px 32px; border-radius:2px;
+  text-decoration:none;
+  transition:border-color 0.3s, color 0.3s, background 0.3s, transform 0.2s;
+  backdrop-filter:blur(4px);
 }
-.hero-btn:hover { background: #d9ba74; transform: translateY(-3px); box-shadow: 0 14px 40px rgba(198,167,94,0.5); }
+.hero-btn:hover {
+  border-color:var(--gold); color:var(--gold);
+  background:rgba(198,167,94,0.06);
+  transform:translateY(-2px);
+}
+.hero-btn i { font-size:0.78rem; opacity:0.8; }
 
-/* SCROLL INDICATOR — cliccabile, porta alla sezione info */
 .hero-scroll {
-  position: absolute;
-  bottom: 32px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  color: rgba(255,255,255,0.5);
-  font-size: 0.68rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  cursor: pointer;
-  background: none;
-  border: none;
-  animation: scrollBounce 2.2s ease-in-out infinite;
-  transition: color 0.2s;
-  text-decoration: none;
+  display:flex; flex-direction:column; align-items:center; gap:6px;
+  color:rgba(255,255,255,0.35); font-size:0.62rem;
+  letter-spacing:0.18em; text-transform:uppercase;
+  text-decoration:none;
+  animation:scrollBounce 2.4s ease-in-out infinite;
+  transition:color 0.2s;
 }
-.hero-scroll:hover { color: var(--gold); }
-.hero-scroll i { font-size: 1rem; }
+.hero-scroll:hover { color:var(--gold); }
+.hero-scroll i { font-size:0.8rem; }
 @keyframes scrollBounce {
-  0%, 100% { transform: translateX(-50%) translateY(0); }
-  50%       { transform: translateX(-50%) translateY(7px); }
+  0%,100%{transform:translateY(0)} 50%{transform:translateY(7px)}
 }
 
-/* SEZIONE INFO */
-.info-section {
-  background: var(--bg);
-  padding: 90px 24px;
-}
+/* INFO SECTION */
+.info-section { background:var(--bg); padding:100px 28px 80px; }
+.section-eyebrow { text-align:center; font-size:0.68rem; letter-spacing:0.26em; text-transform:uppercase; color:var(--gold); margin-bottom:14px; }
+.section-title { text-align:center; font-family:'Lora',serif; font-size:clamp(1.7rem,4vw,2.6rem); color:var(--text); margin-bottom:14px; line-height:1.2; }
+.section-desc { text-align:center; font-size:0.92rem; color:var(--muted); max-width:520px; margin:0 auto 64px; line-height:1.7; }
 
-.section-eyebrow {
-  text-align: center;
-  font-size: 0.7rem;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 12px;
-}
-
-.section-title {
-  text-align: center;
-  font-family: 'Lora', serif;
-  font-size: clamp(1.6rem, 4vw, 2.4rem);
-  color: var(--text);
-  margin-bottom: 60px;
-}
-
-.info-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 20px;
-  max-width: 1080px;
-  margin: 0 auto;
-}
+.info-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:18px; max-width:1060px; margin:0 auto; }
 
 .info-card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 32px 28px;
-  text-align: center;
-  opacity: 0;
-  transform: translateY(24px);
-  transition: border-color 0.3s, box-shadow 0.3s;
+  background:var(--card); border:1px solid var(--border); border-radius:18px;
+  padding:34px 28px; text-align:center;
+  opacity:0; transform:translateY(22px);
+  transition:border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+  position:relative; overflow:hidden;
 }
-.info-card.visible {
-  opacity: 1;
-  transform: translateY(0);
-  transition: opacity 0.55s ease, transform 0.55s ease, border-color 0.3s, box-shadow 0.3s;
+.info-card::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:2px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  opacity:0; transition:opacity 0.3s;
 }
-.info-card:hover { transform: translateY(-6px); box-shadow: 0 24px 50px rgba(0,0,0,0.5); border-color: rgba(198,167,94,0.2); }
+.info-card:hover::before { opacity:0.55; }
+.info-card.visible { opacity:1; transform:translateY(0); transition:opacity 0.6s ease, transform 0.6s ease, border-color 0.3s, box-shadow 0.3s; }
+.info-card:hover { transform:translateY(-7px); box-shadow:0 28px 60px rgba(0,0,0,0.55); border-color:var(--gold-border); }
 
 .info-card .icon {
-  width: 50px; height: 50px;
-  background: var(--gold-soft);
-  border-radius: 14px;
-  display: flex; align-items: center; justify-content: center;
-  margin: 0 auto 18px;
+  width:52px; height:52px; background:var(--gold-soft); border:1px solid var(--gold-border);
+  border-radius:14px; display:flex; align-items:center; justify-content:center;
+  margin:0 auto 20px; transition:background 0.3s;
 }
-.info-card .icon i { font-size: 1.3rem; color: var(--gold); }
+.info-card:hover .icon { background:rgba(198,167,94,0.18); }
+.info-card .icon i { font-size:1.25rem; color:var(--gold); }
+.info-card h3 { font-family:'Lora',serif; font-size:1.12rem; color:var(--text); margin-bottom:12px; }
+.info-card p { font-size:0.9rem; color:var(--muted); line-height:1.78; }
+.info-card a { color:var(--gold); text-decoration:none; }
+.info-card a:hover { text-decoration:underline; }
 
-.info-card h3 {
-  font-family: 'Lora', serif;
-  font-size: 1.15rem;
-  color: var(--gold);
-  margin-bottom: 10px;
+.social-row { display:flex; justify-content:center; gap:12px; margin-top:16px; }
+.social-row a {
+  width:38px; height:38px; border:1px solid var(--gold-border); border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  color:var(--gold); font-size:1rem;
+  transition:background 0.2s, transform 0.2s, border-color 0.2s;
 }
-.info-card p { font-size: 0.92rem; color: var(--muted); line-height: 1.75; }
-.info-card a { color: var(--gold); text-decoration: none; }
-.info-card a:hover { text-decoration: underline; }
+.social-row a:hover { background:var(--gold-soft); transform:scale(1.12); border-color:var(--gold); }
 
-.social-row { display: flex; justify-content: center; gap: 16px; margin-top: 14px; }
-.social-row a { font-size: 1.35rem; color: var(--gold); transition: transform 0.2s, opacity 0.2s; }
-.social-row a:hover { transform: scale(1.2); opacity: 0.75; }
+/* CTA */
+.cta-section {
+  background:var(--card2); border-top:1px solid var(--border); border-bottom:1px solid var(--border);
+  padding:70px 28px; text-align:center;
+}
+.cta-label { font-size:0.68rem; letter-spacing:0.26em; text-transform:uppercase; color:var(--gold); margin-bottom:16px; }
+.cta-title { font-family:'Lora',serif; font-size:clamp(1.5rem,3.5vw,2.2rem); color:var(--text); margin-bottom:10px; }
+.cta-sub { font-size:0.9rem; color:var(--muted); margin-bottom:32px; line-height:1.65; }
+.cta-btn {
+  display:inline-flex; align-items:center; gap:9px;
+  background:transparent; color:var(--gold); border:1px solid var(--gold-border);
+  font-family:'Poppins',sans-serif; font-size:0.85rem; font-weight:600;
+  letter-spacing:0.09em; text-transform:uppercase;
+  padding:14px 34px; border-radius:3px; text-decoration:none;
+  transition:background 0.25s, border-color 0.25s, transform 0.2s;
+}
+.cta-btn:hover { background:var(--gold-soft); border-color:var(--gold); transform:translateY(-2px); }
 
 /* DIVIDER */
-.gold-divider {
-  height: 1px;
-  background: linear-gradient(to right, transparent, var(--gold), transparent);
-  opacity: 0.25;
-  margin: 0 40px;
-}
+.gold-divider { height:1px; background:linear-gradient(to right,transparent,var(--gold),transparent); opacity:0.2; margin:0 60px; }
 
 /* FOOTER */
-footer {
-  background: #080808;
-  text-align: center;
-  padding: 36px 24px;
-  font-size: 0.87rem;
-  color: var(--muted);
-}
-footer .footer-brand { font-family: 'Lora', serif; color: var(--gold); margin-bottom: 6px; }
+footer { background:#050505; text-align:center; padding:40px 24px; font-size:0.84rem; color:var(--muted); }
+footer .footer-brand { font-family:'Lora',serif; color:var(--gold); font-size:0.92rem; margin-bottom:8px; }
+footer .footer-copy { opacity:0.5; margin-top:4px; }
 
-@media (max-width: 600px) {
-  nav { padding: 10px 16px; height: 70px; }
-  .nav-logo img { height: 50px; }
-  .info-section { padding: 60px 16px; }
+@media(max-width:768px){
+  nav { padding:0 18px; height:68px; }
+  .nav-logo img { height:46px; }
+  .info-section { padding:70px 16px 60px; }
+  .hero-bottom { padding-bottom:44px; gap:18px; }
+  .cta-section { padding:52px 20px; }
 }
 </style>
 </head>
 <body>
 
 <nav>
-  <div class="nav-logo">
-    <img src="images/logospi1.PNG" alt="SPI System">
-  </div>
-
+  <div class="nav-logo"><img src="images/logospi1.PNG" alt="SPI System"></div>
   <div class="language-selector" id="langSelector">
     <span class="lang-flag" id="currentFlag">🇮🇹</span>
     <svg class="lang-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
@@ -342,30 +218,26 @@ footer .footer-brand { font-family: 'Lora', serif; color: var(--gold); margin-bo
   </div>
 </nav>
 
-<!-- HERO -->
 <section class="hero" id="hero">
   <div class="hero-bg"></div>
   <div class="hero-overlay"></div>
-  <div class="hero-content">
-    <span class="hero-tagline" id="hero-tagline">Il tuo menu, in un QR code</span>
-    <h1 class="hero-title">SPI System</h1>
-    <p class="hero-subtitle" id="hero-subtitle">Soluzioni digitali per la ristorazione moderna</p>
+  <!-- Solo pulsante + freccia in basso, nessuna scritta sull'hero -->
+  <div class="hero-bottom">
     <a class="hero-btn" href="menu.html">
       <i class="fas fa-utensils"></i>
       <span id="btn-text">Visualizza Menù</span>
     </a>
+    <a class="hero-scroll" href="#info">
+      <span id="scroll-label">Scopri di più</span>
+      <i class="fas fa-chevron-down"></i>
+    </a>
   </div>
-  <!-- FIX: href porta alla sezione info -->
-  <a class="hero-scroll" href="#info" id="scroll-hint">
-    <span id="scroll-label">Scopri di più</span>
-    <i class="fas fa-chevron-down"></i>
-  </a>
 </section>
 
-<!-- INFO -->
 <section class="info-section" id="info">
   <p class="section-eyebrow" id="eyebrow-label">I nostri servizi</p>
-  <h2 class="section-title" id="section-title">Tecnologia al servizio del locale</h2>
+  <h2 class="section-title" id="section-title">Tecnologia al servizio del tuo locale</h2>
+  <p class="section-desc" id="section-desc">Menù digitali professionali, multilingua e sempre aggiornabili. Tutto quello che serve, accessibile con un semplice QR code.</p>
 
   <div class="info-grid">
     <div class="info-card">
@@ -373,19 +245,16 @@ footer .footer-brand { font-family: 'Lora', serif; color: var(--gold); margin-bo
       <h3 id="about-title">Chi siamo</h3>
       <p id="about-text">SPI System sviluppa soluzioni tecnologiche per attività commerciali e ristorative. Realizziamo menù digitali QR code multilingua per migliorare l'esperienza del cliente.</p>
     </div>
-
     <div class="info-card">
       <div class="icon"><i class="fas fa-map-marker-alt"></i></div>
       <h3 id="location-title">Dove ci troviamo</h3>
       <p id="location-text">Via Monterosa, 22<br>Palo del Colle (BA)<br><a href="https://maps.app.goo.gl/WmcLgRDQcFkZhuqD7?g_st=ic" target="_blank">Apri su Google Maps</a></p>
     </div>
-
     <div class="info-card">
       <div class="icon"><i class="fas fa-clock"></i></div>
       <h3 id="hours-title">Orari di apertura</h3>
       <p id="hours-text">Lunedì – Venerdì<br>09:00 – 19:00<br>Sabato 09:00 – 12:00</p>
     </div>
-
     <div class="info-card">
       <div class="icon"><i class="fas fa-phone-alt"></i></div>
       <h3 id="contact-title">Contatti</h3>
@@ -399,18 +268,26 @@ footer .footer-brand { font-family: 'Lora', serif; color: var(--gold); margin-bo
   </div>
 </section>
 
+<section class="cta-section">
+  <p class="cta-label" id="cta-label">Vuoi un menù come questo?</p>
+  <h2 class="cta-title" id="cta-title">Porta il tuo locale nel digitale</h2>
+  <p class="cta-sub" id="cta-sub">Contattaci su WhatsApp o telefonicamente. Realizziamo il tuo menù QR in pochi giorni.</p>
+  <a class="cta-btn" href="https://wa.me/3935560714" target="_blank">
+    <i class="fab fa-whatsapp"></i>
+    <span id="cta-btn-text">Contattaci su WhatsApp</span>
+  </a>
+</section>
+
 <div class="gold-divider"></div>
 
 <footer>
   <p class="footer-brand">Spi System di Giuseppe Spizzico — P. IVA 08791580726</p>
-  <p>&copy; 2026 Menù demo Spi System</p>
+  <p class="footer-copy">&copy; 2026 Menù demo Spi System</p>
 </footer>
 
 <script>
-// ── DROPDOWN: apri/chiudi + chiudi cliccando fuori ──
 const langSelector = document.getElementById('langSelector');
 const langDropdown = document.getElementById('langDropdown');
-
 langSelector.addEventListener('click', e => {
   e.stopPropagation();
   const open = langDropdown.classList.toggle('open');
@@ -421,7 +298,6 @@ document.addEventListener('click', () => {
   langSelector.classList.remove('open');
 });
 
-// ── SCROLL REVEAL cards ──
 const obs = new IntersectionObserver(entries => {
   entries.forEach((entry, i) => {
     if (entry.isIntersecting) {
@@ -429,122 +305,97 @@ const obs = new IntersectionObserver(entries => {
       obs.unobserve(entry.target);
     }
   });
-}, { threshold: 0.12 });
+}, { threshold: 0.1 });
 document.querySelectorAll('.info-card').forEach(c => obs.observe(c));
 
-// ── I18N ──
 const FLAGS = { it:'🇮🇹', en:'🇬🇧', es:'🇪🇸', fr:'🇫🇷', de:'🇩🇪' };
 
 i18next.init({
   lng: localStorage.getItem('selectedLanguage') || 'it',
   resources: {
-    it: { translation: {
-      tagline: "Il tuo menu, in un QR code",
-      hero_subtitle: "Soluzioni digitali per la ristorazione moderna",
-      btn: "Visualizza Menù",
-      scroll: "Scopri di più",
-      eyebrow: "I nostri servizi",
-      section_title: "Tecnologia al servizio del locale",
-      about_title: "Chi siamo",
-      about_text: "SPI System sviluppa soluzioni tecnologiche per attività commerciali e ristorative. Realizziamo menù digitali QR code multilingua per migliorare l'esperienza del cliente.",
-      location_title: "Dove ci troviamo",
-      location_text: "Via Monterosa, 22<br>Palo del Colle (BA)<br><a href='https://maps.app.goo.gl/WmcLgRDQcFkZhuqD7?g_st=ic' target='_blank'>Apri su Google Maps</a>",
-      hours_title: "Orari di apertura",
-      hours_text: "Lunedì – Venerdì<br>09:00 – 19:00<br>Sabato 09:00 – 12:00",
-      contact_title: "Contatti",
-      contact_text: "334 273 2997"
+    it:{ translation:{
+      btn:"Visualizza Menù", scroll:"Scopri di più",
+      eyebrow:"I nostri servizi", section_title:"Tecnologia al servizio del tuo locale",
+      section_desc:"Menù digitali professionali, multilingua e sempre aggiornabili. Tutto quello che serve, accessibile con un semplice QR code.",
+      about_title:"Chi siamo", about_text:"SPI System sviluppa soluzioni tecnologiche per attività commerciali e ristorative. Realizziamo menù digitali QR code multilingua per migliorare l'esperienza del cliente.",
+      location_title:"Dove ci troviamo", location_text:"Via Monterosa, 22<br>Palo del Colle (BA)<br><a href='https://maps.app.goo.gl/WmcLgRDQcFkZhuqD7?g_st=ic' target='_blank'>Apri su Google Maps</a>",
+      hours_title:"Orari di apertura", hours_text:"Lunedì – Venerdì<br>09:00 – 19:00<br>Sabato 09:00 – 12:00",
+      contact_title:"Contatti", contact_text:"334 273 2997",
+      cta_label:"Vuoi un menù come questo?", cta_title:"Porta il tuo locale nel digitale",
+      cta_sub:"Contattaci su WhatsApp o telefonicamente. Realizziamo il tuo menù QR in pochi giorni.", cta_btn:"Contattaci su WhatsApp"
     }},
-    en: { translation: {
-      tagline: "Your menu, in a QR code",
-      hero_subtitle: "Digital solutions for modern restaurants",
-      btn: "View Menu",
-      scroll: "Discover more",
-      eyebrow: "Our services",
-      section_title: "Technology at your service",
-      about_title: "About us",
-      about_text: "SPI System develops technological solutions for commercial and hospitality businesses. We create multilingual QR code digital menus to enhance the customer experience.",
-      location_title: "Our Location",
-      location_text: "22 Monterosa Street<br>Palo del Colle (BA)<br><a href='https://maps.app.goo.gl/WmcLgRDQcFkZhuqD7?g_st=ic' target='_blank'>Open in Google Maps</a>",
-      hours_title: "Opening Hours",
-      hours_text: "Monday – Friday<br>09:00 – 19:00<br>Saturday 09:00 – 12:00",
-      contact_title: "Contacts",
-      contact_text: "334 273 2997"
+    en:{ translation:{
+      btn:"View Menu", scroll:"Discover more",
+      eyebrow:"Our services", section_title:"Technology at your service",
+      section_desc:"Professional, multilingual digital menus, always up to date. Everything you need, accessible with a simple QR code.",
+      about_title:"About us", about_text:"SPI System develops technological solutions for commercial and hospitality businesses. We create multilingual QR code digital menus to enhance the customer experience.",
+      location_title:"Our Location", location_text:"22 Monterosa Street<br>Palo del Colle (BA)<br><a href='https://maps.app.goo.gl/WmcLgRDQcFkZhuqD7?g_st=ic' target='_blank'>Open in Google Maps</a>",
+      hours_title:"Opening Hours", hours_text:"Monday – Friday<br>09:00 – 19:00<br>Saturday 09:00 – 12:00",
+      contact_title:"Contacts", contact_text:"334 273 2997",
+      cta_label:"Want a menu like this?", cta_title:"Bring your venue into the digital age",
+      cta_sub:"Contact us on WhatsApp or by phone. We'll create your QR menu in just a few days.", cta_btn:"Contact us on WhatsApp"
     }},
-    es: { translation: {
-      tagline: "Tu menú, en un código QR",
-      hero_subtitle: "Soluciones digitales para la restauración moderna",
-      btn: "Ver Menú",
-      scroll: "Descubre más",
-      eyebrow: "Nuestros servicios",
-      section_title: "Tecnología al servicio del local",
-      about_title: "Sobre nosotros",
-      about_text: "SPI System desarrolla soluciones tecnológicas para actividades comerciales y de restauración. Creamos menús digitales multilingües con código QR para mejorar la experiencia del cliente.",
-      location_title: "Ubicación",
-      location_text: "Calle Monterosa, 22<br>Palo del Colle (BA)<br><a href='https://maps.app.goo.gl/WmcLgRDQcFkZhuqD7?g_st=ic' target='_blank'>Abrir en Google Maps</a>",
-      hours_title: "Horario",
-      hours_text: "Lunes – Viernes<br>09:00 – 19:00<br>Sábado 09:00 – 12:00",
-      contact_title: "Contacto",
-      contact_text: "334 273 2997"
+    es:{ translation:{
+      btn:"Ver Menú", scroll:"Descubre más",
+      eyebrow:"Nuestros servicios", section_title:"Tecnología al servicio de tu local",
+      section_desc:"Menús digitales profesionales, multilingües y siempre actualizables. Todo lo que necesitas, accesible con un simple código QR.",
+      about_title:"Sobre nosotros", about_text:"SPI System desarrolla soluciones tecnológicas para actividades comerciales y de restauración. Creamos menús digitales multilingües con código QR para mejorar la experiencia del cliente.",
+      location_title:"Ubicación", location_text:"Calle Monterosa, 22<br>Palo del Colle (BA)<br><a href='https://maps.app.goo.gl/WmcLgRDQcFkZhuqD7?g_st=ic' target='_blank'>Abrir en Google Maps</a>",
+      hours_title:"Horario", hours_text:"Lunes – Viernes<br>09:00 – 19:00<br>Sábado 09:00 – 12:00",
+      contact_title:"Contacto", contact_text:"334 273 2997",
+      cta_label:"¿Quieres un menú como este?", cta_title:"Lleva tu local al mundo digital",
+      cta_sub:"Contáctanos por WhatsApp o teléfono. Creamos tu menú QR en pocos días.", cta_btn:"Contáctanos en WhatsApp"
     }},
-    fr: { translation: {
-      tagline: "Votre menu, en un QR code",
-      hero_subtitle: "Solutions numériques pour la restauration moderne",
-      btn: "Voir le menu",
-      scroll: "Découvrir",
-      eyebrow: "Nos services",
-      section_title: "La technologie au service de votre établissement",
-      about_title: "À propos de nous",
-      about_text: "SPI System développe des solutions technologiques pour les commerces et la restauration. Nous créons des menus numériques multilingues avec QR code pour améliorer l'expérience client.",
-      location_title: "Notre emplacement",
-      location_text: "22 Rue Monterosa<br>Palo del Colle (BA)<br><a href='https://maps.app.goo.gl/WmcLgRDQcFkZhuqD7?g_st=ic' target='_blank'>Ouvrir sur Google Maps</a>",
-      hours_title: "Horaires d'ouverture",
-      hours_text: "Lundi – Vendredi<br>09:00 – 19:00<br>Samedi 09:00 – 12:00",
-      contact_title: "Contacts",
-      contact_text: "334 273 2997"
+    fr:{ translation:{
+      btn:"Voir le menu", scroll:"Découvrir",
+      eyebrow:"Nos services", section_title:"La technologie au service de votre établissement",
+      section_desc:"Menus numériques professionnels, multilingues et toujours à jour. Tout ce qu'il vous faut, accessible avec un simple QR code.",
+      about_title:"À propos de nous", about_text:"SPI System développe des solutions technologiques pour les commerces et la restauration. Nous créons des menus numériques multilingues avec QR code pour améliorer l'expérience client.",
+      location_title:"Notre emplacement", location_text:"22 Rue Monterosa<br>Palo del Colle (BA)<br><a href='https://maps.app.goo.gl/WmcLgRDQcFkZhuqD7?g_st=ic' target='_blank'>Ouvrir sur Google Maps</a>",
+      hours_title:"Horaires d'ouverture", hours_text:"Lundi – Vendredi<br>09:00 – 19:00<br>Samedi 09:00 – 12:00",
+      contact_title:"Contacts", contact_text:"334 273 2997",
+      cta_label:"Vous voulez un menu comme celui-ci?", cta_title:"Passez au numérique",
+      cta_sub:"Contactez-nous sur WhatsApp ou par téléphone. Nous créons votre menu QR en quelques jours.", cta_btn:"Contactez-nous sur WhatsApp"
     }},
-    de: { translation: {
-      tagline: "Ihre Speisekarte, per QR-Code",
-      hero_subtitle: "Digitale Lösungen für die moderne Gastronomie",
-      btn: "Menü anzeigen",
-      scroll: "Mehr entdecken",
-      eyebrow: "Unsere Dienste",
-      section_title: "Technologie im Dienst Ihres Lokals",
-      about_title: "Über uns",
-      about_text: "SPI System entwickelt technologische Lösungen für Handels- und Gastronomiebetriebe. Wir erstellen mehrsprachige digitale QR-Code-Menüs, um das Kundenerlebnis zu verbessern.",
-      location_title: "Standort",
-      location_text: "Monterosa Straße 22<br>Palo del Colle (BA)<br><a href='https://maps.app.goo.gl/WmcLgRDQcFkZhuqD7?g_st=ic' target='_blank'>In Google Maps öffnen</a>",
-      hours_title: "Öffnungszeiten",
-      hours_text: "Montag – Freitag<br>09:00 – 19:00<br>Samstag 09:00 – 12:00",
-      contact_title: "Kontakt",
-      contact_text: "334 273 2997"
+    de:{ translation:{
+      btn:"Menü anzeigen", scroll:"Mehr entdecken",
+      eyebrow:"Unsere Dienste", section_title:"Technologie im Dienst Ihres Lokals",
+      section_desc:"Professionelle, mehrsprachige digitale Menüs, immer aktuell. Alles per QR-Code zugänglich.",
+      about_title:"Über uns", about_text:"SPI System entwickelt technologische Lösungen für Handels- und Gastronomiebetriebe. Wir erstellen mehrsprachige digitale QR-Code-Menüs.",
+      location_title:"Standort", location_text:"Monterosa Straße 22<br>Palo del Colle (BA)<br><a href='https://maps.app.goo.gl/WmcLgRDQcFkZhuqD7?g_st=ic' target='_blank'>In Google Maps öffnen</a>",
+      hours_title:"Öffnungszeiten", hours_text:"Montag – Freitag<br>09:00 – 19:00<br>Samstag 09:00 – 12:00",
+      contact_title:"Kontakt", contact_text:"334 273 2997",
+      cta_label:"Möchten Sie ein solches Menü?", cta_title:"Bringen Sie Ihr Lokal ins Digitale",
+      cta_sub:"Kontaktieren Sie uns per WhatsApp oder Telefon. Wir erstellen Ihr QR-Menü in wenigen Tagen.", cta_btn:"WhatsApp kontaktieren"
     }}
   }
 }, updateTexts);
 
 function updateTexts() {
-  document.getElementById('hero-tagline').textContent    = i18next.t('tagline');
-  document.getElementById('hero-subtitle').textContent   = i18next.t('hero_subtitle');
-  document.getElementById('btn-text').textContent        = i18next.t('btn');
-  document.getElementById('scroll-label').textContent    = i18next.t('scroll');
-  document.getElementById('eyebrow-label').textContent   = i18next.t('eyebrow');
-  document.getElementById('section-title').textContent   = i18next.t('section_title');
-  document.getElementById('about-title').textContent     = i18next.t('about_title');
-  document.getElementById('about-text').textContent      = i18next.t('about_text');
-  document.getElementById('location-title').textContent  = i18next.t('location_title');
-  document.getElementById('location-text').innerHTML     = i18next.t('location_text');
-  document.getElementById('hours-title').textContent     = i18next.t('hours_title');
-  document.getElementById('hours-text').innerHTML        = i18next.t('hours_text');
-  document.getElementById('contact-title').textContent   = i18next.t('contact_title');
-  document.getElementById('contact-text').textContent    = i18next.t('contact_text');
-  document.getElementById('currentFlag').textContent     = FLAGS[i18next.language] || '🇮🇹';
+  document.getElementById('btn-text').textContent       = i18next.t('btn');
+  document.getElementById('scroll-label').textContent   = i18next.t('scroll');
+  document.getElementById('eyebrow-label').textContent  = i18next.t('eyebrow');
+  document.getElementById('section-title').textContent  = i18next.t('section_title');
+  document.getElementById('section-desc').textContent   = i18next.t('section_desc');
+  document.getElementById('about-title').textContent    = i18next.t('about_title');
+  document.getElementById('about-text').textContent     = i18next.t('about_text');
+  document.getElementById('location-title').textContent = i18next.t('location_title');
+  document.getElementById('location-text').innerHTML    = i18next.t('location_text');
+  document.getElementById('hours-title').textContent    = i18next.t('hours_title');
+  document.getElementById('hours-text').innerHTML       = i18next.t('hours_text');
+  document.getElementById('contact-title').textContent  = i18next.t('contact_title');
+  document.getElementById('contact-text').textContent   = i18next.t('contact_text');
+  document.getElementById('cta-label').textContent      = i18next.t('cta_label');
+  document.getElementById('cta-title').textContent      = i18next.t('cta_title');
+  document.getElementById('cta-sub').textContent        = i18next.t('cta_sub');
+  document.getElementById('cta-btn-text').textContent   = i18next.t('cta_btn');
+  document.getElementById('currentFlag').textContent    = FLAGS[i18next.language] || '🇮🇹';
 }
 
 function changeLanguage(event, lang) {
-  event.preventDefault();
-  event.stopPropagation();
+  event.preventDefault(); event.stopPropagation();
   localStorage.setItem('selectedLanguage', lang);
   i18next.changeLanguage(lang, updateTexts);
-  // chiudi dropdown dopo selezione
   langDropdown.classList.remove('open');
   langSelector.classList.remove('open');
 }
