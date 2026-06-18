@@ -24,9 +24,9 @@ nav {
   background:rgba(8,8,8,0.92); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px);
   border-bottom:1px solid var(--border);
   padding:0 32px; z-index:1000;
-  display:flex; align-items:center; justify-content:space-between; height:76px;
+  display:flex; align-items:center; justify-content:space-between; height:92px;
 }
-.nav-logo img { height:54px; width:auto; display:block; transition:transform 0.3s, opacity 0.3s; }
+.nav-logo img { height:78px; width:auto; display:block; transition:transform 0.3s, opacity 0.3s; }
 .nav-logo img:hover { transform:scale(1.04); opacity:0.82; }
 
 /* LINGUA */
@@ -187,14 +187,28 @@ nav {
 /* DIVIDER */
 .gold-divider { height:1px; background:linear-gradient(to right,transparent,var(--gold),transparent); opacity:0.2; margin:0 60px; }
 
+/* SCROLL TOP */
+.scroll-top {
+  position:fixed; right:22px; bottom:22px; width:46px; height:46px;
+  display:flex; align-items:center; justify-content:center;
+  border:1px solid var(--gold-border); border-radius:50%;
+  background:rgba(16,16,16,0.85); backdrop-filter:blur(8px);
+  color:var(--gold); cursor:pointer;
+  opacity:0; visibility:hidden; transform:translateY(14px);
+  transition:opacity 0.3s, transform 0.3s, border-color 0.3s, box-shadow 0.3s; z-index:2000;
+}
+.scroll-top.show { opacity:1; visibility:visible; transform:translateY(0); }
+.scroll-top:hover { border-color:var(--gold); box-shadow:0 0 24px rgba(198,167,94,0.18); transform:translateY(-4px); }
+.scroll-top svg { width:15px; height:15px; stroke:currentColor; fill:none; stroke-width:2.2; }
+
 /* FOOTER */
 footer { background:#050505; text-align:center; padding:40px 24px; font-size:0.84rem; color:var(--muted); }
 footer .footer-brand { font-family:'Lora',serif; color:var(--gold); font-size:0.92rem; margin-bottom:8px; }
 footer .footer-copy { opacity:0.5; margin-top:4px; }
 
 @media(max-width:768px){
-  nav { padding:0 18px; height:68px; }
-  .nav-logo img { height:46px; }
+  nav { padding:0 18px; height:78px; }
+  .nav-logo img { height:60px; }
   .info-section { padding:70px 16px 60px; }
   .hero-bottom { padding-bottom:44px; gap:18px; }
   .cta-section { padding:52px 20px; }
@@ -285,6 +299,10 @@ footer .footer-copy { opacity:0.5; margin-top:4px; }
   <p class="footer-copy">&copy; 2026 Menù demo Spi System</p>
 </footer>
 
+<button class="scroll-top" id="scrollTopBtn" aria-label="Torna in cima">
+  <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+</button>
+
 <script>
 const langSelector = document.getElementById('langSelector');
 const langDropdown = document.getElementById('langDropdown');
@@ -307,6 +325,11 @@ const obs = new IntersectionObserver(entries => {
   });
 }, { threshold: 0.1 });
 document.querySelectorAll('.info-card').forEach(c => obs.observe(c));
+
+// Scroll-to-top button
+const scrollBtn = document.getElementById('scrollTopBtn');
+window.addEventListener('scroll', () => scrollBtn.classList.toggle('show', window.scrollY > 400));
+scrollBtn.addEventListener('click', () => window.scrollTo({ top:0, behavior:'smooth' }));
 
 const FLAGS = { it:'🇮🇹', en:'🇬🇧', es:'🇪🇸', fr:'🇫🇷', de:'🇩🇪' };
 
