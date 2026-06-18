@@ -7,246 +7,268 @@
   <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/i18next@21.6.3/i18next.min.js"></script>
   <style>
-    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-    :root {
-      --bg:#080808; --card:#111111; --gold:#c6a75e; --gold-light:#d9ba74;
-      --gold-soft:rgba(198,167,94,0.10); --gold-border:rgba(198,167,94,0.18);
-      --text:#f0ece4; --muted:#777; --border:rgba(255,255,255,0.06);
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    :root{
+      --bg:#080808;--card:#111111;--gold:#c6a75e;--gold-light:#d9ba74;
+      --gold-soft:rgba(198,167,94,.10);--gold-border:rgba(198,167,94,.18);
+      --text:#f0ece4;--muted:#777;--border:rgba(255,255,255,.06);
     }
-    html { scroll-behavior:smooth; }
-    body { font-family:'Poppins',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; padding-top:80px; }
+    html{scroll-behavior:smooth}
+    body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding-top:80px}
 
     /* NAV */
-    nav {
-      position:fixed; top:0; width:100%;
-      background:rgba(8,8,8,0.93); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px);
+    nav{
+      position:fixed;top:0;width:100%;
+      background:rgba(8,8,8,.93);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
       border-bottom:1px solid var(--border);
-      padding:0 24px; display:flex; justify-content:space-between; align-items:center;
-      height:80px; z-index:1000;
+      padding:0 24px;display:flex;justify-content:space-between;align-items:center;
+      height:80px;z-index:1000;
     }
-    .nav-left { display:flex; align-items:center; gap:14px; }
-    .back-btn {
-      display:flex; align-items:center; gap:7px;
-      color:var(--muted); text-decoration:none; font-size:0.8rem;
-      letter-spacing:0.04em; padding:7px 13px;
-      border:1px solid var(--border); border-radius:8px;
-      transition:color 0.2s, border-color 0.2s, background 0.2s; white-space:nowrap;
+    .nav-left{display:flex;align-items:center;gap:14px}
+    .back-btn{
+      display:flex;align-items:center;gap:7px;
+      color:var(--muted);text-decoration:none;font-size:0.8rem;
+      letter-spacing:.04em;padding:7px 13px;
+      border:1px solid var(--border);border-radius:8px;
+      transition:color .2s,border-color .2s,background .2s;white-space:nowrap;
     }
-    .back-btn:hover { color:var(--gold); border-color:var(--gold-border); background:var(--gold-soft); }
-    .back-btn svg { width:12px; height:12px; stroke:currentColor; fill:none; stroke-width:2.5; flex-shrink:0; }
-    .nav-logo img { height:54px; width:auto; display:block; transition:transform 0.3s, opacity 0.3s; }
-    .nav-logo img:hover { transform:scale(1.05); opacity:0.82; }
+    .back-btn:hover{color:var(--gold);border-color:var(--gold-border);background:var(--gold-soft)}
+    .back-btn svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.5;flex-shrink:0}
+    .nav-logo img{height:54px;width:auto;display:block;transition:transform .3s,opacity .3s}
+    .nav-logo img:hover{transform:scale(1.05);opacity:.82}
 
     /* LINGUA */
-    .language-selector {
-      position:relative; display:flex; align-items:center; gap:7px; cursor:pointer;
-      padding:8px 13px; border-radius:10px; border:1px solid var(--border);
-      background:rgba(255,255,255,0.02); transition:background 0.2s, border-color 0.2s;
-      white-space:nowrap; user-select:none; flex-shrink:0;
+    .language-selector{
+      position:relative;display:flex;align-items:center;gap:7px;cursor:pointer;
+      padding:8px 13px;border-radius:10px;border:1px solid var(--border);
+      background:rgba(255,255,255,.02);transition:background .2s,border-color .2s;
+      white-space:nowrap;user-select:none;flex-shrink:0;
     }
-    .language-selector:hover { background:var(--gold-soft); border-color:var(--gold-border); }
-    .lang-flag { font-size:1.45rem; line-height:1; flex-shrink:0; }
-    .lang-chevron { width:13px; height:13px; stroke:var(--muted); fill:none; stroke-width:2.5; stroke-linecap:round; transition:transform 0.3s; flex-shrink:0; }
-    .language-selector.open .lang-chevron { transform:rotate(180deg); }
-    .language-dropdown {
-      display:none; position:absolute; top:calc(100% + 10px); right:0;
-      background:#181818; border:1px solid var(--border); border-radius:14px;
-      overflow:hidden; box-shadow:0 24px 60px rgba(0,0,0,0.8); z-index:1002; min-width:155px;
+    .language-selector:hover{background:var(--gold-soft);border-color:var(--gold-border)}
+    .lang-flag{font-size:1.45rem;line-height:1;flex-shrink:0}
+    .lang-chevron{width:13px;height:13px;stroke:var(--muted);fill:none;stroke-width:2.5;stroke-linecap:round;transition:transform .3s;flex-shrink:0}
+    .language-selector.open .lang-chevron{transform:rotate(180deg)}
+    .language-dropdown{
+      display:none;position:absolute;top:calc(100% + 10px);right:0;
+      background:#181818;border:1px solid var(--border);border-radius:14px;
+      overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.8);z-index:1002;min-width:155px;
     }
-    .language-dropdown.open { display:block; animation:dropIn 0.18s ease; }
-    @keyframes dropIn { from{opacity:0;transform:translateY(-6px)} to{opacity:1;transform:translateY(0)} }
-    .language-dropdown a {
-      display:flex; align-items:center; gap:10px; padding:12px 16px;
-      text-decoration:none; color:var(--text); font-size:0.88rem; white-space:nowrap; transition:background 0.18s;
+    .language-dropdown.open{display:block;animation:dropIn .18s ease}
+    @keyframes dropIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+    .language-dropdown a{
+      display:flex;align-items:center;gap:10px;padding:12px 16px;
+      text-decoration:none;color:var(--text);font-size:.88rem;white-space:nowrap;transition:background .18s;
     }
-    .language-dropdown a .flag { font-size:1.25rem; flex-shrink:0; }
-    .language-dropdown a:hover { background:var(--gold-soft); }
+    .language-dropdown a .flag{font-size:1.25rem;flex-shrink:0}
+    .language-dropdown a:hover{background:var(--gold-soft)}
 
-    /* HEADER MENU */
-    .menu-header { text-align:center; padding:36px 24px 12px; }
-    .menu-eyebrow { font-size:0.68rem; letter-spacing:0.26em; text-transform:uppercase; color:var(--gold); margin-bottom:10px; }
-    .menu-title { font-family:'Lora',serif; font-size:clamp(1.8rem,4vw,2.8rem); color:var(--text); line-height:1.15; }
-    .menu-sub { margin-top:8px; font-size:0.84rem; color:var(--muted); }
-    .gold-rule { width:48px; height:2px; background:var(--gold); margin:16px auto 0; border-radius:2px; opacity:0.5; }
+    /* HEADER */
+    .menu-header{text-align:center;padding:36px 24px 12px}
+    .menu-eyebrow{font-size:.68rem;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+    .menu-title{font-family:'Lora',serif;font-size:clamp(1.8rem,4vw,2.8rem);color:var(--text);line-height:1.15}
+    .menu-sub{margin-top:8px;font-size:.84rem;color:var(--muted)}
+    .gold-rule{width:48px;height:2px;background:var(--gold);margin:16px auto 0;border-radius:2px;opacity:.5}
 
-    /* SEARCH BAR */
-    .search-wrap {
-      max-width:800px; margin:28px auto 0; padding:0 18px;
-      position:relative;
+    /* SEARCH */
+    .search-wrap{max-width:800px;margin:24px auto 0;padding:0 18px;position:relative}
+    .search-icon{
+      position:absolute;left:32px;top:50%;transform:translateY(-50%);
+      width:16px;height:16px;stroke:var(--muted);fill:none;stroke-width:2;stroke-linecap:round;pointer-events:none;
     }
-    .search-wrap svg {
-      position:absolute; left:32px; top:50%; transform:translateY(-50%);
-      width:16px; height:16px; stroke:var(--muted); fill:none; stroke-width:2; stroke-linecap:round;
-      pointer-events:none;
+    #searchInput{
+      width:100%;background:var(--card);border:1px solid var(--border);
+      border-radius:12px;padding:13px 44px 13px 44px;
+      color:var(--text);font-family:'Poppins',sans-serif;font-size:.9rem;
+      outline:none;transition:border-color .2s,box-shadow .2s;
     }
-    #searchInput {
-      width:100%; background:var(--card); border:1px solid var(--border);
-      border-radius:12px; padding:13px 16px 13px 44px;
-      color:var(--text); font-family:'Poppins',sans-serif; font-size:0.9rem;
-      outline:none; transition:border-color 0.2s, box-shadow 0.2s;
+    #searchInput::placeholder{color:var(--muted)}
+    #searchInput:focus{border-color:var(--gold-border);box-shadow:0 0 0 3px rgba(198,167,94,.08)}
+    /* X cancella ricerca */
+    .search-clear{
+      position:absolute;right:32px;top:50%;transform:translateY(-50%);
+      width:22px;height:22px;border-radius:50%;
+      background:rgba(255,255,255,.08);border:none;
+      display:none;align-items:center;justify-content:center;
+      cursor:pointer;color:var(--muted);font-size:.75rem;
+      transition:background .2s,color .2s;
     }
-    #searchInput::placeholder { color:var(--muted); }
-    #searchInput:focus { border-color:var(--gold-border); box-shadow:0 0 0 3px rgba(198,167,94,0.08); }
+    .search-clear:hover{background:var(--gold-soft);color:var(--gold)}
+    .search-clear.visible{display:flex}
 
-    .search-empty {
-      display:none; text-align:center; padding:40px 20px;
-      color:var(--muted); font-size:0.9rem;
-    }
-    .search-empty i { font-size:2rem; color:var(--gold); opacity:0.4; margin-bottom:10px; display:block; }
+    .search-empty{display:none;text-align:center;padding:48px 20px;color:var(--muted);font-size:.9rem}
+    .search-empty-icon{font-size:2.2rem;margin-bottom:10px;opacity:.3}
 
-    /* MENU WRAPPER */
-    .menu { max-width:800px; margin:0 auto; padding:20px 18px 100px; }
+    /* MENU */
+    .menu{max-width:800px;margin:0 auto;padding:18px 18px 100px}
 
     /* CATEGORIA */
-    .category {
-      background:var(--card); margin-bottom:14px; border-radius:18px;
-      border:1px solid var(--border); overflow:hidden;
-      opacity:0; transform:translateY(18px);
-      transition:border-color 0.3s, box-shadow 0.3s;
+    .category{
+      background:var(--card);margin-bottom:14px;border-radius:18px;
+      border:1px solid var(--border);overflow:hidden;
+      opacity:0;transform:translateY(18px);
+      transition:border-color .3s,box-shadow .3s;
     }
-    .category.visible { opacity:1; transform:translateY(0); transition:opacity 0.5s ease, transform 0.5s ease, border-color 0.3s, box-shadow 0.3s; }
-    .category:hover { border-color:var(--gold-border); box-shadow:0 12px 38px rgba(0,0,0,0.45); }
+    .category.visible{opacity:1;transform:translateY(0);transition:opacity .5s ease,transform .5s ease,border-color .3s,box-shadow .3s}
+    .category:hover{border-color:var(--gold-border);box-shadow:0 12px 38px rgba(0,0,0,.45)}
 
-    .category-header {
-      display:flex; justify-content:space-between; align-items:center;
-      padding:20px 26px; cursor:pointer; user-select:none; gap:12px; transition:background 0.2s;
+    .category-header{
+      display:flex;justify-content:space-between;align-items:center;
+      padding:20px 26px;cursor:pointer;user-select:none;gap:12px;transition:background .2s;
     }
-    .category-header:hover { background:rgba(255,255,255,0.02); }
-    .category-header h2 { font-family:'Lora',serif; font-size:1.18rem; font-weight:700; color:var(--gold); letter-spacing:0.02em; }
+    .category-header:hover{background:rgba(255,255,255,.02)}
 
-    .cat-toggle {
-      width:30px; height:30px; flex-shrink:0; border-radius:50%;
-      background:var(--gold-soft); border:1px solid var(--gold-border);
-      display:flex; align-items:center; justify-content:center;
-      transition:transform 0.35s ease, background 0.2s;
+    .cat-header-left{display:flex;align-items:center;gap:10px;flex:1;min-width:0}
+    .category-header h2{font-family:'Lora',serif;font-size:1.18rem;font-weight:700;color:var(--gold);letter-spacing:.02em}
+    .cat-count{
+      font-size:.68rem;color:var(--muted);background:rgba(255,255,255,.05);
+      border:1px solid var(--border);border-radius:99px;
+      padding:2px 9px;letter-spacing:.04em;white-space:nowrap;
     }
-    .cat-toggle svg { width:13px; height:13px; stroke:var(--gold); fill:none; stroke-width:2.5; stroke-linecap:round; }
-    .category.open .cat-toggle { transform:rotate(180deg); }
+
+    .cat-toggle{
+      width:30px;height:30px;flex-shrink:0;border-radius:50%;
+      background:var(--gold-soft);border:1px solid var(--gold-border);
+      display:flex;align-items:center;justify-content:center;
+      transition:transform .35s ease,background .2s;
+    }
+    .cat-toggle svg{width:13px;height:13px;stroke:var(--gold);fill:none;stroke-width:2.5;stroke-linecap:round}
+    .category.open .cat-toggle{transform:rotate(180deg)}
 
     /* PRODOTTI */
-    .products-wrapper { overflow:hidden; max-height:0; transition:max-height 0.42s ease; }
-    .products { list-style:none; padding:0 26px 18px; }
+    .products-wrapper{overflow:hidden;max-height:0;transition:max-height .42s ease}
+    .products{list-style:none;padding:0 26px 18px}
 
     /* ITEM */
-    .product-item {
-      display:flex; align-items:center; justify-content:space-between;
-      gap:14px; padding:14px 0; border-bottom:1px solid var(--border);
-      cursor:pointer; transition:background 0.2s; flex-wrap:nowrap;
+    .product-item{
+      display:flex;align-items:center;justify-content:space-between;
+      gap:14px;padding:14px 0;border-bottom:1px solid var(--border);
+      cursor:pointer;transition:background .15s;flex-wrap:nowrap;
       border-radius:6px;
     }
-    .product-item:last-child { border-bottom:none; }
-    .product-item:hover { background:rgba(255,255,255,0.025); }
+    .product-item:last-child{border-bottom:none}
+    .product-item:hover{background:rgba(255,255,255,.025)}
+    /* Feedback tap mobile */
+    .product-item:active{background:rgba(198,167,94,.06);transform:scale(.99)}
 
-    .product-left { display:flex; align-items:center; gap:13px; flex:1; min-width:0; }
-
-    .product-left img {
-      width:54px; height:54px; border-radius:12px; object-fit:cover;
-      flex-shrink:0; border:1px solid var(--border);
-      transition:transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+    .product-left{display:flex;align-items:center;gap:13px;flex:1;min-width:0}
+    .product-left img{
+      width:54px;height:54px;border-radius:12px;object-fit:cover;
+      flex-shrink:0;border:1px solid var(--border);
+      transition:transform .25s,box-shadow .25s,border-color .25s;
     }
-    .product-item:hover .product-left img {
-      transform:scale(1.06);
-      box-shadow:0 6px 20px rgba(0,0,0,0.5);
-      border-color:var(--gold-border);
+    .product-item:hover .product-left img{transform:scale(1.06);box-shadow:0 6px 20px rgba(0,0,0,.5);border-color:var(--gold-border)}
+
+    .product-info{display:flex;flex-direction:column;gap:4px;min-width:0}
+    .product-name{font-size:.94rem;color:var(--text);line-height:1.35}
+    @media(min-width:769px){.product-name{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}}
+
+    .detail-hint{font-size:.68rem;color:var(--gold);opacity:.6;letter-spacing:.04em;display:flex;align-items:center;gap:4px}
+    .detail-hint svg{width:10px;height:10px;stroke:currentColor;fill:none;stroke-width:2}
+
+    /* Badge novità */
+    .badge-new{
+      font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;
+      background:var(--gold);color:#080808;
+      border-radius:3px;padding:2px 7px;font-weight:600;
+      flex-shrink:0;
     }
 
-    .product-info { display:flex; flex-direction:column; gap:4px; min-width:0; }
-    .product-name { font-size:0.94rem; color:var(--text); line-height:1.35; }
-    @media(min-width:769px){ .product-name { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; } }
-
-    .detail-hint {
-      font-size:0.68rem; color:var(--gold); opacity:0.6; letter-spacing:0.04em;
-      display:flex; align-items:center; gap:4px;
-    }
-    .detail-hint svg { width:10px; height:10px; stroke:currentColor; fill:none; stroke-width:2; }
-
-    .product-price { flex-shrink:0; white-space:nowrap; min-width:52px; text-align:right; color:var(--gold); font-weight:700; font-size:0.95rem; }
+    .product-price{flex-shrink:0;white-space:nowrap;min-width:52px;text-align:right;color:var(--gold);font-weight:700;font-size:.95rem}
 
     /* highlight ricerca */
-    .product-item.search-hidden { display:none; }
-    mark { background:rgba(198,167,94,0.25); color:var(--gold); border-radius:2px; padding:0 2px; }
+    .product-item.search-hidden{display:none}
+    mark{background:rgba(198,167,94,.22);color:var(--gold-light);border-radius:2px;padding:0 2px}
 
     /* MODAL */
-    .modal {
-      position:fixed; inset:0; background:rgba(0,0,0,0.88);
-      display:flex; justify-content:center; align-items:center;
-      opacity:0; visibility:hidden;
-      transition:opacity 0.28s, visibility 0.28s;
-      z-index:9999; backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); padding:20px;
+    .modal{
+      position:fixed;inset:0;background:rgba(0,0,0,.88);
+      display:flex;justify-content:center;align-items:center;
+      opacity:0;visibility:hidden;
+      transition:opacity .28s,visibility .28s;
+      z-index:9999;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);padding:20px;
     }
-    .modal.active { opacity:1; visibility:visible; }
-    .modal-card {
-      max-width:460px; width:100%; background:#161616;
-      border:1px solid var(--border); border-radius:22px; overflow:hidden;
-      transform:scale(0.88); transition:transform 0.28s;
-      box-shadow:0 30px 80px rgba(0,0,0,0.8);
+    .modal.active{opacity:1;visibility:visible}
+    .modal-card{
+      max-width:460px;width:100%;background:#161616;
+      border:1px solid var(--border);border-radius:22px;overflow:hidden;
+      transform:scale(.88);transition:transform .28s;
+      box-shadow:0 30px 80px rgba(0,0,0,.8);
     }
-    .modal.active .modal-card { transform:scale(1); }
-
-    .modal-img { position:relative; width:100%; aspect-ratio:4/3; background:#111; overflow:hidden; }
-    .modal-img img { width:100%; height:100%; object-fit:cover; display:block; transition:transform 6s ease; }
-    .modal.active .modal-img img { transform:scale(1.04); }
-
-    .modal-close {
-      position:absolute; top:12px; right:12px;
-      width:34px; height:34px; border-radius:50%;
-      background:rgba(0,0,0,0.7); border:1px solid rgba(255,255,255,0.12);
-      display:flex; align-items:center; justify-content:center;
-      cursor:pointer; color:#fff; font-size:1rem; line-height:1;
-      transition:background 0.2s, transform 0.2s;
+    .modal.active .modal-card{transform:scale(1)}
+    .modal-img{position:relative;width:100%;aspect-ratio:4/3;background:#111;overflow:hidden}
+    .modal-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 6s ease}
+    .modal.active .modal-img img{transform:scale(1.04)}
+    .modal-close{
+      position:absolute;top:12px;right:12px;
+      width:34px;height:34px;border-radius:50%;
+      background:rgba(0,0,0,.7);border:1px solid rgba(255,255,255,.12);
+      display:flex;align-items:center;justify-content:center;
+      cursor:pointer;color:#fff;font-size:1rem;line-height:1;
+      transition:background .2s,transform .2s;
     }
-    .modal-close:hover { background:rgba(0,0,0,0.92); transform:scale(1.1); }
+    .modal-close:hover{background:rgba(0,0,0,.92);transform:scale(1.1)}
 
-    .modal-body { padding:24px 28px 28px; text-align:center; }
-
-    .modal-badge {
-      display:inline-block;
-      font-size:0.65rem; letter-spacing:0.18em; text-transform:uppercase;
-      color:var(--gold); border:1px solid var(--gold-border);
-      border-radius:99px; padding:4px 12px; margin-bottom:14px;
+    .modal-body{padding:24px 28px 28px;text-align:center}
+    .modal-badge{
+      display:inline-block;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;
+      color:var(--gold);border:1px solid var(--gold-border);
+      border-radius:99px;padding:4px 12px;margin-bottom:14px;
     }
+    #modalTitle{font-family:'Lora',serif;font-size:1.35rem;color:var(--text);margin-bottom:10px;line-height:1.2}
+    #modalDesc{font-size:.9rem;color:var(--muted);line-height:1.68;margin-bottom:16px}
 
-    #modalTitle { font-family:'Lora',serif; font-size:1.35rem; color:var(--text); margin-bottom:10px; line-height:1.2; }
-    #modalDesc { font-size:0.9rem; color:var(--muted); line-height:1.68; margin-bottom:14px; }
-
-    .modal-tags { display:flex; flex-wrap:wrap; justify-content:center; gap:8px; margin-bottom:16px; }
-    .modal-tag {
-      font-size:0.72rem; color:var(--muted); border:1px solid var(--border);
-      border-radius:99px; padding:4px 11px; letter-spacing:0.03em;
+    /* Allergeni professionali — senza simbolo attenzione */
+    .allergen-block{
+      margin-bottom:16px;
+      background:rgba(255,255,255,.03);
+      border:1px solid var(--border);
+      border-radius:10px;
+      padding:10px 14px;
+      text-align:left;
     }
-    .modal-tag.allergen { color:rgba(255,180,60,0.85); border-color:rgba(255,180,60,0.2); }
-
-    #modalPrice {
-      font-family:'Lora',serif; font-size:1.6rem; font-weight:700;
-      color:var(--gold); letter-spacing:0.02em;
+    .allergen-label{
+      font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;
+      color:var(--muted);margin-bottom:6px;
     }
+    .allergen-list{display:flex;flex-wrap:wrap;gap:6px}
+    .allergen-tag{
+      font-size:.75rem;
+      background:rgba(198,167,94,.08);
+      color:rgba(220,185,110,.9);
+      border:1px solid rgba(198,167,94,.2);
+      border-radius:6px;padding:3px 10px;
+      letter-spacing:.03em;
+    }
+    .allergen-none{font-size:.8rem;color:var(--muted);font-style:italic}
+
+    #modalPrice{font-family:'Lora',serif;font-size:1.6rem;font-weight:700;color:var(--gold);letter-spacing:.02em}
 
     /* SCROLL TOP */
-    .scroll-top {
-      position:fixed; right:22px; bottom:22px; width:46px; height:46px;
-      display:flex; align-items:center; justify-content:center;
-      border:1px solid var(--gold-border); border-radius:50%;
-      background:rgba(16,16,16,0.85); backdrop-filter:blur(8px);
-      color:var(--gold); cursor:pointer;
-      opacity:0; visibility:hidden; transform:translateY(14px);
-      transition:opacity 0.3s, transform 0.3s, border-color 0.3s, box-shadow 0.3s; z-index:2000;
+    .scroll-top{
+      position:fixed;right:22px;bottom:22px;width:46px;height:46px;
+      display:flex;align-items:center;justify-content:center;
+      border:1px solid var(--gold-border);border-radius:50%;
+      background:rgba(16,16,16,.85);backdrop-filter:blur(8px);
+      color:var(--gold);cursor:pointer;
+      opacity:0;visibility:hidden;transform:translateY(14px);
+      transition:opacity .3s,transform .3s,border-color .3s,box-shadow .3s;z-index:2000;
     }
-    .scroll-top.show { opacity:1; visibility:visible; transform:translateY(0); }
-    .scroll-top:hover { border-color:var(--gold); box-shadow:0 0 24px rgba(198,167,94,0.18); transform:translateY(-4px); }
-    .scroll-top svg { width:15px; height:15px; stroke:currentColor; fill:none; stroke-width:2.2; }
+    .scroll-top.show{opacity:1;visibility:visible;transform:translateY(0)}
+    .scroll-top:hover{border-color:var(--gold);box-shadow:0 0 24px rgba(198,167,94,.18);transform:translateY(-4px)}
+    .scroll-top svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2.2}
 
     /* FOOTER */
-    footer { border-top:1px solid var(--border); background:#050505; padding:36px 20px; text-align:center; color:var(--muted); font-size:0.85rem; }
-    footer .footer-brand { font-family:'Lora',serif; color:var(--gold); margin-bottom:6px; font-size:0.9rem; }
-    footer .footer-copy { opacity:0.5; margin-top:4px; }
+    footer{border-top:1px solid var(--border);background:#050505;padding:36px 20px;text-align:center;color:var(--muted);font-size:.85rem}
+    footer .footer-brand{font-family:'Lora',serif;color:var(--gold);margin-bottom:6px;font-size:.9rem}
+    footer .footer-copy{opacity:.5;margin-top:4px}
 
     @media(max-width:600px){
-      nav { padding:0 14px; height:70px; }
-      .nav-logo img { height:48px; }
-      .category-header { padding:16px 18px; }
-      .products { padding:0 18px 14px; }
-      .search-wrap { padding:0 14px; }
-      .modal-body { padding:18px 20px 22px; }
+      nav{padding:0 14px;height:70px}
+      .nav-logo img{height:48px}
+      .category-header{padding:16px 18px}
+      .products{padding:0 18px 14px}
+      .search-wrap{padding:0 14px}
+      .modal-body{padding:18px 20px 22px}
     }
   </style>
 </head>
@@ -258,11 +280,8 @@
       <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
       <span id="back-label">Indietro</span>
     </a>
-    <div class="nav-logo">
-      <img src="images/logospi1.PNG" alt="SPI System">
-    </div>
+    <div class="nav-logo"><img src="images/logospi1.PNG" alt="SPI System"></div>
   </div>
-
   <div class="language-selector" id="langSelector">
     <span class="lang-flag" id="currentFlag">🇮🇹</span>
     <svg class="lang-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
@@ -283,14 +302,15 @@
   <div class="gold-rule"></div>
 </div>
 
-<!-- BARRA RICERCA -->
+<!-- RICERCA -->
 <div class="search-wrap">
-  <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+  <svg class="search-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
   <input type="search" id="searchInput" placeholder="Cerca un prodotto..." autocomplete="off" spellcheck="false">
+  <button class="search-clear" id="searchClear" aria-label="Cancella ricerca">✕</button>
 </div>
 
 <div class="search-empty" id="searchEmpty">
-  <i>🔍</i>
+  <div class="search-empty-icon">🔍</div>
   <span id="search-empty-text">Nessun prodotto trovato</span>
 </div>
 
@@ -299,168 +319,173 @@
   <!-- ROSTICCERIA -->
   <div class="category" id="cat-rosticceria">
     <div class="category-header" onclick="toggleCat(this)">
-      <h2 id="rosticceria-title">Rosticceria</h2>
+      <div class="cat-header-left">
+        <h2 id="rosticceria-title">Rosticceria</h2>
+        <span class="cat-count">2</span>
+      </div>
       <span class="cat-toggle"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
     </div>
-    <div class="products-wrapper">
-      <ul class="products">
-        <li class="product-item" onclick="openModal('images/focaccia.JPG','ruota_focaccia','ruota_focaccia_desc','ruota_focaccia_allergens','€5.00')">
-          <div class="product-left">
-            <img src="images/focaccia.JPG" alt="Ruota di focaccia">
-            <div class="product-info">
-              <span class="product-name" data-key="ruota_focaccia">Ruota di focaccia</span>
-              <span class="detail-hint"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span data-key="detail_hint">Tocca per dettagli</span></span>
-            </div>
+    <div class="products-wrapper"><ul class="products">
+      <li class="product-item" onclick="openModal('images/focaccia.JPG','ruota_focaccia','ruota_focaccia_desc','ruota_focaccia_allergens','€5.00')">
+        <div class="product-left">
+          <img src="images/focaccia.JPG" alt="">
+          <div class="product-info">
+            <span class="product-name" data-key="ruota_focaccia">Ruota di focaccia</span>
+            <span class="detail-hint"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span data-key="detail_hint">Tocca per dettagli</span></span>
           </div>
-          <span class="product-price">€5.00</span>
-        </li>
-        <li class="product-item" onclick="openModal('images/arancino.JPG','arancino','arancino_desc','arancino_allergens','€2.00')">
-          <div class="product-left">
-            <img src="images/arancino.JPG" alt="Arancino">
-            <div class="product-info">
-              <span class="product-name" data-key="arancino">Arancino</span>
-              <span class="detail-hint"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span data-key="detail_hint">Tocca per dettagli</span></span>
-            </div>
+        </div>
+        <span class="product-price">€5.00</span>
+      </li>
+      <li class="product-item" onclick="openModal('images/arancino.JPG','arancino','arancino_desc','arancino_allergens','€2.00')">
+        <div class="product-left">
+          <img src="images/arancino.JPG" alt="">
+          <div class="product-info">
+            <span class="product-name" data-key="arancino">Arancino</span>
+            <span class="detail-hint"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span data-key="detail_hint">Tocca per dettagli</span></span>
           </div>
-          <span class="product-price">€2.00</span>
-        </li>
-      </ul>
-    </div>
+        </div>
+        <span class="product-price">€2.00</span>
+      </li>
+    </ul></div>
   </div>
 
   <!-- PANZEROTTI -->
   <div class="category" id="cat-panzerotti">
     <div class="category-header" onclick="toggleCat(this)">
-      <h2 id="panzerotti-title">Panzerotti</h2>
+      <div class="cat-header-left">
+        <h2 id="panzerotti-title">Panzerotti</h2>
+        <span class="cat-count">2</span>
+      </div>
       <span class="cat-toggle"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
     </div>
-    <div class="products-wrapper">
-      <ul class="products">
-        <li class="product-item" onclick="openModal('images/panzerotto.JPG','panz_mozz','panz_mozz_desc','panz_mozz_allergens','€1.50')">
-          <div class="product-left">
-            <img src="images/panzerotto.JPG" alt="">
-            <div class="product-info">
-              <span class="product-name" data-key="panz_mozz">Panzerotto mozzarella e pomodoro</span>
-              <span class="detail-hint"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span data-key="detail_hint">Tocca per dettagli</span></span>
-            </div>
+    <div class="products-wrapper"><ul class="products">
+      <li class="product-item" onclick="openModal('images/panzerotto.JPG','panz_mozz','panz_mozz_desc','panz_mozz_allergens','€1.50')">
+        <div class="product-left">
+          <img src="images/panzerotto.JPG" alt="">
+          <div class="product-info">
+            <span class="product-name" data-key="panz_mozz">Panzerotto mozzarella e pomodoro</span>
+            <span class="detail-hint"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span data-key="detail_hint">Tocca per dettagli</span></span>
           </div>
-          <span class="product-price">€1.50</span>
-        </li>
-        <li class="product-item" onclick="openModal('images/panzerottog.JPG','panz_gorg','panz_gorg_desc','panz_gorg_allergens','€2.00')">
-          <div class="product-left">
-            <img src="images/panzerottog.JPG" alt="">
-            <div class="product-info">
-              <span class="product-name" data-key="panz_gorg">Panzerotto farcito con gorgonzola</span>
-              <span class="detail-hint"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span data-key="detail_hint">Tocca per dettagli</span></span>
-            </div>
+        </div>
+        <span class="product-price">€1.50</span>
+      </li>
+      <li class="product-item" onclick="openModal('images/panzerottog.JPG','panz_gorg','panz_gorg_desc','panz_gorg_allergens','€2.00')">
+        <div class="product-left">
+          <img src="images/panzerottog.JPG" alt="">
+          <div class="product-info">
+            <span class="product-name" data-key="panz_gorg">Panzerotto farcito con gorgonzola</span>
+            <span class="detail-hint"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span data-key="detail_hint">Tocca per dettagli</span></span>
           </div>
-          <span class="product-price">€2.00</span>
-        </li>
-      </ul>
-    </div>
+        </div>
+        <span class="product-price">€2.00</span>
+      </li>
+    </ul></div>
   </div>
 
   <!-- PANZEROTTI SPECIALI -->
   <div class="category" id="cat-speciali">
     <div class="category-header" onclick="toggleCat(this)">
-      <h2 id="speciali-title">Panzerotti Speciali</h2>
+      <div class="cat-header-left">
+        <h2 id="speciali-title">Panzerotti Speciali</h2>
+        <span class="cat-count">2</span>
+      </div>
       <span class="cat-toggle"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
     </div>
-    <div class="products-wrapper">
-      <ul class="products">
-        <li class="product-item" onclick="openModal('images/panzerotttocp.JPG','panz_cp','panz_cp_desc','panz_cp_allergens','€3.00')">
-          <div class="product-left">
-            <img src="images/panzerotttocp.JPG" alt="">
-            <div class="product-info">
-              <span class="product-name" data-key="panz_cp">Panzerotto cacio e pepe</span>
-              <span class="detail-hint"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span data-key="detail_hint">Tocca per dettagli</span></span>
-            </div>
+    <div class="products-wrapper"><ul class="products">
+      <li class="product-item" onclick="openModal('images/panzerotttocp.JPG','panz_cp','panz_cp_desc','panz_cp_allergens','€3.00')">
+        <div class="product-left">
+          <img src="images/panzerotttocp.JPG" alt="">
+          <div class="product-info">
+            <span class="product-name" data-key="panz_cp">Panzerotto cacio e pepe</span>
+            <span class="detail-hint"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span data-key="detail_hint">Tocca per dettagli</span></span>
           </div>
-          <span class="product-price">€3.00</span>
-        </li>
-        <li class="product-item" onclick="openModal('images/panzerottob.JPG','panz_brac','panz_brac_desc','panz_brac_allergens','€3.00')">
-          <div class="product-left">
-            <img src="images/panzerottob.JPG" alt="">
-            <div class="product-info">
-              <span class="product-name" data-key="panz_brac">Panzerotto braciola</span>
-              <span class="detail-hint"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span data-key="detail_hint">Tocca per dettagli</span></span>
-            </div>
+        </div>
+        <span class="product-price">€3.00</span>
+      </li>
+      <li class="product-item" onclick="openModal('images/panzerottob.JPG','panz_brac','panz_brac_desc','panz_brac_allergens','€3.00')">
+        <div class="product-left">
+          <img src="images/panzerottob.JPG" alt="">
+          <div class="product-info">
+            <span class="product-name" data-key="panz_brac">Panzerotto braciola</span>
+            <span class="detail-hint"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span data-key="detail_hint">Tocca per dettagli</span></span>
           </div>
-          <span class="product-price">€3.00</span>
-        </li>
-      </ul>
-    </div>
+        </div>
+        <span class="product-price">€3.00</span>
+      </li>
+    </ul></div>
   </div>
 
   <!-- BEVANDE -->
   <div class="category" id="cat-bevande">
     <div class="category-header" onclick="toggleCat(this)">
-      <h2 id="bevande-title">Bevande</h2>
+      <div class="cat-header-left">
+        <h2 id="bevande-title">Bevande</h2>
+        <span class="cat-count">2</span>
+      </div>
       <span class="cat-toggle"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
     </div>
-    <div class="products-wrapper">
-      <ul class="products">
-        <li class="product-item" onclick="openModal('images/coca.JPG','cocacola','cocacola_desc','cocacola_allergens','€1.80')">
-          <div class="product-left">
-            <img src="images/coca.JPG" alt="">
-            <div class="product-info">
-              <span class="product-name" data-key="cocacola">Coca-Cola</span>
-              <span class="detail-hint"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span data-key="detail_hint">Tocca per dettagli</span></span>
-            </div>
+    <div class="products-wrapper"><ul class="products">
+      <li class="product-item" onclick="openModal('images/coca.JPG','cocacola','cocacola_desc','cocacola_allergens','€1.80')">
+        <div class="product-left">
+          <img src="images/coca.JPG" alt="">
+          <div class="product-info">
+            <span class="product-name" data-key="cocacola">Coca-Cola</span>
+            <span class="detail-hint"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span data-key="detail_hint">Tocca per dettagli</span></span>
           </div>
-          <span class="product-price">€1.80</span>
-        </li>
-        <li class="product-item" onclick="openModal('images/acqua.JPG','acqua','acqua_desc','acqua_allergens','€1.00')">
-          <div class="product-left">
-            <img src="images/acqua.JPG" alt="">
-            <div class="product-info">
-              <span class="product-name" data-key="acqua">Acqua</span>
-              <span class="detail-hint"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span data-key="detail_hint">Tocca per dettagli</span></span>
-            </div>
+        </div>
+        <span class="product-price">€1.80</span>
+      </li>
+      <li class="product-item" onclick="openModal('images/acqua.JPG','acqua','acqua_desc','acqua_allergens','€1.00')">
+        <div class="product-left">
+          <img src="images/acqua.JPG" alt="">
+          <div class="product-info">
+            <span class="product-name" data-key="acqua">Acqua</span>
+            <span class="detail-hint"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span data-key="detail_hint">Tocca per dettagli</span></span>
           </div>
-          <span class="product-price">€1.00</span>
-        </li>
-      </ul>
-    </div>
+        </div>
+        <span class="product-price">€1.00</span>
+      </li>
+    </ul></div>
   </div>
 
   <!-- ALCOLICI -->
   <div class="category" id="cat-alcolici">
     <div class="category-header" onclick="toggleCat(this)">
-      <h2 id="alcolici-title">Alcolici</h2>
+      <div class="cat-header-left">
+        <h2 id="alcolici-title">Alcolici</h2>
+        <span class="cat-count">2</span>
+      </div>
       <span class="cat-toggle"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
     </div>
-    <div class="products-wrapper">
-      <ul class="products">
-        <li class="product-item" onclick="openModal('images/peroni.JPG','birra','birra_desc','birra_allergens','€2.00')">
-          <div class="product-left">
-            <img src="images/peroni.JPG" alt="">
-            <div class="product-info">
-              <span class="product-name" data-key="birra">Birra</span>
-              <span class="detail-hint"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span data-key="detail_hint">Tocca per dettagli</span></span>
-            </div>
+    <div class="products-wrapper"><ul class="products">
+      <li class="product-item" onclick="openModal('images/peroni.JPG','birra','birra_desc','birra_allergens','€2.00')">
+        <div class="product-left">
+          <img src="images/peroni.JPG" alt="">
+          <div class="product-info">
+            <span class="product-name" data-key="birra">Birra</span>
+            <span class="detail-hint"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span data-key="detail_hint">Tocca per dettagli</span></span>
           </div>
-          <span class="product-price">€2.00</span>
-        </li>
-        <li class="product-item" onclick="openModal('images/vino.JPG','vino','vino_desc','vino_allergens','€4.00')">
-          <div class="product-left">
-            <img src="images/vino.JPG" alt="">
-            <div class="product-info">
-              <span class="product-name" data-key="vino">Vino</span>
-              <span class="detail-hint"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span data-key="detail_hint">Tocca per dettagli</span></span>
-            </div>
+        </div>
+        <span class="product-price">€2.00</span>
+      </li>
+      <li class="product-item" onclick="openModal('images/vino.JPG','vino','vino_desc','vino_allergens','€4.00')">
+        <div class="product-left">
+          <img src="images/vino.JPG" alt="">
+          <div class="product-info">
+            <span class="product-name" data-key="vino">Vino</span>
+            <span class="detail-hint"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span data-key="detail_hint">Tocca per dettagli</span></span>
           </div>
-          <span class="product-price">€4.00</span>
-        </li>
-      </ul>
-    </div>
+        </div>
+        <span class="product-price">€4.00</span>
+      </li>
+    </ul></div>
   </div>
 
-</div>
+</div><!-- end .menu -->
 
 <footer>
-  <p class="footer-brand">L'arte della focaccia 2 di Francesco Dirello — P. IVA 07628060729</p>
-  <p class="footer-copy">&copy; 2026 Menù — SPI System</p>
+  <p class="footer-brand">Spi System di Giuseppe Spizzico — P. IVA 08791580726</p>
+  <p class="footer-copy">&copy; 2026 Menù demo Spi System</p>
 </footer>
 
 <button class="scroll-top" id="scrollTopBtn" aria-label="Torna in cima">
@@ -478,7 +503,10 @@
       <span class="modal-badge" id="modal-badge">Dettaglio prodotto</span>
       <h2 id="modalTitle"></h2>
       <p id="modalDesc"></p>
-      <div class="modal-tags" id="modalTags"></div>
+      <div class="allergen-block" id="allergenBlock">
+        <div class="allergen-label" id="allergen-label-text">CONTIENE</div>
+        <div class="allergen-list" id="allergenList"></div>
+      </div>
       <div id="modalPrice"></div>
     </div>
   </div>
@@ -500,7 +528,7 @@ document.addEventListener('click', () => {
 
 // ── TOGGLE CATEGORIA ──
 function toggleCat(header) {
-  const cat = header.parentElement;
+  const cat = header.closest('.category');
   const wrapper = cat.querySelector('.products-wrapper');
   const isOpen = cat.classList.contains('open');
   if (isOpen) {
@@ -516,24 +544,25 @@ function toggleCat(header) {
   }
 }
 
-// ── RICERCA ──
-const searchInput = document.getElementById('searchInput');
-const searchEmpty = document.getElementById('searchEmpty');
+// ── RICERCA con X per cancellare ──
+const searchInput  = document.getElementById('searchInput');
+const searchClear  = document.getElementById('searchClear');
+const searchEmpty  = document.getElementById('searchEmpty');
 
-searchInput.addEventListener('input', () => {
+function doSearch() {
   const q = searchInput.value.trim().toLowerCase();
-  let totalVisible = 0;
+  // mostra/nascondi X
+  searchClear.classList.toggle('visible', q.length > 0);
 
+  let totalVisible = 0;
   document.querySelectorAll('.category').forEach(cat => {
     const items = cat.querySelectorAll('.product-item');
     let catVisible = 0;
-
     items.forEach(item => {
       const nameEl = item.querySelector('.product-name');
       const name = nameEl.textContent.toLowerCase();
       if (!q || name.includes(q)) {
         item.classList.remove('search-hidden');
-        // highlight
         if (q) {
           const re = new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')})`, 'gi');
           nameEl.innerHTML = nameEl.textContent.replace(re, '<mark>$1</mark>');
@@ -547,8 +576,6 @@ searchInput.addEventListener('input', () => {
         nameEl.innerHTML = nameEl.textContent;
       }
     });
-
-    // apri categoria automaticamente se ha risultati durante ricerca
     const wrapper = cat.querySelector('.products-wrapper');
     if (q && catVisible > 0) {
       cat.classList.add('open');
@@ -558,21 +585,41 @@ searchInput.addEventListener('input', () => {
       cat.style.display = 'none';
     } else {
       cat.style.display = '';
-      // non toccare stato open/closed se non c'è ricerca
     }
   });
-
   searchEmpty.style.display = (q && totalVisible === 0) ? 'block' : 'none';
+
+  // scroll alla prima categoria con risultati
+  if (q && totalVisible > 0) {
+    const first = document.querySelector('.category:not([style*="none"])');
+    if (first) first.scrollIntoView({ behavior:'smooth', block:'start' });
+  }
+}
+
+searchInput.addEventListener('input', doSearch);
+
+// Pulsante X cancella ricerca e ripristina tutto
+searchClear.addEventListener('click', () => {
+  searchInput.value = '';
+  searchClear.classList.remove('visible');
+  searchEmpty.style.display = 'none';
+  document.querySelectorAll('.category').forEach(cat => {
+    cat.style.display = '';
+    cat.querySelectorAll('.product-item').forEach(item => {
+      item.classList.remove('search-hidden');
+      const nameEl = item.querySelector('.product-name');
+      nameEl.innerHTML = nameEl.textContent;
+    });
+  });
+  searchInput.focus();
 });
 
 // ── MODAL ──
 let _titleKey, _descKey, _allergenKey, _price;
 
 function openModal(src, titleKey, descKey, allergenKey, price) {
-  _titleKey    = titleKey;
-  _descKey     = descKey;
-  _allergenKey = allergenKey;
-  _price       = price;
+  _titleKey = titleKey; _descKey = descKey;
+  _allergenKey = allergenKey; _price = price;
   document.getElementById('modalImage').src = src;
   renderModal();
   document.getElementById('modal').classList.add('active');
@@ -580,22 +627,31 @@ function openModal(src, titleKey, descKey, allergenKey, price) {
 }
 
 function renderModal() {
-  document.getElementById('modalTitle').textContent = i18next.t(_titleKey);
-  document.getElementById('modalDesc').textContent  = i18next.t(_descKey) || '';
-  document.getElementById('modalPrice').textContent = _price;
-  document.getElementById('modal-badge').textContent = i18next.t('modal_badge');
+  document.getElementById('modalTitle').textContent    = i18next.t(_titleKey);
+  document.getElementById('modalDesc').textContent     = i18next.t(_descKey) || '';
+  document.getElementById('modalPrice').textContent    = _price;
+  document.getElementById('modal-badge').textContent   = i18next.t('modal_badge');
+  document.getElementById('allergen-label-text').textContent = i18next.t('contains_label');
 
-  // Tags allergeni
-  const tagsEl = document.getElementById('modalTags');
-  tagsEl.innerHTML = '';
   const allergenRaw = i18next.t(_allergenKey) || '';
+  const listEl = document.getElementById('allergenList');
+  const block  = document.getElementById('allergenBlock');
+  listEl.innerHTML = '';
+
   if (allergenRaw) {
+    block.style.display = 'block';
     allergenRaw.split(',').forEach(a => {
-      const t = document.createElement('span');
-      t.className = 'modal-tag allergen';
-      t.textContent = '⚠ ' + a.trim();
-      tagsEl.appendChild(t);
+      const tag = document.createElement('span');
+      tag.className = 'allergen-tag';
+      tag.textContent = a.trim();
+      listEl.appendChild(tag);
     });
+  } else {
+    block.style.display = 'block';
+    const none = document.createElement('span');
+    none.className = 'allergen-none';
+    none.textContent = i18next.t('no_allergens');
+    listEl.appendChild(none);
   }
 }
 
@@ -630,11 +686,12 @@ const FLAGS = { it:'🇮🇹', en:'🇬🇧', es:'🇪🇸', fr:'🇫🇷', de:'
 i18next.init({
   lng: localStorage.getItem('selectedLanguage') || 'it',
   resources: {
-    it: { translation: {
+    it:{ translation:{
       back:"Indietro", menu_eyebrow:"Scopri le nostre proposte",
       menu_title:"Il nostro Menù", menu_sub:"Tocca un prodotto per vedere i dettagli",
       search_placeholder:"Cerca un prodotto...", search_empty:"Nessun prodotto trovato",
       detail_hint:"Tocca per dettagli", modal_badge:"Dettaglio prodotto",
+      contains_label:"CONTIENE", no_allergens:"Nessun allergene dichiarato",
       rosticceria:"Rosticceria", panzerotti:"Panzerotti",
       speciali:"Panzerotti Speciali", bevande:"Bevande", alcolici:"Alcolici",
       ruota_focaccia:"Ruota di focaccia",
@@ -655,161 +712,93 @@ i18next.init({
       panz_brac:"Panzerotto braciola",
       panz_brac_desc:"Panzerotto con il ripieno della tipica braciola di carne barese, brasata con cipolla e prezzemolo.",
       panz_brac_allergens:"Glutine, Lattosio",
-      cocacola:"Coca-Cola",
-      cocacola_desc:"Coca-Cola classica in lattina 33cl, servita fresca.",
-      cocacola_allergens:"",
-      acqua:"Acqua",
-      acqua_desc:"Acqua minerale naturale o frizzante in bottiglia 50cl.",
-      acqua_allergens:"",
-      birra:"Birra",
-      birra_desc:"Birra Peroni in bottiglia 33cl. Fresca e leggera, ideale in abbinamento.",
-      birra_allergens:"Glutine",
-      vino:"Vino",
-      vino_desc:"Vino della casa, rosso o bianco, servito al calice. Produzione locale pugliese.",
-      vino_allergens:"Solfiti",
-      allergens_label:"Allergeni"
+      cocacola:"Coca-Cola", cocacola_desc:"Coca-Cola classica in lattina 33cl, servita fresca.", cocacola_allergens:"",
+      acqua:"Acqua", acqua_desc:"Acqua minerale naturale o frizzante in bottiglia 50cl.", acqua_allergens:"",
+      birra:"Birra", birra_desc:"Birra Peroni in bottiglia 33cl. Fresca e leggera.", birra_allergens:"Glutine",
+      vino:"Vino", vino_desc:"Vino della casa, rosso o bianco, al calice. Produzione locale pugliese.", vino_allergens:"Solfiti",
     }},
-    en: { translation: {
+    en:{ translation:{
       back:"Back", menu_eyebrow:"Discover our selection",
       menu_title:"Our Menu", menu_sub:"Tap a product to see details",
       search_placeholder:"Search a product...", search_empty:"No products found",
       detail_hint:"Tap for details", modal_badge:"Product detail",
+      contains_label:"CONTAINS", no_allergens:"No declared allergens",
       rosticceria:"Savoury Snacks", panzerotti:"Panzerotti",
       speciali:"Special Panzerotti", bevande:"Drinks", alcolici:"Alcohol",
-      ruota_focaccia:"Focaccia Wheel",
-      ruota_focaccia_desc:"Bari-style focaccia with tomato, olives and extra virgin olive oil. Crispy outside, soft inside.",
-      ruota_focaccia_allergens:"Gluten, Lactose",
-      arancino:"Arancino",
-      arancino_desc:"Classic rice arancino with meat ragù, peas and mozzarella, golden-fried in seed oil.",
-      arancino_allergens:"Gluten, Eggs, Lactose",
-      panz_mozz:"Panzerotto mozzarella and tomato",
-      panz_mozz_desc:"The classic Bari panzerotto: fried dough filled with melted mozzarella and fresh tomato.",
-      panz_mozz_allergens:"Gluten, Lactose",
-      panz_gorg:"Panzerotto stuffed with gorgonzola",
-      panz_gorg_desc:"Fried panzerotto with a creamy DOP gorgonzola filling. Intense and flavourful.",
-      panz_gorg_allergens:"Gluten, Lactose",
-      panz_cp:"Panzerotto cacio e pepe",
-      panz_cp_desc:"Inspired by Roman tradition: fried panzerotto filled with pecorino and freshly ground black pepper.",
-      panz_cp_allergens:"Gluten, Lactose",
-      panz_brac:"Panzerotto braciola",
-      panz_brac_desc:"Panzerotto filled with typical Bari-style braised meat roll, slow-cooked with onion and parsley.",
-      panz_brac_allergens:"Gluten, Lactose",
-      cocacola:"Coca-Cola",
-      cocacola_desc:"Classic Coca-Cola in a 33cl can, served chilled.",
-      cocacola_allergens:"",
-      acqua:"Water",
-      acqua_desc:"Still or sparkling mineral water in a 50cl bottle.",
-      acqua_allergens:"",
-      birra:"Beer",
-      birra_desc:"Peroni beer in a 33cl bottle. Fresh and light, perfect pairing.",
-      birra_allergens:"Gluten",
-      vino:"Wine",
-      vino_desc:"House wine, red or white, served by the glass. Local Apulian production.",
-      vino_allergens:"Sulphites",
-      allergens_label:"Allergens"
+      ruota_focaccia:"Focaccia Wheel", ruota_focaccia_desc:"Bari-style focaccia with tomato, olives and extra virgin olive oil.", ruota_focaccia_allergens:"Gluten, Lactose",
+      arancino:"Arancino", arancino_desc:"Classic rice arancino with meat ragù, peas and mozzarella, golden-fried.", arancino_allergens:"Gluten, Eggs, Lactose",
+      panz_mozz:"Panzerotto mozzarella and tomato", panz_mozz_desc:"Classic Bari panzerotto: fried dough filled with melted mozzarella and fresh tomato.", panz_mozz_allergens:"Gluten, Lactose",
+      panz_gorg:"Panzerotto stuffed with gorgonzola", panz_gorg_desc:"Fried panzerotto with creamy DOP gorgonzola filling.", panz_gorg_allergens:"Gluten, Lactose",
+      panz_cp:"Panzerotto cacio e pepe", panz_cp_desc:"Inspired by Roman tradition: fried panzerotto with pecorino and freshly ground black pepper.", panz_cp_allergens:"Gluten, Lactose",
+      panz_brac:"Panzerotto braciola", panz_brac_desc:"Panzerotto filled with typical Bari-style braised meat roll with onion and parsley.", panz_brac_allergens:"Gluten, Lactose",
+      cocacola:"Coca-Cola", cocacola_desc:"Classic Coca-Cola in a 33cl can, served chilled.", cocacola_allergens:"",
+      acqua:"Water", acqua_desc:"Still or sparkling mineral water, 50cl bottle.", acqua_allergens:"",
+      birra:"Beer", birra_desc:"Peroni beer, 33cl bottle. Fresh and light.", birra_allergens:"Gluten",
+      vino:"Wine", vino_desc:"House wine, red or white, by the glass. Local Apulian production.", vino_allergens:"Sulphites",
     }},
-    es: { translation: {
+    es:{ translation:{
       back:"Volver", menu_eyebrow:"Descubre nuestras propuestas",
       menu_title:"Nuestro Menú", menu_sub:"Toca un producto para ver los detalles",
       search_placeholder:"Buscar un producto...", search_empty:"No se encontraron productos",
       detail_hint:"Toca para detalles", modal_badge:"Detalle del producto",
-      rosticceria:"Comida rápida", panzerotti:"Panzerotti",
-      speciali:"Panzerotti Especiales", bevande:"Bebidas", alcolici:"Alcohol",
-      ruota_focaccia:"Rueda de focaccia",
-      ruota_focaccia_desc:"Focaccia típica de Bari con tomate, aceitunas y aceite de oliva virgen extra. Crujiente por fuera, suave por dentro.",
-      ruota_focaccia_allergens:"Gluten, Lactosa",
-      arancino:"Arancino",
-      arancino_desc:"Arancino de arroz clásico con ragú de carne, guisantes y mozzarella, frito en aceite de semillas.",
-      arancino_allergens:"Gluten, Huevos, Lactosa",
-      panz_mozz:"Panzerotto mozzarella y tomate",
-      panz_mozz_desc:"El panzerotto clásico de Bari: masa frita rellena de mozzarella fundida y tomate fresco.",
-      panz_mozz_allergens:"Gluten, Lactosa",
-      panz_gorg:"Panzerotto relleno con gorgonzola",
-      panz_gorg_desc:"Panzerotto frito con relleno cremoso de gorgonzola DOP. Intenso y sabroso.",
-      panz_gorg_allergens:"Gluten, Lactosa",
-      panz_cp:"Panzerotto cacio e pepe",
-      panz_cp_desc:"Inspirado en la tradición romana: panzerotto frito relleno de pecorino y pimienta negra recién molida.",
-      panz_cp_allergens:"Gluten, Lactosa",
-      panz_brac:"Panzerotto braciola",
-      panz_brac_desc:"Panzerotto con relleno del típico rollo de carne braseado de Bari, cocinado con cebolla y perejil.",
-      panz_brac_allergens:"Gluten, Lactosa",
-      cocacola:"Coca-Cola", cocacola_desc:"Coca-Cola clásica en lata de 33cl, servida fría.", cocacola_allergens:"",
-      acqua:"Agua", acqua_desc:"Agua mineral natural o con gas en botella de 50cl.", acqua_allergens:"",
-      birra:"Cerveza", birra_desc:"Cerveza Peroni en botella de 33cl. Fresca y ligera.", birra_allergens:"Gluten",
-      vino:"Vino", vino_desc:"Vino de la casa, tinto o blanco, servido en copa. Producción local de Apulia.", vino_allergens:"Sulfitos",
-      allergens_label:"Alérgenos"
+      contains_label:"CONTIENE", no_allergens:"Sin alérgenos declarados",
+      rosticceria:"Comida rápida", panzerotti:"Panzerotti", speciali:"Panzerotti Especiales", bevande:"Bebidas", alcolici:"Alcohol",
+      ruota_focaccia:"Rueda de focaccia", ruota_focaccia_desc:"Focaccia típica de Bari con tomate, aceitunas y aceite de oliva virgen extra.", ruota_focaccia_allergens:"Gluten, Lactosa",
+      arancino:"Arancino", arancino_desc:"Arancino de arroz clásico con ragú de carne, guisantes y mozzarella.", arancino_allergens:"Gluten, Huevos, Lactosa",
+      panz_mozz:"Panzerotto mozzarella y tomate", panz_mozz_desc:"El clásico panzerotto de Bari: masa frita rellena de mozzarella y tomate.", panz_mozz_allergens:"Gluten, Lactosa",
+      panz_gorg:"Panzerotto con gorgonzola", panz_gorg_desc:"Panzerotto frito con relleno cremoso de gorgonzola DOP.", panz_gorg_allergens:"Gluten, Lactosa",
+      panz_cp:"Panzerotto cacio e pepe", panz_cp_desc:"Inspirado en Roma: panzerotto frito con pecorino y pimienta negra.", panz_cp_allergens:"Gluten, Lactosa",
+      panz_brac:"Panzerotto braciola", panz_brac_desc:"Panzerotto con la típica braciola de carne de Bari.", panz_brac_allergens:"Gluten, Lactosa",
+      cocacola:"Coca-Cola", cocacola_desc:"Coca-Cola clásica en lata 33cl, servida fría.", cocacola_allergens:"",
+      acqua:"Agua", acqua_desc:"Agua mineral natural o con gas, botella 50cl.", acqua_allergens:"",
+      birra:"Cerveza", birra_desc:"Cerveza Peroni en botella 33cl.", birra_allergens:"Gluten",
+      vino:"Vino", vino_desc:"Vino de la casa, tinto o blanco, en copa.", vino_allergens:"Sulfitos",
     }},
-    fr: { translation: {
+    fr:{ translation:{
       back:"Retour", menu_eyebrow:"Découvrez nos propositions",
       menu_title:"Notre Menu", menu_sub:"Appuyez sur un produit pour voir les détails",
       search_placeholder:"Rechercher un produit...", search_empty:"Aucun produit trouvé",
       detail_hint:"Appuyer pour détails", modal_badge:"Détail du produit",
-      rosticceria:"Snacks", panzerotti:"Panzerotti",
-      speciali:"Panzerotti Spéciaux", bevande:"Boissons", alcolici:"Alcool",
-      ruota_focaccia:"Roue de focaccia",
-      ruota_focaccia_desc:"Focaccia typique de Bari avec tomate, olives et huile d'olive extra vierge. Croustillante dehors, moelleuse dedans.",
-      ruota_focaccia_allergens:"Gluten, Lactose",
-      arancino:"Arancino",
-      arancino_desc:"Arancino de riz classique avec ragù de viande, petits pois et mozzarella, doré à l'huile.",
-      arancino_allergens:"Gluten, Œufs, Lactose",
-      panz_mozz:"Panzerotto mozzarella et tomate",
-      panz_mozz_desc:"Le panzerotto classique de Bari: pâte frite garnie de mozzarella fondante et de tomate fraîche.",
-      panz_mozz_allergens:"Gluten, Lactose",
-      panz_gorg:"Panzerotto farci de gorgonzola",
-      panz_gorg_desc:"Panzerotto frit avec une garniture crémeuse de gorgonzola DOP. Intense et savoureux.",
-      panz_gorg_allergens:"Gluten, Lactose",
-      panz_cp:"Panzerotto cacio e pepe",
-      panz_cp_desc:"Inspiré de la tradition romaine: panzerotto frit garni de pecorino et poivre noir fraîchement moulu.",
-      panz_cp_allergens:"Gluten, Lactose",
-      panz_brac:"Panzerotto braciola",
-      panz_brac_desc:"Panzerotto garni de la typique braciola de viande de Bari, braisée avec oignon et persil.",
-      panz_brac_allergens:"Gluten, Lactose",
-      cocacola:"Coca-Cola", cocacola_desc:"Coca-Cola classique en canette 33cl, servie fraîche.", cocacola_allergens:"",
-      acqua:"Eau", acqua_desc:"Eau minérale plate ou gazeuse en bouteille 50cl.", acqua_allergens:"",
-      birra:"Bière", birra_desc:"Bière Peroni en bouteille 33cl. Fraîche et légère.", birra_allergens:"Gluten",
-      vino:"Vin", vino_desc:"Vin de la maison, rouge ou blanc, servi au verre. Production locale des Pouilles.", vino_allergens:"Sulfites",
-      allergens_label:"Allergènes"
+      contains_label:"CONTIENT", no_allergens:"Aucun allergène déclaré",
+      rosticceria:"Snacks", panzerotti:"Panzerotti", speciali:"Panzerotti Spéciaux", bevande:"Boissons", alcolici:"Alcool",
+      ruota_focaccia:"Roue de focaccia", ruota_focaccia_desc:"Focaccia typique de Bari avec tomate, olives et huile d'olive extra vierge.", ruota_focaccia_allergens:"Gluten, Lactose",
+      arancino:"Arancino", arancino_desc:"Arancino de riz classique avec ragù, petits pois et mozzarella.", arancino_allergens:"Gluten, Œufs, Lactose",
+      panz_mozz:"Panzerotto mozzarella et tomate", panz_mozz_desc:"Le classique panzerotto de Bari: pâte frite garnie de mozzarella et tomate.", panz_mozz_allergens:"Gluten, Lactose",
+      panz_gorg:"Panzerotto au gorgonzola", panz_gorg_desc:"Panzerotto frit garni de gorgonzola DOP crémeux.", panz_gorg_allergens:"Gluten, Lactose",
+      panz_cp:"Panzerotto cacio e pepe", panz_cp_desc:"Inspiré de Rome: panzerotto frit au pecorino et poivre noir.", panz_cp_allergens:"Gluten, Lactose",
+      panz_brac:"Panzerotto braciola", panz_brac_desc:"Panzerotto garni de la typique braciola de Bari.", panz_brac_allergens:"Gluten, Lactose",
+      cocacola:"Coca-Cola", cocacola_desc:"Coca-Cola classique en canette 33cl.", cocacola_allergens:"",
+      acqua:"Eau", acqua_desc:"Eau minérale plate ou gazeuse, bouteille 50cl.", acqua_allergens:"",
+      birra:"Bière", birra_desc:"Bière Peroni en bouteille 33cl.", birra_allergens:"Gluten",
+      vino:"Vin", vino_desc:"Vin de la maison, rouge ou blanc, au verre.", vino_allergens:"Sulfites",
     }},
-    de: { translation: {
+    de:{ translation:{
       back:"Zurück", menu_eyebrow:"Entdecken Sie unsere Angebote",
       menu_title:"Unsere Speisekarte", menu_sub:"Tippen Sie auf ein Produkt für Details",
       search_placeholder:"Produkt suchen...", search_empty:"Keine Produkte gefunden",
       detail_hint:"Antippen für Details", modal_badge:"Produktdetail",
-      rosticceria:"Snacks", panzerotti:"Panzerotti",
-      speciali:"Spezielle Panzerotti", bevande:"Getränke", alcolici:"Alkohol",
-      ruota_focaccia:"Focaccia-Rad",
-      ruota_focaccia_desc:"Focaccia nach Bari-Art mit Tomaten, Oliven und nativem Olivenöl extra. Außen knusprig, innen weich.",
-      ruota_focaccia_allergens:"Gluten, Laktose",
-      arancino:"Arancino",
-      arancino_desc:"Klassisches Reis-Arancino mit Fleisch-Ragù, Erbsen und Mozzarella, goldbraun gebraten.",
-      arancino_allergens:"Gluten, Eier, Laktose",
-      panz_mozz:"Panzerotto Mozzarella und Tomate",
-      panz_mozz_desc:"Der klassische Panzerotto aus Bari: frittierter Teig gefüllt mit geschmolzenem Mozzarella und frischer Tomate.",
-      panz_mozz_allergens:"Gluten, Laktose",
-      panz_gorg:"Panzerotto gefüllt mit Gorgonzola",
-      panz_gorg_desc:"Frittierter Panzerotto mit cremiger DOP-Gorgonzola-Füllung. Intensiv und würzig.",
-      panz_gorg_allergens:"Gluten, Laktose",
-      panz_cp:"Panzerotto cacio e pepe",
-      panz_cp_desc:"Inspiriert von der römischen Tradition: frittierter Panzerotto mit Pecorino und frisch gemahlenem schwarzem Pfeffer.",
-      panz_cp_allergens:"Gluten, Laktose",
-      panz_brac:"Panzerotto braciola",
-      panz_brac_desc:"Panzerotto mit der typischen Bari-Fleischrolle, geschmort mit Zwiebeln und Petersilie.",
-      panz_brac_allergens:"Gluten, Laktose",
-      cocacola:"Coca-Cola", cocacola_desc:"Klassische Coca-Cola in der 33cl Dose, gekühlt serviert.", cocacola_allergens:"",
-      acqua:"Wasser", acqua_desc:"Stilles oder sprudelndes Mineralwasser in der 50cl Flasche.", acqua_allergens:"",
-      birra:"Bier", birra_desc:"Peroni-Bier in der 33cl Flasche. Frisch und leicht.", birra_allergens:"Gluten",
-      vino:"Wein", vino_desc:"Hauswein, rot oder weiß, glasweise serviert. Lokale apulische Produktion.", vino_allergens:"Sulfite",
-      allergens_label:"Allergene"
+      contains_label:"ENTHÄLT", no_allergens:"Keine deklarierten Allergene",
+      rosticceria:"Snacks", panzerotti:"Panzerotti", speciali:"Spezielle Panzerotti", bevande:"Getränke", alcolici:"Alkohol",
+      ruota_focaccia:"Focaccia-Rad", ruota_focaccia_desc:"Focaccia nach Bari-Art mit Tomaten, Oliven und nativem Olivenöl.", ruota_focaccia_allergens:"Gluten, Laktose",
+      arancino:"Arancino", arancino_desc:"Klassisches Reis-Arancino mit Fleisch-Ragù, Erbsen und Mozzarella.", arancino_allergens:"Gluten, Eier, Laktose",
+      panz_mozz:"Panzerotto Mozzarella und Tomate", panz_mozz_desc:"Klassischer Bari-Panzerotto: frittierter Teig mit Mozzarella und Tomate.", panz_mozz_allergens:"Gluten, Laktose",
+      panz_gorg:"Panzerotto mit Gorgonzola", panz_gorg_desc:"Frittierter Panzerotto mit cremiger DOP-Gorgonzola-Füllung.", panz_gorg_allergens:"Gluten, Laktose",
+      panz_cp:"Panzerotto cacio e pepe", panz_cp_desc:"Nach römischer Art: Panzerotto mit Pecorino und schwarzem Pfeffer.", panz_cp_allergens:"Gluten, Laktose",
+      panz_brac:"Panzerotto braciola", panz_brac_desc:"Panzerotto mit der typischen Bari-Fleischrolle.", panz_brac_allergens:"Gluten, Laktose",
+      cocacola:"Coca-Cola", cocacola_desc:"Klassische Coca-Cola, 33cl Dose, gekühlt.", cocacola_allergens:"",
+      acqua:"Wasser", acqua_desc:"Stilles oder sprudelndes Mineralwasser, 50cl.", acqua_allergens:"",
+      birra:"Bier", birra_desc:"Peroni-Bier, 33cl Flasche.", birra_allergens:"Gluten",
+      vino:"Wein", vino_desc:"Hauswein, rot oder weiß, glasweise.", vino_allergens:"Sulfite",
     }}
   }
 }, updateTexts);
 
 function updateTexts() {
-  document.getElementById('back-label').textContent       = i18next.t('back');
-  document.getElementById('menu-eyebrow').textContent     = i18next.t('menu_eyebrow');
-  document.getElementById('menu-title').textContent       = i18next.t('menu_title');
-  document.getElementById('menu-sub').textContent         = i18next.t('menu_sub');
-  document.getElementById('searchInput').placeholder      = i18next.t('search_placeholder');
+  document.getElementById('back-label').textContent        = i18next.t('back');
+  document.getElementById('menu-eyebrow').textContent      = i18next.t('menu_eyebrow');
+  document.getElementById('menu-title').textContent        = i18next.t('menu_title');
+  document.getElementById('menu-sub').textContent          = i18next.t('menu_sub');
+  document.getElementById('searchInput').placeholder       = i18next.t('search_placeholder');
   document.getElementById('search-empty-text').textContent = i18next.t('search_empty');
   document.getElementById('rosticceria-title').textContent = i18next.t('rosticceria');
   document.getElementById('panzerotti-title').textContent  = i18next.t('panzerotti');
@@ -824,8 +813,7 @@ function updateTexts() {
 }
 
 function changeLanguage(event, lang) {
-  event.preventDefault();
-  event.stopPropagation();
+  event.preventDefault(); event.stopPropagation();
   localStorage.setItem('selectedLanguage', lang);
   i18next.changeLanguage(lang, updateTexts);
   langDropdown.classList.remove('open');
