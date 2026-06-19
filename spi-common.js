@@ -76,12 +76,14 @@ const SPI_COOKIE_TEXTS = {
   }
 };
 
-/* Icona "scudo con spunta" — linguaggio visivo standard per consenso/privacy,
-   più professionale della classica emoji-biscotto con le macchioline. */
+/* Icona cookie elegante (SVG outline dorato, coerente con lo stile del sito) */
 const SPI_COOKIE_ICON_SVG = `
 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6l7-3z"/>
-  <path d="M9 12.3l2 2 4-4.2"/>
+  <path d="M21 12.5c-1.1 0-2-.9-2-2 0-.3 0-.6.1-.9-1.4.2-2.6-.8-2.6-2.2 0-.3 0-.5.1-.8-.4.1-.8.2-1.2.2-1.5 0-2.7-1.2-2.7-2.7 0-.1 0-.2 0-.3C12 3.3 12 3 12 3 7 3 3 7 3 12s4 9 9 9 9-4 9-9c0-.2 0-.3 0-.5z"/>
+  <circle cx="8.5" cy="11.5" r="1" fill="currentColor" stroke="none"/>
+  <circle cx="12" cy="15.5" r="1" fill="currentColor" stroke="none"/>
+  <circle cx="15.5" cy="10.5" r="1" fill="currentColor" stroke="none"/>
+  <circle cx="10" cy="8.5" r=".8" fill="currentColor" stroke="none"/>
 </svg>`;
 
 function spiGetLang() {
@@ -92,30 +94,17 @@ function spiCurrentCookieTexts() {
   return SPI_COOKIE_TEXTS[spiGetLang()] || SPI_COOKIE_TEXTS.it;
 }
 
-/* Aggiorna i testi del banner se presente nel DOM (richiamato al cambio lingua,
-   anche se l'utente non ha ancora scelto accetta/rifiuta/personalizza). */
+/* Aggiorna i testi del banner se già presente nel DOM (richiamato al cambio lingua) */
 function spiRefreshCookieBannerTexts() {
   const banner = document.getElementById('spiCookieBanner');
-  if (banner) {
-    const t = spiCurrentCookieTexts();
-    const titleEl = banner.querySelector('.spi-cookie-body h3');
-    const textEl  = banner.querySelector('.spi-cookie-body p');
-    const declineBtn   = document.getElementById('spiCookieDecline');
-    const customizeBtn = document.getElementById('spiCookieCustomize');
-    const acceptBtn    = document.getElementById('spiCookieAccept');
-
-    if (titleEl) titleEl.textContent = t.title;
-    if (textEl)  textEl.innerHTML = `${t.text} <a href="privacy.html" target="_blank">${t.privacyLink}</a>`;
-    if (declineBtn)   declineBtn.textContent = t.decline;
-    if (customizeBtn) customizeBtn.textContent = t.customize;
-    if (acceptBtn)    acceptBtn.textContent = t.accept;
-  }
-
-  /* Se la modale "Personalizza" è aperta nel frattempo, traduciamo anche quella */
-  const modal = document.getElementById('spiCookieSettings');
-  if (modal) {
-    openSettingsModal(spiCurrentCookieTexts(), true);
-  }
+  if (!banner) return;
+  const t = spiCurrentCookieTexts();
+  banner.querySelector('.spi-cookie-body h3').textContent = t.title;
+  const p = banner.querySelector('.spi-cookie-body p');
+  p.innerHTML = `${t.text} <a href="privacy.html" target="_blank">${t.privacyLink}</a>`;
+  banner.querySelector('#spiCookieDecline').textContent = t.decline;
+  banner.querySelector('#spiCookieCustomize').textContent = t.customize;
+  banner.querySelector('#spiCookieAccept').textContent = t.accept;
 }
 
 function initCookieBanner() {
@@ -162,15 +151,9 @@ function initCookieBanner() {
   }
 }
 
-/* keepToggleState: se true (richiamata da spiRefreshCookieBannerTexts per tradurre
-   a modale già aperta), mantiene lo stato attuale dell'interruttore statistiche
-   invece di azzerarlo. */
-function openSettingsModal(t, keepToggleState) {
+function openSettingsModal(t) {
   t = t || spiCurrentCookieTexts();
   const existing = document.getElementById('spiCookieSettings');
-  const wasAnalyticsChecked = existing && keepToggleState
-    ? existing.querySelector('#spiAnalyticsToggle').checked
-    : false;
   if (existing) existing.remove();
 
   const modal = document.createElement('div');
@@ -195,7 +178,7 @@ function openSettingsModal(t, keepToggleState) {
           <p>${t.analyticsDesc}</p>
         </div>
         <label class="spi-switch">
-          <input type="checkbox" id="spiAnalyticsToggle" ${wasAnalyticsChecked ? 'checked' : ''}>
+          <input type="checkbox" id="spiAnalyticsToggle">
           <span class="spi-slider"></span>
         </label>
       </div>
