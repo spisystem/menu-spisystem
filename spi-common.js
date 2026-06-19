@@ -1,19 +1,18 @@
 /* ============================================
    SPI SYSTEM — Script condiviso
-   Gestisce: cookie banner
+   Gestisce: cookie banner professionale, multilingua live
    ============================================ */
 
-/* ---------- COOKIE BANNER ---------- */
 const SPI_COOKIE_TEXTS = {
   it: {
     title: "La tua privacy conta",
-    text: "Utilizziamo solo cookie tecnici necessari al funzionamento del sito (es. lingua selezionata, preferenza tema). Non utilizziamo cookie di tracciamento o pubblicitari.",
+    text: "Utilizziamo solo cookie tecnici necessari al funzionamento del sito (es. lingua selezionata). Non utilizziamo cookie di tracciamento o pubblicitari.",
     accept: "Accetta",
     decline: "Rifiuta",
     customize: "Personalizza",
     settingsTitle: "Preferenze cookie",
     necessary: "Cookie tecnici (necessari)",
-    necessaryDesc: "Indispensabili per il funzionamento del sito: lingua, tema, preferenze di navigazione. Non possono essere disattivati.",
+    necessaryDesc: "Indispensabili per il funzionamento del sito: lingua selezionata e preferenze di navigazione. Non possono essere disattivati.",
     analytics: "Cookie statistici",
     analyticsDesc: "Ci aiuterebbero a capire come viene usato il sito in forma anonima. Attualmente non sono utilizzati.",
     save: "Salva preferenze",
@@ -21,13 +20,13 @@ const SPI_COOKIE_TEXTS = {
   },
   en: {
     title: "Your privacy matters",
-    text: "We only use technical cookies necessary for the site to function (e.g. selected language, theme preference). We do not use tracking or advertising cookies.",
+    text: "We only use technical cookies necessary for the site to function (e.g. selected language). We do not use tracking or advertising cookies.",
     accept: "Accept",
     decline: "Decline",
     customize: "Customize",
     settingsTitle: "Cookie preferences",
     necessary: "Technical cookies (necessary)",
-    necessaryDesc: "Essential for the site to work: language, theme, navigation preferences. Cannot be disabled.",
+    necessaryDesc: "Essential for the site to work: selected language and navigation preferences. Cannot be disabled.",
     analytics: "Statistical cookies",
     analyticsDesc: "Would help us understand site usage anonymously. Currently not used.",
     save: "Save preferences",
@@ -35,13 +34,13 @@ const SPI_COOKIE_TEXTS = {
   },
   es: {
     title: "Tu privacidad importa",
-    text: "Solo usamos cookies técnicas necesarias para el funcionamiento del sitio (idioma, tema). No usamos cookies de rastreo o publicidad.",
+    text: "Solo usamos cookies técnicas necesarias para el funcionamiento del sitio (idioma seleccionado). No usamos cookies de rastreo o publicidad.",
     accept: "Aceptar",
     decline: "Rechazar",
     customize: "Personalizar",
     settingsTitle: "Preferencias de cookies",
     necessary: "Cookies técnicas (necesarias)",
-    necessaryDesc: "Esenciales para el funcionamiento del sitio. No se pueden desactivar.",
+    necessaryDesc: "Esenciales para el funcionamiento del sitio: idioma seleccionado y preferencias de navegación. No se pueden desactivar.",
     analytics: "Cookies estadísticas",
     analyticsDesc: "Nos ayudarían a entender el uso del sitio de forma anónima. Actualmente no se usan.",
     save: "Guardar preferencias",
@@ -49,13 +48,13 @@ const SPI_COOKIE_TEXTS = {
   },
   fr: {
     title: "Votre vie privée compte",
-    text: "Nous utilisons uniquement des cookies techniques nécessaires au fonctionnement du site (langue, thème). Aucun cookie de suivi ou publicitaire.",
+    text: "Nous utilisons uniquement des cookies techniques nécessaires au fonctionnement du site (langue sélectionnée). Aucun cookie de suivi ou publicitaire.",
     accept: "Accepter",
     decline: "Refuser",
     customize: "Personnaliser",
     settingsTitle: "Préférences cookies",
     necessary: "Cookies techniques (nécessaires)",
-    necessaryDesc: "Indispensables au fonctionnement du site. Ne peuvent pas être désactivés.",
+    necessaryDesc: "Indispensables au fonctionnement du site : langue sélectionnée et préférences de navigation. Ne peuvent pas être désactivés.",
     analytics: "Cookies statistiques",
     analyticsDesc: "Nous aideraient à comprendre l'utilisation du site de façon anonyme. Non utilisés actuellement.",
     save: "Enregistrer",
@@ -63,13 +62,13 @@ const SPI_COOKIE_TEXTS = {
   },
   de: {
     title: "Ihre Privatsphäre ist wichtig",
-    text: "Wir verwenden nur technische Cookies, die für die Funktion der Website notwendig sind (Sprache, Theme). Keine Tracking- oder Werbe-Cookies.",
+    text: "Wir verwenden nur technische Cookies, die für die Funktion der Website notwendig sind (ausgewählte Sprache). Keine Tracking- oder Werbe-Cookies.",
     accept: "Akzeptieren",
     decline: "Ablehnen",
     customize: "Anpassen",
     settingsTitle: "Cookie-Einstellungen",
     necessary: "Technische Cookies (notwendig)",
-    necessaryDesc: "Unerlässlich für die Funktion der Website. Können nicht deaktiviert werden.",
+    necessaryDesc: "Unerlässlich für die Funktion der Website: ausgewählte Sprache und Navigationspräferenzen. Können nicht deaktiviert werden.",
     analytics: "Statistik-Cookies",
     analyticsDesc: "Würden uns helfen, die Nutzung anonym zu verstehen. Derzeit nicht verwendet.",
     save: "Einstellungen speichern",
@@ -77,23 +76,60 @@ const SPI_COOKIE_TEXTS = {
   }
 };
 
+/* Icona "scudo con spunta" — linguaggio visivo standard per consenso/privacy,
+   più professionale della classica emoji-biscotto con le macchioline. */
+const SPI_COOKIE_ICON_SVG = `
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6l7-3z"/>
+  <path d="M9 12.3l2 2 4-4.2"/>
+</svg>`;
+
 function spiGetLang() {
   return localStorage.getItem('selectedLanguage') || 'it';
 }
 
+function spiCurrentCookieTexts() {
+  return SPI_COOKIE_TEXTS[spiGetLang()] || SPI_COOKIE_TEXTS.it;
+}
+
+/* Aggiorna i testi del banner se presente nel DOM (richiamato al cambio lingua,
+   anche se l'utente non ha ancora scelto accetta/rifiuta/personalizza). */
+function spiRefreshCookieBannerTexts() {
+  const banner = document.getElementById('spiCookieBanner');
+  if (banner) {
+    const t = spiCurrentCookieTexts();
+    const titleEl = banner.querySelector('.spi-cookie-body h3');
+    const textEl  = banner.querySelector('.spi-cookie-body p');
+    const declineBtn   = document.getElementById('spiCookieDecline');
+    const customizeBtn = document.getElementById('spiCookieCustomize');
+    const acceptBtn    = document.getElementById('spiCookieAccept');
+
+    if (titleEl) titleEl.textContent = t.title;
+    if (textEl)  textEl.innerHTML = `${t.text} <a href="privacy.html" target="_blank">${t.privacyLink}</a>`;
+    if (declineBtn)   declineBtn.textContent = t.decline;
+    if (customizeBtn) customizeBtn.textContent = t.customize;
+    if (acceptBtn)    acceptBtn.textContent = t.accept;
+  }
+
+  /* Se la modale "Personalizza" è aperta nel frattempo, traduciamo anche quella */
+  const modal = document.getElementById('spiCookieSettings');
+  if (modal) {
+    openSettingsModal(spiCurrentCookieTexts(), true);
+  }
+}
+
 function initCookieBanner() {
   const consent = localStorage.getItem('spi-cookie-consent');
-  if (consent) return; // già scelto in passato
+  if (consent) return; // scelta già fatta in passato
 
-  const lang = spiGetLang();
-  const t = SPI_COOKIE_TEXTS[lang] || SPI_COOKIE_TEXTS.it;
+  const t = spiCurrentCookieTexts();
 
   const banner = document.createElement('div');
   banner.id = 'spiCookieBanner';
   banner.className = 'spi-cookie-banner';
   banner.innerHTML = `
     <div class="spi-cookie-card">
-      <div class="spi-cookie-icon">🍪</div>
+      <div class="spi-cookie-icon">${SPI_COOKIE_ICON_SVG}</div>
       <div class="spi-cookie-body">
         <h3>${t.title}</h3>
         <p>${t.text} <a href="privacy.html" target="_blank">${t.privacyLink}</a></p>
@@ -117,7 +153,7 @@ function initCookieBanner() {
     closeBanner();
   });
   document.getElementById('spiCookieCustomize').addEventListener('click', () => {
-    openSettingsModal(t);
+    openSettingsModal(spiCurrentCookieTexts());
   });
 
   function closeBanner() {
@@ -126,8 +162,15 @@ function initCookieBanner() {
   }
 }
 
-function openSettingsModal(t) {
+/* keepToggleState: se true (richiamata da spiRefreshCookieBannerTexts per tradurre
+   a modale già aperta), mantiene lo stato attuale dell'interruttore statistiche
+   invece di azzerarlo. */
+function openSettingsModal(t, keepToggleState) {
+  t = t || spiCurrentCookieTexts();
   const existing = document.getElementById('spiCookieSettings');
+  const wasAnalyticsChecked = existing && keepToggleState
+    ? existing.querySelector('#spiAnalyticsToggle').checked
+    : false;
   if (existing) existing.remove();
 
   const modal = document.createElement('div');
@@ -152,7 +195,7 @@ function openSettingsModal(t) {
           <p>${t.analyticsDesc}</p>
         </div>
         <label class="spi-switch">
-          <input type="checkbox" id="spiAnalyticsToggle">
+          <input type="checkbox" id="spiAnalyticsToggle" ${wasAnalyticsChecked ? 'checked' : ''}>
           <span class="spi-slider"></span>
         </label>
       </div>
