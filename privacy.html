@@ -448,6 +448,7 @@ function changeLanguage(event, lang) {
   i18next.changeLanguage(lang, updateTexts);
   langDropdown.classList.remove('open');
   langSelector.classList.remove('open');
+  if (typeof spiRefreshCookieBannerTexts === 'function') spiRefreshCookieBannerTexts();
 }
 </script>
 <script src="spi-common.js"></script>
