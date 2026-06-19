@@ -2,7 +2,8 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <meta name="format-detection" content="telephone=no, date=no, address=no, email=no, url=no">
   <title>Menù — SPI System</title>
   <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/i18next@21.6.3/i18next.min.js"></script>
@@ -14,7 +15,7 @@
       --text:#f0ece4;--muted:#777;--border:rgba(255,255,255,.06);
     }
     html{scroll-behavior:smooth}
-    body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding-top:96px}
+    body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding-top:112px}
 
     /* NAV */
     nav{
@@ -22,7 +23,7 @@
       background:rgba(8,8,8,.93);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
       border-bottom:1px solid var(--border);
       padding:0 24px;display:flex;justify-content:space-between;align-items:center;
-      height:96px;z-index:1000;
+      height:112px;z-index:1000;
     }
     .nav-left{display:flex;align-items:center;gap:14px}
     .back-btn{
@@ -34,7 +35,7 @@
     }
     .back-btn:hover{color:var(--gold);border-color:var(--gold-border);background:var(--gold-soft)}
     .back-btn svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.5;flex-shrink:0}
-    .nav-logo img{height:78px;width:auto;display:block;transition:transform .3s,opacity .3s}
+    .nav-logo img{height:96px;width:auto;display:block;transition:transform .3s,opacity .3s}
     .nav-logo img:hover{transform:scale(1.05);opacity:.82}
 
     /* LINGUA */
@@ -78,7 +79,8 @@
     #searchInput{
       width:100%;background:var(--card);border:1px solid var(--border);
       border-radius:12px;padding:13px 44px 13px 44px;
-      color:var(--text);font-family:'Poppins',sans-serif;font-size:.9rem;
+      color:var(--text);font-family:'Poppins',sans-serif;
+      font-size:16px; /* fix: <16px causa zoom automatico su iOS/Android al focus */
       outline:none;transition:border-color .2s,box-shadow .2s;
     }
     #searchInput::placeholder{color:var(--muted)}
@@ -259,12 +261,24 @@
 
     /* FOOTER */
     footer{border-top:1px solid var(--border);background:#050505;padding:36px 20px;text-align:center;color:var(--muted);font-size:.85rem}
-    footer .footer-brand{font-family:'Lora',serif;color:var(--gold);margin-bottom:6px;font-size:.9rem}
+    footer .footer-brand{
+      font-family:'Lora',serif;color:var(--gold) !important;margin-bottom:6px;font-size:.9rem;
+      -webkit-text-fill-color: var(--gold);
+    }
     footer .footer-copy{opacity:.5;margin-top:4px}
+    footer, footer * {
+      -webkit-text-size-adjust:100%;
+      -webkit-font-smoothing:antialiased;
+      -webkit-tap-highlight-color:transparent;
+    }
+    footer a, footer span, footer p {
+      color:inherit;
+      text-decoration:none !important;
+    }
 
     @media(max-width:600px){
-      nav{padding:0 14px;height:80px}
-      .nav-logo img{height:60px}
+      nav{padding:0 14px;height:92px}
+      .nav-logo img{height:72px}
       .category-header{padding:16px 18px}
       .products{padding:0 18px 14px}
       .search-wrap{padding:0 14px}
