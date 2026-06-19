@@ -216,6 +216,13 @@ footer .footer-brand {
   -webkit-text-fill-color: var(--gold);
 }
 footer .footer-copy { opacity:0.5; margin-top:4px; }
+footer .footer-links { margin-top:14px; font-size:0.78rem; }
+footer .footer-links a {
+  color:var(--gold) !important; text-decoration:none !important;
+  -webkit-text-fill-color: var(--gold);
+  opacity:0.85; transition:opacity 0.2s;
+}
+footer .footer-links a:hover { opacity:1; text-decoration:underline !important; }
 /* Fix iOS/Chrome che trasformano P.IVA, numeri o date in link blu sottolineati */
 footer, footer * {
   -webkit-text-size-adjust:100%;
@@ -225,6 +232,86 @@ footer, footer * {
 footer a, footer span, footer p {
   color:inherit;
   text-decoration:none !important;
+}
+
+/* ── COOKIE BANNER ── */
+.spi-cookie-banner {
+  position:fixed; left:0; right:0; bottom:0; z-index:5000;
+  display:flex; justify-content:center;
+  padding:20px; pointer-events:none;
+  opacity:0; transform:translateY(20px);
+  transition:opacity 0.35s ease, transform 0.35s ease;
+}
+.spi-cookie-banner.show { opacity:1; transform:translateY(0); pointer-events:auto; }
+
+.spi-cookie-card {
+  max-width:680px; width:100%;
+  background:#141414; border:1px solid var(--border);
+  border-radius:18px; padding:22px 24px;
+  box-shadow:0 30px 70px rgba(0,0,0,0.6);
+  display:flex; flex-wrap:wrap; align-items:flex-start; gap:16px;
+}
+.spi-cookie-icon { font-size:1.8rem; flex-shrink:0; }
+.spi-cookie-body { flex:1; min-width:200px; }
+.spi-cookie-body h3 { font-family:'Lora',serif; color:var(--gold); font-size:1.05rem; margin-bottom:6px; }
+.spi-cookie-body p { font-size:0.85rem; color:var(--muted); line-height:1.55; }
+.spi-cookie-body a { color:var(--gold); text-decoration:underline; }
+
+.spi-cookie-actions { display:flex; flex-wrap:wrap; gap:10px; width:100%; justify-content:flex-end; }
+.spi-cookie-btn {
+  font-family:'Poppins',sans-serif; font-size:0.8rem; font-weight:600;
+  letter-spacing:0.03em; padding:11px 22px; border-radius:8px;
+  cursor:pointer; border:none; transition:transform 0.2s, opacity 0.2s, background 0.2s;
+  white-space:nowrap;
+}
+.spi-cookie-btn.ghost { background:transparent; color:var(--muted); }
+.spi-cookie-btn.ghost:hover { color:var(--text); }
+.spi-cookie-btn.outline { background:transparent; border:1px solid var(--gold-border); color:var(--gold); }
+.spi-cookie-btn.outline:hover { background:var(--gold-soft); }
+.spi-cookie-btn.solid { background:linear-gradient(135deg, var(--gold), var(--gold-light)); color:#080808; }
+.spi-cookie-btn.solid:hover { transform:translateY(-2px); }
+.spi-cookie-btn.full { width:100%; justify-content:center; margin-top:18px; }
+
+/* Modal impostazioni cookie */
+.spi-cookie-modal {
+  position:fixed; inset:0; background:rgba(0,0,0,0.85);
+  display:flex; justify-content:center; align-items:center;
+  z-index:5001; opacity:0; visibility:hidden;
+  transition:opacity 0.3s, visibility 0.3s;
+  backdrop-filter:blur(8px); padding:20px;
+}
+.spi-cookie-modal.show { opacity:1; visibility:visible; }
+.spi-cookie-modal-card {
+  max-width:460px; width:100%; background:#161616;
+  border:1px solid var(--border); border-radius:20px; padding:28px;
+  box-shadow:0 30px 80px rgba(0,0,0,0.7);
+}
+.spi-cookie-modal-card h3 { font-family:'Lora',serif; color:var(--gold); font-size:1.2rem; margin-bottom:20px; }
+.spi-cookie-row {
+  display:flex; justify-content:space-between; align-items:flex-start; gap:14px;
+  padding:14px 0; border-bottom:1px solid var(--border);
+}
+.spi-cookie-row strong { font-size:0.92rem; color:var(--text); display:block; margin-bottom:4px; }
+.spi-cookie-row p { font-size:0.8rem; color:var(--muted); line-height:1.5; }
+
+.spi-switch { position:relative; display:inline-block; width:42px; height:24px; flex-shrink:0; }
+.spi-switch input { opacity:0; width:0; height:0; }
+.spi-slider {
+  position:absolute; cursor:pointer; inset:0;
+  background:rgba(255,255,255,0.12); border-radius:24px; transition:0.3s;
+}
+.spi-slider::before {
+  position:absolute; content:""; height:18px; width:18px; left:3px; bottom:3px;
+  background:#fff; border-radius:50%; transition:0.3s;
+}
+.spi-switch input:checked + .spi-slider { background:var(--gold); }
+.spi-switch input:checked + .spi-slider::before { transform:translateX(18px); }
+.spi-switch.disabled .spi-slider { opacity:0.5; cursor:not-allowed; }
+
+@media(max-width:600px){
+  .spi-cookie-card { flex-direction:column; padding:20px; }
+  .spi-cookie-actions { justify-content:stretch; }
+  .spi-cookie-btn { flex:1; }
 }
 
 @media(max-width:768px){
@@ -318,6 +405,7 @@ footer a, footer span, footer p {
 <footer>
   <p class="footer-brand">Spi System di Giuseppe Spizzico — P. IVA 08791580726</p>
   <p class="footer-copy">&copy; 2026 Menù demo Spi System</p>
+  <p class="footer-links"><a href="privacy.html" id="footer-privacy-link">Privacy Policy</a> · <a href="#" id="footer-cookie-link">Preferenze Cookie</a></p>
 </footer>
 
 <button class="scroll-top" id="scrollTopBtn" aria-label="Torna in cima">
@@ -366,7 +454,8 @@ i18next.init({
       hours_title:"Orari di apertura", hours_text:"Lunedì – Venerdì<br>09:00 – 19:00<br>Sabato 09:00 – 12:00",
       contact_title:"Contatti", contact_text:"334 273 2997",
       cta_label:"Vuoi un menù come questo?", cta_title:"Porta il tuo locale nel digitale",
-      cta_sub:"Contattaci su WhatsApp o telefonicamente. Realizziamo il tuo menù QR in pochi giorni.", cta_btn:"Contattaci su WhatsApp"
+      cta_sub:"Contattaci su WhatsApp o telefonicamente. Realizziamo il tuo menù QR in pochi giorni.", cta_btn:"Contattaci su WhatsApp",
+      footer_privacy:"Privacy Policy", footer_cookie:"Preferenze Cookie"
     }},
     en:{ translation:{
       btn:"View Menu", scroll:"Discover more",
@@ -377,7 +466,8 @@ i18next.init({
       hours_title:"Opening Hours", hours_text:"Monday – Friday<br>09:00 – 19:00<br>Saturday 09:00 – 12:00",
       contact_title:"Contacts", contact_text:"334 273 2997",
       cta_label:"Want a menu like this?", cta_title:"Bring your venue into the digital age",
-      cta_sub:"Contact us on WhatsApp or by phone. We'll create your QR menu in just a few days.", cta_btn:"Contact us on WhatsApp"
+      cta_sub:"Contact us on WhatsApp or by phone. We'll create your QR menu in just a few days.", cta_btn:"Contact us on WhatsApp",
+      footer_privacy:"Privacy Policy", footer_cookie:"Cookie Preferences"
     }},
     es:{ translation:{
       btn:"Ver Menú", scroll:"Descubre más",
@@ -388,7 +478,8 @@ i18next.init({
       hours_title:"Horario", hours_text:"Lunes – Viernes<br>09:00 – 19:00<br>Sábado 09:00 – 12:00",
       contact_title:"Contacto", contact_text:"334 273 2997",
       cta_label:"¿Quieres un menú como este?", cta_title:"Lleva tu local al mundo digital",
-      cta_sub:"Contáctanos por WhatsApp o teléfono. Creamos tu menú QR en pocos días.", cta_btn:"Contáctanos en WhatsApp"
+      cta_sub:"Contáctanos por WhatsApp o teléfono. Creamos tu menú QR en pocos días.", cta_btn:"Contáctanos en WhatsApp",
+      footer_privacy:"Política de Privacidad", footer_cookie:"Preferencias de Cookies"
     }},
     fr:{ translation:{
       btn:"Voir le menu", scroll:"Découvrir",
@@ -399,7 +490,8 @@ i18next.init({
       hours_title:"Horaires d'ouverture", hours_text:"Lundi – Vendredi<br>09:00 – 19:00<br>Samedi 09:00 – 12:00",
       contact_title:"Contacts", contact_text:"334 273 2997",
       cta_label:"Vous voulez un menu comme celui-ci?", cta_title:"Passez au numérique",
-      cta_sub:"Contactez-nous sur WhatsApp ou par téléphone. Nous créons votre menu QR en quelques jours.", cta_btn:"Contactez-nous sur WhatsApp"
+      cta_sub:"Contactez-nous sur WhatsApp ou par téléphone. Nous créons votre menu QR en quelques jours.", cta_btn:"Contactez-nous sur WhatsApp",
+      footer_privacy:"Politique de Confidentialité", footer_cookie:"Préférences Cookies"
     }},
     de:{ translation:{
       btn:"Menü anzeigen", scroll:"Mehr entdecken",
@@ -410,7 +502,8 @@ i18next.init({
       hours_title:"Öffnungszeiten", hours_text:"Montag – Freitag<br>09:00 – 19:00<br>Samstag 09:00 – 12:00",
       contact_title:"Kontakt", contact_text:"334 273 2997",
       cta_label:"Möchten Sie ein solches Menü?", cta_title:"Bringen Sie Ihr Lokal ins Digitale",
-      cta_sub:"Kontaktieren Sie uns per WhatsApp oder Telefon. Wir erstellen Ihr QR-Menü in wenigen Tagen.", cta_btn:"WhatsApp kontaktieren"
+      cta_sub:"Kontaktieren Sie uns per WhatsApp oder Telefon. Wir erstellen Ihr QR-Menü in wenigen Tagen.", cta_btn:"WhatsApp kontaktieren",
+      footer_privacy:"Datenschutzerklärung", footer_cookie:"Cookie-Einstellungen"
     }}
   }
 }, updateTexts);
@@ -433,6 +526,8 @@ function updateTexts() {
   document.getElementById('cta-title').textContent      = i18next.t('cta_title');
   document.getElementById('cta-sub').textContent        = i18next.t('cta_sub');
   document.getElementById('cta-btn-text').textContent   = i18next.t('cta_btn');
+  document.getElementById('footer-privacy-link').textContent = i18next.t('footer_privacy');
+  document.getElementById('footer-cookie-link').textContent  = i18next.t('footer_cookie');
   document.getElementById('currentFlag').textContent    = FLAGS[i18next.language] || '🇮🇹';
 }
 
@@ -443,6 +538,16 @@ function changeLanguage(event, lang) {
   langDropdown.classList.remove('open');
   langSelector.classList.remove('open');
 }
+</script>
+<script src="spi-common.js"></script>
+<script>
+// Link "Preferenze Cookie" nel footer: riapre sempre le impostazioni
+document.getElementById('footer-cookie-link').addEventListener('click', (e) => {
+  e.preventDefault();
+  const lang = localStorage.getItem('selectedLanguage') || 'it';
+  const t = SPI_COOKIE_TEXTS[lang] || SPI_COOKIE_TEXTS.it;
+  openSettingsModal(t);
+});
 </script>
 </body>
 </html>
