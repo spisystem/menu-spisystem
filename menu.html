@@ -275,6 +275,83 @@
       color:inherit;
       text-decoration:none !important;
     }
+    footer .footer-links { margin-top:14px; font-size:0.78rem; }
+    footer .footer-links a {
+      color:var(--gold) !important; text-decoration:none !important;
+      -webkit-text-fill-color: var(--gold);
+      opacity:0.85; transition:opacity 0.2s;
+    }
+    footer .footer-links a:hover { opacity:1; text-decoration:underline !important; }
+
+    /* ── COOKIE BANNER ── */
+    .spi-cookie-banner {
+      position:fixed; left:0; right:0; bottom:0; z-index:5000;
+      display:flex; justify-content:center;
+      padding:20px; pointer-events:none;
+      opacity:0; transform:translateY(20px);
+      transition:opacity .35s ease, transform .35s ease;
+    }
+    .spi-cookie-banner.show { opacity:1; transform:translateY(0); pointer-events:auto; }
+    .spi-cookie-card {
+      max-width:680px; width:100%;
+      background:#141414; border:1px solid var(--border);
+      border-radius:18px; padding:22px 24px;
+      box-shadow:0 30px 70px rgba(0,0,0,.6);
+      display:flex; flex-wrap:wrap; align-items:flex-start; gap:16px;
+    }
+    .spi-cookie-icon { font-size:1.8rem; flex-shrink:0; }
+    .spi-cookie-body { flex:1; min-width:200px; }
+    .spi-cookie-body h3 { font-family:'Lora',serif; color:var(--gold); font-size:1.05rem; margin-bottom:6px; }
+    .spi-cookie-body p { font-size:.85rem; color:var(--muted); line-height:1.55; }
+    .spi-cookie-body a { color:var(--gold); text-decoration:underline; }
+    .spi-cookie-actions { display:flex; flex-wrap:wrap; gap:10px; width:100%; justify-content:flex-end; }
+    .spi-cookie-btn {
+      font-family:'Poppins',sans-serif; font-size:.8rem; font-weight:600;
+      letter-spacing:.03em; padding:11px 22px; border-radius:8px;
+      cursor:pointer; border:none; transition:transform .2s, opacity .2s, background .2s;
+      white-space:nowrap;
+    }
+    .spi-cookie-btn.ghost { background:transparent; color:var(--muted); }
+    .spi-cookie-btn.ghost:hover { color:var(--text); }
+    .spi-cookie-btn.outline { background:transparent; border:1px solid var(--gold-border); color:var(--gold); }
+    .spi-cookie-btn.outline:hover { background:var(--gold-soft); }
+    .spi-cookie-btn.solid { background:linear-gradient(135deg, var(--gold), var(--gold-light)); color:#080808; }
+    .spi-cookie-btn.solid:hover { transform:translateY(-2px); }
+    .spi-cookie-btn.full { width:100%; justify-content:center; margin-top:18px; }
+
+    .spi-cookie-modal {
+      position:fixed; inset:0; background:rgba(0,0,0,.85);
+      display:flex; justify-content:center; align-items:center;
+      z-index:5001; opacity:0; visibility:hidden;
+      transition:opacity .3s, visibility .3s;
+      backdrop-filter:blur(8px); padding:20px;
+    }
+    .spi-cookie-modal.show { opacity:1; visibility:visible; }
+    .spi-cookie-modal-card {
+      max-width:460px; width:100%; background:#161616;
+      border:1px solid var(--border); border-radius:20px; padding:28px;
+      box-shadow:0 30px 80px rgba(0,0,0,.7);
+    }
+    .spi-cookie-modal-card h3 { font-family:'Lora',serif; color:var(--gold); font-size:1.2rem; margin-bottom:20px; }
+    .spi-cookie-row {
+      display:flex; justify-content:space-between; align-items:flex-start; gap:14px;
+      padding:14px 0; border-bottom:1px solid var(--border);
+    }
+    .spi-cookie-row strong { font-size:.92rem; color:var(--text); display:block; margin-bottom:4px; }
+    .spi-cookie-row p { font-size:.8rem; color:var(--muted); line-height:1.5; }
+    .spi-switch { position:relative; display:inline-block; width:42px; height:24px; flex-shrink:0; }
+    .spi-switch input { opacity:0; width:0; height:0; }
+    .spi-slider { position:absolute; cursor:pointer; inset:0; background:rgba(255,255,255,.12); border-radius:24px; transition:.3s; }
+    .spi-slider::before { position:absolute; content:""; height:18px; width:18px; left:3px; bottom:3px; background:#fff; border-radius:50%; transition:.3s; }
+    .spi-switch input:checked + .spi-slider { background:var(--gold); }
+    .spi-switch input:checked + .spi-slider::before { transform:translateX(18px); }
+    .spi-switch.disabled .spi-slider { opacity:.5; cursor:not-allowed; }
+
+    @media(max-width:600px){
+      .spi-cookie-card { flex-direction:column; padding:20px; }
+      .spi-cookie-actions { justify-content:stretch; }
+      .spi-cookie-btn { flex:1; }
+    }
 
     @media(max-width:600px){
       nav{padding:0 14px;height:92px}
@@ -500,6 +577,7 @@
 <footer>
   <p class="footer-brand">Spi System di Giuseppe Spizzico — P. IVA 08791580726</p>
   <p class="footer-copy">&copy; 2026 Menù demo Spi System</p>
+  <p class="footer-links"><a href="privacy.html" id="footer-privacy-link">Privacy Policy</a> · <a href="#" id="footer-cookie-link">Preferenze Cookie</a></p>
 </footer>
 
 <button class="scroll-top" id="scrollTopBtn" aria-label="Torna in cima">
@@ -737,6 +815,7 @@ i18next.init({
       acqua:"Acqua", acqua_desc:"Acqua minerale naturale o frizzante in bottiglia 50cl.", acqua_allergens:"",
       birra:"Birra", birra_desc:"Birra Peroni in bottiglia 33cl. Fresca e leggera.", birra_allergens:"Glutine",
       vino:"Vino", vino_desc:"Vino della casa, rosso o bianco, al calice. Produzione locale pugliese.", vino_allergens:"Solfiti",
+      footer_privacy:"Privacy Policy", footer_cookie:"Preferenze Cookie"
     }},
     en:{ translation:{
       back:"Back", menu_eyebrow:"Discover our selection",
@@ -756,6 +835,7 @@ i18next.init({
       acqua:"Water", acqua_desc:"Still or sparkling mineral water, 50cl bottle.", acqua_allergens:"",
       birra:"Beer", birra_desc:"Peroni beer, 33cl bottle. Fresh and light.", birra_allergens:"Gluten",
       vino:"Wine", vino_desc:"House wine, red or white, by the glass. Local Apulian production.", vino_allergens:"Sulphites",
+      footer_privacy:"Privacy Policy", footer_cookie:"Cookie Preferences"
     }},
     es:{ translation:{
       back:"Volver", menu_eyebrow:"Descubre nuestras propuestas",
@@ -774,6 +854,7 @@ i18next.init({
       acqua:"Agua", acqua_desc:"Agua mineral natural o con gas, botella 50cl.", acqua_allergens:"",
       birra:"Cerveza", birra_desc:"Cerveza Peroni en botella 33cl.", birra_allergens:"Gluten",
       vino:"Vino", vino_desc:"Vino de la casa, tinto o blanco, en copa.", vino_allergens:"Sulfitos",
+      footer_privacy:"Política de Privacidad", footer_cookie:"Preferencias de Cookies"
     }},
     fr:{ translation:{
       back:"Retour", menu_eyebrow:"Découvrez nos propositions",
@@ -792,6 +873,7 @@ i18next.init({
       acqua:"Eau", acqua_desc:"Eau minérale plate ou gazeuse, bouteille 50cl.", acqua_allergens:"",
       birra:"Bière", birra_desc:"Bière Peroni en bouteille 33cl.", birra_allergens:"Gluten",
       vino:"Vin", vino_desc:"Vin de la maison, rouge ou blanc, au verre.", vino_allergens:"Sulfites",
+      footer_privacy:"Politique de Confidentialité", footer_cookie:"Préférences Cookies"
     }},
     de:{ translation:{
       back:"Zurück", menu_eyebrow:"Entdecken Sie unsere Angebote",
@@ -810,6 +892,7 @@ i18next.init({
       acqua:"Wasser", acqua_desc:"Stilles oder sprudelndes Mineralwasser, 50cl.", acqua_allergens:"",
       birra:"Bier", birra_desc:"Peroni-Bier, 33cl Flasche.", birra_allergens:"Gluten",
       vino:"Wein", vino_desc:"Hauswein, rot oder weiß, glasweise.", vino_allergens:"Sulfite",
+      footer_privacy:"Datenschutzerklärung", footer_cookie:"Cookie-Einstellungen"
     }}
   }
 }, updateTexts);
@@ -830,6 +913,8 @@ function updateTexts() {
     el.textContent = i18next.t(el.getAttribute('data-key'));
   });
   document.getElementById('currentFlag').textContent = FLAGS[i18next.language] || '🇮🇹';
+  document.getElementById('footer-privacy-link').textContent = i18next.t('footer_privacy');
+  document.getElementById('footer-cookie-link').textContent  = i18next.t('footer_cookie');
   if (document.getElementById('modal').classList.contains('active') && _titleKey) renderModal();
 }
 
@@ -840,6 +925,15 @@ function changeLanguage(event, lang) {
   langDropdown.classList.remove('open');
   langSelector.classList.remove('open');
 }
+</script>
+<script src="spi-common.js"></script>
+<script>
+document.getElementById('footer-cookie-link').addEventListener('click', (e) => {
+  e.preventDefault();
+  const lang = localStorage.getItem('selectedLanguage') || 'it';
+  const t = SPI_COOKIE_TEXTS[lang] || SPI_COOKIE_TEXTS.it;
+  openSettingsModal(t);
+});
 </script>
 </body>
 </html>
