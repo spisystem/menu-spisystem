@@ -299,7 +299,12 @@
       box-shadow:0 30px 70px rgba(0,0,0,.6);
       display:flex; flex-wrap:wrap; align-items:flex-start; gap:16px;
     }
-    .spi-cookie-icon { font-size:1.8rem; flex-shrink:0; }
+    .spi-cookie-icon {
+      width:40px; height:40px; flex-shrink:0;
+      background:var(--gold-soft); border:1px solid var(--gold-border);
+      border-radius:12px; display:flex; align-items:center; justify-content:center;
+    }
+    .spi-cookie-icon svg { width:20px; height:20px; color:var(--gold); }
     .spi-cookie-body { flex:1; min-width:200px; }
     .spi-cookie-body h3 { font-family:'Lora',serif; color:var(--gold); font-size:1.05rem; margin-bottom:6px; }
     .spi-cookie-body p { font-size:.85rem; color:var(--muted); line-height:1.55; }
@@ -924,6 +929,7 @@ function changeLanguage(event, lang) {
   i18next.changeLanguage(lang, updateTexts);
   langDropdown.classList.remove('open');
   langSelector.classList.remove('open');
+  if (typeof spiRefreshCookieBannerTexts === 'function') spiRefreshCookieBannerTexts();
 }
 </script>
 <script src="spi-common.js"></script>
