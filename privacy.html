@@ -10,9 +10,10 @@
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --bg:#10151f;--card:#1a2230;--silver:#9fb3c8;--silver-light:#c5d3e0;
-  --silver-soft:rgba(159,179,200,.12);--silver-border:rgba(159,179,200,.25);
-  --text:#eef2f6;--muted:#7c8898;--border:rgba(255,255,255,.06);
+  --bg:#0a0a0c;--card:#15161a;--silver:#c9ccd1;--silver-light:#e8eaed;
+  --silver-soft:rgba(74,158,255,.10);--silver-border:rgba(74,158,255,.28);
+  --text:#f4f5f6;--muted:#85878d;--border:rgba(255,255,255,.06);
+  --blue-glow:#4a9eff;
 }
 html{scroll-behavior:smooth}
 body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding-top:112px}
@@ -20,7 +21,7 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);min
 /* NAV */
 nav{
   position:fixed;top:0;width:100%;
-  background:rgba(16,21,31,.93);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  background:rgba(10,10,12,.93);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
   border-bottom:1px solid var(--border);
   padding:0 24px;display:flex;justify-content:space-between;align-items:center;
   height:112px;z-index:1000;
@@ -49,7 +50,7 @@ nav{
 .language-selector.open .lang-chevron{transform:rotate(180deg)}
 .language-dropdown{
   display:none;position:absolute;top:calc(100% + 10px);right:0;
-  background:#16202c;border:1px solid var(--border);border-radius:14px;
+  background:#161618;border:1px solid var(--border);border-radius:14px;
   overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.5);z-index:1002;min-width:155px;
 }
 .language-dropdown.open{display:block;animation:dropIn .18s ease}
@@ -120,7 +121,7 @@ footer .footer-links a:hover{opacity:1;text-decoration:underline !important}
 .spi-cookie-banner.show { opacity:1; transform:translateY(0); pointer-events:auto; }
 .spi-cookie-card {
   max-width:680px; width:100%;
-  background:#16202c; border:1px solid var(--border);
+  background:#161618; border:1px solid var(--border);
   border-radius:18px; padding:22px 24px;
   box-shadow:0 30px 70px rgba(0,0,0,.5);
   display:flex; flex-wrap:wrap; align-items:flex-start; gap:16px;
@@ -159,7 +160,7 @@ footer .footer-links a:hover{opacity:1;text-decoration:underline !important}
 }
 .spi-cookie-modal.show { opacity:1; visibility:visible; }
 .spi-cookie-modal-card {
-  max-width:460px; width:100%; background:#1a2230;
+  max-width:460px; width:100%; background:#1c1d22;
   border:1px solid var(--border); border-radius:20px; padding:28px;
   box-shadow:0 30px 80px rgba(0,0,0,.5);
 }
@@ -195,7 +196,7 @@ footer .footer-links a:hover{opacity:1;text-decoration:underline !important}
 
 <nav>
   <div class="nav-left">
-    <a class="back-btn" href="index.html" id="back-btn">
+    <a class="back-btn" href="index.html" id="back-btn" onclick="return spiGoBack(event)">
       <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
       <span id="back-label">Indietro</span>
     </a>
@@ -302,6 +303,18 @@ footer .footer-links a:hover{opacity:1;text-decoration:underline !important}
 </footer>
 
 <script>
+// Torna alla pagina da cui si è arrivati (menu.html o index.html).
+// Se non c'è una pagina precedente nella sessione (es. link diretto esterno),
+// l'href="index.html" sul link funge da fallback naturale.
+function spiGoBack(event) {
+  if (document.referrer && document.referrer.includes(window.location.host)) {
+    event.preventDefault();
+    history.back();
+    return false;
+  }
+  return true; // nessun referrer interno: lascia che il link normale vada a index.html
+}
+
 const langSelector = document.getElementById('langSelector');
 const langDropdown = document.getElementById('langDropdown');
 langSelector.addEventListener('click', e => {
