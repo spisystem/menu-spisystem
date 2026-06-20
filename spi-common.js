@@ -196,7 +196,7 @@ function openSettingsModal(t) {
     const banner = document.getElementById('spiCookieBanner');
     if (banner) { banner.classList.remove('show'); setTimeout(() => banner.remove(), 300); }
   });
-   
+
   modal.addEventListener('click', (e) => {
     if (e.target === modal) {
       modal.classList.remove('show');
