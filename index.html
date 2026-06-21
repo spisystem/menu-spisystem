@@ -1,406 +1,401 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="format-detection" content="telephone=no, date=no, address=no, email=no, url=no">
-<title>Menù Spi System</title>
-<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/i18next@21.6.3/i18next.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<style>
-*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-:root {
-  /* BLU NOTTE + ORO CHAMPAGNE */
-  --bg:#f0e6d2; --card:#f7f0e3; --card2:#e8dcc4;
-  --brown:#6b4226; --brown-light:#8a5a35;
-  --brown-soft:rgba(107,66,38,.08); --brown-border:rgba(107,66,38,.25);
-  --text:#1a1410; --muted:#5c4a38; --border:rgba(26,20,16,0.12);
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <meta name="format-detection" content="telephone=no, date=no, address=no, email=no, url=no">
+  <title>Menù — SPI System</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/i18next@21.6.3/i18next.min.js"></script>
+  <style>
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    :root{
+      --bg:#f0e6d2;--card:#f7f0e3;--card2:#e8dcc4;
+      --brown:#6b4226;--brown-light:#8a5a35;
+      --brown-soft:rgba(107,66,38,.08);--brown-border:rgba(107,66,38,.25);
+      --text:#1a1410;--muted:#5c4a38;--border:rgba(26,20,16,.12);
   --brown-glow:#6b4226;
-}
-html { scroll-behavior:smooth; }
-body {
-  font-family:'Poppins',sans-serif;
-  background-color:var(--bg);
-  background-image:repeating-linear-gradient(
-    90deg,
-    rgba(107,66,38,0.06) 0px,
-    rgba(107,66,38,0.06) 2px,
-    transparent 2px,
-    transparent 26px
-  );
-  color:var(--text); overflow-x:hidden;
-}
+    }
+    html{scroll-behavior:smooth}
+    body{
+      font-family:'Poppins',sans-serif;
+      background-color:var(--bg);
+      background-image:repeating-linear-gradient(
+        90deg,
+        rgba(107,66,38,0.06) 0px,
+        rgba(107,66,38,0.06) 2px,
+        transparent 2px,
+        transparent 26px
+      );
+      color:var(--text);min-height:100vh;padding-top:112px
+    }
 
-/* NAV */
-nav {
-  position:fixed; top:0; left:0; width:100%;
-  background:linear-gradient(135deg, rgba(107,66,38,0.97) 0%, rgba(138,90,53,0.97) 100%); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px);
-  border-bottom:1px solid rgba(255,255,255,0.08);
-  padding:0 32px; z-index:1000;
-  display:flex; align-items:center; justify-content:space-between; height:108px;
-}
-.nav-logo img { height:96px; width:auto; display:block; transition:transform 0.3s, opacity 0.3s; }
-.nav-logo img:hover { transform:scale(1.04); opacity:0.82; }
+    /* NAV */
+    nav{
+      position:fixed;top:0;width:100%;
+      background:linear-gradient(135deg, rgba(107,66,38,.97) 0%, rgba(138,90,53,.97) 100%);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+      border-bottom:1px solid rgba(255,255,255,.08);
+      padding:0 24px;display:flex;justify-content:space-between;align-items:center;
+      height:112px;z-index:1000;
+    }
+    .nav-left{display:flex;align-items:center;gap:14px}
+    .back-btn{
+      display:flex;align-items:center;gap:7px;
+      color:rgba(255,255,255,0.62);text-decoration:none;font-size:0.8rem;
+      letter-spacing:.04em;padding:7px 13px;
+      border:1px solid rgba(255,255,255,0.14);border-radius:8px;
+      transition:color .2s,border-color .2s,background .2s;white-space:nowrap;
+    }
+    .back-btn:hover{color:var(--brown-light);border-color:var(--brown-border);background:var(--brown-soft)}
+    .back-btn svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.5;flex-shrink:0}
+    .nav-logo img{height:96px;width:auto;display:block;transition:transform .3s,opacity .3s}
+    .nav-logo img:hover{transform:scale(1.05);opacity:.82}
 
-/* Nav scura: selettore lingua con toni chiari per leggibilità sul fondo scuro */
-nav .language-selector {
-  border-color:rgba(255,255,255,0.14);
-  background:rgba(255,255,255,0.05);
-}
-nav .language-selector:hover { background:var(--brown-soft); border-color:var(--brown-border); }
-nav .lang-chevron { stroke:rgba(255,255,255,0.6); }
-nav .language-dropdown { background:#5a3d24; border-color:rgba(255,255,255,0.1); }
-nav .language-dropdown a { color:#f3e9da; }
-nav .language-dropdown a:hover { background:rgba(255,255,255,0.08); }
+    /* Selettore lingua sulla nav scura: toni chiari per leggibilità */
+    nav .language-selector { border-color:rgba(255,255,255,0.14); background:rgba(255,255,255,0.05); }
+    nav .language-selector:hover { background:var(--brown-soft); border-color:var(--brown-border); }
+    nav .lang-chevron { stroke:rgba(255,255,255,0.6); }
+    nav .language-dropdown { background:#5a3d24; border-color:rgba(255,255,255,0.1); }
+    nav .language-dropdown a { color:#f3e9da; }
+    nav .language-dropdown a:hover { background:rgba(255,255,255,0.08); }
 
-/* LINGUA */
-.language-selector {
-  position:relative; display:flex; align-items:center; gap:7px; cursor:pointer;
-  padding:8px 13px; border-radius:10px; border:1px solid var(--border);
-  background:rgba(26,20,16,0.035); transition:background 0.2s, border-color 0.2s;
-  white-space:nowrap; user-select:none;
-}
-.language-selector:hover { background:var(--brown-soft); border-color:var(--brown-border); }
-.lang-flag { font-size:1.45rem; line-height:1; flex-shrink:0; }
-.lang-chevron { width:13px; height:13px; stroke:var(--muted); fill:none; stroke-width:2.5; stroke-linecap:round; transition:transform 0.3s; flex-shrink:0; }
-.language-selector.open .lang-chevron { transform:rotate(180deg); }
-.language-dropdown {
-  display:none; position:absolute; top:calc(100% + 10px); right:0;
-  background:#f7f0e3; border:1px solid var(--border); border-radius:14px;
-  overflow:hidden; box-shadow:0 24px 60px rgba(26,20,16,0.14); z-index:1002; min-width:155px;
-}
-.language-dropdown.open { display:block; animation:dropIn 0.18s ease; }
-@keyframes dropIn { from{opacity:0;transform:translateY(-6px)} to{opacity:1;transform:translateY(0)} }
-.language-dropdown a {
-  display:flex; align-items:center; gap:10px; padding:12px 16px;
-  text-decoration:none; color:var(--text); font-size:0.88rem; white-space:nowrap; transition:background 0.18s;
-}
-.language-dropdown a .flag { font-size:1.25rem; flex-shrink:0; }
-.language-dropdown a:hover { background:var(--brown-soft); }
+    /* LINGUA */
+    .language-selector{
+      position:relative;display:flex;align-items:center;gap:7px;cursor:pointer;
+      padding:8px 13px;border-radius:10px;border:1px solid var(--border);
+      background:rgba(26,20,16,.035);transition:background .2s,border-color .2s;
+      white-space:nowrap;user-select:none;flex-shrink:0;
+    }
+    .language-selector:hover{background:var(--brown-soft);border-color:var(--brown-border)}
+    .lang-flag{font-size:1.45rem;line-height:1;flex-shrink:0}
+    .lang-chevron{width:13px;height:13px;stroke:var(--muted);fill:none;stroke-width:2.5;stroke-linecap:round;transition:transform .3s;flex-shrink:0}
+    .language-selector.open .lang-chevron{transform:rotate(180deg)}
+    .language-dropdown{
+      display:none;position:absolute;top:calc(100% + 10px);right:0;
+      background:#f7f0e3;border:1px solid var(--border);border-radius:14px;
+      overflow:hidden;box-shadow:0 24px 60px rgba(26,20,16,.14);z-index:1002;min-width:155px;
+    }
+    .language-dropdown.open{display:block;animation:dropIn .18s ease}
+    @keyframes dropIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+    .language-dropdown a{
+      display:flex;align-items:center;gap:10px;padding:12px 16px;
+      text-decoration:none;color:var(--text);font-size:.88rem;white-space:nowrap;transition:background .18s;
+    }
+    .language-dropdown a .flag{font-size:1.25rem;flex-shrink:0}
+    .language-dropdown a:hover{background:var(--brown-soft)}
 
-/* HERO */
-.hero {
-  position:relative; height:100vh; min-height:620px;
-  display:flex; flex-direction:column; justify-content:flex-end;
-  align-items:center; text-align:center; overflow:hidden;
-}
-.hero-bg {
-  position:absolute; inset:0;
-  background-image:url('images/sfondomenuqr.PNG');
-  background-size:cover; background-position:center;
-  transform:scale(1.06); animation:heroZoom 16s ease forwards;
-}
-@keyframes heroZoom { to { transform:scale(1); } }
-.hero-overlay {
-  position:absolute; inset:0;
-  background:linear-gradient(180deg,
-    rgba(240,230,210,0.30) 0%,
-    rgba(240,230,210,0.12) 30%,
-    rgba(240,230,210,0.65) 70%,
-    rgba(240,230,210,0.96) 100%
-  );
-}
+    /* HEADER */
+    .menu-header{text-align:center;padding:36px 24px 12px}
+    .menu-eyebrow{font-size:.68rem;letter-spacing:.26em;text-transform:uppercase;color:var(--brown-light);margin-bottom:10px}
+    .menu-title{font-family:'Lora',serif;font-size:clamp(1.8rem,4vw,2.8rem);color:var(--text);line-height:1.15}
+    .menu-sub{margin-top:8px;font-size:.84rem;color:var(--muted)}
+    .gold-rule{width:48px;height:2px;background:var(--brown);margin:16px auto 0;border-radius:2px;opacity:.6}
 
-.hero-bottom {
-  position:relative; z-index:2;
-  display:flex; flex-direction:column; align-items:center; gap:22px;
-  padding-bottom:56px;
-  animation:fadeUp 1s ease 0.5s both;
-}
-@keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+    /* SEARCH */
+    .search-wrap{max-width:800px;margin:24px auto 0;padding:0 18px;position:relative}
+    .search-icon{
+      position:absolute;left:32px;top:50%;transform:translateY(-50%);
+      width:16px;height:16px;stroke:var(--muted);fill:none;stroke-width:2;stroke-linecap:round;pointer-events:none;
+    }
+    #searchInput{
+      width:100%;background:var(--card);border:1px solid var(--border);
+      border-radius:12px;padding:13px 44px 13px 44px;
+      color:var(--text);font-family:'Poppins',sans-serif;
+      font-size:16px;
+      outline:none;transition:border-color .2s,box-shadow .2s;
+    }
+    #searchInput::placeholder{color:var(--muted)}
+    #searchInput:focus{border-color:var(--brown-border);box-shadow:0 0 0 3px rgba(107,66,38,.1)}
+    .search-clear{
+      position:absolute;right:32px;top:50%;transform:translateY(-50%);
+      width:22px;height:22px;border-radius:50%;
+      background:rgba(26,20,16,.07);border:none;
+      display:none;align-items:center;justify-content:center;
+      cursor:pointer;color:var(--muted);font-size:.75rem;
+      transition:background .2s,color .2s;
+    }
+    .search-clear:hover{background:var(--brown-soft);color:var(--brown-light)}
+    .search-clear.visible{display:flex}
 
-.hero-btn {
-  display:inline-flex; align-items:center; gap:11px;
-  position:relative;
-  background:linear-gradient(135deg, var(--brown) 0%, var(--brown-light) 100%);
-  color:#0a0a0c;
-  font-family:'Poppins',sans-serif;
-  font-size:0.84rem; font-weight:600;
-  letter-spacing:0.1em; text-transform:uppercase;
-  padding:16px 38px; border-radius:3px;
-  text-decoration:none;
-  overflow:hidden;
-  transition:transform 0.25s ease, box-shadow 0.25s ease;
-  box-shadow:0 10px 30px rgba(107,66,38,0.25), 0 2px 8px rgba(26,20,16,0.10);
-}
-.hero-btn::before {
-  content:'';
-  position:absolute; top:0; left:-100%; width:100%; height:100%;
-  background:linear-gradient(120deg, transparent, rgba(107,66,38,0.35), transparent);
-  transition:left 0.6s ease;
-}
-.hero-btn:hover {
-  transform:translateY(-3px);
-  box-shadow:0 16px 42px rgba(107,66,38,0.4), 0 4px 12px rgba(26,20,16,0.12);
-}
-.hero-btn:hover::before { left:100%; }
-.hero-btn i { font-size:0.8rem; }
+    .search-empty{display:none;text-align:center;padding:48px 20px;color:var(--muted);font-size:.9rem}
+    .search-empty-icon{font-size:2.2rem;margin-bottom:10px;opacity:.3}
 
-.hero-scroll {
-  display:flex; flex-direction:column; align-items:center; gap:6px;
-  color:rgba(26,20,16,0.5); font-size:0.62rem;
-  letter-spacing:0.18em; text-transform:uppercase;
-  text-decoration:none;
-  animation:scrollBounce 2.4s ease-in-out infinite;
-  transition:color 0.2s;
-}
-.hero-scroll:hover { color:var(--brown-light); }
-.hero-scroll i { font-size:0.8rem; }
-@keyframes scrollBounce {
-  0%,100%{transform:translateY(0)} 50%{transform:translateY(7px)}
-}
+    /* ── TAB CATEGORIE — scroll orizzontale ── */
+    .cat-tabs-wrap{
+      max-width:800px;margin:26px auto 0;padding:0 18px;
+      position:relative;
+    }
+    .cat-tabs{
+      display:flex; gap:10px;
+      overflow-x:auto; scrollbar-width:none;
+      padding:4px 2px 14px;
+      -webkit-overflow-scrolling:touch;
+    }
+    .cat-tabs::-webkit-scrollbar{display:none}
+    .cat-tab{
+      flex-shrink:0;
+      display:flex; align-items:center; gap:8px;
+      background:var(--card); border:1px solid var(--border);
+      border-radius:999px; padding:10px 18px;
+      font-size:.85rem; font-weight:500; color:var(--muted);
+      cursor:pointer; white-space:nowrap;
+      transition:background .25s, border-color .25s, color .25s, transform .2s;
+      user-select:none;
+    }
+    .cat-tab .tab-count{
+      font-size:.7rem; opacity:.7; background:rgba(26,20,16,.07);
+      border-radius:99px; padding:1px 7px;
+    }
+    .cat-tab:hover{ border-color:var(--brown-border); color:var(--text); }
+    .cat-tab.active{
+      background:linear-gradient(135deg, var(--brown) 0%, var(--brown-light) 100%);
+      border-color:transparent; color:#f7f0e3; font-weight:600;
+      box-shadow:0 6px 18px rgba(107,66,38,.3);
+    }
+    .cat-tab.active .tab-count{ background:rgba(240,230,210,.18); color:#f7f0e3; }
 
-/* INFO SECTION */
-.info-section { background:var(--bg); padding:100px 28px 80px; }
-.section-eyebrow { text-align:center; font-size:0.68rem; letter-spacing:0.26em; text-transform:uppercase; color:var(--brown-light); margin-bottom:14px; }
-.section-title { text-align:center; font-family:'Lora',serif; font-size:clamp(1.7rem,4vw,2.6rem); color:var(--text); margin-bottom:14px; line-height:1.2; }
-.section-desc { text-align:center; font-size:0.92rem; color:var(--muted); max-width:520px; margin:0 auto 64px; line-height:1.7; }
+    /* MENU */
+    .menu{max-width:800px;margin:0 auto;padding:8px 18px 100px}
 
-.info-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:18px; max-width:1060px; margin:0 auto; }
+    /* PANNELLO CATEGORIA (uno alla volta, no tendina) */
+    .cat-panel{
+      display:none;
+      animation:panelFade .35s ease;
+    }
+    .cat-panel.active{ display:block; }
+    @keyframes panelFade{ from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:translateY(0);} }
 
-.info-card {
-  background:var(--card); border:1px solid var(--border); border-radius:18px;
-  padding:34px 28px; text-align:center;
-  opacity:0; transform:translateY(22px);
-  transition:border-color 0.3s, box-shadow 0.3s, transform 0.3s;
-  position:relative; overflow:hidden;
-}
-.info-card::before {
-  content:''; position:absolute; top:0; left:0; right:0; height:2px;
-  background:linear-gradient(90deg,transparent,var(--brown),transparent);
-  opacity:0; transition:opacity 0.3s;
-}
-.info-card:hover::before { opacity:0.6; }
-.info-card.visible { opacity:1; transform:translateY(0); transition:opacity 0.6s ease, transform 0.6s ease, border-color 0.3s, box-shadow 0.3s; }
-.info-card:hover { transform:translateY(-7px); box-shadow:0 28px 60px rgba(26,20,16,0.10); border-color:var(--brown-border); }
+    .products{list-style:none}
 
-.info-card .icon {
-  width:52px; height:52px; background:var(--brown-soft); border:1px solid var(--brown-border);
-  border-radius:14px; display:flex; align-items:center; justify-content:center;
-  margin:0 auto 20px; transition:background 0.3s;
-}
-.info-card:hover .icon { background:rgba(107,66,38,0.2); }
-.info-card .icon i { font-size:1.25rem; color:var(--brown-light); }
-.info-card .icon svg.phone-icon { width:22px; height:22px; stroke:var(--brown-light); fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
-.info-card h3 { font-family:'Lora',serif; font-size:1.12rem; color:var(--text); margin-bottom:12px; }
-.info-card p { font-size:0.9rem; color:var(--muted); line-height:1.78; }
-.info-card a { color:var(--brown-light); text-decoration:none; }
-.info-card a:hover { text-decoration:underline; }
+    /* ITEM */
+    .product-item{
+      display:flex;align-items:center;justify-content:space-between;
+      gap:14px;padding:16px;border:1px solid var(--border);
+      border-radius:16px; margin-bottom:10px;
+      background:var(--card);
+      cursor:pointer;transition:background .15s, border-color .2s, transform .15s;
+      flex-wrap:nowrap;
+    }
+    .product-item:hover{background:var(--card2); border-color:var(--brown-border);}
+    .product-item:active{transform:scale(.99)}
 
-.social-row { display:flex; justify-content:center; gap:12px; margin-top:16px; }
-.social-row a {
-  width:38px; height:38px; border:1px solid var(--brown-border); border-radius:50%;
-  display:flex; align-items:center; justify-content:center;
-  color:var(--brown-light); font-size:1rem;
-  transition:background 0.2s, transform 0.2s, border-color 0.2s;
-}
-.social-row a:hover { background:var(--brown-soft); transform:scale(1.12); border-color:var(--brown); }
+    .product-left{display:flex;align-items:center;gap:14px;flex:1;min-width:0}
 
-/* CTA */
-.cta-section {
-  background:var(--card2); border-top:1px solid var(--border); border-bottom:1px solid var(--border);
-  padding:70px 28px; text-align:center;
-}
-.cta-label { font-size:0.68rem; letter-spacing:0.26em; text-transform:uppercase; color:var(--brown-light); margin-bottom:16px; }
-.cta-title { font-family:'Lora',serif; font-size:clamp(1.5rem,3.5vw,2.2rem); color:var(--text); margin-bottom:10px; }
-.cta-sub { font-size:0.9rem; color:var(--muted); margin-bottom:32px; line-height:1.65; }
-.cta-btn {
-  display:inline-flex; align-items:center; gap:9px;
-  background:transparent; color:var(--brown-light); border:1px solid var(--brown-border);
-  font-family:'Poppins',sans-serif; font-size:0.85rem; font-weight:600;
-  letter-spacing:0.09em; text-transform:uppercase;
-  padding:14px 34px; border-radius:3px; text-decoration:none;
-  transition:background 0.25s, border-color 0.25s, transform 0.2s;
-}
-.cta-btn:hover { background:var(--brown-soft); border-color:var(--brown); transform:translateY(-2px); }
+    .product-info{display:flex;flex-direction:column;gap:4px;min-width:0}
+    .product-name{font-size:.96rem;color:var(--text);line-height:1.35}
+    @media(min-width:769px){.product-name{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}}
 
-/* DIVIDER */
-.gold-divider { height:1px; background:linear-gradient(to right,transparent,var(--brown),transparent); opacity:0.25; margin:0 60px; }
+    .detail-hint{font-size:.68rem;color:var(--brown-light);opacity:.7;letter-spacing:.04em;display:flex;align-items:center;gap:4px}
+    .detail-hint svg{width:10px;height:10px;stroke:currentColor;fill:none;stroke-width:2}
 
-/* SCROLL TOP */
-.scroll-top {
-  position:fixed; right:22px; bottom:22px; width:46px; height:46px;
-  display:flex; align-items:center; justify-content:center;
-  border:1px solid var(--brown-border); border-radius:50%;
-  background:rgba(232,220,196,0.9); backdrop-filter:blur(8px);
-  color:var(--brown-light); cursor:pointer;
-  opacity:0; visibility:hidden; transform:translateY(14px);
-  transition:opacity 0.3s, transform 0.3s, border-color 0.3s, box-shadow 0.3s; z-index:2000;
-}
-.scroll-top.show { opacity:1; visibility:visible; transform:translateY(0); }
-.scroll-top:hover { border-color:var(--brown); box-shadow:0 0 24px rgba(107,66,38,0.2); transform:translateY(-4px); }
-.scroll-top svg { width:15px; height:15px; stroke:currentColor; fill:none; stroke-width:2.2; }
+    .badge-new{
+      font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;
+      background:var(--brown);color:#f7f0e3;
+      border-radius:3px;padding:2px 7px;font-weight:600;
+      flex-shrink:0; margin-left:6px;
+    }
 
-/* FOOTER */
-footer { background:#e0d3b0; text-align:center; padding:40px 24px; font-size:0.84rem; color:var(--muted); }
-footer .footer-brand {
-  font-family:'Lora',serif; color:var(--brown-light) !important; font-size:0.92rem; margin-bottom:8px;
-  -webkit-text-fill-color: var(--brown-light);
-}
-footer .footer-copy { opacity:0.5; margin-top:4px; }
-footer .footer-links { margin-top:14px; font-size:0.78rem; }
-footer .footer-links a {
-  color:var(--brown-light) !important; text-decoration:none !important;
-  -webkit-text-fill-color: var(--brown-light);
-  opacity:0.85; transition:opacity 0.2s;
-}
-footer .footer-links a:hover { opacity:1; text-decoration:underline !important; }
-footer, footer * {
-  -webkit-text-size-adjust:100%;
-  -webkit-font-smoothing:antialiased;
-  -webkit-tap-highlight-color:transparent;
-}
-footer a, footer span, footer p {
-  color:inherit;
-  text-decoration:none !important;
-}
+    .product-price{flex-shrink:0;white-space:nowrap;min-width:54px;text-align:right;color:var(--brown-light);font-weight:700;font-size:.97rem}
 
-/* ── COOKIE BANNER ── */
-.spi-cookie-banner {
-  position:fixed; left:0; right:0; bottom:0; z-index:5000;
-  display:flex; justify-content:center;
-  padding:20px; pointer-events:none;
-  opacity:0; transform:translateY(20px);
-  transition:opacity 0.35s ease, transform 0.35s ease;
-}
-.spi-cookie-banner.show { opacity:1; transform:translateY(0); pointer-events:auto; }
+    .product-item.search-hidden{display:none}
+    mark{background:rgba(107,66,38,.25);color:var(--brown-light);border-radius:2px;padding:0 2px}
 
-.spi-cookie-card {
-  max-width:680px; width:100%;
-  background:#f7f0e3; border:1px solid var(--border);
-  border-radius:18px; padding:22px 24px;
-  box-shadow:0 30px 70px rgba(26,20,16,0.14);
-  display:flex; flex-wrap:wrap; align-items:flex-start; gap:16px;
-}
-.spi-cookie-icon {
-  width:40px; height:40px; flex-shrink:0;
-  background:var(--brown-soft); border:1px solid var(--brown-border);
-  border-radius:12px; display:flex; align-items:center; justify-content:center;
-}
-.spi-cookie-icon svg { width:20px; height:20px; color:var(--brown-light); }
-.spi-cookie-body { flex:1; min-width:200px; }
-.spi-cookie-body h3 { font-family:'Lora',serif; color:var(--brown-light); font-size:1.05rem; margin-bottom:6px; }
-.spi-cookie-body p { font-size:0.85rem; color:var(--muted); line-height:1.55; }
-.spi-cookie-body a { color:var(--brown-light); text-decoration:underline; }
+    /* MODAL */
+    .modal{
+      position:fixed;inset:0;background:rgba(26,20,16,.24);
+      display:flex;justify-content:center;align-items:center;
+      opacity:0;visibility:hidden;
+      transition:opacity .28s,visibility .28s;
+      z-index:9999;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);padding:20px;
+    }
+    .modal.active{opacity:1;visibility:visible}
+    .modal-card{
+      max-width:440px;width:100%;background:#f7f0e3;
+      border:1px solid var(--border);border-radius:22px;overflow:hidden;
+      transform:scale(.9) translateY(8px);
+      transition:transform .38s cubic-bezier(0.34,1.45,0.64,1);
+      box-shadow:0 30px 80px rgba(26,20,16,.16);
+      position:relative;
+    }
+    .modal.active .modal-card{transform:scale(1) translateY(0)}
 
-.spi-cookie-actions { display:flex; flex-wrap:wrap; gap:10px; width:100%; justify-content:flex-end; }
-.spi-cookie-btn {
-  font-family:'Poppins',sans-serif; font-size:0.8rem; font-weight:600;
-  letter-spacing:0.03em; padding:11px 22px; border-radius:8px;
-  cursor:pointer; border:none; transition:transform 0.2s, opacity 0.2s, background 0.2s;
-  white-space:nowrap;
-}
-.spi-cookie-btn.ghost { background:transparent; color:var(--muted); }
-.spi-cookie-btn.ghost:hover { color:var(--text); }
-.spi-cookie-btn.outline { background:transparent; border:1px solid var(--brown-border); color:var(--brown-light); }
-.spi-cookie-btn.outline:hover { background:var(--brown-soft); }
-.spi-cookie-btn.solid { background:linear-gradient(135deg, var(--brown), var(--brown-light)); color:#f7f0e3; }
-.spi-cookie-btn.solid:hover { transform:translateY(-2px); }
-.spi-cookie-btn.full { width:100%; justify-content:center; margin-top:18px; }
+    .modal-close{
+      position:absolute;top:16px;right:16px;
+      width:34px;height:34px;border-radius:50%;
+      background:rgba(26,20,16,.05);border:1px solid var(--border);
+      display:flex;align-items:center;justify-content:center;
+      cursor:pointer;color:var(--muted);font-size:1rem;line-height:1;
+      transition:background .2s,transform .2s,color .2s;
+      z-index:2;
+    }
+    .modal-close:hover{background:var(--brown-soft);color:var(--brown-light);transform:scale(1.1)}
 
-.spi-cookie-modal {
-  position:fixed; inset:0; background:rgba(26,20,16,0.22);
-  display:flex; justify-content:center; align-items:center;
-  z-index:5001; opacity:0; visibility:hidden;
-  transition:opacity 0.3s, visibility 0.3s;
-  backdrop-filter:blur(8px); padding:20px;
-}
-.spi-cookie-modal.show { opacity:1; visibility:visible; }
-.spi-cookie-modal-card {
-  max-width:460px; width:100%; background:#e8dcc4;
-  border:1px solid var(--border); border-radius:20px; padding:28px;
-  box-shadow:0 30px 80px rgba(26,20,16,0.14);
-}
-.spi-cookie-modal-card h3 { font-family:'Lora',serif; color:var(--brown-light); font-size:1.2rem; margin-bottom:20px; }
-.spi-cookie-row {
-  display:flex; justify-content:space-between; align-items:flex-start; gap:14px;
-  padding:14px 0; border-bottom:1px solid var(--border);
-}
-.spi-cookie-row strong { font-size:0.92rem; color:var(--text); display:block; margin-bottom:4px; }
-.spi-cookie-row p { font-size:0.8rem; color:var(--muted); line-height:1.5; }
+    .modal-body{padding:48px 30px 30px;text-align:center}
+    .modal-badge{
+      display:inline-block;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;
+      color:var(--brown-light);border:1px solid var(--brown-border);
+      border-radius:99px;padding:4px 12px;margin-bottom:14px;
+    }
+    #modalTitle{font-family:'Lora',serif;font-size:1.35rem;color:var(--text);margin-bottom:10px;line-height:1.2}
+    #modalDesc{font-size:.9rem;color:var(--muted);line-height:1.68;margin-bottom:16px}
 
-.spi-switch { position:relative; display:inline-block; width:42px; height:24px; flex-shrink:0; }
-.spi-switch input { opacity:0; width:0; height:0; }
-.spi-slider {
-  position:absolute; cursor:pointer; inset:0;
-  background:rgba(255,255,255,0.12); border-radius:24px; transition:0.3s;
-}
-.spi-slider::before {
-  position:absolute; content:""; height:18px; width:18px; left:3px; bottom:3px;
-  background:#fff; border-radius:50%; transition:0.3s;
-}
-.spi-switch input:checked + .spi-slider { background:var(--brown); }
-.spi-switch input:checked + .spi-slider::before { transform:translateX(18px); }
-.spi-switch.disabled .spi-slider { opacity:0.5; cursor:not-allowed; }
+    .allergen-block{
+      margin-bottom:16px;
+      background:rgba(26,20,16,.035);
+      border:1px solid var(--border);
+      border-radius:10px;
+      padding:10px 14px;
+      text-align:left;
+    }
+    .allergen-label{
+      font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;
+      color:var(--muted);margin-bottom:6px;
+    }
+    .allergen-list{display:flex;flex-wrap:wrap;gap:6px}
+    .allergen-tag{
+      font-size:.75rem;
+      background:rgba(107,66,38,.1);
+      color:var(--brown-light);
+      border:1px solid var(--brown-border);
+      border-radius:6px;padding:3px 10px;
+      letter-spacing:.03em;
+    }
+    .allergen-none{font-size:.8rem;color:var(--muted);font-style:italic}
 
-@media(max-width:600px){
-  .spi-cookie-card { flex-direction:column; padding:20px; }
-  .spi-cookie-actions { justify-content:stretch; }
-  .spi-cookie-btn { flex:1; }
-}
+    #modalPrice{font-family:'Lora',serif;font-size:1.6rem;font-weight:700;color:var(--brown-light);letter-spacing:.02em}
 
-@media(max-width:768px){
-  nav { padding:0 18px; height:88px; }
-  .nav-logo img { height:72px; }
-  .info-section { padding:70px 16px 60px; }
-  .hero-bottom { padding-bottom:44px; gap:18px; }
-  .cta-section { padding:52px 20px; }
-}
+    /* SCROLL TOP */
+    .scroll-top{
+      position:fixed;right:22px;bottom:22px;width:46px;height:46px;
+      display:flex;align-items:center;justify-content:center;
+      border:1px solid var(--brown-border);border-radius:50%;
+      background:rgba(232,220,196,.9);backdrop-filter:blur(8px);
+      color:var(--brown-light);cursor:pointer;
+      opacity:0;visibility:hidden;transform:translateY(14px);
+      transition:opacity .3s,transform .3s,border-color .3s,box-shadow .3s;z-index:2000;
+    }
+    .scroll-top.show{opacity:1;visibility:visible;transform:translateY(0)}
+    .scroll-top:hover{border-color:var(--brown);box-shadow:0 0 24px rgba(107,66,38,.2);transform:translateY(-4px)}
+    .scroll-top svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2.2}
 
-/* ══════════ SPLASH DI BENVENUTO — leggero, solo al primo arrivo da QR ══════════ */
-#welcomeSplash {
-  position:fixed; inset:0; z-index:99999;
-  background:var(--bg);
-  display:flex; flex-direction:column; align-items:center; justify-content:center;
-  gap:18px;
-  transition:opacity 0.5s ease, visibility 0.5s ease;
-}
-#welcomeSplash.fade-out { opacity:0; visibility:hidden; pointer-events:none; }
+    /* FOOTER */
+    footer{border-top:1px solid var(--border);background:#e0d3b0;padding:36px 20px;text-align:center;color:var(--muted);font-size:.85rem}
+    footer .footer-brand{
+      font-family:'Lora',serif;color:var(--brown-light) !important;margin-bottom:6px;font-size:.9rem;
+      -webkit-text-fill-color: var(--brown-light);
+    }
+    footer .footer-copy{opacity:.5;margin-top:4px}
+    footer, footer * {
+      -webkit-text-size-adjust:100%;
+      -webkit-font-smoothing:antialiased;
+      -webkit-tap-highlight-color:transparent;
+    }
+    footer a, footer span, footer p {
+      color:inherit;
+      text-decoration:none !important;
+    }
+    footer .footer-links { margin-top:14px; font-size:0.78rem; }
+    footer .footer-links a {
+      color:var(--brown-light) !important; text-decoration:none !important;
+      -webkit-text-fill-color: var(--brown-light);
+      opacity:0.85; transition:opacity 0.2s;
+    }
+    footer .footer-links a:hover { opacity:1; text-decoration:underline !important; }
 
-.welcome-logo {
-  height:84px; width:auto;
-  opacity:0;
-  transform:translateY(6px);
-  filter:drop-shadow(0 0 18px rgba(107,66,38,0.2));
-  animation:welcomeLogoIn 0.7s ease 0.1s forwards;
-}
-@keyframes welcomeLogoIn { to { opacity:1; transform:translateY(0); } }
+    /* ── COOKIE BANNER ── */
+    .spi-cookie-banner {
+      position:fixed; left:0; right:0; bottom:0; z-index:5000;
+      display:flex; justify-content:center;
+      padding:20px; pointer-events:none;
+      opacity:0; transform:translateY(20px);
+      transition:opacity .35s ease, transform .35s ease;
+    }
+    .spi-cookie-banner.show { opacity:1; transform:translateY(0); pointer-events:auto; }
+    .spi-cookie-card {
+      max-width:680px; width:100%;
+      background:#f7f0e3; border:1px solid var(--border);
+      border-radius:18px; padding:22px 24px;
+      box-shadow:0 30px 70px rgba(26,20,16,.14);
+      display:flex; flex-wrap:wrap; align-items:flex-start; gap:16px;
+    }
+    .spi-cookie-icon {
+      width:40px; height:40px; flex-shrink:0;
+      background:var(--brown-soft); border:1px solid var(--brown-border);
+      border-radius:12px; display:flex; align-items:center; justify-content:center;
+    }
+    .spi-cookie-icon svg { width:20px; height:20px; color:var(--brown-light); }
+    .spi-cookie-body { flex:1; min-width:200px; }
+    .spi-cookie-body h3 { font-family:'Lora',serif; color:var(--brown-light); font-size:1.05rem; margin-bottom:6px; }
+    .spi-cookie-body p { font-size:.85rem; color:var(--muted); line-height:1.55; }
+    .spi-cookie-body a { color:var(--brown-light); text-decoration:underline; }
+    .spi-cookie-actions { display:flex; flex-wrap:wrap; gap:10px; width:100%; justify-content:flex-end; }
+    .spi-cookie-btn {
+      font-family:'Poppins',sans-serif; font-size:.8rem; font-weight:600;
+      letter-spacing:.03em; padding:11px 22px; border-radius:8px;
+      cursor:pointer; border:none; transition:transform .2s, opacity .2s, background .2s;
+      white-space:nowrap;
+    }
+    .spi-cookie-btn.ghost { background:transparent; color:var(--muted); }
+    .spi-cookie-btn.ghost:hover { color:var(--text); }
+    .spi-cookie-btn.outline { background:transparent; border:1px solid var(--brown-border); color:var(--brown-light); }
+    .spi-cookie-btn.outline:hover { background:var(--brown-soft); }
+    .spi-cookie-btn.solid { background:linear-gradient(135deg, var(--brown), var(--brown-light)); color:#f7f0e3; }
+    .spi-cookie-btn.solid:hover { transform:translateY(-2px); }
+    .spi-cookie-btn.full { width:100%; justify-content:center; margin-top:18px; }
 
-.welcome-text {
-  font-family:'Lora',serif;
-  font-style:italic;
-  font-size:0.85rem;
-  letter-spacing:0.12em;
-  color:var(--muted);
-  opacity:0;
-  animation:welcomeTextIn 0.6s ease 0.4s forwards;
-}
-@keyframes welcomeTextIn { to { opacity:1; } }
+    .spi-cookie-modal {
+      position:fixed; inset:0; background:rgba(26,20,16,.22);
+      display:flex; justify-content:center; align-items:center;
+      z-index:5001; opacity:0; visibility:hidden;
+      transition:opacity .3s, visibility .3s;
+      backdrop-filter:blur(8px); padding:20px;
+    }
+    .spi-cookie-modal.show { opacity:1; visibility:visible; }
+    .spi-cookie-modal-card {
+      max-width:460px; width:100%; background:#e8dcc4;
+      border:1px solid var(--border); border-radius:20px; padding:28px;
+      box-shadow:0 30px 80px rgba(26,20,16,.14);
+    }
+    .spi-cookie-modal-card h3 { font-family:'Lora',serif; color:var(--brown-light); font-size:1.2rem; margin-bottom:20px; }
+    .spi-cookie-row {
+      display:flex; justify-content:space-between; align-items:flex-start; gap:14px;
+      padding:14px 0; border-bottom:1px solid var(--border);
+    }
+    .spi-cookie-row strong { font-size:.92rem; color:var(--text); display:block; margin-bottom:4px; }
+    .spi-cookie-row p { font-size:.8rem; color:var(--muted); line-height:1.5; }
+    .spi-switch { position:relative; display:inline-block; width:42px; height:24px; flex-shrink:0; }
+    .spi-switch input { opacity:0; width:0; height:0; }
+    .spi-slider { position:absolute; cursor:pointer; inset:0; background:rgba(255,255,255,.12); border-radius:24px; transition:.3s; }
+    .spi-slider::before { position:absolute; content:""; height:18px; width:18px; left:3px; bottom:3px; background:#fff; border-radius:50%; transition:.3s; }
+    .spi-switch input:checked + .spi-slider { background:var(--brown); }
+    .spi-switch input:checked + .spi-slider::before { transform:translateX(18px); }
+    .spi-switch.disabled .spi-slider { opacity:.5; cursor:not-allowed; }
 
-.welcome-line {
-  width:0; height:1px;
-  background:linear-gradient(to right, transparent, var(--brown), transparent);
-  animation:welcomeLineGrow 0.6s ease 0.55s forwards;
-}
-@keyframes welcomeLineGrow { to { width:70px; } }
+    @media(max-width:600px){
+      .spi-cookie-card { flex-direction:column; padding:20px; }
+      .spi-cookie-actions { justify-content:stretch; }
+      .spi-cookie-btn { flex:1; }
+    }
 
-@media (prefers-reduced-motion: reduce) {
-  .welcome-logo, .welcome-text, .welcome-line { animation:none !important; opacity:1 !important; width:70px; }
-}
-</style>
+    @media(max-width:600px){
+      nav{padding:0 14px;height:92px}
+      .nav-logo img{height:72px}
+      .search-wrap{padding:0 14px}
+      .cat-tabs-wrap{padding:0 14px}
+      .modal-body{padding:18px 20px 22px}
+    }
+  </style>
 </head>
 <body>
 
-<!-- SPLASH DI BENVENUTO — leggero, mostrato al primo arrivo dal QR code -->
-<div id="welcomeSplash">
-  <img class="welcome-logo" src="images/logospi1.PNG" alt="SPI System">
-  <div class="welcome-line"></div>
-  <p class="welcome-text" id="welcome-text">Benvenuto</p>
-</div>
-
 <nav>
-  <div class="nav-logo"><img src="images/logospi1.PNG" alt="SPI System"></div>
+  <div class="nav-left">
+    <a class="back-btn" href="index.html" id="back-btn">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      <span id="back-label">Indietro</span>
+    </a>
+    <div class="nav-logo"><img src="images/logospi1.PNG" alt="SPI System"></div>
+  </div>
   <div class="language-selector" id="langSelector">
     <span class="lang-flag" id="currentFlag">🇮🇹</span>
     <svg class="lang-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
@@ -414,70 +409,226 @@ footer a, footer span, footer p {
   </div>
 </nav>
 
-<section class="hero" id="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-overlay"></div>
-  <div class="hero-bottom">
-    <a class="hero-btn" href="menu.html">
-      <i class="fas fa-utensils"></i>
-      <span id="btn-text">Visualizza Menù</span>
-    </a>
-    <a class="hero-scroll" href="#info">
-      <span id="scroll-label">Scopri di più</span>
-      <i class="fas fa-chevron-down"></i>
-    </a>
-  </div>
-</section>
+<div class="menu-header">
+  <p class="menu-eyebrow" id="menu-eyebrow">Scopri le nostre proposte</p>
+  <h1 class="menu-title" id="menu-title">Il nostro Menù</h1>
+  <p class="menu-sub" id="menu-sub">Scegli una categoria per esplorare</p>
+  <div class="gold-rule"></div>
+</div>
 
-<section class="info-section" id="info">
-  <p class="section-eyebrow" id="eyebrow-label">I nostri servizi</p>
-  <h2 class="section-title" id="section-title">Tecnologia al servizio del tuo locale</h2>
-  <p class="section-desc" id="section-desc">Menù digitali professionali, multilingua e sempre aggiornabili. Tutto quello che serve, accessibile con un semplice QR code.</p>
+<!-- RICERCA -->
+<div class="search-wrap">
+  <svg class="search-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+  <input type="search" id="searchInput" placeholder="Cerca un prodotto..." autocomplete="off" spellcheck="false">
+  <button class="search-clear" id="searchClear" aria-label="Cancella ricerca">✕</button>
+</div>
 
-  <div class="info-grid">
-    <div class="info-card">
-      <div class="icon"><i class="fas fa-laptop-code"></i></div>
-      <h3 id="about-title">Chi siamo</h3>
-      <p id="about-text">SPI System sviluppa soluzioni tecnologiche per attività commerciali e ristorative. Realizziamo menù digitali QR code multilingua per migliorare l'esperienza del cliente.</p>
+<div class="search-empty" id="searchEmpty">
+  <div class="search-empty-icon">🔍</div>
+  <span id="search-empty-text">Nessun prodotto trovato</span>
+</div>
+
+<!-- TAB CATEGORIE -->
+<div class="cat-tabs-wrap" id="catTabsWrap">
+  <div class="cat-tabs" id="catTabs">
+    <div class="cat-tab active" data-target="cat-rosticceria" onclick="selectTab(this)">
+      <span data-key="rosticceria">Rosticceria</span><span class="tab-count">3</span>
     </div>
-    <div class="info-card">
-      <div class="icon"><i class="fas fa-map-marker-alt"></i></div>
-      <h3 id="location-title">Dove ci troviamo</h3>
-      <p id="location-text">Via Monterosa, 22<br>Palo del Colle (BA)<br><a href="https://maps.app.goo.gl/WmcLgRDQcFkZhuqD7?g_st=ic" target="_blank">Apri su Google Maps</a></p>
+    <div class="cat-tab" data-target="cat-panzerotti" onclick="selectTab(this)">
+      <span data-key="panzerotti">Panzerotti</span><span class="tab-count">2</span>
     </div>
-    <div class="info-card">
-      <div class="icon"><i class="fas fa-clock"></i></div>
-      <h3 id="hours-title">Orari di apertura</h3>
-      <p id="hours-text">Lunedì – Venerdì<br>09:00 – 19:00<br>Sabato 09:00 – 12:00</p>
+    <div class="cat-tab" data-target="cat-speciali" onclick="selectTab(this)">
+      <span data-key="speciali">Panzerotti Speciali</span><span class="tab-count">3</span>
     </div>
-    <div class="info-card">
-      <div class="icon">
-        <svg class="phone-icon" viewBox="0 0 24 24">
-          <path d="M20 16.9v2.6a1.5 1.5 0 0 1-1.6 1.5 15.6 15.6 0 0 1-6.8-2.4 15.4 15.4 0 0 1-4.7-4.7 15.6 15.6 0 0 1-2.4-6.9A1.5 1.5 0 0 1 6 4.5h2.6a1.5 1.5 0 0 1 1.5 1.3c.1.9.3 1.8.6 2.6a1.5 1.5 0 0 1-.4 1.6l-1.1 1.1a12.6 12.6 0 0 0 4.7 4.7l1.1-1.1a1.5 1.5 0 0 1 1.6-.4c.8.3 1.7.5 2.6.6a1.5 1.5 0 0 1 1.3 1.5z"/>
-        </svg>
-      </div>
-      <h3 id="contact-title">Contatti</h3>
-      <p><a href="tel:+393342732997" id="contact-text">334 273 2997</a></p>
-      <div class="social-row">
-        <a href="https://www.instagram.com/giuseppespizzico__" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-        <a href="https://www.tiktok.com/@._giuspi" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
-        <a href="https://wa.me/3935560714" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-      </div>
+    <div class="cat-tab" data-target="cat-bevande" onclick="selectTab(this)">
+      <span data-key="bevande">Bevande</span><span class="tab-count">3</span>
+    </div>
+    <div class="cat-tab" data-target="cat-alcolici" onclick="selectTab(this)">
+      <span data-key="alcolici">Alcolici</span><span class="tab-count">2</span>
+    </div>
+    <div class="cat-tab" data-target="cat-dolci" onclick="selectTab(this)">
+      <span data-key="dolci">Dolci</span><span class="tab-count">2</span>
     </div>
   </div>
-</section>
+</div>
 
-<section class="cta-section">
-  <p class="cta-label" id="cta-label">Vuoi un menù come questo?</p>
-  <h2 class="cta-title" id="cta-title">Porta il tuo locale nel digitale</h2>
-  <p class="cta-sub" id="cta-sub">Contattaci su WhatsApp o telefonicamente. Realizziamo il tuo menù QR in pochi giorni.</p>
-  <a class="cta-btn" href="https://wa.me/3935560714" target="_blank">
-    <i class="fab fa-whatsapp"></i>
-    <span id="cta-btn-text">Contattaci su WhatsApp</span>
-  </a>
-</section>
+<div class="menu" id="menuWrapper">
 
-<div class="gold-divider"></div>
+  <!-- ROSTICCERIA -->
+  <div class="cat-panel active" id="cat-rosticceria">
+    <ul class="products">
+      <li class="product-item" onclick="openModal('images/focaccia.JPG','ruota_focaccia','ruota_focaccia_desc','ruota_focaccia_allergens','€5.00')">
+        <div class="product-left">
+          <div class="product-info">
+            <span class="product-name" data-key="ruota_focaccia">Ruota di focaccia</span>
+            <span class="detail-hint"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span data-key="detail_hint">Tocca per dettagli</span></span>
+          </div>
+        </div>
+        <span class="product-price">€5.00</span>
+      </li>
+      <li class="product-item" onclick="openModal('images/arancino.JPG','arancino','arancino_desc','arancino_allergens','€2.00')">
+        <div class="product-left">
+          <div class="product-info">
+            <span class="product-name" data-key="arancino">Arancino</span>
+            <span class="detail-hint"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span data-key="detail_hint">Tocca per dettagli</span></span>
+          </div>
+        </div>
+        <span class="product-price">€2.00</span>
+      </li>
+      <!-- NUOVO prodotto, senza foto reale → placeholder elegante -->
+      <li class="product-item" onclick="openModal('','bombetta','bombetta_desc','bombetta_allergens','€3.50')">
+        <div class="product-left">
+          <div class="product-info">
+            <span class="product-name" data-key="bombetta">Bombetta pugliese <span class="badge-new" data-key="badge_new">Novità</span></span>
+            <span class="detail-hint"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span data-key="detail_hint">Tocca per dettagli</span></span>
+          </div>
+        </div>
+        <span class="product-price">€3.50</span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- PANZEROTTI -->
+  <div class="cat-panel" id="cat-panzerotti">
+    <ul class="products">
+      <li class="product-item" onclick="openModal('images/panzerotto.JPG','panz_mozz','panz_mozz_desc','panz_mozz_allergens','€1.50')">
+        <div class="product-left">
+          <div class="product-info">
+            <span class="product-name" data-key="panz_mozz">Panzerotto mozzarella e pomodoro</span>
+            <span class="detail-hint"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span data-key="detail_hint">Tocca per dettagli</span></span>
+          </div>
+        </div>
+        <span class="product-price">€1.50</span>
+      </li>
+      <li class="product-item" onclick="openModal('images/panzerottog.JPG','panz_gorg','panz_gorg_desc','panz_gorg_allergens','€2.00')">
+        <div class="product-left">
+          <div class="product-info">
+            <span class="product-name" data-key="panz_gorg">Panzerotto farcito con gorgonzola</span>
+            <span class="detail-hint"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span data-key="detail_hint">Tocca per dettagli</span></span>
+          </div>
+        </div>
+        <span class="product-price">€2.00</span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- PANZEROTTI SPECIALI -->
+  <div class="cat-panel" id="cat-speciali">
+    <ul class="products">
+      <li class="product-item" onclick="openModal('images/panzerotttocp.JPG','panz_cp','panz_cp_desc','panz_cp_allergens','€3.00')">
+        <div class="product-left">
+          <div class="product-info">
+            <span class="product-name" data-key="panz_cp">Panzerotto cacio e pepe</span>
+            <span class="detail-hint"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span data-key="detail_hint">Tocca per dettagli</span></span>
+          </div>
+        </div>
+        <span class="product-price">€3.00</span>
+      </li>
+      <li class="product-item" onclick="openModal('images/panzerottob.JPG','panz_brac','panz_brac_desc','panz_brac_allergens','€3.00')">
+        <div class="product-left">
+          <div class="product-info">
+            <span class="product-name" data-key="panz_brac">Panzerotto braciola</span>
+            <span class="detail-hint"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span data-key="detail_hint">Tocca per dettagli</span></span>
+          </div>
+        </div>
+        <span class="product-price">€3.00</span>
+      </li>
+      <!-- NUOVO prodotto speciale, placeholder elegante -->
+      <li class="product-item" onclick="openModal('','panz_tartufo','panz_tartufo_desc','panz_tartufo_allergens','€4.50')">
+        <div class="product-left">
+          <div class="product-info">
+            <span class="product-name" data-key="panz_tartufo">Panzerotto al tartufo <span class="badge-new" data-key="badge_new">Novità</span></span>
+            <span class="detail-hint"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span data-key="detail_hint">Tocca per dettagli</span></span>
+          </div>
+        </div>
+        <span class="product-price">€4.50</span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- BEVANDE -->
+  <div class="cat-panel" id="cat-bevande">
+    <ul class="products">
+      <li class="product-item" onclick="openModal('images/coca.JPG','cocacola','cocacola_desc','cocacola_allergens','€1.80')">
+        <div class="product-left">
+          <div class="product-info">
+            <span class="product-name" data-key="cocacola">Coca-Cola</span>
+            <span class="detail-hint"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span data-key="detail_hint">Tocca per dettagli</span></span>
+          </div>
+        </div>
+        <span class="product-price">€1.80</span>
+      </li>
+      <li class="product-item" onclick="openModal('images/acqua.JPG','acqua','acqua_desc','acqua_allergens','€1.00')">
+        <div class="product-left">
+          <div class="product-info">
+            <span class="product-name" data-key="acqua">Acqua</span>
+            <span class="detail-hint"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span data-key="detail_hint">Tocca per dettagli</span></span>
+          </div>
+        </div>
+        <span class="product-price">€1.00</span>
+      </li>
+      <!-- NUOVO -->
+      <li class="product-item" onclick="openModal('','succo','succo_desc','succo_allergens','€2.20')">
+        <div class="product-left">
+          <div class="product-info">
+            <span class="product-name" data-key="succo">Succo di frutta</span>
+            <span class="detail-hint"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span data-key="detail_hint">Tocca per dettagli</span></span>
+          </div>
+        </div>
+        <span class="product-price">€2.20</span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- ALCOLICI -->
+  <div class="cat-panel" id="cat-alcolici">
+    <ul class="products">
+      <li class="product-item" onclick="openModal('images/peroni.JPG','birra','birra_desc','birra_allergens','€2.00')">
+        <div class="product-left">
+          <div class="product-info">
+            <span class="product-name" data-key="birra">Birra</span>
+            <span class="detail-hint"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span data-key="detail_hint">Tocca per dettagli</span></span>
+          </div>
+        </div>
+        <span class="product-price">€2.00</span>
+      </li>
+      <li class="product-item" onclick="openModal('images/vino.JPG','vino','vino_desc','vino_allergens','€4.00')">
+        <div class="product-left">
+          <div class="product-info">
+            <span class="product-name" data-key="vino">Vino</span>
+            <span class="detail-hint"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span data-key="detail_hint">Tocca per dettagli</span></span>
+          </div>
+        </div>
+        <span class="product-price">€4.00</span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- DOLCI — categoria nuova -->
+  <div class="cat-panel" id="cat-dolci">
+    <ul class="products">
+      <li class="product-item" onclick="openModal('','tiramisu','tiramisu_desc','tiramisu_allergens','€4.00')">
+        <div class="product-left">
+          <div class="product-info">
+            <span class="product-name" data-key="tiramisu">Tiramisù della casa</span>
+            <span class="detail-hint"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span data-key="detail_hint">Tocca per dettagli</span></span>
+          </div>
+        </div>
+        <span class="product-price">€4.00</span>
+      </li>
+      <li class="product-item" onclick="openModal('','cartellate','cartellate_desc','cartellate_allergens','€3.00')">
+        <div class="product-left">
+          <div class="product-info">
+            <span class="product-name" data-key="cartellate">Cartellate pugliesi <span class="badge-new" data-key="badge_new">Novità</span></span>
+            <span class="detail-hint"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span data-key="detail_hint">Tocca per dettagli</span></span>
+          </div>
+        </div>
+        <span class="product-price">€3.00</span>
+      </li>
+    </ul>
+  </div>
+
+</div><!-- end .menu -->
 
 <footer>
   <p class="footer-brand">Spi System di Giuseppe Spizzico — P. IVA 08791580726</p>
@@ -489,31 +640,25 @@ footer a, footer span, footer p {
   <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
 </button>
 
+<!-- MODAL -->
+<div class="modal" id="modal">
+  <div class="modal-card">
+    <button class="modal-close" onclick="closeModal()">&#10005;</button>
+    <div class="modal-body">
+      <span class="modal-badge" id="modal-badge">Dettaglio prodotto</span>
+      <h2 id="modalTitle"></h2>
+      <p id="modalDesc"></p>
+      <div class="allergen-block" id="allergenBlock">
+        <div class="allergen-label" id="allergen-label-text">CONTIENE</div>
+        <div class="allergen-list" id="allergenList"></div>
+      </div>
+      <div id="modalPrice"></div>
+    </div>
+  </div>
+</div>
+
 <script>
-// ── SPLASH DI BENVENUTO: breve, solo un saluto prima della home ──
-(function () {
-  const MIN_TIME = 1350; // ms — breve: è un saluto, non un caricamento
-  const start = Date.now();
-
-  function dismiss() {
-    const wait = Math.max(0, MIN_TIME - (Date.now() - start));
-    setTimeout(() => {
-      const splash = document.getElementById('welcomeSplash');
-      if (splash) {
-        splash.classList.add('fade-out');
-        setTimeout(() => splash.remove(), 550);
-      }
-    }, wait);
-  }
-
-  if (document.readyState === 'interactive' || document.readyState === 'complete') {
-    dismiss();
-  } else {
-    document.addEventListener('DOMContentLoaded', dismiss);
-    setTimeout(dismiss, 2500); // fallback di sicurezza
-  }
-})();
-
+// ── DROPDOWN ──
 const langSelector = document.getElementById('langSelector');
 const langDropdown = document.getElementById('langDropdown');
 langSelector.addEventListener('click', e => {
@@ -526,111 +671,320 @@ document.addEventListener('click', () => {
   langSelector.classList.remove('open');
 });
 
-const obs = new IntersectionObserver(entries => {
-  entries.forEach((entry, i) => {
-    if (entry.isIntersecting) {
-      setTimeout(() => entry.target.classList.add('visible'), i * 130);
-      obs.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.1 });
-document.querySelectorAll('.info-card').forEach(c => obs.observe(c));
+// ── TAB CATEGORIE ──
+function selectTab(tabEl) {
+  document.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.cat-panel').forEach(p => p.classList.remove('active'));
+  tabEl.classList.add('active');
+  const target = tabEl.getAttribute('data-target');
+  document.getElementById(target).classList.add('active');
+  // centra leggermente la tab selezionata nello scroll orizzontale
+  tabEl.scrollIntoView({ behavior:'smooth', inline:'center', block:'nearest' });
+}
 
+// ── ICONA placeholder generica riusata anche per match ricerca (mantiene coerenza visiva) ──
+
+// ── RICERCA ──
+const searchInput  = document.getElementById('searchInput');
+const searchClear  = document.getElementById('searchClear');
+const searchEmpty  = document.getElementById('searchEmpty');
+const catTabsWrap  = document.getElementById('catTabsWrap');
+
+function doSearch() {
+  const q = searchInput.value.trim().toLowerCase();
+  searchClear.classList.toggle('visible', q.length > 0);
+
+  if (!q) {
+    // ricerca vuota: ripristina vista normale a tab
+    catTabsWrap.style.display = '';
+    document.querySelectorAll('.cat-panel').forEach(p => {
+      p.style.display = '';
+      p.querySelectorAll('.product-item').forEach(item => {
+        item.classList.remove('search-hidden');
+        const nameEl = item.querySelector('.product-name');
+        nameEl.innerHTML = nameEl.dataset.rawText || nameEl.innerHTML;
+      });
+    });
+    // ripristina tab attiva di default
+    const firstTab = document.querySelector('.cat-tab');
+    if (firstTab && !document.querySelector('.cat-tab.active')) selectTab(firstTab);
+    searchEmpty.style.display = 'none';
+    return;
+  }
+
+  // durante la ricerca: nascondi le tab, mostra TUTTI i pannelli filtrati
+  catTabsWrap.style.display = 'none';
+  let totalVisible = 0;
+
+  document.querySelectorAll('.cat-panel').forEach(panel => {
+    panel.style.display = 'block'; // mostra tutti i pannelli durante ricerca
+    let panelVisible = 0;
+    panel.querySelectorAll('.product-item').forEach(item => {
+      const nameEl = item.querySelector('.product-name');
+      if (!nameEl.dataset.rawText) nameEl.dataset.rawText = nameEl.innerHTML;
+      const plainText = nameEl.textContent.toLowerCase();
+      if (plainText.includes(q)) {
+        item.classList.remove('search-hidden');
+        const re = new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')})`, 'gi');
+        // applica highlight solo sul testo, preservando eventuali badge
+        const badge = nameEl.querySelector('.badge-new');
+        const badgeHTML = badge ? badge.outerHTML : '';
+        const justText = badge ? nameEl.textContent.replace(badge.textContent,'').trim() : nameEl.textContent;
+        nameEl.innerHTML = justText.replace(re, '<mark>$1</mark>') + (badgeHTML ? ' ' + badgeHTML : '');
+        panelVisible++;
+        totalVisible++;
+      } else {
+        item.classList.add('search-hidden');
+      }
+    });
+  });
+
+  searchEmpty.style.display = (totalVisible === 0) ? 'block' : 'none';
+}
+
+searchInput.addEventListener('input', doSearch);
+
+searchClear.addEventListener('click', () => {
+  searchInput.value = '';
+  doSearch();
+  searchInput.focus();
+});
+
+// ── MODAL ──
+let _titleKey, _descKey, _allergenKey, _price;
+
+function openModal(src, titleKey, descKey, allergenKey, price) {
+  // 'src' non viene più utilizzato: il menu non mostra immagini prodotto.
+  _titleKey = titleKey; _descKey = descKey;
+  _allergenKey = allergenKey; _price = price;
+
+  renderModal();
+  document.getElementById('modal').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function renderModal() {
+  document.getElementById('modalTitle').textContent = i18next.t(_titleKey);
+  document.getElementById('modalDesc').textContent  = i18next.t(_descKey) || '';
+  document.getElementById('modalPrice').textContent = _price;
+  document.getElementById('modal-badge').textContent = i18next.t('modal_badge');
+  document.getElementById('allergen-label-text').textContent = i18next.t('contains_label');
+
+  const allergenRaw = i18next.t(_allergenKey) || '';
+  const listEl = document.getElementById('allergenList');
+  listEl.innerHTML = '';
+
+  if (allergenRaw) {
+    allergenRaw.split(',').forEach(a => {
+      const tag = document.createElement('span');
+      tag.className = 'allergen-tag';
+      tag.textContent = a.trim();
+      listEl.appendChild(tag);
+    });
+  } else {
+    const none = document.createElement('span');
+    none.className = 'allergen-none';
+    none.textContent = i18next.t('no_allergens');
+    listEl.appendChild(none);
+  }
+}
+
+function closeModal() {
+  document.getElementById('modal').classList.remove('active');
+  document.body.style.overflow = '';
+}
+document.getElementById('modal').addEventListener('click', e => {
+  if (e.target === document.getElementById('modal')) closeModal();
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+// ── SCROLL TOP ──
 const scrollBtn = document.getElementById('scrollTopBtn');
-window.addEventListener('scroll', () => scrollBtn.classList.toggle('show', window.scrollY > 400));
+window.addEventListener('scroll', () => scrollBtn.classList.toggle('show', window.scrollY > 200));
 scrollBtn.addEventListener('click', () => window.scrollTo({ top:0, behavior:'smooth' }));
 
+// ── I18N ──
 const FLAGS = { it:'🇮🇹', en:'🇬🇧', es:'🇪🇸', fr:'🇫🇷', de:'🇩🇪' };
 
 i18next.init({
   lng: localStorage.getItem('selectedLanguage') || 'it',
   resources: {
     it:{ translation:{
-      welcome:"Benvenuto", btn:"Visualizza Menù", scroll:"Scopri di più",
-      eyebrow:"I nostri servizi", section_title:"Tecnologia al servizio del tuo locale",
-      section_desc:"Menù digitali professionali, multilingua e sempre aggiornabili. Tutto quello che serve, accessibile con un semplice QR code.",
-      about_title:"Chi siamo", about_text:"SPI System sviluppa soluzioni tecnologiche per attività commerciali e ristorative. Realizziamo menù digitali QR code multilingua per migliorare l'esperienza del cliente.",
-      location_title:"Dove ci troviamo", location_text:"Via Monterosa, 22<br>Palo del Colle (BA)<br><a href='https://maps.app.goo.gl/WmcLgRDQcFkZhuqD7?g_st=ic' target='_blank'>Apri su Google Maps</a>",
-      hours_title:"Orari di apertura", hours_text:"Lunedì – Venerdì<br>09:00 – 19:00<br>Sabato 09:00 – 12:00",
-      contact_title:"Contatti", contact_text:"334 273 2997",
-      cta_label:"Vuoi un menù come questo?", cta_title:"Porta il tuo locale nel digitale",
-      cta_sub:"Contattaci su WhatsApp o telefonicamente. Realizziamo il tuo menù QR in pochi giorni.", cta_btn:"Contattaci su WhatsApp",
+      back:"Indietro", menu_eyebrow:"Scopri le nostre proposte",
+      menu_title:"Il nostro Menù", menu_sub:"Scegli una categoria per esplorare",
+      search_placeholder:"Cerca un prodotto...", search_empty:"Nessun prodotto trovato",
+      detail_hint:"Tocca per dettagli", modal_badge:"Dettaglio prodotto", badge_new:"Novità",
+      contains_label:"CONTIENE", no_allergens:"Nessun allergene dichiarato",
+      rosticceria:"Rosticceria", panzerotti:"Panzerotti", speciali:"Panzerotti Speciali",
+      bevande:"Bevande", alcolici:"Alcolici", dolci:"Dolci",
+      ruota_focaccia:"Ruota di focaccia",
+      ruota_focaccia_desc:"Focaccia barese con pomodoro, olive e olio extravergine d'oliva. Croccante fuori, morbida dentro.",
+      ruota_focaccia_allergens:"Glutine, Lattosio",
+      arancino:"Arancino",
+      arancino_desc:"Arancino di riso classico con ragù di carne, piselli e mozzarella, dorato in olio di semi.",
+      arancino_allergens:"Glutine, Uova, Lattosio",
+      bombetta:"Bombetta pugliese",
+      bombetta_desc:"Involtino di carne tipico pugliese, farcito con caciocavallo e cotto alla brace.",
+      bombetta_allergens:"Lattosio",
+      panz_mozz:"Panzerotto mozzarella e pomodoro",
+      panz_mozz_desc:"Il panzerotto classico barese: pasta fritta ripiena di mozzarella filante e pomodoro fresco.",
+      panz_mozz_allergens:"Glutine, Lattosio",
+      panz_gorg:"Panzerotto farcito con gorgonzola",
+      panz_gorg_desc:"Panzerotto fritto con ripieno cremoso di gorgonzola DOP. Intenso e saporito.",
+      panz_gorg_allergens:"Glutine, Lattosio",
+      panz_cp:"Panzerotto cacio e pepe",
+      panz_cp_desc:"Ispirato alla tradizione romana: panzerotto fritto ripieno di pecorino e pepe nero macinato fresco.",
+      panz_cp_allergens:"Glutine, Lattosio",
+      panz_brac:"Panzerotto braciola",
+      panz_brac_desc:"Panzerotto con il ripieno della tipica braciola di carne barese, brasata con cipolla e prezzemolo.",
+      panz_brac_allergens:"Glutine, Lattosio",
+      panz_tartufo:"Panzerotto al tartufo",
+      panz_tartufo_desc:"Panzerotto gourmet con crema di tartufo nero, mozzarella e funghi porcini.",
+      panz_tartufo_allergens:"Glutine, Lattosio",
+      cocacola:"Coca-Cola", cocacola_desc:"Coca-Cola classica in lattina 33cl, servita fresca.", cocacola_allergens:"",
+      acqua:"Acqua", acqua_desc:"Acqua minerale naturale o frizzante in bottiglia 50cl.", acqua_allergens:"",
+      succo:"Succo di frutta",
+      succo_desc:"Succo di frutta 100% naturale, disponibile in vari gusti.",
+      succo_allergens:"",
+      birra:"Birra", birra_desc:"Birra Peroni in bottiglia 33cl. Fresca e leggera.", birra_allergens:"Glutine",
+      vino:"Vino", vino_desc:"Vino della casa, rosso o bianco, al calice. Produzione locale pugliese.", vino_allergens:"Solfiti",
+      tiramisu:"Tiramisù della casa",
+      tiramisu_desc:"Il classico dolce italiano, preparato secondo la ricetta della casa con mascarpone fresco.",
+      tiramisu_allergens:"Glutine, Lattosio, Uova",
+      cartellate:"Cartellate pugliesi",
+      cartellate_desc:"Dolce tradizionale natalizio pugliese, fritto e ricoperto di vincotto.",
+      cartellate_allergens:"Glutine",
       footer_privacy:"Privacy Policy", footer_cookie:"Preferenze Cookie"
     }},
     en:{ translation:{
-      welcome:"Welcome", btn:"View Menu", scroll:"Discover more",
-      eyebrow:"Our services", section_title:"Technology at your service",
-      section_desc:"Professional, multilingual digital menus, always up to date. Everything you need, accessible with a simple QR code.",
-      about_title:"About us", about_text:"SPI System develops technological solutions for commercial and hospitality businesses. We create multilingual QR code digital menus to enhance the customer experience.",
-      location_title:"Our Location", location_text:"22 Monterosa Street<br>Palo del Colle (BA)<br><a href='https://maps.app.goo.gl/WmcLgRDQcFkZhuqD7?g_st=ic' target='_blank'>Open in Google Maps</a>",
-      hours_title:"Opening Hours", hours_text:"Monday – Friday<br>09:00 – 19:00<br>Saturday 09:00 – 12:00",
-      contact_title:"Contacts", contact_text:"334 273 2997",
-      cta_label:"Want a menu like this?", cta_title:"Bring your venue into the digital age",
-      cta_sub:"Contact us on WhatsApp or by phone. We'll create your QR menu in just a few days.", cta_btn:"Contact us on WhatsApp",
+      back:"Back", menu_eyebrow:"Discover our selection",
+      menu_title:"Our Menu", menu_sub:"Choose a category to explore",
+      search_placeholder:"Search a product...", search_empty:"No products found",
+      detail_hint:"Tap for details", modal_badge:"Product detail", badge_new:"New",
+      contains_label:"CONTAINS", no_allergens:"No declared allergens",
+      rosticceria:"Savoury Snacks", panzerotti:"Panzerotti", speciali:"Special Panzerotti",
+      bevande:"Drinks", alcolici:"Alcohol", dolci:"Desserts",
+      ruota_focaccia:"Focaccia Wheel", ruota_focaccia_desc:"Bari-style focaccia with tomato, olives and extra virgin olive oil.", ruota_focaccia_allergens:"Gluten, Lactose",
+      arancino:"Arancino", arancino_desc:"Classic rice arancino with meat ragù, peas and mozzarella, golden-fried.", arancino_allergens:"Gluten, Eggs, Lactose",
+      bombetta:"Apulian Bombetta", bombetta_desc:"Typical Apulian meat roll filled with caciocavallo cheese, grilled.", bombetta_allergens:"Lactose",
+      panz_mozz:"Panzerotto mozzarella and tomato", panz_mozz_desc:"Classic Bari panzerotto: fried dough filled with melted mozzarella and fresh tomato.", panz_mozz_allergens:"Gluten, Lactose",
+      panz_gorg:"Panzerotto stuffed with gorgonzola", panz_gorg_desc:"Fried panzerotto with creamy DOP gorgonzola filling.", panz_gorg_allergens:"Gluten, Lactose",
+      panz_cp:"Panzerotto cacio e pepe", panz_cp_desc:"Inspired by Roman tradition: fried panzerotto with pecorino and freshly ground black pepper.", panz_cp_allergens:"Gluten, Lactose",
+      panz_brac:"Panzerotto braciola", panz_brac_desc:"Panzerotto filled with typical Bari-style braised meat roll with onion and parsley.", panz_brac_allergens:"Gluten, Lactose",
+      panz_tartufo:"Truffle Panzerotto", panz_tartufo_desc:"Gourmet panzerotto with black truffle cream, mozzarella and porcini mushrooms.", panz_tartufo_allergens:"Gluten, Lactose",
+      cocacola:"Coca-Cola", cocacola_desc:"Classic Coca-Cola in a 33cl can, served chilled.", cocacola_allergens:"",
+      acqua:"Water", acqua_desc:"Still or sparkling mineral water, 50cl bottle.", acqua_allergens:"",
+      succo:"Fruit Juice", succo_desc:"100% natural fruit juice, available in various flavours.", succo_allergens:"",
+      birra:"Beer", birra_desc:"Peroni beer, 33cl bottle. Fresh and light.", birra_allergens:"Gluten",
+      vino:"Wine", vino_desc:"House wine, red or white, by the glass. Local Apulian production.", vino_allergens:"Sulphites",
+      tiramisu:"House Tiramisù", tiramisu_desc:"The classic Italian dessert, made with fresh mascarpone according to our house recipe.", tiramisu_allergens:"Gluten, Lactose, Eggs",
+      cartellate:"Apulian Cartellate", cartellate_desc:"Traditional Apulian Christmas dessert, fried and coated in vincotto syrup.", cartellate_allergens:"Gluten",
       footer_privacy:"Privacy Policy", footer_cookie:"Cookie Preferences"
     }},
     es:{ translation:{
-      welcome:"Bienvenido", btn:"Ver Menú", scroll:"Descubre más",
-      eyebrow:"Nuestros servicios", section_title:"Tecnología al servicio de tu local",
-      section_desc:"Menús digitales profesionales, multilingües y siempre actualizables. Todo lo que necesitas, accesible con un simple código QR.",
-      about_title:"Sobre nosotros", about_text:"SPI System desarrolla soluciones tecnológicas para actividades comerciales y de restauración. Creamos menús digitales multilingües con código QR para mejorar la experiencia del cliente.",
-      location_title:"Ubicación", location_text:"Calle Monterosa, 22<br>Palo del Colle (BA)<br><a href='https://maps.app.goo.gl/WmcLgRDQcFkZhuqD7?g_st=ic' target='_blank'>Abrir en Google Maps</a>",
-      hours_title:"Horario", hours_text:"Lunes – Viernes<br>09:00 – 19:00<br>Sábado 09:00 – 12:00",
-      contact_title:"Contacto", contact_text:"334 273 2997",
-      cta_label:"¿Quieres un menú como este?", cta_title:"Lleva tu local al mundo digital",
-      cta_sub:"Contáctanos por WhatsApp o teléfono. Creamos tu menú QR en pocos días.", cta_btn:"Contáctanos en WhatsApp",
+      back:"Volver", menu_eyebrow:"Descubre nuestras propuestas",
+      menu_title:"Nuestro Menú", menu_sub:"Elige una categoría para explorar",
+      search_placeholder:"Buscar un producto...", search_empty:"No se encontraron productos",
+      detail_hint:"Toca para detalles", modal_badge:"Detalle del producto", badge_new:"Novedad",
+      contains_label:"CONTIENE", no_allergens:"Sin alérgenos declarados",
+      rosticceria:"Comida rápida", panzerotti:"Panzerotti", speciali:"Panzerotti Especiales",
+      bevande:"Bebidas", alcolici:"Alcohol", dolci:"Postres",
+      ruota_focaccia:"Rueda de focaccia", ruota_focaccia_desc:"Focaccia típica de Bari con tomate, aceitunas y aceite de oliva virgen extra.", ruota_focaccia_allergens:"Gluten, Lactosa",
+      arancino:"Arancino", arancino_desc:"Arancino de arroz clásico con ragú de carne, guisantes y mozzarella.", arancino_allergens:"Gluten, Huevos, Lactosa",
+      bombetta:"Bombetta apulia", bombetta_desc:"Rollito de carne típico de Apulia, relleno de caciocavallo, a la brasa.", bombetta_allergens:"Lactosa",
+      panz_mozz:"Panzerotto mozzarella y tomate", panz_mozz_desc:"El clásico panzerotto de Bari: masa frita rellena de mozzarella y tomate.", panz_mozz_allergens:"Gluten, Lactosa",
+      panz_gorg:"Panzerotto con gorgonzola", panz_gorg_desc:"Panzerotto frito con relleno cremoso de gorgonzola DOP.", panz_gorg_allergens:"Gluten, Lactosa",
+      panz_cp:"Panzerotto cacio e pepe", panz_cp_desc:"Inspirado en Roma: panzerotto frito con pecorino y pimienta negra.", panz_cp_allergens:"Gluten, Lactosa",
+      panz_brac:"Panzerotto braciola", panz_brac_desc:"Panzerotto con la típica braciola de carne de Bari.", panz_brac_allergens:"Gluten, Lactosa",
+      panz_tartufo:"Panzerotto con trufa", panz_tartufo_desc:"Panzerotto gourmet con crema de trufa negra, mozzarella y setas porcini.", panz_tartufo_allergens:"Gluten, Lactosa",
+      cocacola:"Coca-Cola", cocacola_desc:"Coca-Cola clásica en lata 33cl, servida fría.", cocacola_allergens:"",
+      acqua:"Agua", acqua_desc:"Agua mineral natural o con gas, botella 50cl.", acqua_allergens:"",
+      succo:"Zumo de fruta", succo_desc:"Zumo de fruta 100% natural, disponible en varios sabores.", succo_allergens:"",
+      birra:"Cerveza", birra_desc:"Cerveza Peroni en botella 33cl.", birra_allergens:"Gluten",
+      vino:"Vino", vino_desc:"Vino de la casa, tinto o blanco, en copa.", vino_allergens:"Sulfitos",
+      tiramisu:"Tiramisú de la casa", tiramisu_desc:"El clásico postre italiano, preparado con mascarpone fresco según receta de la casa.", tiramisu_allergens:"Gluten, Lactosa, Huevos",
+      cartellate:"Cartellate apulias", cartellate_desc:"Postre tradicional navideño de Apulia, frito y bañado en vincotto.", cartellate_allergens:"Gluten",
       footer_privacy:"Política de Privacidad", footer_cookie:"Preferencias de Cookies"
     }},
     fr:{ translation:{
-      welcome:"Bienvenue", btn:"Voir le menu", scroll:"Découvrir",
-      eyebrow:"Nos services", section_title:"La technologie au service de votre établissement",
-      section_desc:"Menus numériques professionnels, multilingues et toujours à jour. Tout ce qu'il vous faut, accessible avec un simple QR code.",
-      about_title:"À propos de nous", about_text:"SPI System développe des solutions technologiques pour les commerces et la restauration. Nous créons des menus numériques multilingues avec QR code pour améliorer l'expérience client.",
-      location_title:"Notre emplacement", location_text:"22 Rue Monterosa<br>Palo del Colle (BA)<br><a href='https://maps.app.goo.gl/WmcLgRDQcFkZhuqD7?g_st=ic' target='_blank'>Ouvrir sur Google Maps</a>",
-      hours_title:"Horaires d'ouverture", hours_text:"Lundi – Vendredi<br>09:00 – 19:00<br>Samedi 09:00 – 12:00",
-      contact_title:"Contacts", contact_text:"334 273 2997",
-      cta_label:"Vous voulez un menu comme celui-ci?", cta_title:"Passez au numérique",
-      cta_sub:"Contactez-nous sur WhatsApp ou par téléphone. Nous créons votre menu QR en quelques jours.", cta_btn:"Contactez-nous sur WhatsApp",
+      back:"Retour", menu_eyebrow:"Découvrez nos propositions",
+      menu_title:"Notre Menu", menu_sub:"Choisissez une catégorie à explorer",
+      search_placeholder:"Rechercher un produit...", search_empty:"Aucun produit trouvé",
+      detail_hint:"Appuyer pour détails", modal_badge:"Détail du produit", badge_new:"Nouveau",
+      contains_label:"CONTIENT", no_allergens:"Aucun allergène déclaré",
+      rosticceria:"Snacks", panzerotti:"Panzerotti", speciali:"Panzerotti Spéciaux",
+      bevande:"Boissons", alcolici:"Alcool", dolci:"Desserts",
+      ruota_focaccia:"Roue de focaccia", ruota_focaccia_desc:"Focaccia typique de Bari avec tomate, olives et huile d'olive extra vierge.", ruota_focaccia_allergens:"Gluten, Lactose",
+      arancino:"Arancino", arancino_desc:"Arancino de riz classique avec ragù, petits pois et mozzarella.", arancino_allergens:"Gluten, Œufs, Lactose",
+      bombetta:"Bombetta des Pouilles", bombetta_desc:"Roulé de viande typique des Pouilles, farci au caciocavallo, grillé.", bombetta_allergens:"Lactose",
+      panz_mozz:"Panzerotto mozzarella et tomate", panz_mozz_desc:"Le classique panzerotto de Bari: pâte frite garnie de mozzarella et tomate.", panz_mozz_allergens:"Gluten, Lactose",
+      panz_gorg:"Panzerotto au gorgonzola", panz_gorg_desc:"Panzerotto frit garni de gorgonzola DOP crémeux.", panz_gorg_allergens:"Gluten, Lactose",
+      panz_cp:"Panzerotto cacio e pepe", panz_cp_desc:"Inspiré de Rome: panzerotto frit au pecorino et poivre noir.", panz_cp_allergens:"Gluten, Lactose",
+      panz_brac:"Panzerotto braciola", panz_brac_desc:"Panzerotto garni de la typique braciola de Bari.", panz_brac_allergens:"Gluten, Lactose",
+      panz_tartufo:"Panzerotto à la truffe", panz_tartufo_desc:"Panzerotto gourmet à la crème de truffe noire, mozzarella et cèpes.", panz_tartufo_allergens:"Gluten, Lactose",
+      cocacola:"Coca-Cola", cocacola_desc:"Coca-Cola classique en canette 33cl.", cocacola_allergens:"",
+      acqua:"Eau", acqua_desc:"Eau minérale plate ou gazeuse, bouteille 50cl.", acqua_allergens:"",
+      succo:"Jus de fruit", succo_desc:"Jus de fruit 100% naturel, disponible en plusieurs saveurs.", succo_allergens:"",
+      birra:"Bière", birra_desc:"Bière Peroni en bouteille 33cl.", birra_allergens:"Gluten",
+      vino:"Vin", vino_desc:"Vin de la maison, rouge ou blanc, au verre.", vino_allergens:"Sulfites",
+      tiramisu:"Tiramisù maison", tiramisu_desc:"Le classique dessert italien, préparé avec du mascarpone frais selon la recette maison.", tiramisu_allergens:"Gluten, Lactose, Œufs",
+      cartellate:"Cartellate des Pouilles", cartellate_desc:"Dessert traditionnel de Noël des Pouilles, frit et nappé de vincotto.", cartellate_allergens:"Gluten",
       footer_privacy:"Politique de Confidentialité", footer_cookie:"Préférences Cookies"
     }},
     de:{ translation:{
-      welcome:"Willkommen", btn:"Menü anzeigen", scroll:"Mehr entdecken",
-      eyebrow:"Unsere Dienste", section_title:"Technologie im Dienst Ihres Lokals",
-      section_desc:"Professionelle, mehrsprachige digitale Menüs, immer aktuell. Alles per QR-Code zugänglich.",
-      about_title:"Über uns", about_text:"SPI System entwickelt technologische Lösungen für Handels- und Gastronomiebetriebe. Wir erstellen mehrsprachige digitale QR-Code-Menüs.",
-      location_title:"Standort", location_text:"Monterosa Straße 22<br>Palo del Colle (BA)<br><a href='https://maps.app.goo.gl/WmcLgRDQcFkZhuqD7?g_st=ic' target='_blank'>In Google Maps öffnen</a>",
-      hours_title:"Öffnungszeiten", hours_text:"Montag – Freitag<br>09:00 – 19:00<br>Samstag 09:00 – 12:00",
-      contact_title:"Kontakt", contact_text:"334 273 2997",
-      cta_label:"Möchten Sie ein solches Menü?", cta_title:"Bringen Sie Ihr Lokal ins Digitale",
-      cta_sub:"Kontaktieren Sie uns per WhatsApp oder Telefon. Wir erstellen Ihr QR-Menü in wenigen Tagen.", cta_btn:"WhatsApp kontaktieren",
+      back:"Zurück", menu_eyebrow:"Entdecken Sie unsere Angebote",
+      menu_title:"Unsere Speisekarte", menu_sub:"Wählen Sie eine Kategorie",
+      search_placeholder:"Produkt suchen...", search_empty:"Keine Produkte gefunden",
+      detail_hint:"Antippen für Details", modal_badge:"Produktdetail", badge_new:"Neu",
+      contains_label:"ENTHÄLT", no_allergens:"Keine deklarierten Allergene",
+      rosticceria:"Snacks", panzerotti:"Panzerotti", speciali:"Spezielle Panzerotti",
+      bevande:"Getränke", alcolici:"Alkohol", dolci:"Desserts",
+      ruota_focaccia:"Focaccia-Rad", ruota_focaccia_desc:"Focaccia nach Bari-Art mit Tomaten, Oliven und nativem Olivenöl.", ruota_focaccia_allergens:"Gluten, Laktose",
+      arancino:"Arancino", arancino_desc:"Klassisches Reis-Arancino mit Fleisch-Ragù, Erbsen und Mozzarella.", arancino_allergens:"Gluten, Eier, Laktose",
+      bombetta:"Apulische Bombetta", bombetta_desc:"Typische apulische Fleischrolle gefüllt mit Caciocavallo-Käse, gegrillt.", bombetta_allergens:"Laktose",
+      panz_mozz:"Panzerotto Mozzarella und Tomate", panz_mozz_desc:"Klassischer Bari-Panzerotto: frittierter Teig mit Mozzarella und Tomate.", panz_mozz_allergens:"Gluten, Laktose",
+      panz_gorg:"Panzerotto mit Gorgonzola", panz_gorg_desc:"Frittierter Panzerotto mit cremiger DOP-Gorgonzola-Füllung.", panz_gorg_allergens:"Gluten, Laktose",
+      panz_cp:"Panzerotto cacio e pepe", panz_cp_desc:"Nach römischer Art: Panzerotto mit Pecorino und schwarzem Pfeffer.", panz_cp_allergens:"Gluten, Laktose",
+      panz_brac:"Panzerotto braciola", panz_brac_desc:"Panzerotto mit der typischen Bari-Fleischrolle.", panz_brac_allergens:"Gluten, Laktose",
+      panz_tartufo:"Trüffel-Panzerotto", panz_tartufo_desc:"Gourmet-Panzerotto mit schwarzer Trüffelcreme, Mozzarella und Steinpilzen.", panz_tartufo_allergens:"Gluten, Laktose",
+      cocacola:"Coca-Cola", cocacola_desc:"Klassische Coca-Cola, 33cl Dose, gekühlt.", cocacola_allergens:"",
+      acqua:"Wasser", acqua_desc:"Stilles oder sprudelndes Mineralwasser, 50cl.", acqua_allergens:"",
+      succo:"Fruchtsaft", succo_desc:"100% natürlicher Fruchtsaft, in verschiedenen Geschmacksrichtungen.", succo_allergens:"",
+      birra:"Bier", birra_desc:"Peroni-Bier, 33cl Flasche.", birra_allergens:"Gluten",
+      vino:"Wein", vino_desc:"Hauswein, rot oder weiß, glasweise.", vino_allergens:"Sulfite",
+      tiramisu:"Hausgemachtes Tiramisù", tiramisu_desc:"Der klassische italienische Nachtisch, nach Hausrezept mit frischem Mascarpone.", tiramisu_allergens:"Gluten, Laktose, Eier",
+      cartellate:"Apulische Cartellate", cartellate_desc:"Traditionelles apulisches Weihnachtsgebäck, frittiert und mit Vincotto überzogen.", cartellate_allergens:"Gluten",
       footer_privacy:"Datenschutzerklärung", footer_cookie:"Cookie-Einstellungen"
     }}
   }
 }, updateTexts);
 
 function updateTexts() {
-  document.getElementById('btn-text').textContent       = i18next.t('btn');
-  const welcomeEl = document.getElementById('welcome-text');
-  if (welcomeEl) welcomeEl.textContent = i18next.t('welcome');
-  document.getElementById('scroll-label').textContent   = i18next.t('scroll');
-  document.getElementById('eyebrow-label').textContent  = i18next.t('eyebrow');
-  document.getElementById('section-title').textContent  = i18next.t('section_title');
-  document.getElementById('section-desc').textContent   = i18next.t('section_desc');
-  document.getElementById('about-title').textContent    = i18next.t('about_title');
-  document.getElementById('about-text').textContent     = i18next.t('about_text');
-  document.getElementById('location-title').textContent = i18next.t('location_title');
-  document.getElementById('location-text').innerHTML    = i18next.t('location_text');
-  document.getElementById('hours-title').textContent    = i18next.t('hours_title');
-  document.getElementById('hours-text').innerHTML       = i18next.t('hours_text');
-  document.getElementById('contact-title').textContent  = i18next.t('contact_title');
-  document.getElementById('contact-text').textContent   = i18next.t('contact_text');
-  document.getElementById('cta-label').textContent      = i18next.t('cta_label');
-  document.getElementById('cta-title').textContent      = i18next.t('cta_title');
-  document.getElementById('cta-sub').textContent        = i18next.t('cta_sub');
-  document.getElementById('cta-btn-text').textContent   = i18next.t('cta_btn');
+  document.getElementById('back-label').textContent        = i18next.t('back');
+  document.getElementById('menu-eyebrow').textContent      = i18next.t('menu_eyebrow');
+  document.getElementById('menu-title').textContent        = i18next.t('menu_title');
+  document.getElementById('menu-sub').textContent          = i18next.t('menu_sub');
+  document.getElementById('searchInput').placeholder       = i18next.t('search_placeholder');
+  document.getElementById('search-empty-text').textContent = i18next.t('search_empty');
+  document.querySelectorAll('[data-key]').forEach(el => {
+    const key = el.getAttribute('data-key');
+    // non sovrascrivere se l'elemento contiene già un badge figlio (gestito separatamente)
+    if (el.children.length === 0) {
+      el.textContent = i18next.t(key);
+    } else {
+      // elemento con badge dentro: aggiorna solo il primo nodo testo
+      const badge = el.querySelector('.badge-new');
+      if (badge) {
+        el.childNodes[0].textContent = i18next.t(key) + ' ';
+      } else {
+        el.textContent = i18next.t(key);
+      }
+    }
+  });
+  document.getElementById('currentFlag').textContent = FLAGS[i18next.language] || '🇮🇹';
   document.getElementById('footer-privacy-link').textContent = i18next.t('footer_privacy');
   document.getElementById('footer-cookie-link').textContent  = i18next.t('footer_cookie');
-  document.getElementById('currentFlag').textContent    = FLAGS[i18next.language] || '🇮🇹';
+  if (document.getElementById('modal').classList.contains('active') && _titleKey) renderModal();
 }
 
 function changeLanguage(event, lang) {
