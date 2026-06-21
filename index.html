@@ -325,9 +325,57 @@ footer a, footer span, footer p {
   .hero-bottom { padding-bottom:44px; gap:18px; }
   .cta-section { padding:52px 20px; }
 }
+
+/* ══════════ SPLASH DI BENVENUTO — leggero, solo al primo arrivo da QR ══════════ */
+#welcomeSplash {
+  position:fixed; inset:0; z-index:99999;
+  background:var(--bg);
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:18px;
+  transition:opacity 0.5s ease, visibility 0.5s ease;
+}
+#welcomeSplash.fade-out { opacity:0; visibility:hidden; pointer-events:none; }
+
+.welcome-logo {
+  height:84px; width:auto;
+  opacity:0;
+  transform:translateY(6px);
+  filter:drop-shadow(0 0 18px rgba(207,178,122,0.2));
+  animation:welcomeLogoIn 0.7s ease 0.1s forwards;
+}
+@keyframes welcomeLogoIn { to { opacity:1; transform:translateY(0); } }
+
+.welcome-text {
+  font-family:'Lora',serif;
+  font-style:italic;
+  font-size:0.85rem;
+  letter-spacing:0.12em;
+  color:var(--muted);
+  opacity:0;
+  animation:welcomeTextIn 0.6s ease 0.4s forwards;
+}
+@keyframes welcomeTextIn { to { opacity:1; } }
+
+.welcome-line {
+  width:0; height:1px;
+  background:linear-gradient(to right, transparent, var(--gold), transparent);
+  animation:welcomeLineGrow 0.6s ease 0.55s forwards;
+}
+@keyframes welcomeLineGrow { to { width:70px; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .welcome-logo, .welcome-text, .welcome-line { animation:none !important; opacity:1 !important; width:70px; }
+}
 </style>
 </head>
 <body>
+
+<!-- SPLASH DI BENVENUTO — leggero, mostrato al primo arrivo dal QR code -->
+<div id="welcomeSplash">
+  <img class="welcome-logo" src="images/logospi1.PNG" alt="SPI System">
+  <div class="welcome-line"></div>
+  <p class="welcome-text" id="welcome-text">Benvenuto</p>
+</div>
 
 <nav>
   <div class="nav-logo"><img src="images/logospi1.PNG" alt="SPI System"></div>
@@ -420,6 +468,30 @@ footer a, footer span, footer p {
 </button>
 
 <script>
+// ── SPLASH DI BENVENUTO: breve, solo un saluto prima della home ──
+(function () {
+  const MIN_TIME = 850; // ms — breve: è un saluto, non un caricamento
+  const start = Date.now();
+
+  function dismiss() {
+    const wait = Math.max(0, MIN_TIME - (Date.now() - start));
+    setTimeout(() => {
+      const splash = document.getElementById('welcomeSplash');
+      if (splash) {
+        splash.classList.add('fade-out');
+        setTimeout(() => splash.remove(), 550);
+      }
+    }, wait);
+  }
+
+  if (document.readyState === 'complete') {
+    dismiss();
+  } else {
+    window.addEventListener('load', dismiss);
+    setTimeout(dismiss, 2500); // fallback di sicurezza
+  }
+})();
+
 const langSelector = document.getElementById('langSelector');
 const langDropdown = document.getElementById('langDropdown');
 langSelector.addEventListener('click', e => {
@@ -452,7 +524,7 @@ i18next.init({
   lng: localStorage.getItem('selectedLanguage') || 'it',
   resources: {
     it:{ translation:{
-      btn:"Visualizza Menù", scroll:"Scopri di più",
+      welcome:"Benvenuto", btn:"Visualizza Menù", scroll:"Scopri di più",
       eyebrow:"I nostri servizi", section_title:"Tecnologia al servizio del tuo locale",
       section_desc:"Menù digitali professionali, multilingua e sempre aggiornabili. Tutto quello che serve, accessibile con un semplice QR code.",
       about_title:"Chi siamo", about_text:"SPI System sviluppa soluzioni tecnologiche per attività commerciali e ristorative. Realizziamo menù digitali QR code multilingua per migliorare l'esperienza del cliente.",
@@ -464,7 +536,7 @@ i18next.init({
       footer_privacy:"Privacy Policy", footer_cookie:"Preferenze Cookie"
     }},
     en:{ translation:{
-      btn:"View Menu", scroll:"Discover more",
+      welcome:"Welcome", btn:"View Menu", scroll:"Discover more",
       eyebrow:"Our services", section_title:"Technology at your service",
       section_desc:"Professional, multilingual digital menus, always up to date. Everything you need, accessible with a simple QR code.",
       about_title:"About us", about_text:"SPI System develops technological solutions for commercial and hospitality businesses. We create multilingual QR code digital menus to enhance the customer experience.",
@@ -476,7 +548,7 @@ i18next.init({
       footer_privacy:"Privacy Policy", footer_cookie:"Cookie Preferences"
     }},
     es:{ translation:{
-      btn:"Ver Menú", scroll:"Descubre más",
+      welcome:"Bienvenido", btn:"Ver Menú", scroll:"Descubre más",
       eyebrow:"Nuestros servicios", section_title:"Tecnología al servicio de tu local",
       section_desc:"Menús digitales profesionales, multilingües y siempre actualizables. Todo lo que necesitas, accesible con un simple código QR.",
       about_title:"Sobre nosotros", about_text:"SPI System desarrolla soluciones tecnológicas para actividades comerciales y de restauración. Creamos menús digitales multilingües con código QR para mejorar la experiencia del cliente.",
@@ -488,7 +560,7 @@ i18next.init({
       footer_privacy:"Política de Privacidad", footer_cookie:"Preferencias de Cookies"
     }},
     fr:{ translation:{
-      btn:"Voir le menu", scroll:"Découvrir",
+      welcome:"Bienvenue", btn:"Voir le menu", scroll:"Découvrir",
       eyebrow:"Nos services", section_title:"La technologie au service de votre établissement",
       section_desc:"Menus numériques professionnels, multilingues et toujours à jour. Tout ce qu'il vous faut, accessible avec un simple QR code.",
       about_title:"À propos de nous", about_text:"SPI System développe des solutions technologiques pour les commerces et la restauration. Nous créons des menus numériques multilingues avec QR code pour améliorer l'expérience client.",
@@ -500,7 +572,7 @@ i18next.init({
       footer_privacy:"Politique de Confidentialité", footer_cookie:"Préférences Cookies"
     }},
     de:{ translation:{
-      btn:"Menü anzeigen", scroll:"Mehr entdecken",
+      welcome:"Willkommen", btn:"Menü anzeigen", scroll:"Mehr entdecken",
       eyebrow:"Unsere Dienste", section_title:"Technologie im Dienst Ihres Lokals",
       section_desc:"Professionelle, mehrsprachige digitale Menüs, immer aktuell. Alles per QR-Code zugänglich.",
       about_title:"Über uns", about_text:"SPI System entwickelt technologische Lösungen für Handels- und Gastronomiebetriebe. Wir erstellen mehrsprachige digitale QR-Code-Menüs.",
@@ -516,6 +588,8 @@ i18next.init({
 
 function updateTexts() {
   document.getElementById('btn-text').textContent       = i18next.t('btn');
+  const welcomeEl = document.getElementById('welcome-text');
+  if (welcomeEl) welcomeEl.textContent = i18next.t('welcome');
   document.getElementById('scroll-label').textContent   = i18next.t('scroll');
   document.getElementById('eyebrow-label').textContent  = i18next.t('eyebrow');
   document.getElementById('section-title').textContent  = i18next.t('section_title');
