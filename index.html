@@ -4,19 +4,22 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="format-detection" content="telephone=no, date=no, address=no, email=no, url=no">
-<title>Privacy Policy — SPI System</title>
+<title>Menù Spi System</title>
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/i18next@21.6.3/i18next.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-:root{
-  --bg:#f0e6d2;--card:#f7f0e3;--brown:#6b4226;--brown-light:#8a5a35;
-  --brown-soft:rgba(107,66,38,.08);--brown-border:rgba(107,66,38,.25);
-  --text:#1a1410;--muted:#5c4a38;--border:rgba(26,20,16,.10);
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  /* BLU NOTTE + ORO CHAMPAGNE */
+  --bg:#f0e6d2; --card:#f7f0e3; --card2:#e8dcc4;
+  --brown:#6b4226; --brown-light:#8a5a35;
+  --brown-soft:rgba(107,66,38,.08); --brown-border:rgba(107,66,38,.25);
+  --text:#1a1410; --muted:#5c4a38; --border:rgba(26,20,16,0.12);
   --brown-glow:#6b4226;
 }
-html{scroll-behavior:smooth}
-body{
+html { scroll-behavior:smooth; }
+body {
   font-family:'Poppins',sans-serif;
   background-color:var(--bg);
   background-image:repeating-linear-gradient(
@@ -26,100 +29,232 @@ body{
     transparent 2px,
     transparent 26px
   );
-  color:var(--text);min-height:100vh;padding-top:112px
+  color:var(--text); overflow-x:hidden;
 }
 
 /* NAV */
-nav{
-  position:fixed;top:0;width:100%;
-  background:rgba(43,30,20,.94);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
-  border-bottom:1px solid rgba(255,255,255,.08);
-  padding:0 24px;display:flex;justify-content:space-between;align-items:center;
-  height:112px;z-index:1000;
+nav {
+  position:fixed; top:0; left:0; width:100%;
+  background:rgba(43,30,20,0.94); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(255,255,255,0.08);
+  padding:0 32px; z-index:1000;
+  display:flex; align-items:center; justify-content:space-between; height:108px;
 }
-.nav-left{display:flex;align-items:center;gap:14px}
-.back-btn{
-  display:flex;align-items:center;gap:7px;
-  color:rgba(255,255,255,0.62);text-decoration:none;font-size:0.8rem;
-  letter-spacing:.04em;padding:7px 13px;
-  border:1px solid rgba(255,255,255,0.14);border-radius:8px;
-  transition:color .2s,border-color .2s,background .2s;white-space:nowrap;
-}
-.back-btn:hover{color:var(--brown-light);border-color:var(--brown-border);background:var(--brown-soft)}
-.back-btn svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.5;flex-shrink:0}
-.nav-logo img{height:96px;width:auto;display:block}
+.nav-logo img { height:96px; width:auto; display:block; transition:transform 0.3s, opacity 0.3s; }
+.nav-logo img:hover { transform:scale(1.04); opacity:0.82; }
 
-.language-selector{
-  position:relative;display:flex;align-items:center;gap:7px;cursor:pointer;
-  padding:8px 13px;border-radius:10px;border:1px solid rgba(255,255,255,0.14);
-  background:rgba(255,255,255,.05);transition:background .2s,border-color .2s;
-  white-space:nowrap;user-select:none;flex-shrink:0;
+/* Nav scura: selettore lingua con toni chiari per leggibilità sul fondo scuro */
+nav .language-selector {
+  border-color:rgba(255,255,255,0.14);
+  background:rgba(255,255,255,0.05);
 }
-.language-selector:hover{background:var(--brown-soft);border-color:var(--brown-border)}
-.lang-flag{font-size:1.45rem;line-height:1;flex-shrink:0}
-.lang-chevron{width:13px;height:13px;stroke:rgba(255,255,255,0.6);fill:none;stroke-width:2.5;stroke-linecap:round;transition:transform .3s;flex-shrink:0}
-.language-selector.open .lang-chevron{transform:rotate(180deg)}
-.language-dropdown{
-  display:none;position:absolute;top:calc(100% + 10px);right:0;
-  background:#f7f0e3;border:1px solid var(--border);border-radius:14px;
-  overflow:hidden;box-shadow:0 24px 60px rgba(26,20,16,.14);z-index:1002;min-width:155px;
-}
-.language-dropdown.open{display:block;animation:dropIn .18s ease}
-@keyframes dropIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
-.language-dropdown a{
-  display:flex;align-items:center;gap:10px;padding:12px 16px;
-  text-decoration:none;color:var(--text);font-size:.88rem;white-space:nowrap;transition:background .18s;
-}
-.language-dropdown a .flag{font-size:1.25rem;flex-shrink:0}
-.language-dropdown a:hover{background:var(--brown-soft)}
+nav .language-selector:hover { background:var(--brown-soft); border-color:var(--brown-border); }
+nav .lang-chevron { stroke:rgba(255,255,255,0.6); }
+nav .language-dropdown { background:#3a2818; border-color:rgba(255,255,255,0.1); }
+nav .language-dropdown a { color:#f3e9da; }
+nav .language-dropdown a:hover { background:rgba(255,255,255,0.08); }
 
-/* HEADER */
-.page-header{text-align:center;padding:48px 24px 20px}
-.page-eyebrow{font-size:.68rem;letter-spacing:.26em;text-transform:uppercase;color:var(--brown);margin-bottom:14px}
-.page-title{font-family:'Lora',serif;font-size:clamp(1.9rem,4.5vw,2.8rem);color:var(--text)}
-.page-updated{margin-top:10px;font-size:.82rem;color:var(--muted)}
-.gold-rule{width:48px;height:2px;background:var(--brown);margin:20px auto 0;border-radius:2px;opacity:.5}
+/* LINGUA */
+.language-selector {
+  position:relative; display:flex; align-items:center; gap:7px; cursor:pointer;
+  padding:8px 13px; border-radius:10px; border:1px solid var(--border);
+  background:rgba(26,20,16,0.035); transition:background 0.2s, border-color 0.2s;
+  white-space:nowrap; user-select:none;
+}
+.language-selector:hover { background:var(--brown-soft); border-color:var(--brown-border); }
+.lang-flag { font-size:1.45rem; line-height:1; flex-shrink:0; }
+.lang-chevron { width:13px; height:13px; stroke:var(--muted); fill:none; stroke-width:2.5; stroke-linecap:round; transition:transform 0.3s; flex-shrink:0; }
+.language-selector.open .lang-chevron { transform:rotate(180deg); }
+.language-dropdown {
+  display:none; position:absolute; top:calc(100% + 10px); right:0;
+  background:#f7f0e3; border:1px solid var(--border); border-radius:14px;
+  overflow:hidden; box-shadow:0 24px 60px rgba(26,20,16,0.14); z-index:1002; min-width:155px;
+}
+.language-dropdown.open { display:block; animation:dropIn 0.18s ease; }
+@keyframes dropIn { from{opacity:0;transform:translateY(-6px)} to{opacity:1;transform:translateY(0)} }
+.language-dropdown a {
+  display:flex; align-items:center; gap:10px; padding:12px 16px;
+  text-decoration:none; color:var(--text); font-size:0.88rem; white-space:nowrap; transition:background 0.18s;
+}
+.language-dropdown a .flag { font-size:1.25rem; flex-shrink:0; }
+.language-dropdown a:hover { background:var(--brown-soft); }
 
-/* CONTENT */
-.content{max-width:760px;margin:0 auto;padding:50px 24px 100px}
+/* HERO */
+.hero {
+  position:relative; height:100vh; min-height:620px;
+  display:flex; flex-direction:column; justify-content:flex-end;
+  align-items:center; text-align:center; overflow:hidden;
+}
+.hero-bg {
+  position:absolute; inset:0;
+  background-image:url('images/sfondomenuqr.PNG');
+  background-size:cover; background-position:center;
+  transform:scale(1.06); animation:heroZoom 16s ease forwards;
+}
+@keyframes heroZoom { to { transform:scale(1); } }
+.hero-overlay {
+  position:absolute; inset:0;
+  background:linear-gradient(180deg,
+    rgba(240,230,210,0.30) 0%,
+    rgba(240,230,210,0.12) 30%,
+    rgba(240,230,210,0.65) 70%,
+    rgba(240,230,210,0.96) 100%
+  );
+}
 
-.policy-section{
-  background:var(--card);border:1px solid var(--border);border-radius:18px;
-  padding:32px 34px;margin-bottom:18px;
+.hero-bottom {
+  position:relative; z-index:2;
+  display:flex; flex-direction:column; align-items:center; gap:22px;
+  padding-bottom:56px;
+  animation:fadeUp 1s ease 0.5s both;
 }
-.policy-section h2{
-  font-family:'Lora',serif;font-size:1.25rem;color:var(--brown);
-  margin-bottom:14px;display:flex;align-items:center;gap:10px;
-}
-.policy-section h2 .num{
-  font-size:.75rem;width:26px;height:26px;border-radius:50%;
-  background:var(--brown-soft);border:1px solid var(--brown-border);
-  display:flex;align-items:center;justify-content:center;color:var(--brown);
-  flex-shrink:0;
-}
-.policy-section p{font-size:.92rem;color:var(--muted);line-height:1.8;margin-bottom:12px}
-.policy-section p:last-child{margin-bottom:0}
-.policy-section ul{margin:10px 0 12px 0;padding-left:20px}
-.policy-section li{font-size:.92rem;color:var(--muted);line-height:1.8;margin-bottom:6px}
-.policy-section strong{color:var(--text);font-weight:600}
-.policy-section a{color:var(--brown);text-decoration:none}
-.policy-section a:hover{text-decoration:underline}
+@keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
 
-.policy-table{width:100%;border-collapse:collapse;margin-top:8px;font-size:.85rem}
-.policy-table th,.policy-table td{
-  text-align:left;padding:10px 12px;border-bottom:1px solid var(--border);color:var(--muted);
+.hero-btn {
+  display:inline-flex; align-items:center; gap:11px;
+  position:relative;
+  background:linear-gradient(135deg, var(--brown) 0%, var(--brown-light) 100%);
+  color:#0a0a0c;
+  font-family:'Poppins',sans-serif;
+  font-size:0.84rem; font-weight:600;
+  letter-spacing:0.1em; text-transform:uppercase;
+  padding:16px 38px; border-radius:3px;
+  text-decoration:none;
+  overflow:hidden;
+  transition:transform 0.25s ease, box-shadow 0.25s ease;
+  box-shadow:0 10px 30px rgba(107,66,38,0.25), 0 2px 8px rgba(26,20,16,0.10);
 }
-.policy-table th{color:var(--brown);font-weight:600;font-size:.78rem;letter-spacing:.03em;text-transform:uppercase}
+.hero-btn::before {
+  content:'';
+  position:absolute; top:0; left:-100%; width:100%; height:100%;
+  background:linear-gradient(120deg, transparent, rgba(107,66,38,0.35), transparent);
+  transition:left 0.6s ease;
+}
+.hero-btn:hover {
+  transform:translateY(-3px);
+  box-shadow:0 16px 42px rgba(107,66,38,0.4), 0 4px 12px rgba(26,20,16,0.12);
+}
+.hero-btn:hover::before { left:100%; }
+.hero-btn i { font-size:0.8rem; }
+
+.hero-scroll {
+  display:flex; flex-direction:column; align-items:center; gap:6px;
+  color:rgba(26,20,16,0.5); font-size:0.62rem;
+  letter-spacing:0.18em; text-transform:uppercase;
+  text-decoration:none;
+  animation:scrollBounce 2.4s ease-in-out infinite;
+  transition:color 0.2s;
+}
+.hero-scroll:hover { color:var(--brown-light); }
+.hero-scroll i { font-size:0.8rem; }
+@keyframes scrollBounce {
+  0%,100%{transform:translateY(0)} 50%{transform:translateY(7px)}
+}
+
+/* INFO SECTION */
+.info-section { background:var(--bg); padding:100px 28px 80px; }
+.section-eyebrow { text-align:center; font-size:0.68rem; letter-spacing:0.26em; text-transform:uppercase; color:var(--brown-light); margin-bottom:14px; }
+.section-title { text-align:center; font-family:'Lora',serif; font-size:clamp(1.7rem,4vw,2.6rem); color:var(--text); margin-bottom:14px; line-height:1.2; }
+.section-desc { text-align:center; font-size:0.92rem; color:var(--muted); max-width:520px; margin:0 auto 64px; line-height:1.7; }
+
+.info-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:18px; max-width:1060px; margin:0 auto; }
+
+.info-card {
+  background:var(--card); border:1px solid var(--border); border-radius:18px;
+  padding:34px 28px; text-align:center;
+  opacity:0; transform:translateY(22px);
+  transition:border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+  position:relative; overflow:hidden;
+}
+.info-card::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:2px;
+  background:linear-gradient(90deg,transparent,var(--brown),transparent);
+  opacity:0; transition:opacity 0.3s;
+}
+.info-card:hover::before { opacity:0.6; }
+.info-card.visible { opacity:1; transform:translateY(0); transition:opacity 0.6s ease, transform 0.6s ease, border-color 0.3s, box-shadow 0.3s; }
+.info-card:hover { transform:translateY(-7px); box-shadow:0 28px 60px rgba(26,20,16,0.10); border-color:var(--brown-border); }
+
+.info-card .icon {
+  width:52px; height:52px; background:var(--brown-soft); border:1px solid var(--brown-border);
+  border-radius:14px; display:flex; align-items:center; justify-content:center;
+  margin:0 auto 20px; transition:background 0.3s;
+}
+.info-card:hover .icon { background:rgba(107,66,38,0.2); }
+.info-card .icon i { font-size:1.25rem; color:var(--brown-light); }
+.info-card .icon svg.phone-icon { width:22px; height:22px; stroke:var(--brown-light); fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+.info-card h3 { font-family:'Lora',serif; font-size:1.12rem; color:var(--text); margin-bottom:12px; }
+.info-card p { font-size:0.9rem; color:var(--muted); line-height:1.78; }
+.info-card a { color:var(--brown-light); text-decoration:none; }
+.info-card a:hover { text-decoration:underline; }
+
+.social-row { display:flex; justify-content:center; gap:12px; margin-top:16px; }
+.social-row a {
+  width:38px; height:38px; border:1px solid var(--brown-border); border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  color:var(--brown-light); font-size:1rem;
+  transition:background 0.2s, transform 0.2s, border-color 0.2s;
+}
+.social-row a:hover { background:var(--brown-soft); transform:scale(1.12); border-color:var(--brown); }
+
+/* CTA */
+.cta-section {
+  background:var(--card2); border-top:1px solid var(--border); border-bottom:1px solid var(--border);
+  padding:70px 28px; text-align:center;
+}
+.cta-label { font-size:0.68rem; letter-spacing:0.26em; text-transform:uppercase; color:var(--brown-light); margin-bottom:16px; }
+.cta-title { font-family:'Lora',serif; font-size:clamp(1.5rem,3.5vw,2.2rem); color:var(--text); margin-bottom:10px; }
+.cta-sub { font-size:0.9rem; color:var(--muted); margin-bottom:32px; line-height:1.65; }
+.cta-btn {
+  display:inline-flex; align-items:center; gap:9px;
+  background:transparent; color:var(--brown-light); border:1px solid var(--brown-border);
+  font-family:'Poppins',sans-serif; font-size:0.85rem; font-weight:600;
+  letter-spacing:0.09em; text-transform:uppercase;
+  padding:14px 34px; border-radius:3px; text-decoration:none;
+  transition:background 0.25s, border-color 0.25s, transform 0.2s;
+}
+.cta-btn:hover { background:var(--brown-soft); border-color:var(--brown); transform:translateY(-2px); }
+
+/* DIVIDER */
+.gold-divider { height:1px; background:linear-gradient(to right,transparent,var(--brown),transparent); opacity:0.25; margin:0 60px; }
+
+/* SCROLL TOP */
+.scroll-top {
+  position:fixed; right:22px; bottom:22px; width:46px; height:46px;
+  display:flex; align-items:center; justify-content:center;
+  border:1px solid var(--brown-border); border-radius:50%;
+  background:rgba(232,220,196,0.9); backdrop-filter:blur(8px);
+  color:var(--brown-light); cursor:pointer;
+  opacity:0; visibility:hidden; transform:translateY(14px);
+  transition:opacity 0.3s, transform 0.3s, border-color 0.3s, box-shadow 0.3s; z-index:2000;
+}
+.scroll-top.show { opacity:1; visibility:visible; transform:translateY(0); }
+.scroll-top:hover { border-color:var(--brown); box-shadow:0 0 24px rgba(107,66,38,0.2); transform:translateY(-4px); }
+.scroll-top svg { width:15px; height:15px; stroke:currentColor; fill:none; stroke-width:2.2; }
 
 /* FOOTER */
-footer{border-top:1px solid var(--border);background:#e0d3b0;padding:36px 20px;text-align:center;color:var(--muted);font-size:.85rem}
-footer .footer-brand{font-family:'Lora',serif;color:var(--brown) !important;margin-bottom:6px;font-size:.9rem;-webkit-text-fill-color:var(--brown)}
-footer .footer-copy{opacity:.5;margin-top:4px}
-footer, footer *{-webkit-text-size-adjust:100%;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
-footer a, footer span, footer p{color:inherit;text-decoration:none !important}
-footer .footer-links{margin-top:14px;font-size:.78rem}
-footer .footer-links a{color:var(--brown) !important;-webkit-text-fill-color:var(--brown);opacity:.85;transition:opacity .2s}
-footer .footer-links a:hover{opacity:1;text-decoration:underline !important}
+footer { background:#e0d3b0; text-align:center; padding:40px 24px; font-size:0.84rem; color:var(--muted); }
+footer .footer-brand {
+  font-family:'Lora',serif; color:var(--brown-light) !important; font-size:0.92rem; margin-bottom:8px;
+  -webkit-text-fill-color: var(--brown-light);
+}
+footer .footer-copy { opacity:0.5; margin-top:4px; }
+footer .footer-links { margin-top:14px; font-size:0.78rem; }
+footer .footer-links a {
+  color:var(--brown-light) !important; text-decoration:none !important;
+  -webkit-text-fill-color: var(--brown-light);
+  opacity:0.85; transition:opacity 0.2s;
+}
+footer .footer-links a:hover { opacity:1; text-decoration:underline !important; }
+footer, footer * {
+  -webkit-text-size-adjust:100%;
+  -webkit-font-smoothing:antialiased;
+  -webkit-tap-highlight-color:transparent;
+}
+footer a, footer span, footer p {
+  color:inherit;
+  text-decoration:none !important;
+}
 
 /* ── COOKIE BANNER ── */
 .spi-cookie-banner {
@@ -127,14 +262,15 @@ footer .footer-links a:hover{opacity:1;text-decoration:underline !important}
   display:flex; justify-content:center;
   padding:20px; pointer-events:none;
   opacity:0; transform:translateY(20px);
-  transition:opacity .35s ease, transform .35s ease;
+  transition:opacity 0.35s ease, transform 0.35s ease;
 }
 .spi-cookie-banner.show { opacity:1; transform:translateY(0); pointer-events:auto; }
+
 .spi-cookie-card {
   max-width:680px; width:100%;
   background:#f7f0e3; border:1px solid var(--border);
   border-radius:18px; padding:22px 24px;
-  box-shadow:0 30px 70px rgba(26,20,16,.14);
+  box-shadow:0 30px 70px rgba(26,20,16,0.14);
   display:flex; flex-wrap:wrap; align-items:flex-start; gap:16px;
 }
 .spi-cookie-icon {
@@ -145,13 +281,14 @@ footer .footer-links a:hover{opacity:1;text-decoration:underline !important}
 .spi-cookie-icon svg { width:20px; height:20px; color:var(--brown-light); }
 .spi-cookie-body { flex:1; min-width:200px; }
 .spi-cookie-body h3 { font-family:'Lora',serif; color:var(--brown-light); font-size:1.05rem; margin-bottom:6px; }
-.spi-cookie-body p { font-size:.85rem; color:var(--muted); line-height:1.55; }
+.spi-cookie-body p { font-size:0.85rem; color:var(--muted); line-height:1.55; }
 .spi-cookie-body a { color:var(--brown-light); text-decoration:underline; }
+
 .spi-cookie-actions { display:flex; flex-wrap:wrap; gap:10px; width:100%; justify-content:flex-end; }
 .spi-cookie-btn {
-  font-family:'Poppins',sans-serif; font-size:.8rem; font-weight:600;
-  letter-spacing:.03em; padding:11px 22px; border-radius:8px;
-  cursor:pointer; border:none; transition:transform .2s, opacity .2s, background .2s;
+  font-family:'Poppins',sans-serif; font-size:0.8rem; font-weight:600;
+  letter-spacing:0.03em; padding:11px 22px; border-radius:8px;
+  cursor:pointer; border:none; transition:transform 0.2s, opacity 0.2s, background 0.2s;
   white-space:nowrap;
 }
 .spi-cookie-btn.ghost { background:transparent; color:var(--muted); }
@@ -163,32 +300,39 @@ footer .footer-links a:hover{opacity:1;text-decoration:underline !important}
 .spi-cookie-btn.full { width:100%; justify-content:center; margin-top:18px; }
 
 .spi-cookie-modal {
-  position:fixed; inset:0; background:rgba(26,20,16,.22);
+  position:fixed; inset:0; background:rgba(26,20,16,0.22);
   display:flex; justify-content:center; align-items:center;
   z-index:5001; opacity:0; visibility:hidden;
-  transition:opacity .3s, visibility .3s;
+  transition:opacity 0.3s, visibility 0.3s;
   backdrop-filter:blur(8px); padding:20px;
 }
 .spi-cookie-modal.show { opacity:1; visibility:visible; }
 .spi-cookie-modal-card {
   max-width:460px; width:100%; background:#e8dcc4;
   border:1px solid var(--border); border-radius:20px; padding:28px;
-  box-shadow:0 30px 80px rgba(26,20,16,.14);
+  box-shadow:0 30px 80px rgba(26,20,16,0.14);
 }
 .spi-cookie-modal-card h3 { font-family:'Lora',serif; color:var(--brown-light); font-size:1.2rem; margin-bottom:20px; }
 .spi-cookie-row {
   display:flex; justify-content:space-between; align-items:flex-start; gap:14px;
   padding:14px 0; border-bottom:1px solid var(--border);
 }
-.spi-cookie-row strong { font-size:.92rem; color:var(--text); display:block; margin-bottom:4px; }
-.spi-cookie-row p { font-size:.8rem; color:var(--muted); line-height:1.5; }
+.spi-cookie-row strong { font-size:0.92rem; color:var(--text); display:block; margin-bottom:4px; }
+.spi-cookie-row p { font-size:0.8rem; color:var(--muted); line-height:1.5; }
+
 .spi-switch { position:relative; display:inline-block; width:42px; height:24px; flex-shrink:0; }
 .spi-switch input { opacity:0; width:0; height:0; }
-.spi-slider { position:absolute; cursor:pointer; inset:0; background:rgba(255,255,255,.12); border-radius:24px; transition:.3s; }
-.spi-slider::before { position:absolute; content:""; height:18px; width:18px; left:3px; bottom:3px; background:#fff; border-radius:50%; transition:.3s; }
+.spi-slider {
+  position:absolute; cursor:pointer; inset:0;
+  background:rgba(255,255,255,0.12); border-radius:24px; transition:0.3s;
+}
+.spi-slider::before {
+  position:absolute; content:""; height:18px; width:18px; left:3px; bottom:3px;
+  background:#fff; border-radius:50%; transition:0.3s;
+}
 .spi-switch input:checked + .spi-slider { background:var(--brown); }
 .spi-switch input:checked + .spi-slider::before { transform:translateX(18px); }
-.spi-switch.disabled .spi-slider { opacity:.5; cursor:not-allowed; }
+.spi-switch.disabled .spi-slider { opacity:0.5; cursor:not-allowed; }
 
 @media(max-width:600px){
   .spi-cookie-card { flex-direction:column; padding:20px; }
@@ -197,22 +341,66 @@ footer .footer-links a:hover{opacity:1;text-decoration:underline !important}
 }
 
 @media(max-width:768px){
-  nav{padding:0 18px;height:88px}
-  .nav-logo img{height:72px}
-  .policy-section{padding:24px 22px}
+  nav { padding:0 18px; height:88px; }
+  .nav-logo img { height:72px; }
+  .info-section { padding:70px 16px 60px; }
+  .hero-bottom { padding-bottom:44px; gap:18px; }
+  .cta-section { padding:52px 20px; }
+}
+
+/* ══════════ SPLASH DI BENVENUTO — leggero, solo al primo arrivo da QR ══════════ */
+#welcomeSplash {
+  position:fixed; inset:0; z-index:99999;
+  background:var(--bg);
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:18px;
+  transition:opacity 0.5s ease, visibility 0.5s ease;
+}
+#welcomeSplash.fade-out { opacity:0; visibility:hidden; pointer-events:none; }
+
+.welcome-logo {
+  height:84px; width:auto;
+  opacity:0;
+  transform:translateY(6px);
+  filter:drop-shadow(0 0 18px rgba(107,66,38,0.2));
+  animation:welcomeLogoIn 0.7s ease 0.1s forwards;
+}
+@keyframes welcomeLogoIn { to { opacity:1; transform:translateY(0); } }
+
+.welcome-text {
+  font-family:'Lora',serif;
+  font-style:italic;
+  font-size:0.85rem;
+  letter-spacing:0.12em;
+  color:var(--muted);
+  opacity:0;
+  animation:welcomeTextIn 0.6s ease 0.4s forwards;
+}
+@keyframes welcomeTextIn { to { opacity:1; } }
+
+.welcome-line {
+  width:0; height:1px;
+  background:linear-gradient(to right, transparent, var(--brown), transparent);
+  animation:welcomeLineGrow 0.6s ease 0.55s forwards;
+}
+@keyframes welcomeLineGrow { to { width:70px; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .welcome-logo, .welcome-text, .welcome-line { animation:none !important; opacity:1 !important; width:70px; }
 }
 </style>
 </head>
 <body>
 
+<!-- SPLASH DI BENVENUTO — leggero, mostrato al primo arrivo dal QR code -->
+<div id="welcomeSplash">
+  <img class="welcome-logo" src="images/logospi1.PNG" alt="SPI System">
+  <div class="welcome-line"></div>
+  <p class="welcome-text" id="welcome-text">Benvenuto</p>
+</div>
+
 <nav>
-  <div class="nav-left">
-    <a class="back-btn" href="index.html" id="back-btn" onclick="return spiGoBack(event)">
-      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
-      <span id="back-label">Indietro</span>
-    </a>
-    <div class="nav-logo"><img src="images/logospi1.PNG" alt="SPI System"></div>
-  </div>
+  <div class="nav-logo"><img src="images/logospi1.PNG" alt="SPI System"></div>
   <div class="language-selector" id="langSelector">
     <span class="lang-flag" id="currentFlag">🇮🇹</span>
     <svg class="lang-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
@@ -226,105 +414,105 @@ footer .footer-links a:hover{opacity:1;text-decoration:underline !important}
   </div>
 </nav>
 
-<div class="page-header">
-  <p class="page-eyebrow" id="eyebrow">Informativa</p>
-  <h1 class="page-title" id="page-title">Privacy Policy</h1>
-  <p class="page-updated" id="page-updated">Ultimo aggiornamento: 19 Giugno 2026</p>
-  <div class="gold-rule"></div>
-</div>
-
-<div class="content">
-
-  <div class="policy-section">
-    <h2><span class="num">1</span><span id="s1-title">Titolare del trattamento</span></h2>
-    <p id="s1-text">Il Titolare del trattamento dei dati è <strong>Spi System di Giuseppe Spizzico</strong>, con sede in Via Monterosa 22, Palo del Colle (BA) — P. IVA 08791580726. Per qualsiasi richiesta relativa alla presente informativa è possibile contattare il Titolare tramite i recapiti indicati nella sezione Contatti del sito.</p>
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-bottom">
+    <a class="hero-btn" href="menu.html">
+      <i class="fas fa-utensils"></i>
+      <span id="btn-text">Visualizza Menù</span>
+    </a>
+    <a class="hero-scroll" href="#info">
+      <span id="scroll-label">Scopri di più</span>
+      <i class="fas fa-chevron-down"></i>
+    </a>
   </div>
+</section>
 
-  <div class="policy-section">
-    <h2><span class="num">2</span><span id="s2-title">Dati raccolti</span></h2>
-    <p id="s2-text">Questo sito è un menù digitale consultabile tramite QR code. Non richiede registrazione, non raccoglie dati personali identificativi per la semplice consultazione del menù.</p>
-    <p id="s2-text2">I dati personali vengono trattati solo se l'utente decide volontariamente di contattarci, ad esempio:</p>
-    <ul id="s2-list">
-      <li>cliccando sul numero di telefono per chiamare;</li>
-      <li>scrivendo tramite WhatsApp;</li>
-      <li>visitando i nostri profili social (Instagram, TikTok).</li>
-    </ul>
+<section class="info-section" id="info">
+  <p class="section-eyebrow" id="eyebrow-label">I nostri servizi</p>
+  <h2 class="section-title" id="section-title">Tecnologia al servizio del tuo locale</h2>
+  <p class="section-desc" id="section-desc">Menù digitali professionali, multilingua e sempre aggiornabili. Tutto quello che serve, accessibile con un semplice QR code.</p>
+
+  <div class="info-grid">
+    <div class="info-card">
+      <div class="icon"><i class="fas fa-laptop-code"></i></div>
+      <h3 id="about-title">Chi siamo</h3>
+      <p id="about-text">SPI System sviluppa soluzioni tecnologiche per attività commerciali e ristorative. Realizziamo menù digitali QR code multilingua per migliorare l'esperienza del cliente.</p>
+    </div>
+    <div class="info-card">
+      <div class="icon"><i class="fas fa-map-marker-alt"></i></div>
+      <h3 id="location-title">Dove ci troviamo</h3>
+      <p id="location-text">Via Monterosa, 22<br>Palo del Colle (BA)<br><a href="https://maps.app.goo.gl/WmcLgRDQcFkZhuqD7?g_st=ic" target="_blank">Apri su Google Maps</a></p>
+    </div>
+    <div class="info-card">
+      <div class="icon"><i class="fas fa-clock"></i></div>
+      <h3 id="hours-title">Orari di apertura</h3>
+      <p id="hours-text">Lunedì – Venerdì<br>09:00 – 19:00<br>Sabato 09:00 – 12:00</p>
+    </div>
+    <div class="info-card">
+      <div class="icon">
+        <svg class="phone-icon" viewBox="0 0 24 24">
+          <path d="M20 16.9v2.6a1.5 1.5 0 0 1-1.6 1.5 15.6 15.6 0 0 1-6.8-2.4 15.4 15.4 0 0 1-4.7-4.7 15.6 15.6 0 0 1-2.4-6.9A1.5 1.5 0 0 1 6 4.5h2.6a1.5 1.5 0 0 1 1.5 1.3c.1.9.3 1.8.6 2.6a1.5 1.5 0 0 1-.4 1.6l-1.1 1.1a12.6 12.6 0 0 0 4.7 4.7l1.1-1.1a1.5 1.5 0 0 1 1.6-.4c.8.3 1.7.5 2.6.6a1.5 1.5 0 0 1 1.3 1.5z"/>
+        </svg>
+      </div>
+      <h3 id="contact-title">Contatti</h3>
+      <p><a href="tel:+393342732997" id="contact-text">334 273 2997</a></p>
+      <div class="social-row">
+        <a href="https://www.instagram.com/giuseppespizzico__" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.tiktok.com/@._giuspi" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+        <a href="https://wa.me/3935560714" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+      </div>
+    </div>
   </div>
+</section>
 
-  <div class="policy-section">
-    <h2><span class="num">3</span><span id="s3-title">Cookie e tecnologie simili</span></h2>
-    <p id="s3-text">Il sito utilizza esclusivamente <strong>cookie tecnici necessari</strong> al corretto funzionamento, salvati localmente nel browser (localStorage). Non vengono utilizzati cookie di tracciamento, profilazione o pubblicità.</p>
-    <table class="policy-table">
-      <thead>
-        <tr><th id="th-name">Nome</th><th id="th-purpose">Finalità</th><th id="th-duration">Durata</th></tr>
-      </thead>
-      <tbody>
-        <tr><td>selectedLanguage</td><td id="tr1-purpose">Memorizza la lingua selezionata</td><td id="tr1-duration">Permanente (fino a cancellazione manuale)</td></tr>
-        <tr><td>spi-cookie-consent</td><td id="tr2-purpose">Memorizza la scelta sui cookie</td><td id="tr2-duration">Permanente (fino a cancellazione manuale)</td></tr>
-      </tbody>
-    </table>
-    <p id="s3-text2" style="margin-top:14px">Puoi modificare le tue preferenze in qualsiasi momento tramite il link "Preferenze Cookie" in fondo al sito.</p>
-  </div>
+<section class="cta-section">
+  <p class="cta-label" id="cta-label">Vuoi un menù come questo?</p>
+  <h2 class="cta-title" id="cta-title">Porta il tuo locale nel digitale</h2>
+  <p class="cta-sub" id="cta-sub">Contattaci su WhatsApp o telefonicamente. Realizziamo il tuo menù QR in pochi giorni.</p>
+  <a class="cta-btn" href="https://wa.me/3935560714" target="_blank">
+    <i class="fab fa-whatsapp"></i>
+    <span id="cta-btn-text">Contattaci su WhatsApp</span>
+  </a>
+</section>
 
-  <div class="policy-section">
-    <h2><span class="num">4</span><span id="s4-title">Finalità del trattamento</span></h2>
-    <p id="s4-text">I dati eventualmente raccolti tramite contatto diretto (telefono, WhatsApp) sono utilizzati esclusivamente per rispondere alle richieste dell'utente, fornire informazioni sui servizi e gestire eventuali contatti commerciali. Non vengono ceduti a terzi né utilizzati per finalità di marketing senza consenso esplicito.</p>
-  </div>
-
-  <div class="policy-section">
-    <h2><span class="num">5</span><span id="s5-title">Base giuridica</span></h2>
-    <p id="s5-text">Il trattamento si basa sul consenso dell'utente (es. avvio volontario di una conversazione WhatsApp) e, dove applicabile, sull'esecuzione di obblighi precontrattuali o contrattuali derivanti da una richiesta di servizio.</p>
-  </div>
-
-  <div class="policy-section">
-    <h2><span class="num">6</span><span id="s6-title">Diritti dell'utente</span></h2>
-    <p id="s6-text">In qualità di interessato, hai diritto in qualsiasi momento di:</p>
-    <ul id="s6-list">
-      <li>chiedere l'accesso ai tuoi dati personali;</li>
-      <li>chiederne la rettifica o la cancellazione;</li>
-      <li>opporti al trattamento o richiederne la limitazione;</li>
-      <li>richiedere la portabilità dei dati;</li>
-      <li>revocare il consenso in qualsiasi momento;</li>
-      <li>presentare un reclamo all'Autorità Garante per la Protezione dei Dati Personali.</li>
-    </ul>
-  </div>
-
-  <div class="policy-section">
-    <h2><span class="num">7</span><span id="s7-title">Servizi di terze parti</span></h2>
-    <p id="s7-text">Il sito utilizza servizi esterni per il corretto funzionamento grafico e linguistico, che potrebbero impostare cookie tecnici propri secondo le rispettive policy:</p>
-    <ul id="s7-list">
-      <li><strong>Google Fonts</strong> — caricamento font tipografici;</li>
-      <li><strong>Font Awesome</strong> — icone grafiche;</li>
-      <li><strong>WhatsApp / Meta</strong> — se si avvia una chat tramite il pulsante WhatsApp;</li>
-      <li><strong>Google Maps</strong> — se si clicca sul link per la posizione.</li>
-    </ul>
-  </div>
-
-  <div class="policy-section">
-    <h2><span class="num">8</span><span id="s8-title">Modifiche alla presente informativa</span></h2>
-    <p id="s8-text">Questa informativa può essere aggiornata periodicamente. Eventuali modifiche saranno pubblicate in questa pagina con indicazione della data di ultimo aggiornamento.</p>
-  </div>
-
-</div>
+<div class="gold-divider"></div>
 
 <footer>
   <p class="footer-brand">Spi System di Giuseppe Spizzico — P. IVA 08791580726</p>
   <p class="footer-copy">&copy; 2026 Menù demo Spi System</p>
-  <p class="footer-links"><a href="index.html" id="footer-home-link">Torna alla Home</a> · <a href="#" id="footer-cookie-link">Preferenze Cookie</a></p>
+  <p class="footer-links"><a href="privacy.html" id="footer-privacy-link">Privacy Policy</a> · <a href="#" id="footer-cookie-link">Preferenze Cookie</a></p>
 </footer>
 
+<button class="scroll-top" id="scrollTopBtn" aria-label="Torna in cima">
+  <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+</button>
+
 <script>
-// Torna alla pagina da cui si è arrivati (menu.html o index.html).
-// Se non c'è una pagina precedente nella sessione (es. link diretto esterno),
-// l'href="index.html" sul link funge da fallback naturale.
-function spiGoBack(event) {
-  if (document.referrer && document.referrer.includes(window.location.host)) {
-    event.preventDefault();
-    history.back();
-    return false;
+// ── SPLASH DI BENVENUTO: breve, solo un saluto prima della home ──
+(function () {
+  const MIN_TIME = 1350; // ms — breve: è un saluto, non un caricamento
+  const start = Date.now();
+
+  function dismiss() {
+    const wait = Math.max(0, MIN_TIME - (Date.now() - start));
+    setTimeout(() => {
+      const splash = document.getElementById('welcomeSplash');
+      if (splash) {
+        splash.classList.add('fade-out');
+        setTimeout(() => splash.remove(), 550);
+      }
+    }, wait);
   }
-  return true; // nessun referrer interno: lascia che il link normale vada a index.html
-}
+
+  if (document.readyState === 'interactive' || document.readyState === 'complete') {
+    dismiss();
+  } else {
+    document.addEventListener('DOMContentLoaded', dismiss);
+    setTimeout(dismiss, 2500); // fallback di sicurezza
+  }
+})();
 
 const langSelector = document.getElementById('langSelector');
 const langDropdown = document.getElementById('langDropdown');
@@ -338,207 +526,111 @@ document.addEventListener('click', () => {
   langSelector.classList.remove('open');
 });
 
+const obs = new IntersectionObserver(entries => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('visible'), i * 130);
+      obs.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.info-card').forEach(c => obs.observe(c));
+
+const scrollBtn = document.getElementById('scrollTopBtn');
+window.addEventListener('scroll', () => scrollBtn.classList.toggle('show', window.scrollY > 400));
+scrollBtn.addEventListener('click', () => window.scrollTo({ top:0, behavior:'smooth' }));
+
 const FLAGS = { it:'🇮🇹', en:'🇬🇧', es:'🇪🇸', fr:'🇫🇷', de:'🇩🇪' };
 
 i18next.init({
   lng: localStorage.getItem('selectedLanguage') || 'it',
   resources: {
     it:{ translation:{
-      back:"Indietro", eyebrow:"Informativa", page_title:"Privacy Policy",
-      page_updated:"Ultimo aggiornamento: 19 Giugno 2026",
-      s1_title:"Titolare del trattamento",
-      s1_text:"Il Titolare del trattamento dei dati è <strong>Spi System di Giuseppe Spizzico</strong>, con sede in Via Monterosa 22, Palo del Colle (BA) — P. IVA 08791580726. Per qualsiasi richiesta relativa alla presente informativa è possibile contattare il Titolare tramite i recapiti indicati nella sezione Contatti del sito.",
-      s2_title:"Dati raccolti",
-      s2_text:"Questo sito è un menù digitale consultabile tramite QR code. Non richiede registrazione, non raccoglie dati personali identificativi per la semplice consultazione del menù.",
-      s2_text2:"I dati personali vengono trattati solo se l'utente decide volontariamente di contattarci, ad esempio:",
-      s2_li1:"cliccando sul numero di telefono per chiamare;", s2_li2:"scrivendo tramite WhatsApp;", s2_li3:"visitando i nostri profili social (Instagram, TikTok).",
-      s3_title:"Cookie e tecnologie simili",
-      s3_text:"Il sito utilizza esclusivamente <strong>cookie tecnici necessari</strong> al corretto funzionamento, salvati localmente nel browser (localStorage). Non vengono utilizzati cookie di tracciamento, profilazione o pubblicità.",
-      th_name:"Nome", th_purpose:"Finalità", th_duration:"Durata",
-      tr1_purpose:"Memorizza la lingua selezionata", tr1_duration:"Permanente (fino a cancellazione manuale)",
-      tr2_purpose:"Memorizza la scelta sui cookie", tr2_duration:"Permanente (fino a cancellazione manuale)",
-      s3_text2:"Puoi modificare le tue preferenze in qualsiasi momento tramite il link \"Preferenze Cookie\" in fondo al sito.",
-      s4_title:"Finalità del trattamento",
-      s4_text:"I dati eventualmente raccolti tramite contatto diretto (telefono, WhatsApp) sono utilizzati esclusivamente per rispondere alle richieste dell'utente, fornire informazioni sui servizi e gestire eventuali contatti commerciali. Non vengono ceduti a terzi né utilizzati per finalità di marketing senza consenso esplicito.",
-      s5_title:"Base giuridica",
-      s5_text:"Il trattamento si basa sul consenso dell'utente (es. avvio volontario di una conversazione WhatsApp) e, dove applicabile, sull'esecuzione di obblighi precontrattuali o contrattuali derivanti da una richiesta di servizio.",
-      s6_title:"Diritti dell'utente",
-      s6_text:"In qualità di interessato, hai diritto in qualsiasi momento di:",
-      s6_li1:"chiedere l'accesso ai tuoi dati personali;", s6_li2:"chiederne la rettifica o la cancellazione;",
-      s6_li3:"opporti al trattamento o richiederne la limitazione;", s6_li4:"richiedere la portabilità dei dati;",
-      s6_li5:"revocare il consenso in qualsiasi momento;", s6_li6:"presentare un reclamo all'Autorità Garante per la Protezione dei Dati Personali.",
-      s7_title:"Servizi di terze parti",
-      s7_text:"Il sito utilizza servizi esterni per il corretto funzionamento grafico e linguistico, che potrebbero impostare cookie tecnici propri secondo le rispettive policy:",
-      s7_li1:"<strong>Google Fonts</strong> — caricamento font tipografici;", s7_li2:"<strong>Font Awesome</strong> — icone grafiche;",
-      s7_li3:"<strong>WhatsApp / Meta</strong> — se si avvia una chat tramite il pulsante WhatsApp;", s7_li4:"<strong>Google Maps</strong> — se si clicca sul link per la posizione.",
-      s8_title:"Modifiche alla presente informativa",
-      s8_text:"Questa informativa può essere aggiornata periodicamente. Eventuali modifiche saranno pubblicate in questa pagina con indicazione della data di ultimo aggiornamento.",
-      footer_home:"Torna alla Home", footer_cookie:"Preferenze Cookie"
+      welcome:"Benvenuto", btn:"Visualizza Menù", scroll:"Scopri di più",
+      eyebrow:"I nostri servizi", section_title:"Tecnologia al servizio del tuo locale",
+      section_desc:"Menù digitali professionali, multilingua e sempre aggiornabili. Tutto quello che serve, accessibile con un semplice QR code.",
+      about_title:"Chi siamo", about_text:"SPI System sviluppa soluzioni tecnologiche per attività commerciali e ristorative. Realizziamo menù digitali QR code multilingua per migliorare l'esperienza del cliente.",
+      location_title:"Dove ci troviamo", location_text:"Via Monterosa, 22<br>Palo del Colle (BA)<br><a href='https://maps.app.goo.gl/WmcLgRDQcFkZhuqD7?g_st=ic' target='_blank'>Apri su Google Maps</a>",
+      hours_title:"Orari di apertura", hours_text:"Lunedì – Venerdì<br>09:00 – 19:00<br>Sabato 09:00 – 12:00",
+      contact_title:"Contatti", contact_text:"334 273 2997",
+      cta_label:"Vuoi un menù come questo?", cta_title:"Porta il tuo locale nel digitale",
+      cta_sub:"Contattaci su WhatsApp o telefonicamente. Realizziamo il tuo menù QR in pochi giorni.", cta_btn:"Contattaci su WhatsApp",
+      footer_privacy:"Privacy Policy", footer_cookie:"Preferenze Cookie"
     }},
     en:{ translation:{
-      back:"Back", eyebrow:"Notice", page_title:"Privacy Policy",
-      page_updated:"Last updated: June 19, 2026",
-      s1_title:"Data Controller",
-      s1_text:"The Data Controller is <strong>Spi System di Giuseppe Spizzico</strong>, based in Via Monterosa 22, Palo del Colle (BA), Italy — VAT 08791580726. For any request regarding this notice, you can contact the Controller via the details in the Contacts section of the site.",
-      s2_title:"Data collected",
-      s2_text:"This site is a digital menu accessible via QR code. No registration is required, and no identifying personal data is collected for simply browsing the menu.",
-      s2_text2:"Personal data is only processed if the user voluntarily decides to contact us, for example:",
-      s2_li1:"clicking the phone number to call;", s2_li2:"writing via WhatsApp;", s2_li3:"visiting our social profiles (Instagram, TikTok).",
-      s3_title:"Cookies and similar technologies",
-      s3_text:"The site only uses <strong>necessary technical cookies</strong> for it to function properly, stored locally in the browser (localStorage). No tracking, profiling, or advertising cookies are used.",
-      th_name:"Name", th_purpose:"Purpose", th_duration:"Duration",
-      tr1_purpose:"Stores selected language", tr1_duration:"Persistent (until manually deleted)",
-      tr2_purpose:"Stores cookie choice", tr2_duration:"Persistent (until manually deleted)",
-      s3_text2:"You can change your preferences at any time via the \"Cookie Preferences\" link at the bottom of the site.",
-      s4_title:"Purpose of processing",
-      s4_text:"Any data collected through direct contact (phone, WhatsApp) is used solely to respond to user requests, provide information about services, and manage any business contacts. It is not shared with third parties or used for marketing purposes without explicit consent.",
-      s5_title:"Legal basis",
-      s5_text:"Processing is based on user consent (e.g. voluntarily starting a WhatsApp conversation) and, where applicable, on the performance of pre-contractual or contractual obligations arising from a service request.",
-      s6_title:"User rights",
-      s6_text:"As a data subject, you have the right at any time to:",
-      s6_li1:"request access to your personal data;", s6_li2:"request rectification or deletion;",
-      s6_li3:"object to processing or request its limitation;", s6_li4:"request data portability;",
-      s6_li5:"withdraw consent at any time;", s6_li6:"file a complaint with the Data Protection Authority.",
-      s7_title:"Third-party services",
-      s7_text:"The site uses external services for proper graphic and language functionality, which may set their own technical cookies according to their respective policies:",
-      s7_li1:"<strong>Google Fonts</strong> — typographic font loading;", s7_li2:"<strong>Font Awesome</strong> — graphic icons;",
-      s7_li3:"<strong>WhatsApp / Meta</strong> — if a chat is started via the WhatsApp button;", s7_li4:"<strong>Google Maps</strong> — if the location link is clicked.",
-      s8_title:"Changes to this notice",
-      s8_text:"This notice may be updated periodically. Any changes will be published on this page with an indication of the last update date.",
-      footer_home:"Back to Home", footer_cookie:"Cookie Preferences"
+      welcome:"Welcome", btn:"View Menu", scroll:"Discover more",
+      eyebrow:"Our services", section_title:"Technology at your service",
+      section_desc:"Professional, multilingual digital menus, always up to date. Everything you need, accessible with a simple QR code.",
+      about_title:"About us", about_text:"SPI System develops technological solutions for commercial and hospitality businesses. We create multilingual QR code digital menus to enhance the customer experience.",
+      location_title:"Our Location", location_text:"22 Monterosa Street<br>Palo del Colle (BA)<br><a href='https://maps.app.goo.gl/WmcLgRDQcFkZhuqD7?g_st=ic' target='_blank'>Open in Google Maps</a>",
+      hours_title:"Opening Hours", hours_text:"Monday – Friday<br>09:00 – 19:00<br>Saturday 09:00 – 12:00",
+      contact_title:"Contacts", contact_text:"334 273 2997",
+      cta_label:"Want a menu like this?", cta_title:"Bring your venue into the digital age",
+      cta_sub:"Contact us on WhatsApp or by phone. We'll create your QR menu in just a few days.", cta_btn:"Contact us on WhatsApp",
+      footer_privacy:"Privacy Policy", footer_cookie:"Cookie Preferences"
     }},
     es:{ translation:{
-      back:"Volver", eyebrow:"Aviso", page_title:"Política de Privacidad",
-      page_updated:"Última actualización: 19 de junio de 2026",
-      s1_title:"Responsable del tratamiento",
-      s1_text:"El Responsable del tratamiento es <strong>Spi System di Giuseppe Spizzico</strong>, con sede en Via Monterosa 22, Palo del Colle (BA), Italia — NIF 08791580726.",
-      s2_title:"Datos recopilados",
-      s2_text:"Este sitio es un menú digital accesible mediante código QR. No requiere registro ni recopila datos personales identificativos para la simple consulta del menú.",
-      s2_text2:"Los datos personales solo se tratan si el usuario decide voluntariamente contactarnos, por ejemplo:",
-      s2_li1:"haciendo clic en el número de teléfono para llamar;", s2_li2:"escribiendo por WhatsApp;", s2_li3:"visitando nuestros perfiles sociales (Instagram, TikTok).",
-      s3_title:"Cookies y tecnologías similares",
-      s3_text:"El sitio utiliza únicamente <strong>cookies técnicas necesarias</strong> para su correcto funcionamiento, almacenadas localmente en el navegador (localStorage). No se usan cookies de seguimiento, perfilado o publicidad.",
-      th_name:"Nombre", th_purpose:"Finalidad", th_duration:"Duración",
-      tr1_purpose:"Almacena el idioma seleccionado", tr1_duration:"Permanente (hasta eliminación manual)",
-      tr2_purpose:"Almacena la elección de cookies", tr2_duration:"Permanente (hasta eliminación manual)",
-      s3_text2:"Puedes cambiar tus preferencias en cualquier momento mediante el enlace \"Preferencias de Cookies\" al final del sitio.",
-      s4_title:"Finalidad del tratamiento",
-      s4_text:"Los datos eventualmente recopilados mediante contacto directo (teléfono, WhatsApp) se usan exclusivamente para responder a las solicitudes del usuario, proporcionar información sobre los servicios y gestionar contactos comerciales. No se ceden a terceros ni se usan con fines de marketing sin consentimiento explícito.",
-      s5_title:"Base jurídica",
-      s5_text:"El tratamiento se basa en el consentimiento del usuario y, cuando sea aplicable, en la ejecución de obligaciones precontractuales o contractuales derivadas de una solicitud de servicio.",
-      s6_title:"Derechos del usuario",
-      s6_text:"Como interesado, tienes derecho en cualquier momento a:",
-      s6_li1:"solicitar acceso a tus datos personales;", s6_li2:"solicitar su rectificación o eliminación;",
-      s6_li3:"oponerte al tratamiento o solicitar su limitación;", s6_li4:"solicitar la portabilidad de los datos;",
-      s6_li5:"retirar el consentimiento en cualquier momento;", s6_li6:"presentar una reclamación ante la Autoridad de Protección de Datos.",
-      s7_title:"Servicios de terceros",
-      s7_text:"El sitio utiliza servicios externos para su correcto funcionamiento gráfico e idiomático, que podrían establecer sus propias cookies técnicas según sus respectivas políticas:",
-      s7_li1:"<strong>Google Fonts</strong> — carga de fuentes tipográficas;", s7_li2:"<strong>Font Awesome</strong> — iconos gráficos;",
-      s7_li3:"<strong>WhatsApp / Meta</strong> — si se inicia un chat mediante el botón de WhatsApp;", s7_li4:"<strong>Google Maps</strong> — si se hace clic en el enlace de ubicación.",
-      s8_title:"Cambios en este aviso",
-      s8_text:"Este aviso puede actualizarse periódicamente. Los cambios se publicarán en esta página indicando la fecha de la última actualización.",
-      footer_home:"Volver al Inicio", footer_cookie:"Preferencias de Cookies"
+      welcome:"Bienvenido", btn:"Ver Menú", scroll:"Descubre más",
+      eyebrow:"Nuestros servicios", section_title:"Tecnología al servicio de tu local",
+      section_desc:"Menús digitales profesionales, multilingües y siempre actualizables. Todo lo que necesitas, accesible con un simple código QR.",
+      about_title:"Sobre nosotros", about_text:"SPI System desarrolla soluciones tecnológicas para actividades comerciales y de restauración. Creamos menús digitales multilingües con código QR para mejorar la experiencia del cliente.",
+      location_title:"Ubicación", location_text:"Calle Monterosa, 22<br>Palo del Colle (BA)<br><a href='https://maps.app.goo.gl/WmcLgRDQcFkZhuqD7?g_st=ic' target='_blank'>Abrir en Google Maps</a>",
+      hours_title:"Horario", hours_text:"Lunes – Viernes<br>09:00 – 19:00<br>Sábado 09:00 – 12:00",
+      contact_title:"Contacto", contact_text:"334 273 2997",
+      cta_label:"¿Quieres un menú como este?", cta_title:"Lleva tu local al mundo digital",
+      cta_sub:"Contáctanos por WhatsApp o teléfono. Creamos tu menú QR en pocos días.", cta_btn:"Contáctanos en WhatsApp",
+      footer_privacy:"Política de Privacidad", footer_cookie:"Preferencias de Cookies"
     }},
     fr:{ translation:{
-      back:"Retour", eyebrow:"Avis", page_title:"Politique de Confidentialité",
-      page_updated:"Dernière mise à jour : 19 juin 2026",
-      s1_title:"Responsable du traitement",
-      s1_text:"Le Responsable du traitement est <strong>Spi System di Giuseppe Spizzico</strong>, situé Via Monterosa 22, Palo del Colle (BA), Italie — TVA 08791580726.",
-      s2_title:"Données collectées",
-      s2_text:"Ce site est un menu numérique accessible via QR code. Aucune inscription n'est requise et aucune donnée personnelle identifiante n'est collectée pour la simple consultation du menu.",
-      s2_text2:"Les données personnelles sont traitées uniquement si l'utilisateur décide volontairement de nous contacter, par exemple :",
-      s2_li1:"en cliquant sur le numéro de téléphone pour appeler ;", s2_li2:"en écrivant via WhatsApp ;", s2_li3:"en visitant nos profils sociaux (Instagram, TikTok).",
-      s3_title:"Cookies et technologies similaires",
-      s3_text:"Le site utilise uniquement des <strong>cookies techniques nécessaires</strong> à son bon fonctionnement, stockés localement dans le navigateur (localStorage). Aucun cookie de suivi, de profilage ou publicitaire n'est utilisé.",
-      th_name:"Nom", th_purpose:"Finalité", th_duration:"Durée",
-      tr1_purpose:"Mémorise la langue sélectionnée", tr1_duration:"Permanent (jusqu'à suppression manuelle)",
-      tr2_purpose:"Mémorise le choix des cookies", tr2_duration:"Permanent (jusqu'à suppression manuelle)",
-      s3_text2:"Vous pouvez modifier vos préférences à tout moment via le lien \"Préférences Cookies\" en bas du site.",
-      s4_title:"Finalité du traitement",
-      s4_text:"Les données éventuellement collectées via un contact direct (téléphone, WhatsApp) sont utilisées uniquement pour répondre aux demandes de l'utilisateur, fournir des informations sur les services et gérer les contacts commerciaux. Elles ne sont pas cédées à des tiers ni utilisées à des fins marketing sans consentement explicite.",
-      s5_title:"Base juridique",
-      s5_text:"Le traitement repose sur le consentement de l'utilisateur et, le cas échéant, sur l'exécution d'obligations précontractuelles ou contractuelles découlant d'une demande de service.",
-      s6_title:"Droits de l'utilisateur",
-      s6_text:"En tant que personne concernée, vous avez le droit à tout moment de :",
-      s6_li1:"demander l'accès à vos données personnelles ;", s6_li2:"en demander la rectification ou la suppression ;",
-      s6_li3:"vous opposer au traitement ou en demander la limitation ;", s6_li4:"demander la portabilité des données ;",
-      s6_li5:"retirer votre consentement à tout moment ;", s6_li6:"déposer une réclamation auprès de l'autorité de protection des données.",
-      s7_title:"Services tiers",
-      s7_text:"Le site utilise des services externes pour son bon fonctionnement graphique et linguistique, qui peuvent définir leurs propres cookies techniques selon leurs politiques respectives :",
-      s7_li1:"<strong>Google Fonts</strong> — chargement de polices typographiques ;", s7_li2:"<strong>Font Awesome</strong> — icônes graphiques ;",
-      s7_li3:"<strong>WhatsApp / Meta</strong> — si un chat est lancé via le bouton WhatsApp ;", s7_li4:"<strong>Google Maps</strong> — si le lien de localisation est cliqué.",
-      s8_title:"Modifications de cet avis",
-      s8_text:"Cet avis peut être mis à jour périodiquement. Les modifications seront publiées sur cette page avec indication de la date de dernière mise à jour.",
-      footer_home:"Retour à l'accueil", footer_cookie:"Préférences Cookies"
+      welcome:"Bienvenue", btn:"Voir le menu", scroll:"Découvrir",
+      eyebrow:"Nos services", section_title:"La technologie au service de votre établissement",
+      section_desc:"Menus numériques professionnels, multilingues et toujours à jour. Tout ce qu'il vous faut, accessible avec un simple QR code.",
+      about_title:"À propos de nous", about_text:"SPI System développe des solutions technologiques pour les commerces et la restauration. Nous créons des menus numériques multilingues avec QR code pour améliorer l'expérience client.",
+      location_title:"Notre emplacement", location_text:"22 Rue Monterosa<br>Palo del Colle (BA)<br><a href='https://maps.app.goo.gl/WmcLgRDQcFkZhuqD7?g_st=ic' target='_blank'>Ouvrir sur Google Maps</a>",
+      hours_title:"Horaires d'ouverture", hours_text:"Lundi – Vendredi<br>09:00 – 19:00<br>Samedi 09:00 – 12:00",
+      contact_title:"Contacts", contact_text:"334 273 2997",
+      cta_label:"Vous voulez un menu comme celui-ci?", cta_title:"Passez au numérique",
+      cta_sub:"Contactez-nous sur WhatsApp ou par téléphone. Nous créons votre menu QR en quelques jours.", cta_btn:"Contactez-nous sur WhatsApp",
+      footer_privacy:"Politique de Confidentialité", footer_cookie:"Préférences Cookies"
     }},
     de:{ translation:{
-      back:"Zurück", eyebrow:"Hinweis", page_title:"Datenschutzerklärung",
-      page_updated:"Letzte Aktualisierung: 19. Juni 2026",
-      s1_title:"Verantwortlicher",
-      s1_text:"Verantwortlicher für die Datenverarbeitung ist <strong>Spi System di Giuseppe Spizzico</strong>, mit Sitz in Via Monterosa 22, Palo del Colle (BA), Italien — USt-IdNr. 08791580726.",
-      s2_title:"Erhobene Daten",
-      s2_text:"Diese Website ist eine digitale Speisekarte, die per QR-Code aufgerufen wird. Für die bloße Ansicht der Speisekarte ist keine Registrierung erforderlich und es werden keine identifizierenden personenbezogenen Daten erhoben.",
-      s2_text2:"Personenbezogene Daten werden nur verarbeitet, wenn der Nutzer freiwillig Kontakt aufnimmt, zum Beispiel:",
-      s2_li1:"durch Klicken auf die Telefonnummer zum Anrufen;", s2_li2:"durch Schreiben über WhatsApp;", s2_li3:"durch Besuch unserer Social-Media-Profile (Instagram, TikTok).",
-      s3_title:"Cookies und ähnliche Technologien",
-      s3_text:"Die Website verwendet ausschließlich <strong>notwendige technische Cookies</strong> für ihre ordnungsgemäße Funktion, die lokal im Browser gespeichert werden (localStorage). Es werden keine Tracking-, Profiling- oder Werbe-Cookies verwendet.",
-      th_name:"Name", th_purpose:"Zweck", th_duration:"Dauer",
-      tr1_purpose:"Speichert die ausgewählte Sprache", tr1_duration:"Dauerhaft (bis zur manuellen Löschung)",
-      tr2_purpose:"Speichert die Cookie-Auswahl", tr2_duration:"Dauerhaft (bis zur manuellen Löschung)",
-      s3_text2:"Sie können Ihre Einstellungen jederzeit über den Link \"Cookie-Einstellungen\" am Ende der Website ändern.",
-      s4_title:"Zweck der Verarbeitung",
-      s4_text:"Eventuell durch direkten Kontakt (Telefon, WhatsApp) erhobene Daten werden ausschließlich zur Beantwortung von Nutzeranfragen, zur Bereitstellung von Informationen über Dienstleistungen und zur Verwaltung von Geschäftskontakten verwendet. Sie werden nicht ohne ausdrückliche Zustimmung an Dritte weitergegeben oder für Marketingzwecke verwendet.",
-      s5_title:"Rechtsgrundlage",
-      s5_text:"Die Verarbeitung beruht auf der Einwilligung des Nutzers und, soweit zutreffend, auf der Erfüllung vorvertraglicher oder vertraglicher Pflichten aus einer Serviceanfrage.",
-      s6_title:"Rechte des Nutzers",
-      s6_text:"Als betroffene Person haben Sie jederzeit das Recht:",
-      s6_li1:"Zugang zu Ihren personenbezogenen Daten zu verlangen;", s6_li2:"deren Berichtigung oder Löschung zu verlangen;",
-      s6_li3:"der Verarbeitung zu widersprechen oder deren Einschränkung zu verlangen;", s6_li4:"die Datenübertragbarkeit zu verlangen;",
-      s6_li5:"die Einwilligung jederzeit zu widerrufen;", s6_li6:"sich bei der Datenschutzbehörde zu beschweren.",
-      s7_title:"Dienste von Drittanbietern",
-      s7_text:"Die Website nutzt externe Dienste für die ordnungsgemäße grafische und sprachliche Funktion, die gemäß ihren jeweiligen Richtlinien eigene technische Cookies setzen können:",
-      s7_li1:"<strong>Google Fonts</strong> — Laden von Schriftarten;", s7_li2:"<strong>Font Awesome</strong> — grafische Symbole;",
-      s7_li3:"<strong>WhatsApp / Meta</strong> — bei Start eines Chats über den WhatsApp-Button;", s7_li4:"<strong>Google Maps</strong> — bei Klick auf den Standort-Link.",
-      s8_title:"Änderungen dieses Hinweises",
-      s8_text:"Dieser Hinweis kann regelmäßig aktualisiert werden. Änderungen werden auf dieser Seite mit Angabe des Datums der letzten Aktualisierung veröffentlicht.",
-      footer_home:"Zurück zur Startseite", footer_cookie:"Cookie-Einstellungen"
+      welcome:"Willkommen", btn:"Menü anzeigen", scroll:"Mehr entdecken",
+      eyebrow:"Unsere Dienste", section_title:"Technologie im Dienst Ihres Lokals",
+      section_desc:"Professionelle, mehrsprachige digitale Menüs, immer aktuell. Alles per QR-Code zugänglich.",
+      about_title:"Über uns", about_text:"SPI System entwickelt technologische Lösungen für Handels- und Gastronomiebetriebe. Wir erstellen mehrsprachige digitale QR-Code-Menüs.",
+      location_title:"Standort", location_text:"Monterosa Straße 22<br>Palo del Colle (BA)<br><a href='https://maps.app.goo.gl/WmcLgRDQcFkZhuqD7?g_st=ic' target='_blank'>In Google Maps öffnen</a>",
+      hours_title:"Öffnungszeiten", hours_text:"Montag – Freitag<br>09:00 – 19:00<br>Samstag 09:00 – 12:00",
+      contact_title:"Kontakt", contact_text:"334 273 2997",
+      cta_label:"Möchten Sie ein solches Menü?", cta_title:"Bringen Sie Ihr Lokal ins Digitale",
+      cta_sub:"Kontaktieren Sie uns per WhatsApp oder Telefon. Wir erstellen Ihr QR-Menü in wenigen Tagen.", cta_btn:"WhatsApp kontaktieren",
+      footer_privacy:"Datenschutzerklärung", footer_cookie:"Cookie-Einstellungen"
     }}
   }
 }, updateTexts);
 
 function updateTexts() {
-  const ids = {
-    'back-label':'back','eyebrow':'eyebrow','page-title':'page_title','page-updated':'page_updated',
-    's1-title':'s1_title','s2-title':'s2_title','s3-title':'s3_title','s4-title':'s4_title',
-    's5-title':'s5_title','s6-title':'s6_title','s7-title':'s7_title','s8-title':'s8_title',
-    's2-text2':'s2_text2','s3-text2':'s3_text2','s4-text':'s4_text','s5-text':'s5_text',
-    's6-text':'s6_text','s7-text':'s7_text','s8-text':'s8_text',
-    'th-name':'th_name','th-purpose':'th_purpose','th-duration':'th_duration',
-    'tr1-purpose':'tr1_purpose','tr1-duration':'tr1_duration',
-    'tr2-purpose':'tr2_purpose','tr2-duration':'tr2_duration',
-    'footer-home-link':'footer_home','footer-cookie-link':'footer_cookie'
-  };
-  Object.keys(ids).forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.textContent = i18next.t(ids[id]);
-  });
-
-  // Campi con HTML (strong, ecc.)
-  document.getElementById('s1-text').innerHTML = i18next.t('s1_text');
-  document.getElementById('s2-text').textContent = i18next.t('s2_text');
-  document.getElementById('s3-text').innerHTML = i18next.t('s3_text');
-
-  // Liste
-  const list2 = document.getElementById('s2-list');
-  list2.innerHTML = `<li>${i18next.t('s2_li1')}</li><li>${i18next.t('s2_li2')}</li><li>${i18next.t('s2_li3')}</li>`;
-
-  const list6 = document.getElementById('s6-list');
-  list6.innerHTML = `<li>${i18next.t('s6_li1')}</li><li>${i18next.t('s6_li2')}</li><li>${i18next.t('s6_li3')}</li><li>${i18next.t('s6_li4')}</li><li>${i18next.t('s6_li5')}</li><li>${i18next.t('s6_li6')}</li>`;
-
-  const list7 = document.getElementById('s7-list');
-  list7.innerHTML = `<li>${i18next.t('s7_li1')}</li><li>${i18next.t('s7_li2')}</li><li>${i18next.t('s7_li3')}</li><li>${i18next.t('s7_li4')}</li>`;
-
-  document.getElementById('currentFlag').textContent = FLAGS[i18next.language] || '🇮🇹';
+  document.getElementById('btn-text').textContent       = i18next.t('btn');
+  const welcomeEl = document.getElementById('welcome-text');
+  if (welcomeEl) welcomeEl.textContent = i18next.t('welcome');
+  document.getElementById('scroll-label').textContent   = i18next.t('scroll');
+  document.getElementById('eyebrow-label').textContent  = i18next.t('eyebrow');
+  document.getElementById('section-title').textContent  = i18next.t('section_title');
+  document.getElementById('section-desc').textContent   = i18next.t('section_desc');
+  document.getElementById('about-title').textContent    = i18next.t('about_title');
+  document.getElementById('about-text').textContent     = i18next.t('about_text');
+  document.getElementById('location-title').textContent = i18next.t('location_title');
+  document.getElementById('location-text').innerHTML    = i18next.t('location_text');
+  document.getElementById('hours-title').textContent    = i18next.t('hours_title');
+  document.getElementById('hours-text').innerHTML       = i18next.t('hours_text');
+  document.getElementById('contact-title').textContent  = i18next.t('contact_title');
+  document.getElementById('contact-text').textContent   = i18next.t('contact_text');
+  document.getElementById('cta-label').textContent      = i18next.t('cta_label');
+  document.getElementById('cta-title').textContent      = i18next.t('cta_title');
+  document.getElementById('cta-sub').textContent        = i18next.t('cta_sub');
+  document.getElementById('cta-btn-text').textContent   = i18next.t('cta_btn');
+  document.getElementById('footer-privacy-link').textContent = i18next.t('footer_privacy');
+  document.getElementById('footer-cookie-link').textContent  = i18next.t('footer_cookie');
+  document.getElementById('currentFlag').textContent    = FLAGS[i18next.language] || '🇮🇹';
 }
 
 function changeLanguage(event, lang) {
