@@ -251,7 +251,18 @@ nav .language-dropdown a:hover { background:rgba(255,255,255,0.08); }
 .scroll-top svg { width:15px; height:15px; stroke:currentColor; fill:none; stroke-width:2.2; }
 
 /* FOOTER */
-footer { background:#d9d2c5; text-align:center; padding:40px 24px; font-size:0.84rem; color:var(--muted); }
+footer {
+  border-top:1px solid var(--border);
+  background-color:var(--card2);
+  background-image:repeating-linear-gradient(
+    90deg,
+    rgba(92,53,32,0.05) 0px,
+    rgba(92,53,32,0.05) 2px,
+    transparent 2px,
+    transparent 26px
+  );
+  text-align:center; padding:40px 24px; font-size:0.84rem; color:var(--muted);
+}
 footer .footer-brand {
   font-family:'Lora',serif; color:var(--brown-light) !important; font-size:0.92rem; margin-bottom:8px;
   -webkit-text-fill-color: var(--brown-light);
@@ -410,7 +421,7 @@ footer a, footer span, footer p {
 </head>
 <body>
 
-<!-- SPLASH DI BENVENUTO — leggero, mostrato al primo arrivo dal QR code -->
+<!-- SPLASH DI BENVENUTO — mostrato solo al primo arrivo nella sessione (es. da QR code) -->
 <div id="welcomeSplash">
   <img class="welcome-logo" src="images/logospi1.PNG" alt="SPI System">
   <div class="welcome-line"></div>
@@ -508,8 +519,15 @@ footer a, footer span, footer p {
 </button>
 
 <script>
-// ── SPLASH DI BENVENUTO: breve, solo un saluto prima della home ──
+// ── SPLASH DI BENVENUTO: solo al primo arrivo nella sessione (es. da QR code) ──
 (function () {
+  if (sessionStorage.getItem('spiWelcomed')) {
+    const splash = document.getElementById('welcomeSplash');
+    if (splash) splash.remove();
+    return;
+  }
+  sessionStorage.setItem('spiWelcomed', '1');
+
   const MIN_TIME = 1350; // ms — breve: è un saluto, non un caricamento
   const start = Date.now();
 
