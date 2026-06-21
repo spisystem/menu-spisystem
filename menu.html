@@ -51,7 +51,6 @@
     .nav-logo img{height:96px;width:auto;display:block;transition:transform .3s,opacity .3s}
     .nav-logo img:hover{transform:scale(1.05);opacity:.82}
 
-    /* Selettore lingua sulla nav scura: toni chiari per leggibilità */
     nav .language-selector { border-color:rgba(255,255,255,0.14); background:rgba(255,255,255,0.05); }
     nav .language-selector:hover { background:var(--brown-soft); border-color:var(--brown-border); }
     nav .lang-chevron { stroke:rgba(255,255,255,0.6); }
@@ -59,7 +58,6 @@
     nav .language-dropdown a { color:#f3e9da; }
     nav .language-dropdown a:hover { background:rgba(255,255,255,0.08); }
 
-    /* LINGUA */
     .language-selector{
       position:relative;display:flex;align-items:center;gap:7px;cursor:pointer;
       padding:8px 13px;border-radius:10px;border:1px solid var(--border);
@@ -84,14 +82,12 @@
     .language-dropdown a .flag{font-size:1.25rem;flex-shrink:0}
     .language-dropdown a:hover{background:var(--brown-soft)}
 
-    /* HEADER */
     .menu-header{text-align:center;padding:36px 24px 12px}
     .menu-eyebrow{font-size:.68rem;letter-spacing:.26em;text-transform:uppercase;color:var(--brown-light);margin-bottom:10px}
     .menu-title{font-family:'Lora',serif;font-size:clamp(1.8rem,4vw,2.8rem);color:var(--text);line-height:1.15}
     .menu-sub{margin-top:8px;font-size:.84rem;color:var(--muted)}
     .gold-rule{width:48px;height:2px;background:var(--brown);margin:16px auto 0;border-radius:2px;opacity:.6}
 
-    /* SEARCH */
     .search-wrap{max-width:800px;margin:24px auto 0;padding:0 18px;position:relative}
     .search-icon{
       position:absolute;left:32px;top:50%;transform:translateY(-50%);
@@ -120,7 +116,6 @@
     .search-empty{display:none;text-align:center;padding:48px 20px;color:var(--muted);font-size:.9rem}
     .search-empty-icon{font-size:2.2rem;margin-bottom:10px;opacity:.3}
 
-    /* ── TAB CATEGORIE — scroll orizzontale ── */
     .cat-tabs-wrap{
       max-width:800px;margin:26px auto 0;padding:0 18px;
       position:relative;
@@ -154,10 +149,8 @@
     }
     .cat-tab.active .tab-count{ background:rgba(240,230,210,.18); color:#f7f0e3; }
 
-    /* MENU */
     .menu{max-width:800px;margin:0 auto;padding:8px 18px 100px}
 
-    /* PANNELLO CATEGORIA (uno alla volta, no tendina) */
     .cat-panel{
       display:none;
       animation:panelFade .35s ease;
@@ -167,7 +160,6 @@
 
     .products{list-style:none}
 
-    /* ITEM */
     .product-item{
       display:flex;align-items:center;justify-content:space-between;
       gap:14px;padding:16px;border:1px solid var(--border);
@@ -200,7 +192,6 @@
     .product-item.search-hidden{display:none}
     mark{background:rgba(92,53,32,.25);color:var(--brown-light);border-radius:2px;padding:0 2px}
 
-    /* MODAL */
     .modal{
       position:fixed;inset:0;background:rgba(26,20,16,.24);
       display:flex;justify-content:center;align-items:center;
@@ -264,7 +255,6 @@
 
     #modalPrice{font-family:'Lora',serif;font-size:1.6rem;font-weight:700;color:var(--brown-light);letter-spacing:.02em}
 
-    /* SCROLL TOP */
     .scroll-top{
       position:fixed;right:22px;bottom:22px;width:46px;height:46px;
       display:flex;align-items:center;justify-content:center;
@@ -279,7 +269,18 @@
     .scroll-top svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2.2}
 
     /* FOOTER */
-    footer{border-top:1px solid var(--border);background:#d9d2c5;padding:36px 20px;text-align:center;color:var(--muted);font-size:.85rem}
+    footer{
+      border-top:1px solid var(--border);
+      background-color:var(--card2);
+      background-image:repeating-linear-gradient(
+        90deg,
+        rgba(92,53,32,0.05) 0px,
+        rgba(92,53,32,0.05) 2px,
+        transparent 2px,
+        transparent 26px
+      );
+      padding:36px 20px;text-align:center;color:var(--muted);font-size:.85rem;
+    }
     footer .footer-brand{
       font-family:'Lora',serif;color:var(--brown-light) !important;margin-bottom:6px;font-size:.9rem;
       -webkit-text-fill-color: var(--brown-light);
@@ -416,7 +417,6 @@
   <div class="gold-rule"></div>
 </div>
 
-<!-- RICERCA -->
 <div class="search-wrap">
   <svg class="search-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
   <input type="search" id="searchInput" placeholder="Cerca un prodotto..." autocomplete="off" spellcheck="false">
@@ -428,7 +428,6 @@
   <span id="search-empty-text">Nessun prodotto trovato</span>
 </div>
 
-<!-- TAB CATEGORIE -->
 <div class="cat-tabs-wrap" id="catTabsWrap">
   <div class="cat-tabs" id="catTabs">
     <div class="cat-tab active" data-target="cat-rosticceria" onclick="selectTab(this)">
@@ -454,7 +453,6 @@
 
 <div class="menu" id="menuWrapper">
 
-  <!-- ROSTICCERIA -->
   <div class="cat-panel active" id="cat-rosticceria">
     <ul class="products">
       <li class="product-item" onclick="openModal('images/focaccia.JPG','ruota_focaccia','ruota_focaccia_desc','ruota_focaccia_allergens','€5.00')">
@@ -475,7 +473,6 @@
         </div>
         <span class="product-price">€2.00</span>
       </li>
-      <!-- NUOVO prodotto, senza foto reale → placeholder elegante -->
       <li class="product-item" onclick="openModal('','bombetta','bombetta_desc','bombetta_allergens','€3.50')">
         <div class="product-left">
           <div class="product-info">
@@ -488,7 +485,6 @@
     </ul>
   </div>
 
-  <!-- PANZEROTTI -->
   <div class="cat-panel" id="cat-panzerotti">
     <ul class="products">
       <li class="product-item" onclick="openModal('images/panzerotto.JPG','panz_mozz','panz_mozz_desc','panz_mozz_allergens','€1.50')">
@@ -512,7 +508,6 @@
     </ul>
   </div>
 
-  <!-- PANZEROTTI SPECIALI -->
   <div class="cat-panel" id="cat-speciali">
     <ul class="products">
       <li class="product-item" onclick="openModal('images/panzerotttocp.JPG','panz_cp','panz_cp_desc','panz_cp_allergens','€3.00')">
@@ -533,7 +528,6 @@
         </div>
         <span class="product-price">€3.00</span>
       </li>
-      <!-- NUOVO prodotto speciale, placeholder elegante -->
       <li class="product-item" onclick="openModal('','panz_tartufo','panz_tartufo_desc','panz_tartufo_allergens','€4.50')">
         <div class="product-left">
           <div class="product-info">
@@ -546,7 +540,6 @@
     </ul>
   </div>
 
-  <!-- BEVANDE -->
   <div class="cat-panel" id="cat-bevande">
     <ul class="products">
       <li class="product-item" onclick="openModal('images/coca.JPG','cocacola','cocacola_desc','cocacola_allergens','€1.80')">
@@ -567,7 +560,6 @@
         </div>
         <span class="product-price">€1.00</span>
       </li>
-      <!-- NUOVO -->
       <li class="product-item" onclick="openModal('','succo','succo_desc','succo_allergens','€2.20')">
         <div class="product-left">
           <div class="product-info">
@@ -580,7 +572,6 @@
     </ul>
   </div>
 
-  <!-- ALCOLICI -->
   <div class="cat-panel" id="cat-alcolici">
     <ul class="products">
       <li class="product-item" onclick="openModal('images/peroni.JPG','birra','birra_desc','birra_allergens','€2.00')">
@@ -604,7 +595,6 @@
     </ul>
   </div>
 
-  <!-- DOLCI — categoria nuova -->
   <div class="cat-panel" id="cat-dolci">
     <ul class="products">
       <li class="product-item" onclick="openModal('','tiramisu','tiramisu_desc','tiramisu_allergens','€4.00')">
@@ -628,7 +618,7 @@
     </ul>
   </div>
 
-</div><!-- end .menu -->
+</div>
 
 <footer>
   <p class="footer-brand">Spi System di Giuseppe Spizzico — P. IVA 08791580726</p>
@@ -640,7 +630,6 @@
   <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
 </button>
 
-<!-- MODAL -->
 <div class="modal" id="modal">
   <div class="modal-card">
     <button class="modal-close" onclick="closeModal()">&#10005;</button>
@@ -658,7 +647,6 @@
 </div>
 
 <script>
-// ── DROPDOWN ──
 const langSelector = document.getElementById('langSelector');
 const langDropdown = document.getElementById('langDropdown');
 langSelector.addEventListener('click', e => {
@@ -671,20 +659,15 @@ document.addEventListener('click', () => {
   langSelector.classList.remove('open');
 });
 
-// ── TAB CATEGORIE ──
 function selectTab(tabEl) {
   document.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('active'));
   document.querySelectorAll('.cat-panel').forEach(p => p.classList.remove('active'));
   tabEl.classList.add('active');
   const target = tabEl.getAttribute('data-target');
   document.getElementById(target).classList.add('active');
-  // centra leggermente la tab selezionata nello scroll orizzontale
   tabEl.scrollIntoView({ behavior:'smooth', inline:'center', block:'nearest' });
 }
 
-// ── ICONA placeholder generica riusata anche per match ricerca (mantiene coerenza visiva) ──
-
-// ── RICERCA ──
 const searchInput  = document.getElementById('searchInput');
 const searchClear  = document.getElementById('searchClear');
 const searchEmpty  = document.getElementById('searchEmpty');
@@ -695,7 +678,6 @@ function doSearch() {
   searchClear.classList.toggle('visible', q.length > 0);
 
   if (!q) {
-    // ricerca vuota: ripristina vista normale a tab
     catTabsWrap.style.display = '';
     document.querySelectorAll('.cat-panel').forEach(p => {
       p.style.display = '';
@@ -705,19 +687,17 @@ function doSearch() {
         nameEl.innerHTML = nameEl.dataset.rawText || nameEl.innerHTML;
       });
     });
-    // ripristina tab attiva di default
     const firstTab = document.querySelector('.cat-tab');
     if (firstTab && !document.querySelector('.cat-tab.active')) selectTab(firstTab);
     searchEmpty.style.display = 'none';
     return;
   }
 
-  // durante la ricerca: nascondi le tab, mostra TUTTI i pannelli filtrati
   catTabsWrap.style.display = 'none';
   let totalVisible = 0;
 
   document.querySelectorAll('.cat-panel').forEach(panel => {
-    panel.style.display = 'block'; // mostra tutti i pannelli durante ricerca
+    panel.style.display = 'block';
     let panelVisible = 0;
     panel.querySelectorAll('.product-item').forEach(item => {
       const nameEl = item.querySelector('.product-name');
@@ -726,7 +706,6 @@ function doSearch() {
       if (plainText.includes(q)) {
         item.classList.remove('search-hidden');
         const re = new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')})`, 'gi');
-        // applica highlight solo sul testo, preservando eventuali badge
         const badge = nameEl.querySelector('.badge-new');
         const badgeHTML = badge ? badge.outerHTML : '';
         const justText = badge ? nameEl.textContent.replace(badge.textContent,'').trim() : nameEl.textContent;
@@ -750,11 +729,9 @@ searchClear.addEventListener('click', () => {
   searchInput.focus();
 });
 
-// ── MODAL ──
 let _titleKey, _descKey, _allergenKey, _price;
 
 function openModal(src, titleKey, descKey, allergenKey, price) {
-  // 'src' non viene più utilizzato: il menu non mostra immagini prodotto.
   _titleKey = titleKey; _descKey = descKey;
   _allergenKey = allergenKey; _price = price;
 
@@ -798,12 +775,10 @@ document.getElementById('modal').addEventListener('click', e => {
 });
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
-// ── SCROLL TOP ──
 const scrollBtn = document.getElementById('scrollTopBtn');
 window.addEventListener('scroll', () => scrollBtn.classList.toggle('show', window.scrollY > 200));
 scrollBtn.addEventListener('click', () => window.scrollTo({ top:0, behavior:'smooth' }));
 
-// ── I18N ──
 const FLAGS = { it:'🇮🇹', en:'🇬🇧', es:'🇪🇸', fr:'🇫🇷', de:'🇩🇪' };
 
 i18next.init({
@@ -968,11 +943,9 @@ function updateTexts() {
   document.getElementById('search-empty-text').textContent = i18next.t('search_empty');
   document.querySelectorAll('[data-key]').forEach(el => {
     const key = el.getAttribute('data-key');
-    // non sovrascrivere se l'elemento contiene già un badge figlio (gestito separatamente)
     if (el.children.length === 0) {
       el.textContent = i18next.t(key);
     } else {
-      // elemento con badge dentro: aggiorna solo il primo nodo testo
       const badge = el.querySelector('.badge-new');
       if (badge) {
         el.childNodes[0].textContent = i18next.t(key) + ' ';
