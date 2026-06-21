@@ -11,10 +11,10 @@
     *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
     :root{
       --bg:#f0e6d2;--card:#f7f0e3;--card2:#e8dcc4;
-      --brown:#6b4226;--brown-light:#8a5a35;
-      --brown-soft:rgba(107,66,38,.08);--brown-border:rgba(107,66,38,.25);
+      --brown:#5c3520;--brown-light:#7d5230;
+      --brown-soft:rgba(92,53,32,.08);--brown-border:rgba(92,53,32,.25);
       --text:#1a1410;--muted:#5c4a38;--border:rgba(26,20,16,.12);
-  --brown-glow:#6b4226;
+  --brown-glow:#5c3520;
     }
     html{scroll-behavior:smooth}
     body{
@@ -22,8 +22,8 @@
       background-color:var(--bg);
       background-image:repeating-linear-gradient(
         90deg,
-        rgba(107,66,38,0.06) 0px,
-        rgba(107,66,38,0.06) 2px,
+        rgba(92,53,32,0.06) 0px,
+        rgba(92,53,32,0.06) 2px,
         transparent 2px,
         transparent 26px
       );
@@ -33,7 +33,7 @@
     /* NAV */
     nav{
       position:fixed;top:0;width:100%;
-      background:rgba(43,30,20,.94);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+      background:linear-gradient(135deg, rgba(92,53,32,.97) 0%, rgba(125,82,48,.97) 100%);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
       border-bottom:1px solid rgba(255,255,255,.08);
       padding:0 24px;display:flex;justify-content:space-between;align-items:center;
       height:112px;z-index:1000;
@@ -55,7 +55,7 @@
     nav .language-selector { border-color:rgba(255,255,255,0.14); background:rgba(255,255,255,0.05); }
     nav .language-selector:hover { background:var(--brown-soft); border-color:var(--brown-border); }
     nav .lang-chevron { stroke:rgba(255,255,255,0.6); }
-    nav .language-dropdown { background:#3a2818; border-color:rgba(255,255,255,0.1); }
+    nav .language-dropdown { background:#5a3d24; border-color:rgba(255,255,255,0.1); }
     nav .language-dropdown a { color:#f3e9da; }
     nav .language-dropdown a:hover { background:rgba(255,255,255,0.08); }
 
@@ -105,7 +105,7 @@
       outline:none;transition:border-color .2s,box-shadow .2s;
     }
     #searchInput::placeholder{color:var(--muted)}
-    #searchInput:focus{border-color:var(--brown-border);box-shadow:0 0 0 3px rgba(107,66,38,.1)}
+    #searchInput:focus{border-color:var(--brown-border);box-shadow:0 0 0 3px rgba(92,53,32,.1)}
     .search-clear{
       position:absolute;right:32px;top:50%;transform:translateY(-50%);
       width:22px;height:22px;border-radius:50%;
@@ -150,7 +150,7 @@
     .cat-tab.active{
       background:linear-gradient(135deg, var(--brown) 0%, var(--brown-light) 100%);
       border-color:transparent; color:#f7f0e3; font-weight:600;
-      box-shadow:0 6px 18px rgba(107,66,38,.3);
+      box-shadow:0 6px 18px rgba(92,53,32,.3);
     }
     .cat-tab.active .tab-count{ background:rgba(240,230,210,.18); color:#f7f0e3; }
 
@@ -198,7 +198,7 @@
     .product-price{flex-shrink:0;white-space:nowrap;min-width:54px;text-align:right;color:var(--brown-light);font-weight:700;font-size:.97rem}
 
     .product-item.search-hidden{display:none}
-    mark{background:rgba(107,66,38,.25);color:var(--brown-light);border-radius:2px;padding:0 2px}
+    mark{background:rgba(92,53,32,.25);color:var(--brown-light);border-radius:2px;padding:0 2px}
 
     /* MODAL */
     .modal{
@@ -254,7 +254,7 @@
     .allergen-list{display:flex;flex-wrap:wrap;gap:6px}
     .allergen-tag{
       font-size:.75rem;
-      background:rgba(107,66,38,.1);
+      background:rgba(92,53,32,.1);
       color:var(--brown-light);
       border:1px solid var(--brown-border);
       border-radius:6px;padding:3px 10px;
@@ -275,7 +275,7 @@
       transition:opacity .3s,transform .3s,border-color .3s,box-shadow .3s;z-index:2000;
     }
     .scroll-top.show{opacity:1;visibility:visible;transform:translateY(0)}
-    .scroll-top:hover{border-color:var(--brown);box-shadow:0 0 24px rgba(107,66,38,.2);transform:translateY(-4px)}
+    .scroll-top:hover{border-color:var(--brown);box-shadow:0 0 24px rgba(92,53,32,.2);transform:translateY(-4px)}
     .scroll-top svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2.2}
 
     /* FOOTER */
