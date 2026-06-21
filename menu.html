@@ -365,128 +365,9 @@
       .cat-tabs-wrap{padding:0 14px}
       .modal-body{padding:18px 20px 22px}
     }
-
-    /* ══════════ SPLASH SCREEN — animazione di apertura ══════════ */
-    #splashScreen {
-      position:fixed; inset:0; z-index:99999;
-      background:var(--bg);
-      display:flex; flex-direction:column; align-items:center; justify-content:center;
-      gap:24px;
-      transition:opacity 0.6s ease, visibility 0.6s ease;
-    }
-    #splashScreen.fade-out { opacity:0; visibility:hidden; pointer-events:none; }
-
-    .splash-logo-wrap {
-      position:relative;
-      display:flex; align-items:center; justify-content:center;
-      opacity:0;
-      transform:scale(0.85);
-      animation:splashLogoIn 0.9s cubic-bezier(0.22,1,0.36,1) 0.15s forwards;
-    }
-    @keyframes splashLogoIn {
-      to { opacity:1; transform:scale(1); }
-    }
-
-    .splash-logo-wrap img {
-      height:110px;
-      width:auto;
-      filter:drop-shadow(0 0 24px rgba(207,178,122,0.25));
-      position:relative;
-      z-index:2;
-    }
-
-    /* aura dorata pulsante dietro il logo */
-    .splash-glow {
-      position:absolute;
-      width:200px; height:200px;
-      border-radius:50%;
-      background:radial-gradient(circle, rgba(207,178,122,0.18) 0%, transparent 70%);
-      animation:splashGlowPulse 2.2s ease-in-out infinite;
-      z-index:1;
-    }
-    @keyframes splashGlowPulse {
-      0%, 100% { transform:scale(0.9); opacity:0.6; }
-      50%      { transform:scale(1.08); opacity:1; }
-    }
-
-    /* anello dorato che ruota dolcemente attorno al logo durante il caricamento */
-    .splash-ring {
-      position:absolute;
-      width:170px; height:170px;
-      border-radius:50%;
-      border:1px solid transparent;
-      border-top-color:var(--gold);
-      border-right-color:rgba(207,178,122,0.25);
-      animation:splashSpin 1.4s linear infinite;
-      opacity:0;
-      animation: splashRingIn 0.5s ease 0.3s forwards, splashSpin 1.4s linear infinite;
-    }
-    @keyframes splashRingIn { to { opacity:0.5; } }
-    @keyframes splashSpin { to { transform:rotate(360deg); } }
-
-    /* linea dorata che si disegna sotto al logo */
-    .splash-line {
-      width:0;
-      height:1px;
-      background:linear-gradient(to right, transparent, var(--gold), transparent);
-      animation:splashLineGrow 0.8s ease 0.6s forwards;
-    }
-    @keyframes splashLineGrow { to { width:120px; } }
-
-    .splash-tagline {
-      font-family:'Lora',serif;
-      font-style:italic;
-      font-size:0.78rem;
-      letter-spacing:0.18em;
-      text-transform:uppercase;
-      color:var(--muted);
-      opacity:0;
-      animation:splashTextIn 0.7s ease 0.85s forwards;
-    }
-    @keyframes splashTextIn { to { opacity:1; } }
-
-    /* contenuto della pagina: parte leggermente nascosto, si rivela dopo lo splash */
-    body.splash-active > nav,
-    body.splash-active .menu-header,
-    body.splash-active .search-wrap,
-    body.splash-active .search-empty,
-    body.splash-active .cat-tabs-wrap,
-    body.splash-active .menu,
-    body.splash-active footer {
-      opacity:0;
-    }
-    body.splash-done > nav,
-    body.splash-done .menu-header,
-    body.splash-done .search-wrap,
-    body.splash-done .cat-tabs-wrap,
-    body.splash-done .menu,
-    body.splash-done footer {
-      animation:revealContent 0.7s ease forwards;
-    }
-    @keyframes revealContent {
-      from { opacity:0; transform:translateY(10px); }
-      to   { opacity:1; transform:translateY(0); }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      #splashScreen, .splash-logo-wrap, .splash-ring, .splash-line, .splash-tagline { animation:none !important; }
-      body.splash-active > nav, body.splash-active .menu-header, body.splash-active .search-wrap,
-      body.splash-active .cat-tabs-wrap, body.splash-active .menu, body.splash-active footer { opacity:1 !important; }
-    }
   </style>
 </head>
-<body class="splash-active">
-
-<!-- SPLASH SCREEN — animazione di apertura quando si scansiona il QR -->
-<div id="splashScreen">
-  <div class="splash-logo-wrap">
-    <div class="splash-glow"></div>
-    <div class="splash-ring"></div>
-    <img src="images/logospi1.PNG" alt="SPI System">
-  </div>
-  <div class="splash-line"></div>
-  <p class="splash-tagline" id="splash-tagline">Il tuo menù sta per aprirsi</p>
-</div>
+<body>
 
 <nav>
   <div class="nav-left">
@@ -758,32 +639,6 @@
 </div>
 
 <script>
-// ── SPLASH SCREEN: tempo minimo garantito + fade-out + reveal contenuto ──
-(function () {
-  const MIN_SPLASH_TIME = 1450; // ms — abbastanza per godersi l'animazione, non così tanto da risultare lento
-  const start = Date.now();
-
-  function dismissSplash() {
-    const elapsed = Date.now() - start;
-    const wait = Math.max(0, MIN_SPLASH_TIME - elapsed);
-    setTimeout(() => {
-      const splash = document.getElementById('splashScreen');
-      if (splash) splash.classList.add('fade-out');
-      document.body.classList.remove('splash-active');
-      document.body.classList.add('splash-done');
-      setTimeout(() => { if (splash) splash.remove(); }, 650);
-    }, wait);
-  }
-
-  if (document.readyState === 'complete') {
-    dismissSplash();
-  } else {
-    window.addEventListener('load', dismissSplash);
-    // fallback: se per qualche motivo 'load' non scatta, non bloccare l'utente
-    setTimeout(dismissSplash, 3000);
-  }
-})();
-
 // ── DROPDOWN ──
 const langSelector = document.getElementById('langSelector');
 const langDropdown = document.getElementById('langDropdown');
@@ -936,7 +791,7 @@ i18next.init({
   lng: localStorage.getItem('selectedLanguage') || 'it',
   resources: {
     it:{ translation:{
-      back:"Indietro", splash_tagline:"Il tuo menù sta per aprirsi", menu_eyebrow:"Scopri le nostre proposte",
+      back:"Indietro", menu_eyebrow:"Scopri le nostre proposte",
       menu_title:"Il nostro Menù", menu_sub:"Scegli una categoria per esplorare",
       search_placeholder:"Cerca un prodotto...", search_empty:"Nessun prodotto trovato",
       detail_hint:"Tocca per dettagli", modal_badge:"Dettaglio prodotto", badge_new:"Novità",
@@ -983,7 +838,7 @@ i18next.init({
       footer_privacy:"Privacy Policy", footer_cookie:"Preferenze Cookie"
     }},
     en:{ translation:{
-      back:"Back", splash_tagline:"Your menu is about to open", menu_eyebrow:"Discover our selection",
+      back:"Back", menu_eyebrow:"Discover our selection",
       menu_title:"Our Menu", menu_sub:"Choose a category to explore",
       search_placeholder:"Search a product...", search_empty:"No products found",
       detail_hint:"Tap for details", modal_badge:"Product detail", badge_new:"New",
@@ -1008,7 +863,7 @@ i18next.init({
       footer_privacy:"Privacy Policy", footer_cookie:"Cookie Preferences"
     }},
     es:{ translation:{
-      back:"Volver", splash_tagline:"Tu menú está por abrirse", menu_eyebrow:"Descubre nuestras propuestas",
+      back:"Volver", menu_eyebrow:"Descubre nuestras propuestas",
       menu_title:"Nuestro Menú", menu_sub:"Elige una categoría para explorar",
       search_placeholder:"Buscar un producto...", search_empty:"No se encontraron productos",
       detail_hint:"Toca para detalles", modal_badge:"Detalle del producto", badge_new:"Novedad",
@@ -1033,7 +888,7 @@ i18next.init({
       footer_privacy:"Política de Privacidad", footer_cookie:"Preferencias de Cookies"
     }},
     fr:{ translation:{
-      back:"Retour", splash_tagline:"Votre menu est sur le point de s'ouvrir", menu_eyebrow:"Découvrez nos propositions",
+      back:"Retour", menu_eyebrow:"Découvrez nos propositions",
       menu_title:"Notre Menu", menu_sub:"Choisissez une catégorie à explorer",
       search_placeholder:"Rechercher un produit...", search_empty:"Aucun produit trouvé",
       detail_hint:"Appuyer pour détails", modal_badge:"Détail du produit", badge_new:"Nouveau",
@@ -1058,7 +913,7 @@ i18next.init({
       footer_privacy:"Politique de Confidentialité", footer_cookie:"Préférences Cookies"
     }},
     de:{ translation:{
-      back:"Zurück", splash_tagline:"Ihre Speisekarte öffnet sich gleich", menu_eyebrow:"Entdecken Sie unsere Angebote",
+      back:"Zurück", menu_eyebrow:"Entdecken Sie unsere Angebote",
       menu_title:"Unsere Speisekarte", menu_sub:"Wählen Sie eine Kategorie",
       search_placeholder:"Produkt suchen...", search_empty:"Keine Produkte gefunden",
       detail_hint:"Antippen für Details", modal_badge:"Produktdetail", badge_new:"Neu",
@@ -1087,8 +942,6 @@ i18next.init({
 
 function updateTexts() {
   document.getElementById('back-label').textContent        = i18next.t('back');
-  const splashTag = document.getElementById('splash-tagline');
-  if (splashTag) splashTag.textContent = i18next.t('splash_tagline');
   document.getElementById('menu-eyebrow').textContent      = i18next.t('menu_eyebrow');
   document.getElementById('menu-title').textContent        = i18next.t('menu_title');
   document.getElementById('menu-sub').textContent          = i18next.t('menu_sub');
