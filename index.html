@@ -15,20 +15,14 @@
   --bg:#080c14; --card:#11151f; --card2:#151b27;
   --brown:#2766e0; --brown-light:#4da3ff;
   --brown-soft:rgba(37,99,235,.08); --brown-border:rgba(37,99,235,.25);
-  --text:#eaf0f8; --muted:#8a96a8; --border:rgba(255,255,255,0.09);
+  --text:#eaf0f8; --muted:#8a96a8; --border:rgba(199,210,224,0.10);
   --brown-glow:#2766e0;
+  --silver:#c9d3e0; --silver-soft:rgba(199,210,224,.10); --silver-border:rgba(199,210,224,.35);
 }
 html { scroll-behavior:smooth; }
 body {
   font-family:'Poppins',sans-serif;
   background-color:var(--bg);
-  background-image:repeating-linear-gradient(
-    90deg,
-    rgba(37,99,235,0.06) 0px,
-    rgba(37,99,235,0.06) 2px,
-    transparent 2px,
-    transparent 26px
-  );
   color:var(--text); overflow-x:hidden;
 }
 
@@ -163,13 +157,6 @@ nav .language-dropdown a:hover { background:rgba(255,255,255,0.08); }
 /* INFO SECTION */
 .info-section {
   background-color:var(--bg);
-  background-image:repeating-linear-gradient(
-    90deg,
-    rgba(37,99,235,0.06) 0px,
-    rgba(37,99,235,0.06) 2px,
-    transparent 2px,
-    transparent 26px
-  );
   padding:100px 28px 80px;
 }
 .section-eyebrow { text-align:center; font-size:0.68rem; letter-spacing:0.26em; text-transform:uppercase; color:var(--brown-light); margin-bottom:14px; }
@@ -187,7 +174,7 @@ nav .language-dropdown a:hover { background:rgba(255,255,255,0.08); }
 }
 .info-card::before {
   content:''; position:absolute; top:0; left:0; right:0; height:2px;
-  background:linear-gradient(90deg,transparent,var(--brown),transparent);
+  background:linear-gradient(90deg,transparent,var(--silver),var(--brown-light),transparent);
   opacity:0; transition:opacity 0.3s;
 }
 .info-card:hover::before { opacity:0.6; }
@@ -219,13 +206,6 @@ nav .language-dropdown a:hover { background:rgba(255,255,255,0.08); }
 /* RISERVA UN TAVOLO */
 .reserve-section {
   background-color:var(--bg);
-  background-image:repeating-linear-gradient(
-    90deg,
-    rgba(37,99,235,0.05) 0px,
-    rgba(37,99,235,0.05) 2px,
-    transparent 2px,
-    transparent 26px
-  );
   padding:90px 28px 90px;
 }
 .reserve-card {
@@ -239,7 +219,7 @@ nav .language-dropdown a:hover { background:rgba(255,255,255,0.08); }
 .reserve-card.visible { opacity:1; transform:translateY(0); transition:opacity 0.6s ease, transform 0.6s ease, border-color 0.3s, box-shadow 0.3s; }
 .reserve-card::before {
   content:''; position:absolute; top:0; left:0; right:0; height:2px;
-  background:linear-gradient(90deg,transparent,var(--brown-light),transparent);
+  background:linear-gradient(90deg,transparent,var(--silver),var(--brown-light),transparent);
   opacity:0.6;
 }
 .reserve-form { display:flex; flex-direction:column; gap:18px; }
@@ -259,6 +239,15 @@ nav .language-dropdown a:hover { background:rgba(255,255,255,0.08); }
   box-shadow:0 0 0 3px rgba(77,163,255,0.14);
 }
 .form-textarea { resize:vertical; min-height:64px; font-family:'Poppins',sans-serif; line-height:1.5; }
+
+select.form-input {
+  appearance:none; -webkit-appearance:none; -moz-appearance:none;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%234da3ff' d='M7 10l5 5 5-5z'/></svg>");
+  background-repeat:no-repeat; background-position:right 12px center; background-size:18px;
+  padding-right:36px; cursor:pointer;
+}
+select.form-input:disabled { opacity:0.45; cursor:not-allowed; }
+select.form-input option { background:var(--card); color:var(--text); }
 
 .day-warning {
   font-size:0.82rem; color:#ff9d8a; background:rgba(255,107,107,0.08);
@@ -327,13 +316,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 /* CTA */
 .cta-section {
   background-color:var(--card2);
-  background-image:repeating-linear-gradient(
-    90deg,
-    rgba(37,99,235,0.05) 0px,
-    rgba(37,99,235,0.05) 2px,
-    transparent 2px,
-    transparent 26px
-  );
   border-top:1px solid var(--border); border-bottom:1px solid var(--border);
   padding:70px 28px; text-align:center;
 }
@@ -351,7 +333,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .cta-btn:hover { background:var(--brown-soft); border-color:var(--brown); transform:translateY(-2px); }
 
 /* DIVIDER */
-.gold-divider { height:1px; background:linear-gradient(to right,transparent,var(--brown),transparent); opacity:0.25; margin:0 60px; }
+.gold-divider { height:1px; background:linear-gradient(to right,transparent,var(--silver),transparent); opacity:0.35; margin:0 60px; }
 
 /* SCROLL TOP */
 .scroll-top {
@@ -371,13 +353,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 footer {
   border-top:1px solid var(--border);
   background-color:var(--card2);
-  background-image:repeating-linear-gradient(
-    90deg,
-    rgba(37,99,235,0.05) 0px,
-    rgba(37,99,235,0.05) 2px,
-    transparent 2px,
-    transparent 26px
-  );
   text-align:center; padding:40px 24px; font-size:0.84rem; color:var(--muted);
 }
 footer .footer-brand {
@@ -529,7 +504,7 @@ footer a, footer span, footer p {
 
 .welcome-line {
   width:0; height:1px;
-  background:linear-gradient(to right, transparent, var(--brown), transparent);
+  background:linear-gradient(to right, transparent, var(--silver), transparent);
   animation:welcomeLineGrow 0.6s ease 0.55s forwards;
 }
 @keyframes welcomeLineGrow { to { width:70px; } }
@@ -630,9 +605,15 @@ footer a, footer span, footer p {
         <input class="form-input" type="text" id="resName" name="name" autocomplete="name" required>
       </div>
 
-      <div class="form-group">
-        <label class="form-label" for="resPhone" id="reserve-label-phone">Telefono</label>
-        <input class="form-input" type="tel" id="resPhone" name="phone" autocomplete="tel" inputmode="tel" required>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="resPhone" id="reserve-label-phone">Telefono</label>
+          <input class="form-input" type="tel" id="resPhone" name="phone" autocomplete="tel" inputmode="tel" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="resEmail" id="reserve-label-email">Email (opzionale)</label>
+          <input class="form-input" type="email" id="resEmail" name="email" autocomplete="email" inputmode="email">
+        </div>
       </div>
 
       <div class="form-row">
@@ -642,7 +623,9 @@ footer a, footer span, footer p {
         </div>
         <div class="form-group">
           <label class="form-label" for="resTime" id="reserve-label-time">Ora</label>
-          <input class="form-input" type="time" id="resTime" name="time" step="1800" required>
+          <select class="form-input" id="resTime" name="time" required disabled>
+            <option value="" selected></option>
+          </select>
         </div>
       </div>
 
@@ -652,7 +635,7 @@ footer a, footer span, footer p {
         <label class="form-label" id="reserve-label-guests">Numero di persone</label>
         <div class="guests-stepper">
           <button type="button" class="stepper-btn" id="guestsMinus" aria-label="Diminuisci numero di persone">−</button>
-          <input class="guests-input" type="number" id="resGuests" name="guests" min="1" max="20" value="2" inputmode="numeric" aria-label="Numero di persone" readonly>
+          <input class="guests-input" type="number" id="resGuests" name="guests" min="1" max="20" value="2" inputmode="numeric" aria-label="Numero di persone" required>
           <button type="button" class="stepper-btn" id="guestsPlus" aria-label="Aumenta numero di persone">+</button>
         </div>
       </div>
@@ -785,10 +768,13 @@ i18next.init({
       reserve_success_title:"Richiesta pronta",
       reserve_success_text:"Abbiamo aperto WhatsApp con il messaggio già scritto. Se non si è aperto automaticamente, tocca qui sotto.",
       reserve_open_wa:"Apri WhatsApp", reserve_reset:"Nuova prenotazione",
-      reserve_closed_sunday:"Siamo chiusi la domenica: scegli un altro giorno.",
-      reserve_outside_hours:"Orario fuori apertura: Lun–Ven 09:00–19:00, Sab 09:00–12:00.",
-      reserve_wa_message:"Ciao! Vorrei prenotare un tavolo per {guests} persone il {date} alle {time}. Nome: {name}, telefono: {phone}.{notes}",
-      reserve_wa_notes_label:"Note",
+      reserve_label_email:"Email (opzionale)",
+      reserve_time_choose_date:"Scegli prima una data", reserve_time_placeholder:"Seleziona un orario",
+      reserve_time_closed:"Chiuso", reserve_closed_sunday:"Siamo chiusi la domenica: scegli un altro giorno.",
+      reserve_wa_header:"Richiesta di prenotazione", reserve_wa_name_label:"Nome", reserve_wa_phone_label:"Telefono",
+      reserve_wa_email_label:"Email", reserve_wa_date_label:"Data", reserve_wa_time_label:"Ora",
+      reserve_wa_guests_label:"Persone", reserve_wa_notes_label:"Note",
+      reserve_wa_footer:"Inviato dal sito SPI System",
       footer_privacy:"Privacy Policy", footer_cookie:"Preferenze Cookie"
     }},
     en:{ translation:{
@@ -810,10 +796,13 @@ i18next.init({
       reserve_success_title:"Request ready",
       reserve_success_text:"We've opened WhatsApp with your message ready. If it didn't open automatically, tap below.",
       reserve_open_wa:"Open WhatsApp", reserve_reset:"New reservation",
-      reserve_closed_sunday:"We're closed on Sundays — please pick another day.",
-      reserve_outside_hours:"That time is outside opening hours: Mon–Fri 09:00–19:00, Sat 09:00–12:00.",
-      reserve_wa_message:"Hi! I'd like to book a table for {guests} people on {date} at {time}. Name: {name}, phone: {phone}.{notes}",
-      reserve_wa_notes_label:"Notes",
+      reserve_label_email:"Email (optional)",
+      reserve_time_choose_date:"Pick a date first", reserve_time_placeholder:"Select a time",
+      reserve_time_closed:"Closed", reserve_closed_sunday:"We're closed on Sundays — please pick another day.",
+      reserve_wa_header:"Reservation request", reserve_wa_name_label:"Name", reserve_wa_phone_label:"Phone",
+      reserve_wa_email_label:"Email", reserve_wa_date_label:"Date", reserve_wa_time_label:"Time",
+      reserve_wa_guests_label:"Guests", reserve_wa_notes_label:"Notes",
+      reserve_wa_footer:"Sent from the SPI System website",
       footer_privacy:"Privacy Policy", footer_cookie:"Cookie Preferences"
     }},
     es:{ translation:{
@@ -835,10 +824,13 @@ i18next.init({
       reserve_success_title:"Solicitud lista",
       reserve_success_text:"Hemos abierto WhatsApp con tu mensaje listo. Si no se abrió automáticamente, toca aquí abajo.",
       reserve_open_wa:"Abrir WhatsApp", reserve_reset:"Nueva reserva",
-      reserve_closed_sunday:"Los domingos estamos cerrados: elige otro día.",
-      reserve_outside_hours:"Ese horario está fuera de apertura: Lun–Vie 09:00–19:00, Sáb 09:00–12:00.",
-      reserve_wa_message:"¡Hola! Quisiera reservar una mesa para {guests} personas el {date} a las {time}. Nombre: {name}, teléfono: {phone}.{notes}",
-      reserve_wa_notes_label:"Notas",
+      reserve_label_email:"Email (opcional)",
+      reserve_time_choose_date:"Elige primero una fecha", reserve_time_placeholder:"Selecciona una hora",
+      reserve_time_closed:"Cerrado", reserve_closed_sunday:"Los domingos estamos cerrados: elige otro día.",
+      reserve_wa_header:"Solicitud de reserva", reserve_wa_name_label:"Nombre", reserve_wa_phone_label:"Teléfono",
+      reserve_wa_email_label:"Email", reserve_wa_date_label:"Fecha", reserve_wa_time_label:"Hora",
+      reserve_wa_guests_label:"Personas", reserve_wa_notes_label:"Notas",
+      reserve_wa_footer:"Enviado desde el sitio web de SPI System",
       footer_privacy:"Política de Privacidad", footer_cookie:"Preferencias de Cookies"
     }},
     fr:{ translation:{
@@ -860,10 +852,13 @@ i18next.init({
       reserve_success_title:"Demande prête",
       reserve_success_text:"Nous avons ouvert WhatsApp avec votre message prêt. S'il ne s'est pas ouvert automatiquement, appuyez ci-dessous.",
       reserve_open_wa:"Ouvrir WhatsApp", reserve_reset:"Nouvelle réservation",
-      reserve_closed_sunday:"Nous sommes fermés le dimanche : choisissez un autre jour.",
-      reserve_outside_hours:"Cet horaire est hors ouverture : Lun–Ven 09:00–19:00, Sam 09:00–12:00.",
-      reserve_wa_message:"Bonjour ! Je voudrais réserver une table pour {guests} personnes le {date} à {time}. Nom : {name}, téléphone : {phone}.{notes}",
-      reserve_wa_notes_label:"Notes",
+      reserve_label_email:"E-mail (facultatif)",
+      reserve_time_choose_date:"Choisissez d'abord une date", reserve_time_placeholder:"Choisissez une heure",
+      reserve_time_closed:"Fermé", reserve_closed_sunday:"Nous sommes fermés le dimanche : choisissez un autre jour.",
+      reserve_wa_header:"Demande de réservation", reserve_wa_name_label:"Nom", reserve_wa_phone_label:"Téléphone",
+      reserve_wa_email_label:"E-mail", reserve_wa_date_label:"Date", reserve_wa_time_label:"Heure",
+      reserve_wa_guests_label:"Personnes", reserve_wa_notes_label:"Notes",
+      reserve_wa_footer:"Envoyé depuis le site SPI System",
       footer_privacy:"Politique de Confidentialité", footer_cookie:"Préférences Cookies"
     }},
     de:{ translation:{
@@ -885,10 +880,13 @@ i18next.init({
       reserve_success_title:"Anfrage bereit",
       reserve_success_text:"Wir haben WhatsApp mit Ihrer fertigen Nachricht geöffnet. Falls es nicht automatisch geöffnet wurde, tippen Sie unten.",
       reserve_open_wa:"WhatsApp öffnen", reserve_reset:"Neue Reservierung",
-      reserve_closed_sunday:"Sonntags haben wir geschlossen — bitte wählen Sie einen anderen Tag.",
-      reserve_outside_hours:"Diese Uhrzeit liegt außerhalb der Öffnungszeiten: Mo–Fr 09:00–19:00, Sa 09:00–12:00.",
-      reserve_wa_message:"Hallo! Ich möchte einen Tisch für {guests} Personen am {date} um {time} Uhr reservieren. Name: {name}, Telefon: {phone}.{notes}",
-      reserve_wa_notes_label:"Anmerkungen",
+      reserve_label_email:"E-Mail (optional)",
+      reserve_time_choose_date:"Wählen Sie zuerst ein Datum", reserve_time_placeholder:"Uhrzeit wählen",
+      reserve_time_closed:"Geschlossen", reserve_closed_sunday:"Sonntags haben wir geschlossen — bitte wählen Sie einen anderen Tag.",
+      reserve_wa_header:"Reservierungsanfrage", reserve_wa_name_label:"Name", reserve_wa_phone_label:"Telefon",
+      reserve_wa_email_label:"E-Mail", reserve_wa_date_label:"Datum", reserve_wa_time_label:"Uhrzeit",
+      reserve_wa_guests_label:"Personen", reserve_wa_notes_label:"Anmerkungen",
+      reserve_wa_footer:"Gesendet von der SPI System Website",
       footer_privacy:"Datenschutzerklärung", footer_cookie:"Cookie-Einstellungen"
     }}
   }
@@ -919,6 +917,7 @@ function updateTexts() {
   document.getElementById('reserve-desc').textContent         = i18next.t('reserve_desc');
   document.getElementById('reserve-label-name').textContent   = i18next.t('reserve_label_name');
   document.getElementById('reserve-label-phone').textContent  = i18next.t('reserve_label_phone');
+  document.getElementById('reserve-label-email').textContent  = i18next.t('reserve_label_email');
   document.getElementById('reserve-label-date').textContent   = i18next.t('reserve_label_date');
   document.getElementById('reserve-label-time').textContent   = i18next.t('reserve_label_time');
   document.getElementById('reserve-label-guests').textContent = i18next.t('reserve_label_guests');
@@ -930,9 +929,10 @@ function updateTexts() {
   document.getElementById('reserve-open-wa').textContent       = i18next.t('reserve_open_wa');
   document.getElementById('reserve-reset-text').textContent    = i18next.t('reserve_reset');
   const reserveDayWarning = document.getElementById('dayWarning');
-  if (reserveDayWarning && !reserveDayWarning.hidden && reserveDayWarning.dataset.kind) {
-    reserveDayWarning.textContent = i18next.t(reserveDayWarning.dataset.kind === 'sunday' ? 'reserve_closed_sunday' : 'reserve_outside_hours');
+  if (reserveDayWarning && !reserveDayWarning.hidden && reserveDayWarning.dataset.kind === 'sunday') {
+    reserveDayWarning.textContent = i18next.t('reserve_closed_sunday');
   }
+  if (typeof window.__spiReserveRefresh === 'function') window.__spiReserveRefresh();
   document.getElementById('footer-privacy-link').textContent = i18next.t('footer_privacy');
   document.getElementById('footer-cookie-link').textContent  = i18next.t('footer_cookie');
   document.getElementById('currentFlag').textContent    = FLAGS[i18next.language] || '🇮🇹';
@@ -953,7 +953,7 @@ function changeLanguage(event, lang) {
   if (!form) return;
 
   const dateInput    = document.getElementById('resDate');
-  const timeInput    = document.getElementById('resTime');
+  const timeSelect   = document.getElementById('resTime');
   const dayWarning   = document.getElementById('dayWarning');
   const guestsInput  = document.getElementById('resGuests');
   const minusBtn     = document.getElementById('guestsMinus');
@@ -974,67 +974,105 @@ function changeLanguage(event, lang) {
       return;
     }
     dayWarning.dataset.kind = kind;
-    dayWarning.textContent = i18next.t(kind === 'sunday' ? 'reserve_closed_sunday' : 'reserve_outside_hours');
+    dayWarning.textContent = i18next.t('reserve_closed_sunday');
     dayWarning.hidden = false;
   }
 
-  // Orari: Lun–Ven 09:00–19:00, Sab 09:00–12:00, Dom chiuso
+  // Genera orari ogni 30 minuti tra un'ora di apertura e una di chiusura (incluse)
+  function buildSlots(startH, endH) {
+    const slots = [];
+    for (let h = startH; h <= endH; h++) {
+      slots.push(`${pad(h)}:00`);
+      if (h < endH) slots.push(`${pad(h)}:30`);
+    }
+    return slots;
+  }
+
+  function fillTimeSelect(slots, placeholderKey) {
+    const keepValue = timeSelect.value;
+    timeSelect.innerHTML = '';
+    const ph = document.createElement('option');
+    ph.value = ''; ph.disabled = true;
+    ph.textContent = i18next.t(placeholderKey);
+    timeSelect.appendChild(ph);
+    slots.forEach(t => {
+      const opt = document.createElement('option');
+      opt.value = t; opt.textContent = t;
+      timeSelect.appendChild(opt);
+    });
+    timeSelect.value = slots.includes(keepValue) ? keepValue : '';
+  }
+
+  // Orari: Lun–Ven 09:00–19:00, Sab 09:00–12:00, Dom chiuso — slot ogni 30 minuti
   function applyDateConstraints() {
-    if (!dateInput.value) { setDayWarning(null); timeInput.disabled = false; return; }
+    if (!dateInput.value) {
+      timeSelect.disabled = true;
+      fillTimeSelect([], 'reserve_time_choose_date');
+      setDayWarning(null);
+      return;
+    }
     const day = new Date(dateInput.value + 'T00:00:00').getDay();
     if (day === 0) {
-      timeInput.disabled = true;
+      timeSelect.disabled = true;
+      fillTimeSelect([], 'reserve_time_closed');
       setDayWarning('sunday');
       return;
     }
-    timeInput.disabled = false;
-    if (day === 6) { timeInput.min = '09:00'; timeInput.max = '12:00'; }
-    else { timeInput.min = '09:00'; timeInput.max = '19:00'; }
-    if (timeInput.value && (timeInput.value < timeInput.min || timeInput.value > timeInput.max)) {
-      setDayWarning('hours');
-    } else {
-      setDayWarning(null);
-    }
+    timeSelect.disabled = false;
+    setDayWarning(null);
+    const slots = day === 6 ? buildSlots(9, 12) : buildSlots(9, 19);
+    fillTimeSelect(slots, 'reserve_time_placeholder');
   }
   dateInput.addEventListener('change', applyDateConstraints);
-  timeInput.addEventListener('change', applyDateConstraints);
+  applyDateConstraints();
 
+  // Permette di digitare il numero di persone, oltre a usare i pulsanti +/-
   function clampGuests(v) { return Math.max(1, Math.min(20, v || 1)); }
   minusBtn.addEventListener('click', () => { guestsInput.value = clampGuests(parseInt(guestsInput.value, 10) - 1); });
   plusBtn.addEventListener('click',  () => { guestsInput.value = clampGuests(parseInt(guestsInput.value, 10) + 1); });
+  guestsInput.addEventListener('blur', () => {
+    if (guestsInput.value === '') return;
+    guestsInput.value = clampGuests(parseInt(guestsInput.value, 10));
+  });
 
   const LOCALE_MAP = { it: 'it-IT', en: 'en-GB', es: 'es-ES', fr: 'fr-FR', de: 'de-DE' };
+
+  // Costruisce un messaggio WhatsApp pulito, con etichette ed emoji, righe vuote omesse
+  function buildWaMessage({ name, phone, email, date, time, guests, notes }) {
+    const lines = [`📋 *${i18next.t('reserve_wa_header')}*`, ''];
+    lines.push(`👤 ${i18next.t('reserve_wa_name_label')}: ${name}`);
+    lines.push(`📞 ${i18next.t('reserve_wa_phone_label')}: ${phone}`);
+    if (email) lines.push(`✉️ ${i18next.t('reserve_wa_email_label')}: ${email}`);
+    lines.push(`📅 ${i18next.t('reserve_wa_date_label')}: ${date}`);
+    lines.push(`🕐 ${i18next.t('reserve_wa_time_label')}: ${time}`);
+    lines.push(`👥 ${i18next.t('reserve_wa_guests_label')}: ${guests}`);
+    if (notes) lines.push(`📝 ${i18next.t('reserve_wa_notes_label')}: ${notes}`);
+    lines.push('', i18next.t('reserve_wa_footer'));
+    return lines.join('\n');
+  }
 
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     applyDateConstraints();
+    guestsInput.value = clampGuests(parseInt(guestsInput.value, 10));
     if (!form.checkValidity()) { form.reportValidity(); return; }
 
     const day = new Date(dateInput.value + 'T00:00:00').getDay();
     if (day === 0) return; // chiuso la domenica: avviso già visibile
-    if (timeInput.value < timeInput.min || timeInput.value > timeInput.max) {
-      setDayWarning('hours');
-      return;
-    }
 
     const lang = localStorage.getItem('selectedLanguage') || 'it';
     const dateObj = new Date(dateInput.value + 'T00:00:00');
     const dateFmt = dateObj.toLocaleDateString(LOCALE_MAP[lang] || 'it-IT', { day: '2-digit', month: '2-digit', year: 'numeric' });
 
-    const name   = document.getElementById('resName').value.trim();
-    const phone  = document.getElementById('resPhone').value.trim();
-    const guests = guestsInput.value;
-    const time   = timeInput.value;
-    const notes  = document.getElementById('resNotes').value.trim();
-    const notesPart = notes ? ` ${i18next.t('reserve_wa_notes_label')}: ${notes}.` : '';
-
-    const message = i18next.t('reserve_wa_message')
-      .replace('{guests}', guests)
-      .replace('{date}', dateFmt)
-      .replace('{time}', time)
-      .replace('{name}', name)
-      .replace('{phone}', phone)
-      .replace('{notes}', notesPart);
+    const message = buildWaMessage({
+      name:   document.getElementById('resName').value.trim(),
+      phone:  document.getElementById('resPhone').value.trim(),
+      email:  document.getElementById('resEmail').value.trim(),
+      date:   dateFmt,
+      time:   timeSelect.value,
+      guests: guestsInput.value,
+      notes:  document.getElementById('resNotes').value.trim(),
+    });
 
     const waUrl = 'https://wa.me/3935560714?text=' + encodeURIComponent(message);
     waLink.href = waUrl;
@@ -1047,11 +1085,17 @@ function changeLanguage(event, lang) {
   resetBtn.addEventListener('click', function () {
     form.reset();
     guestsInput.value = 2;
-    setDayWarning(null);
+    applyDateConstraints();
     successPanel.hidden = true;
     form.hidden = false;
   });
+
+  // Espone un hook per ritradurre il placeholder dell'orario al cambio lingua
+  window.__spiReserveRefresh = function () {
+    if (timeSelect.value === '') applyDateConstraints();
+  };
 })();
+
 
 </script>
 <script src="spi-common.js"></script>
