@@ -11,7 +11,6 @@
 <style>
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 :root {
-  /* BLU NOTTE + AZZURRO ELETTRICO */
   --bg:#080c14; --card:#11151f; --card2:#151b27;
   --brown:#2766e0; --brown-light:#4da3ff;
   --brown-soft:rgba(37,99,235,.08); --brown-border:rgba(37,99,235,.25);
@@ -29,7 +28,8 @@ body {
 /* NAV */
 nav {
   position:fixed; top:0; left:0; width:100%;
-  background:linear-gradient(135deg, rgba(8,12,20,0.97) 0%, rgba(26,34,48,0.97) 100%); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px);
+  background:linear-gradient(135deg, rgba(8,12,20,0.97) 0%, rgba(26,34,48,0.97) 100%);
+  backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px);
   border-bottom:1px solid rgba(255,255,255,0.08);
   padding:0 32px; z-index:1000;
   display:flex; align-items:center; justify-content:space-between; height:108px;
@@ -37,7 +37,11 @@ nav {
 .nav-logo img { height:96px; width:auto; display:block; transition:transform 0.3s, opacity 0.3s; }
 .nav-logo img:hover { transform:scale(1.04); opacity:0.82; }
 
-/* Nav scura: selettore lingua con toni chiari per leggibilità sul fondo scuro */
+/* Nav right: language + hamburger */
+.nav-right {
+  display:flex; align-items:center; gap:14px;
+}
+
 nav .language-selector {
   border-color:rgba(255,255,255,0.14);
   background:rgba(255,255,255,0.05);
@@ -47,6 +51,44 @@ nav .lang-chevron { stroke:rgba(255,255,255,0.6); }
 nav .language-dropdown { background:#11151f; border-color:rgba(255,255,255,0.1); }
 nav .language-dropdown a { color:#eaf0f8; }
 nav .language-dropdown a:hover { background:rgba(255,255,255,0.08); }
+
+/* HAMBURGER BUTTON */
+.hamburger-btn {
+  width:42px; height:42px;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:5px;
+  cursor:pointer; border:1px solid rgba(255,255,255,0.14); border-radius:10px;
+  background:rgba(255,255,255,0.05); transition:background 0.2s, border-color 0.2s;
+  flex-shrink:0;
+}
+.hamburger-btn:hover { background:var(--brown-soft); border-color:var(--brown-border); }
+.hamburger-btn span {
+  display:block; width:18px; height:2px;
+  background:rgba(255,255,255,0.7); border-radius:2px;
+  transition:all 0.3s ease;
+}
+.hamburger-btn.open span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
+.hamburger-btn.open span:nth-child(2) { opacity:0; }
+.hamburger-btn.open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
+
+/* HAMBURGER MENU PANEL */
+.hamburger-menu {
+  display:none; position:absolute; top:calc(100% + 8px); right:0;
+  background:#11151f; border:1px solid rgba(255,255,255,0.1);
+  border-radius:16px; overflow:hidden;
+  box-shadow:0 24px 60px rgba(3,8,18,0.3); z-index:1002; min-width:210px;
+  animation:dropIn 0.18s ease;
+}
+.hamburger-menu.open { display:block; }
+@keyframes dropIn { from{opacity:0;transform:translateY(-6px)} to{opacity:1;transform:translateY(0)} }
+.hamburger-menu a {
+  display:flex; align-items:center; gap:12px; padding:14px 18px;
+  text-decoration:none; color:var(--text); font-size:0.88rem;
+  white-space:nowrap; transition:background 0.18s;
+  border-bottom:1px solid rgba(255,255,255,0.05);
+}
+.hamburger-menu a:last-child { border-bottom:none; }
+.hamburger-menu a i { width:16px; text-align:center; color:var(--brown-light); font-size:0.85rem; }
+.hamburger-menu a:hover { background:var(--brown-soft); }
 
 /* LINGUA */
 .language-selector {
@@ -65,7 +107,6 @@ nav .language-dropdown a:hover { background:rgba(255,255,255,0.08); }
   overflow:hidden; box-shadow:0 24px 60px rgba(3,8,18,0.14); z-index:1002; min-width:155px;
 }
 .language-dropdown.open { display:block; animation:dropIn 0.18s ease; }
-@keyframes dropIn { from{opacity:0;transform:translateY(-6px)} to{opacity:1;transform:translateY(0)} }
 .language-dropdown a {
   display:flex; align-items:center; gap:10px; padding:12px 16px;
   text-decoration:none; color:var(--text); font-size:0.88rem; white-space:nowrap; transition:background 0.18s;
@@ -124,7 +165,7 @@ nav .language-dropdown a:hover { background:rgba(255,255,255,0.08); }
   padding:16px 38px; border-radius:3px;
   text-decoration:none;
   overflow:hidden;
-  transition:transform 0.25s ease, box-shadow 0.25s ease;
+  transition:box-shadow 0.25s ease;
   box-shadow:0 10px 30px rgba(8,12,20,0.25), 0 2px 8px rgba(3,8,18,0.10);
 }
 .hero-btn::before {
@@ -134,7 +175,6 @@ nav .language-dropdown a:hover { background:rgba(255,255,255,0.08); }
   transition:left 0.6s ease;
 }
 .hero-btn:hover {
-  transform:translateY(-3px);
   box-shadow:0 16px 42px rgba(8,12,20,0.4), 0 4px 12px rgba(3,8,18,0.12);
 }
 .hero-btn:hover::before { left:100%; }
@@ -265,16 +305,42 @@ select.form-input option { background:var(--card); color:var(--text); }
   width:32px; height:32px; border-radius:8px; border:1px solid var(--brown-border);
   background:var(--brown-soft); color:var(--brown-light); font-size:1.15rem; font-weight:600;
   cursor:pointer; display:flex; align-items:center; justify-content:center; line-height:1;
-  transition:background 0.2s, transform 0.15s; flex-shrink:0;
+  transition:background 0.2s; flex-shrink:0;
 }
 .stepper-btn:hover { background:rgba(77,163,255,0.18); }
-.stepper-btn:active { transform:scale(0.92); }
 .guests-input {
   width:42px; text-align:center; background:transparent; border:none; color:var(--text);
   font-size:1rem; font-weight:600; font-family:'Poppins',sans-serif; outline:none;
   -moz-appearance:textfield;
 }
 .guests-input::-webkit-outer-spin-button, .guests-input::-webkit-inner-spin-button { -webkit-appearance:none; margin:0; }
+
+/* CANALE INVIO: WhatsApp o Email */
+.channel-selector {
+  display:grid; grid-template-columns:1fr 1fr; gap:10px;
+}
+.channel-option {
+  position:relative;
+}
+.channel-option input[type="radio"] {
+  position:absolute; opacity:0; width:0; height:0;
+}
+.channel-label {
+  display:flex; align-items:center; justify-content:center; gap:8px;
+  padding:12px 10px; border-radius:10px; border:1px solid var(--border);
+  background:rgba(255,255,255,0.03); color:var(--muted); font-size:0.82rem; font-weight:600;
+  cursor:pointer; transition:all 0.2s; user-select:none; text-align:center;
+}
+.channel-label i { font-size:1rem; }
+.channel-option input[type="radio"]:checked + .channel-label {
+  border-color:var(--brown-border); background:var(--brown-soft); color:var(--brown-light);
+  box-shadow:0 0 0 2px rgba(77,163,255,0.15);
+}
+.channel-label:hover { border-color:var(--brown-border); color:var(--text); }
+
+/* Campo email visibile solo quando canale=email */
+.email-group { display:none; }
+.email-group.visible { display:flex; }
 
 .reserve-submit {
   display:inline-flex; align-items:center; justify-content:center; gap:10px;
@@ -283,11 +349,10 @@ select.form-input option { background:var(--card); color:var(--text); }
   font-family:'Poppins',sans-serif; font-size:0.85rem; font-weight:600;
   letter-spacing:0.08em; text-transform:uppercase;
   padding:16px 24px; border-radius:10px; border:none; text-decoration:none;
-  cursor:pointer; transition:transform 0.25s ease, box-shadow 0.25s ease;
+  cursor:pointer; transition:box-shadow 0.25s ease;
   box-shadow:0 10px 26px rgba(8,12,20,0.35);
 }
-.reserve-submit:hover { transform:translateY(-2px); box-shadow:0 14px 34px rgba(8,12,20,0.45), 0 0 26px rgba(77,163,255,0.3); }
-.reserve-submit:active { transform:translateY(0); }
+.reserve-submit:hover { box-shadow:0 14px 34px rgba(8,12,20,0.45), 0 0 26px rgba(77,163,255,0.3); }
 .reserve-submit i { font-size:0.95rem; }
 
 .reserve-disclaimer { font-size:0.78rem; color:var(--muted); text-align:center; line-height:1.6; }
@@ -308,7 +373,6 @@ select.form-input option { background:var(--card); color:var(--text); }
 
 [hidden] { display:none !important; }
 
-/* Focus visibile da tastiera */
 a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible {
   outline:2px solid var(--brown-light); outline-offset:2px; border-radius:4px;
 }
@@ -328,14 +392,12 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   font-family:'Poppins',sans-serif; font-size:0.85rem; font-weight:600;
   letter-spacing:0.09em; text-transform:uppercase;
   padding:14px 34px; border-radius:3px; text-decoration:none;
-  transition:background 0.25s, border-color 0.25s, transform 0.2s;
+  transition:background 0.25s, border-color 0.25s;
 }
-.cta-btn:hover { background:var(--brown-soft); border-color:var(--brown); transform:translateY(-2px); }
+.cta-btn:hover { background:var(--brown-soft); border-color:var(--brown); }
 
-/* DIVIDER */
 .gold-divider { height:1px; background:linear-gradient(to right,transparent,var(--silver),transparent); opacity:0.35; margin:0 60px; }
 
-/* SCROLL TOP */
 .scroll-top {
   position:fixed; right:22px; bottom:22px; width:46px; height:46px;
   display:flex; align-items:center; justify-content:center;
@@ -346,10 +408,9 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   transition:opacity 0.3s, transform 0.3s, border-color 0.3s, box-shadow 0.3s; z-index:2000;
 }
 .scroll-top.show { opacity:1; visibility:visible; transform:translateY(0); }
-.scroll-top:hover { border-color:var(--brown); box-shadow:0 0 24px rgba(37,99,235,0.2); transform:translateY(-4px); }
+.scroll-top:hover { border-color:var(--brown); box-shadow:0 0 24px rgba(37,99,235,0.2); }
 .scroll-top svg { width:15px; height:15px; stroke:currentColor; fill:none; stroke-width:2.2; }
 
-/* FOOTER */
 footer {
   border-top:1px solid var(--border);
   background-color:var(--card2);
@@ -372,12 +433,9 @@ footer, footer * {
   -webkit-font-smoothing:antialiased;
   -webkit-tap-highlight-color:transparent;
 }
-footer a, footer span, footer p {
-  color:inherit;
-  text-decoration:none !important;
-}
+footer a, footer span, footer p { color:inherit; text-decoration:none !important; }
 
-/* ── COOKIE BANNER ── */
+/* COOKIE BANNER */
 .spi-cookie-banner {
   position:fixed; left:0; right:0; bottom:0; z-index:5000;
   display:flex; justify-content:center;
@@ -386,7 +444,6 @@ footer a, footer span, footer p {
   transition:opacity 0.35s ease, transform 0.35s ease;
 }
 .spi-cookie-banner.show { opacity:1; transform:translateY(0); pointer-events:auto; }
-
 .spi-cookie-card {
   max-width:680px; width:100%;
   background:#11151f; border:1px solid var(--border);
@@ -404,7 +461,6 @@ footer a, footer span, footer p {
 .spi-cookie-body h3 { font-family:'Lora',serif; color:var(--brown-light); font-size:1.05rem; margin-bottom:6px; }
 .spi-cookie-body p { font-size:0.85rem; color:var(--muted); line-height:1.55; }
 .spi-cookie-body a { color:var(--brown-light); text-decoration:underline; }
-
 .spi-cookie-actions { display:flex; flex-wrap:wrap; gap:10px; width:100%; justify-content:flex-end; }
 .spi-cookie-btn {
   font-family:'Poppins',sans-serif; font-size:0.8rem; font-weight:600;
@@ -440,7 +496,6 @@ footer a, footer span, footer p {
 }
 .spi-cookie-row strong { font-size:0.92rem; color:var(--text); display:block; margin-bottom:4px; }
 .spi-cookie-row p { font-size:0.8rem; color:var(--muted); line-height:1.5; }
-
 .spi-switch { position:relative; display:inline-block; width:42px; height:24px; flex-shrink:0; }
 .spi-switch input { opacity:0; width:0; height:0; }
 .spi-slider {
@@ -472,7 +527,7 @@ footer a, footer span, footer p {
   .form-row { grid-template-columns:1fr; }
 }
 
-/* ══════════ SPLASH DI BENVENUTO — leggero, solo al primo arrivo da QR ══════════ */
+/* SPLASH */
 #welcomeSplash {
   position:fixed; inset:0; z-index:99999;
   background:var(--bg);
@@ -481,27 +536,18 @@ footer a, footer span, footer p {
   transition:opacity 0.5s ease, visibility 0.5s ease;
 }
 #welcomeSplash.fade-out { opacity:0; visibility:hidden; pointer-events:none; }
-
 .welcome-logo {
-  height:84px; width:auto;
-  opacity:0;
-  transform:translateY(6px);
+  height:84px; width:auto; opacity:0; transform:translateY(6px);
   filter:drop-shadow(0 0 22px rgba(77,163,255,0.45));
   animation:welcomeLogoIn 0.7s ease 0.1s forwards;
 }
 @keyframes welcomeLogoIn { to { opacity:1; transform:translateY(0); } }
-
 .welcome-text {
-  font-family:'Lora',serif;
-  font-style:italic;
-  font-size:0.85rem;
-  letter-spacing:0.12em;
-  color:var(--muted);
-  opacity:0;
+  font-family:'Lora',serif; font-style:italic; font-size:0.85rem;
+  letter-spacing:0.12em; color:var(--muted); opacity:0;
   animation:welcomeTextIn 0.6s ease 0.4s forwards;
 }
 @keyframes welcomeTextIn { to { opacity:1; } }
-
 .welcome-line {
   width:0; height:1px;
   background:linear-gradient(to right, transparent, var(--silver), transparent);
@@ -517,7 +563,6 @@ footer a, footer span, footer p {
 </head>
 <body>
 
-<!-- SPLASH DI BENVENUTO — mostrato solo al primo arrivo nella sessione (es. da QR code) -->
 <div id="welcomeSplash">
   <img class="welcome-logo" src="images/logospi1.PNG" alt="SPI System">
   <div class="welcome-line"></div>
@@ -526,15 +571,27 @@ footer a, footer span, footer p {
 
 <nav>
   <div class="nav-logo"><img src="images/logospi1.PNG" alt="SPI System"></div>
-  <div class="language-selector" id="langSelector">
-    <span class="lang-flag" id="currentFlag">🇮🇹</span>
-    <svg class="lang-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
-    <div class="language-dropdown" id="langDropdown">
-      <a href="#" onclick="changeLanguage(event,'it')"><span class="flag">🇮🇹</span> Italiano</a>
-      <a href="#" onclick="changeLanguage(event,'en')"><span class="flag">🇬🇧</span> English</a>
-      <a href="#" onclick="changeLanguage(event,'es')"><span class="flag">🇪🇸</span> Español</a>
-      <a href="#" onclick="changeLanguage(event,'fr')"><span class="flag">🇫🇷</span> Français</a>
-      <a href="#" onclick="changeLanguage(event,'de')"><span class="flag">🇩🇪</span> Deutsch</a>
+  <div class="nav-right">
+    <div class="language-selector" id="langSelector">
+      <span class="lang-flag" id="currentFlag">🇮🇹</span>
+      <svg class="lang-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      <div class="language-dropdown" id="langDropdown">
+        <a href="#" onclick="changeLanguage(event,'it')"><span class="flag">🇮🇹</span> Italiano</a>
+        <a href="#" onclick="changeLanguage(event,'en')"><span class="flag">🇬🇧</span> English</a>
+        <a href="#" onclick="changeLanguage(event,'es')"><span class="flag">🇪🇸</span> Español</a>
+        <a href="#" onclick="changeLanguage(event,'fr')"><span class="flag">🇫🇷</span> Français</a>
+        <a href="#" onclick="changeLanguage(event,'de')"><span class="flag">🇩🇪</span> Deutsch</a>
+      </div>
+    </div>
+    <!-- HAMBURGER -->
+    <div class="hamburger-btn" id="hamburgerBtn" aria-label="Menu navigazione">
+      <span></span><span></span><span></span>
+      <div class="hamburger-menu" id="hamburgerMenu">
+        <a href="menu.html" id="hmenu-menu"><i class="fas fa-utensils"></i><span id="hmenu-menu-text">Visualizza Menù</span></a>
+        <a href="#info" id="hmenu-info"><i class="fas fa-info-circle"></i><span id="hmenu-info-text">Chi siamo</span></a>
+        <a href="#prenota" id="hmenu-prenota"><i class="fas fa-calendar-check"></i><span id="hmenu-prenota-text">Prenota un tavolo</span></a>
+        <a href="https://wa.me/3935560714" target="_blank" id="hmenu-wa"><i class="fab fa-whatsapp"></i><span id="hmenu-wa-text">Contattaci su WhatsApp</span></a>
+      </div>
     </div>
   </div>
 </nav>
@@ -596,24 +653,19 @@ footer a, footer span, footer p {
 <section class="reserve-section" id="prenota">
   <p class="section-eyebrow" id="reserve-eyebrow">Prenotazioni</p>
   <h2 class="section-title" id="reserve-title">Riserva il tuo tavolo</h2>
-  <p class="section-desc" id="reserve-desc">Scegli data, ora e numero di persone: ti contattiamo su WhatsApp per confermare.</p>
+  <p class="section-desc" id="reserve-desc">Scegli data, ora e numero di persone: ti contattiamo per confermare.</p>
 
   <div class="reserve-card">
     <form class="reserve-form" id="reserveForm" novalidate>
+
       <div class="form-group">
         <label class="form-label" for="resName" id="reserve-label-name">Nome e cognome</label>
         <input class="form-input" type="text" id="resName" name="name" autocomplete="name" required>
       </div>
 
-      <div class="form-row">
-        <div class="form-group">
-          <label class="form-label" for="resPhone" id="reserve-label-phone">Telefono</label>
-          <input class="form-input" type="tel" id="resPhone" name="phone" autocomplete="tel" inputmode="tel" required>
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="resEmail" id="reserve-label-email">Email (opzionale)</label>
-          <input class="form-input" type="email" id="resEmail" name="email" autocomplete="email" inputmode="email">
-        </div>
+      <div class="form-group">
+        <label class="form-label" for="resPhone" id="reserve-label-phone">Telefono</label>
+        <input class="form-input" type="tel" id="resPhone" name="phone" autocomplete="tel" inputmode="tel" required>
       </div>
 
       <div class="form-row">
@@ -634,9 +686,9 @@ footer a, footer span, footer p {
       <div class="form-group">
         <label class="form-label" id="reserve-label-guests">Numero di persone</label>
         <div class="guests-stepper">
-          <button type="button" class="stepper-btn" id="guestsMinus" aria-label="Diminuisci numero di persone">−</button>
-          <input class="guests-input" type="number" id="resGuests" name="guests" min="1" max="20" value="2" inputmode="numeric" aria-label="Numero di persone" required>
-          <button type="button" class="stepper-btn" id="guestsPlus" aria-label="Aumenta numero di persone">+</button>
+          <button type="button" class="stepper-btn" id="guestsMinus" aria-label="Diminuisci">−</button>
+          <input class="guests-input" type="number" id="resGuests" name="guests" min="1" max="20" value="2" inputmode="numeric" required>
+          <button type="button" class="stepper-btn" id="guestsPlus" aria-label="Aumenta">+</button>
         </div>
       </div>
 
@@ -645,8 +697,33 @@ footer a, footer span, footer p {
         <textarea class="form-input form-textarea" id="resNotes" name="notes" rows="2"></textarea>
       </div>
 
+      <!-- SCELTA CANALE -->
+      <div class="form-group">
+        <label class="form-label" id="reserve-label-channel">Invia tramite</label>
+        <div class="channel-selector">
+          <div class="channel-option">
+            <input type="radio" name="channel" id="channelWa" value="whatsapp" checked>
+            <label class="channel-label" for="channelWa">
+              <i class="fab fa-whatsapp"></i><span id="channel-wa-text">WhatsApp</span>
+            </label>
+          </div>
+          <div class="channel-option">
+            <input type="radio" name="channel" id="channelEmail" value="email">
+            <label class="channel-label" for="channelEmail">
+              <i class="fas fa-envelope"></i><span id="channel-email-text">Email</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- CAMPO EMAIL (visibile solo se canale=email) -->
+      <div class="form-group email-group" id="emailGroup">
+        <label class="form-label" for="resEmail" id="reserve-label-email">La tua Email</label>
+        <input class="form-input" type="email" id="resEmail" name="email" autocomplete="email" inputmode="email">
+      </div>
+
       <button type="submit" class="reserve-submit" id="reserveSubmitBtn">
-        <i class="fab fa-whatsapp"></i>
+        <i class="fab fa-whatsapp" id="submit-icon"></i>
         <span id="reserve-submit-text">Invia richiesta su WhatsApp</span>
       </button>
       <p class="reserve-disclaimer" id="reserve-disclaimer">Premendo invia, apri WhatsApp con i dettagli già scritti: dovrai solo toccare invia.</p>
@@ -657,7 +734,7 @@ footer a, footer span, footer p {
       <h3 id="reserve-success-title">Richiesta pronta</h3>
       <p id="reserve-success-text">Abbiamo aperto WhatsApp con il messaggio già scritto. Se non si è aperto automaticamente, tocca qui sotto.</p>
       <a class="reserve-submit" id="reserveWaLink" href="#" target="_blank" rel="noopener">
-        <i class="fab fa-whatsapp"></i><span id="reserve-open-wa">Apri WhatsApp</span>
+        <i class="fab fa-whatsapp" id="success-link-icon"></i><span id="reserve-open-wa">Apri WhatsApp</span>
       </a>
       <button type="button" class="reserve-reset" id="reserveResetBtn"><span id="reserve-reset-text">Nuova prenotazione</span></button>
     </div>
@@ -687,7 +764,7 @@ footer a, footer span, footer p {
 </button>
 
 <script>
-// ── SPLASH DI BENVENUTO: solo al primo arrivo nella sessione (es. da QR code) ──
+// SPLASH
 (function () {
   if (sessionStorage.getItem('spiWelcomed')) {
     const splash = document.getElementById('welcomeSplash');
@@ -695,29 +772,20 @@ footer a, footer span, footer p {
     return;
   }
   sessionStorage.setItem('spiWelcomed', '1');
-
-  const MIN_TIME = 1350; // ms — breve: è un saluto, non un caricamento
+  const MIN_TIME = 1350;
   const start = Date.now();
-
   function dismiss() {
     const wait = Math.max(0, MIN_TIME - (Date.now() - start));
     setTimeout(() => {
       const splash = document.getElementById('welcomeSplash');
-      if (splash) {
-        splash.classList.add('fade-out');
-        setTimeout(() => splash.remove(), 550);
-      }
+      if (splash) { splash.classList.add('fade-out'); setTimeout(() => splash.remove(), 550); }
     }, wait);
   }
-
-  if (document.readyState === 'interactive' || document.readyState === 'complete') {
-    dismiss();
-  } else {
-    document.addEventListener('DOMContentLoaded', dismiss);
-    setTimeout(dismiss, 2500); // fallback di sicurezza
-  }
+  if (document.readyState === 'interactive' || document.readyState === 'complete') dismiss();
+  else { document.addEventListener('DOMContentLoaded', dismiss); setTimeout(dismiss, 2500); }
 })();
 
+// LANG SELECTOR
 const langSelector = document.getElementById('langSelector');
 const langDropdown = document.getElementById('langDropdown');
 langSelector.addEventListener('click', e => {
@@ -725,11 +793,31 @@ langSelector.addEventListener('click', e => {
   const open = langDropdown.classList.toggle('open');
   langSelector.classList.toggle('open', open);
 });
+
+// HAMBURGER
+const hamburgerBtn = document.getElementById('hamburgerBtn');
+const hamburgerMenu = document.getElementById('hamburgerMenu');
+hamburgerBtn.addEventListener('click', e => {
+  e.stopPropagation();
+  const open = hamburgerMenu.classList.toggle('open');
+  hamburgerBtn.classList.toggle('open', open);
+});
+// Chiudi entrambi i dropdown al click fuori
 document.addEventListener('click', () => {
   langDropdown.classList.remove('open');
   langSelector.classList.remove('open');
+  hamburgerMenu.classList.remove('open');
+  hamburgerBtn.classList.remove('open');
+});
+// Chiudi hamburger al click su link interni (scroll)
+hamburgerMenu.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', () => {
+    hamburgerMenu.classList.remove('open');
+    hamburgerBtn.classList.remove('open');
+  });
 });
 
+// INTERSECTION OBSERVER
 const obs = new IntersectionObserver(entries => {
   entries.forEach((entry, i) => {
     if (entry.isIntersecting) {
@@ -760,21 +848,30 @@ i18next.init({
       cta_label:"Vuoi un menù come questo?", cta_title:"Porta il tuo locale nel digitale",
       cta_sub:"Contattaci su WhatsApp o telefonicamente. Realizziamo il tuo menù QR in pochi giorni.", cta_btn:"Contattaci su WhatsApp",
       reserve_eyebrow:"Prenotazioni", reserve_title:"Riserva il tuo tavolo",
-      reserve_desc:"Scegli data, ora e numero di persone: ti contattiamo su WhatsApp per confermare.",
+      reserve_desc:"Scegli data, ora e numero di persone: ti contattiamo per confermare.",
       reserve_label_name:"Nome e cognome", reserve_label_phone:"Telefono",
       reserve_label_date:"Data", reserve_label_time:"Ora", reserve_label_guests:"Numero di persone",
-      reserve_label_notes:"Note (opzionale)", reserve_submit:"Invia richiesta su WhatsApp",
-      reserve_disclaimer:"Premendo invia, apri WhatsApp con i dettagli già scritti: dovrai solo toccare invia.",
+      reserve_label_notes:"Note (opzionale)",
+      reserve_label_channel:"Invia tramite",
+      channel_wa:"WhatsApp", channel_email:"Email",
+      reserve_label_email:"La tua Email",
+      reserve_submit_wa:"Invia richiesta su WhatsApp",
+      reserve_submit_email:"Invia richiesta via Email",
+      reserve_disclaimer_wa:"Premendo invia, apri WhatsApp con i dettagli già scritti: dovrai solo toccare invia.",
+      reserve_disclaimer_email:"Premendo invia si aprirà il tuo client email con il messaggio precompilato.",
       reserve_success_title:"Richiesta pronta",
-      reserve_success_text:"Abbiamo aperto WhatsApp con il messaggio già scritto. Se non si è aperto automaticamente, tocca qui sotto.",
-      reserve_open_wa:"Apri WhatsApp", reserve_reset:"Nuova prenotazione",
-      reserve_label_email:"Email (opzionale)",
+      reserve_success_text_wa:"Abbiamo aperto WhatsApp con il messaggio già scritto. Se non si è aperto automaticamente, tocca qui sotto.",
+      reserve_success_text_email:"Si è aperto il tuo client email con il messaggio precompilato. Se non si è aperto, tocca qui sotto.",
+      reserve_open_wa:"Apri WhatsApp", reserve_open_email:"Apri Email",
+      reserve_reset:"Nuova prenotazione",
       reserve_time_choose_date:"Scegli prima una data", reserve_time_placeholder:"Seleziona un orario",
       reserve_time_closed:"Chiuso", reserve_closed_sunday:"Siamo chiusi la domenica: scegli un altro giorno.",
       reserve_wa_header:"Richiesta di prenotazione", reserve_wa_name_label:"Nome", reserve_wa_phone_label:"Telefono",
-      reserve_wa_email_label:"Email", reserve_wa_date_label:"Data", reserve_wa_time_label:"Ora",
+      reserve_wa_date_label:"Data", reserve_wa_time_label:"Ora",
       reserve_wa_guests_label:"Persone", reserve_wa_notes_label:"Note",
       reserve_wa_footer:"Inviato dal sito SPI System",
+      hmenu_menu:"Visualizza Menù", hmenu_info:"Chi siamo",
+      hmenu_prenota:"Prenota un tavolo", hmenu_wa:"Contattaci su WhatsApp",
       footer_privacy:"Privacy Policy", footer_cookie:"Preferenze Cookie"
     }},
     en:{ translation:{
@@ -788,154 +885,203 @@ i18next.init({
       cta_label:"Want a menu like this?", cta_title:"Bring your venue into the digital age",
       cta_sub:"Contact us on WhatsApp or by phone. We'll create your QR menu in just a few days.", cta_btn:"Contact us on WhatsApp",
       reserve_eyebrow:"Reservations", reserve_title:"Reserve your table",
-      reserve_desc:"Pick a date, time and party size — we'll confirm with you on WhatsApp.",
+      reserve_desc:"Pick a date, time and party size — we'll confirm with you.",
       reserve_label_name:"Full name", reserve_label_phone:"Phone number",
       reserve_label_date:"Date", reserve_label_time:"Time", reserve_label_guests:"Number of guests",
-      reserve_label_notes:"Notes (optional)", reserve_submit:"Send request on WhatsApp",
-      reserve_disclaimer:"Tapping send opens WhatsApp with the details already filled in — you'll just need to hit send.",
+      reserve_label_notes:"Notes (optional)",
+      reserve_label_channel:"Send via",
+      channel_wa:"WhatsApp", channel_email:"Email",
+      reserve_label_email:"Your Email",
+      reserve_submit_wa:"Send request on WhatsApp",
+      reserve_submit_email:"Send request via Email",
+      reserve_disclaimer_wa:"Tapping send opens WhatsApp with the details already filled in — you'll just need to hit send.",
+      reserve_disclaimer_email:"Tapping send will open your email client with the message pre-filled.",
       reserve_success_title:"Request ready",
-      reserve_success_text:"We've opened WhatsApp with your message ready. If it didn't open automatically, tap below.",
-      reserve_open_wa:"Open WhatsApp", reserve_reset:"New reservation",
-      reserve_label_email:"Email (optional)",
+      reserve_success_text_wa:"We've opened WhatsApp with your message ready. If it didn't open automatically, tap below.",
+      reserve_success_text_email:"Your email client opened with the message pre-filled. If it didn't open, tap below.",
+      reserve_open_wa:"Open WhatsApp", reserve_open_email:"Open Email",
+      reserve_reset:"New reservation",
       reserve_time_choose_date:"Pick a date first", reserve_time_placeholder:"Select a time",
       reserve_time_closed:"Closed", reserve_closed_sunday:"We're closed on Sundays — please pick another day.",
       reserve_wa_header:"Reservation request", reserve_wa_name_label:"Name", reserve_wa_phone_label:"Phone",
-      reserve_wa_email_label:"Email", reserve_wa_date_label:"Date", reserve_wa_time_label:"Time",
+      reserve_wa_date_label:"Date", reserve_wa_time_label:"Time",
       reserve_wa_guests_label:"Guests", reserve_wa_notes_label:"Notes",
       reserve_wa_footer:"Sent from the SPI System website",
+      hmenu_menu:"View Menu", hmenu_info:"About us",
+      hmenu_prenota:"Reserve a table", hmenu_wa:"Contact us on WhatsApp",
       footer_privacy:"Privacy Policy", footer_cookie:"Cookie Preferences"
     }},
     es:{ translation:{
       welcome:"Bienvenido", btn:"Ver Menú", scroll:"Descubre más",
       eyebrow:"Nuestros servicios", section_title:"Tecnología al servicio de tu local",
       section_desc:"Menús digitales profesionales, multilingües y siempre actualizables. Todo lo que necesitas, accesible con un simple código QR.",
-      about_title:"Sobre nosotros", about_text:"SPI System desarrolla soluciones tecnológicas para actividades comerciales y de restauración. Creamos menús digitales multilingües con código QR para mejorar la experiencia del cliente.",
+      about_title:"Sobre nosotros", about_text:"SPI System desarrolla soluciones tecnológicas para actividades comerciales y de restauración.",
       location_title:"Ubicación", location_text:"Calle Monterosa, 22<br>Palo del Colle (BA)<br><a href='https://maps.app.goo.gl/WmcLgRDQcFkZhuqD7?g_st=ic' target='_blank'>Abrir en Google Maps</a>",
       hours_title:"Horario", hours_text:"Lunes – Viernes<br>09:00 – 19:00<br>Sábado 09:00 – 12:00",
       contact_title:"Contacto", contact_text:"334 273 2997",
       cta_label:"¿Quieres un menú como este?", cta_title:"Lleva tu local al mundo digital",
       cta_sub:"Contáctanos por WhatsApp o teléfono. Creamos tu menú QR en pocos días.", cta_btn:"Contáctanos en WhatsApp",
       reserve_eyebrow:"Reservas", reserve_title:"Reserva tu mesa",
-      reserve_desc:"Elige fecha, hora y número de personas: te confirmamos por WhatsApp.",
+      reserve_desc:"Elige fecha, hora y número de personas: te confirmamos.",
       reserve_label_name:"Nombre y apellidos", reserve_label_phone:"Teléfono",
       reserve_label_date:"Fecha", reserve_label_time:"Hora", reserve_label_guests:"Número de personas",
-      reserve_label_notes:"Notas (opcional)", reserve_submit:"Enviar solicitud por WhatsApp",
-      reserve_disclaimer:"Al tocar enviar se abre WhatsApp con los datos ya escritos: solo tendrás que pulsar enviar.",
+      reserve_label_notes:"Notas (opcional)",
+      reserve_label_channel:"Enviar mediante",
+      channel_wa:"WhatsApp", channel_email:"Email",
+      reserve_label_email:"Tu Email",
+      reserve_submit_wa:"Enviar solicitud por WhatsApp",
+      reserve_submit_email:"Enviar solicitud por Email",
+      reserve_disclaimer_wa:"Al tocar enviar se abre WhatsApp con los datos ya escritos: solo tendrás que pulsar enviar.",
+      reserve_disclaimer_email:"Al tocar enviar se abrirá tu cliente de email con el mensaje ya rellenado.",
       reserve_success_title:"Solicitud lista",
-      reserve_success_text:"Hemos abierto WhatsApp con tu mensaje listo. Si no se abrió automáticamente, toca aquí abajo.",
-      reserve_open_wa:"Abrir WhatsApp", reserve_reset:"Nueva reserva",
-      reserve_label_email:"Email (opcional)",
+      reserve_success_text_wa:"Hemos abierto WhatsApp con tu mensaje listo. Si no se abrió automáticamente, toca abajo.",
+      reserve_success_text_email:"Se abrió tu cliente de email con el mensaje listo. Si no se abrió, toca abajo.",
+      reserve_open_wa:"Abrir WhatsApp", reserve_open_email:"Abrir Email",
+      reserve_reset:"Nueva reserva",
       reserve_time_choose_date:"Elige primero una fecha", reserve_time_placeholder:"Selecciona una hora",
       reserve_time_closed:"Cerrado", reserve_closed_sunday:"Los domingos estamos cerrados: elige otro día.",
       reserve_wa_header:"Solicitud de reserva", reserve_wa_name_label:"Nombre", reserve_wa_phone_label:"Teléfono",
-      reserve_wa_email_label:"Email", reserve_wa_date_label:"Fecha", reserve_wa_time_label:"Hora",
+      reserve_wa_date_label:"Fecha", reserve_wa_time_label:"Hora",
       reserve_wa_guests_label:"Personas", reserve_wa_notes_label:"Notas",
       reserve_wa_footer:"Enviado desde el sitio web de SPI System",
+      hmenu_menu:"Ver Menú", hmenu_info:"Sobre nosotros",
+      hmenu_prenota:"Reservar una mesa", hmenu_wa:"Contáctanos en WhatsApp",
       footer_privacy:"Política de Privacidad", footer_cookie:"Preferencias de Cookies"
     }},
     fr:{ translation:{
       welcome:"Bienvenue", btn:"Voir le menu", scroll:"Découvrir",
       eyebrow:"Nos services", section_title:"La technologie au service de votre établissement",
       section_desc:"Menus numériques professionnels, multilingues et toujours à jour. Tout ce qu'il vous faut, accessible avec un simple QR code.",
-      about_title:"À propos de nous", about_text:"SPI System développe des solutions technologiques pour les commerces et la restauration. Nous créons des menus numériques multilingues avec QR code pour améliorer l'expérience client.",
+      about_title:"À propos de nous", about_text:"SPI System développe des solutions technologiques pour les commerces et la restauration.",
       location_title:"Notre emplacement", location_text:"22 Rue Monterosa<br>Palo del Colle (BA)<br><a href='https://maps.app.goo.gl/WmcLgRDQcFkZhuqD7?g_st=ic' target='_blank'>Ouvrir sur Google Maps</a>",
       hours_title:"Horaires d'ouverture", hours_text:"Lundi – Vendredi<br>09:00 – 19:00<br>Samedi 09:00 – 12:00",
       contact_title:"Contacts", contact_text:"334 273 2997",
       cta_label:"Vous voulez un menu comme celui-ci?", cta_title:"Passez au numérique",
-      cta_sub:"Contactez-nous sur WhatsApp ou par téléphone. Nous créons votre menu QR en quelques jours.", cta_btn:"Contactez-nous sur WhatsApp",
+      cta_sub:"Contactez-nous sur WhatsApp ou par téléphone.", cta_btn:"Contactez-nous sur WhatsApp",
       reserve_eyebrow:"Réservations", reserve_title:"Réservez votre table",
-      reserve_desc:"Choisissez la date, l'heure et le nombre de personnes : nous confirmons sur WhatsApp.",
+      reserve_desc:"Choisissez la date, l'heure et le nombre de personnes : nous confirmons.",
       reserve_label_name:"Nom et prénom", reserve_label_phone:"Téléphone",
       reserve_label_date:"Date", reserve_label_time:"Heure", reserve_label_guests:"Nombre de personnes",
-      reserve_label_notes:"Notes (facultatif)", reserve_submit:"Envoyer la demande sur WhatsApp",
-      reserve_disclaimer:"En appuyant sur envoyer, WhatsApp s'ouvre avec les détails déjà remplis : il ne reste qu'à l'envoyer.",
+      reserve_label_notes:"Notes (facultatif)",
+      reserve_label_channel:"Envoyer via",
+      channel_wa:"WhatsApp", channel_email:"Email",
+      reserve_label_email:"Votre Email",
+      reserve_submit_wa:"Envoyer la demande sur WhatsApp",
+      reserve_submit_email:"Envoyer la demande par Email",
+      reserve_disclaimer_wa:"En appuyant sur envoyer, WhatsApp s'ouvre avec les détails déjà remplis.",
+      reserve_disclaimer_email:"En appuyant sur envoyer, votre client email s'ouvre avec le message pré-rempli.",
       reserve_success_title:"Demande prête",
-      reserve_success_text:"Nous avons ouvert WhatsApp avec votre message prêt. S'il ne s'est pas ouvert automatiquement, appuyez ci-dessous.",
-      reserve_open_wa:"Ouvrir WhatsApp", reserve_reset:"Nouvelle réservation",
-      reserve_label_email:"E-mail (facultatif)",
+      reserve_success_text_wa:"Nous avons ouvert WhatsApp avec votre message prêt. S'il ne s'est pas ouvert, appuyez ci-dessous.",
+      reserve_success_text_email:"Votre client email s'est ouvert avec le message prêt. S'il ne s'est pas ouvert, appuyez ci-dessous.",
+      reserve_open_wa:"Ouvrir WhatsApp", reserve_open_email:"Ouvrir Email",
+      reserve_reset:"Nouvelle réservation",
       reserve_time_choose_date:"Choisissez d'abord une date", reserve_time_placeholder:"Choisissez une heure",
       reserve_time_closed:"Fermé", reserve_closed_sunday:"Nous sommes fermés le dimanche : choisissez un autre jour.",
       reserve_wa_header:"Demande de réservation", reserve_wa_name_label:"Nom", reserve_wa_phone_label:"Téléphone",
-      reserve_wa_email_label:"E-mail", reserve_wa_date_label:"Date", reserve_wa_time_label:"Heure",
+      reserve_wa_date_label:"Date", reserve_wa_time_label:"Heure",
       reserve_wa_guests_label:"Personnes", reserve_wa_notes_label:"Notes",
       reserve_wa_footer:"Envoyé depuis le site SPI System",
+      hmenu_menu:"Voir le menu", hmenu_info:"À propos",
+      hmenu_prenota:"Réserver une table", hmenu_wa:"Contactez-nous sur WhatsApp",
       footer_privacy:"Politique de Confidentialité", footer_cookie:"Préférences Cookies"
     }},
     de:{ translation:{
       welcome:"Willkommen", btn:"Menü anzeigen", scroll:"Mehr entdecken",
       eyebrow:"Unsere Dienste", section_title:"Technologie im Dienst Ihres Lokals",
       section_desc:"Professionelle, mehrsprachige digitale Menüs, immer aktuell. Alles per QR-Code zugänglich.",
-      about_title:"Über uns", about_text:"SPI System entwickelt technologische Lösungen für Handels- und Gastronomiebetriebe. Wir erstellen mehrsprachige digitale QR-Code-Menüs.",
+      about_title:"Über uns", about_text:"SPI System entwickelt technologische Lösungen für Handels- und Gastronomiebetriebe.",
       location_title:"Standort", location_text:"Monterosa Straße 22<br>Palo del Colle (BA)<br><a href='https://maps.app.goo.gl/WmcLgRDQcFkZhuqD7?g_st=ic' target='_blank'>In Google Maps öffnen</a>",
       hours_title:"Öffnungszeiten", hours_text:"Montag – Freitag<br>09:00 – 19:00<br>Samstag 09:00 – 12:00",
       contact_title:"Kontakt", contact_text:"334 273 2997",
       cta_label:"Möchten Sie ein solches Menü?", cta_title:"Bringen Sie Ihr Lokal ins Digitale",
-      cta_sub:"Kontaktieren Sie uns per WhatsApp oder Telefon. Wir erstellen Ihr QR-Menü in wenigen Tagen.", cta_btn:"WhatsApp kontaktieren",
+      cta_sub:"Kontaktieren Sie uns per WhatsApp oder Telefon.", cta_btn:"WhatsApp kontaktieren",
       reserve_eyebrow:"Reservierungen", reserve_title:"Reservieren Sie Ihren Tisch",
-      reserve_desc:"Wählen Sie Datum, Uhrzeit und Personenzahl — wir bestätigen per WhatsApp.",
+      reserve_desc:"Wählen Sie Datum, Uhrzeit und Personenzahl — wir bestätigen.",
       reserve_label_name:"Vor- und Nachname", reserve_label_phone:"Telefonnummer",
       reserve_label_date:"Datum", reserve_label_time:"Uhrzeit", reserve_label_guests:"Anzahl der Personen",
-      reserve_label_notes:"Anmerkungen (optional)", reserve_submit:"Anfrage per WhatsApp senden",
-      reserve_disclaimer:"Beim Tippen auf Senden öffnet sich WhatsApp mit bereits ausgefüllten Angaben — Sie müssen nur noch senden.",
+      reserve_label_notes:"Anmerkungen (optional)",
+      reserve_label_channel:"Senden über",
+      channel_wa:"WhatsApp", channel_email:"E-Mail",
+      reserve_label_email:"Ihre E-Mail",
+      reserve_submit_wa:"Anfrage per WhatsApp senden",
+      reserve_submit_email:"Anfrage per E-Mail senden",
+      reserve_disclaimer_wa:"Beim Tippen auf Senden öffnet sich WhatsApp mit bereits ausgefüllten Angaben.",
+      reserve_disclaimer_email:"Beim Tippen auf Senden öffnet sich Ihr E-Mail-Client mit der vorausgefüllten Nachricht.",
       reserve_success_title:"Anfrage bereit",
-      reserve_success_text:"Wir haben WhatsApp mit Ihrer fertigen Nachricht geöffnet. Falls es nicht automatisch geöffnet wurde, tippen Sie unten.",
-      reserve_open_wa:"WhatsApp öffnen", reserve_reset:"Neue Reservierung",
-      reserve_label_email:"E-Mail (optional)",
+      reserve_success_text_wa:"Wir haben WhatsApp mit Ihrer fertigen Nachricht geöffnet. Falls nicht, tippen Sie unten.",
+      reserve_success_text_email:"Ihr E-Mail-Client wurde mit der Nachricht geöffnet. Falls nicht, tippen Sie unten.",
+      reserve_open_wa:"WhatsApp öffnen", reserve_open_email:"E-Mail öffnen",
+      reserve_reset:"Neue Reservierung",
       reserve_time_choose_date:"Wählen Sie zuerst ein Datum", reserve_time_placeholder:"Uhrzeit wählen",
       reserve_time_closed:"Geschlossen", reserve_closed_sunday:"Sonntags haben wir geschlossen — bitte wählen Sie einen anderen Tag.",
       reserve_wa_header:"Reservierungsanfrage", reserve_wa_name_label:"Name", reserve_wa_phone_label:"Telefon",
-      reserve_wa_email_label:"E-Mail", reserve_wa_date_label:"Datum", reserve_wa_time_label:"Uhrzeit",
+      reserve_wa_date_label:"Datum", reserve_wa_time_label:"Uhrzeit",
       reserve_wa_guests_label:"Personen", reserve_wa_notes_label:"Anmerkungen",
       reserve_wa_footer:"Gesendet von der SPI System Website",
+      hmenu_menu:"Menü anzeigen", hmenu_info:"Über uns",
+      hmenu_prenota:"Tisch reservieren", hmenu_wa:"WhatsApp kontaktieren",
       footer_privacy:"Datenschutzerklärung", footer_cookie:"Cookie-Einstellungen"
     }}
   }
 }, updateTexts);
 
 function updateTexts() {
-  document.getElementById('btn-text').textContent       = i18next.t('btn');
+  const t = k => i18next.t(k);
+  const set = (id, val) => { const el=document.getElementById(id); if(el) el.textContent=val; };
+  const setHTML = (id, val) => { const el=document.getElementById(id); if(el) el.innerHTML=val; };
+
   const welcomeEl = document.getElementById('welcome-text');
-  if (welcomeEl) welcomeEl.textContent = i18next.t('welcome');
-  document.getElementById('scroll-label').textContent   = i18next.t('scroll');
-  document.getElementById('eyebrow-label').textContent  = i18next.t('eyebrow');
-  document.getElementById('section-title').textContent  = i18next.t('section_title');
-  document.getElementById('section-desc').textContent   = i18next.t('section_desc');
-  document.getElementById('about-title').textContent    = i18next.t('about_title');
-  document.getElementById('about-text').textContent     = i18next.t('about_text');
-  document.getElementById('location-title').textContent = i18next.t('location_title');
-  document.getElementById('location-text').innerHTML    = i18next.t('location_text');
-  document.getElementById('hours-title').textContent    = i18next.t('hours_title');
-  document.getElementById('hours-text').innerHTML       = i18next.t('hours_text');
-  document.getElementById('contact-title').textContent  = i18next.t('contact_title');
-  document.getElementById('contact-text').textContent   = i18next.t('contact_text');
-  document.getElementById('cta-label').textContent      = i18next.t('cta_label');
-  document.getElementById('cta-title').textContent      = i18next.t('cta_title');
-  document.getElementById('cta-sub').textContent        = i18next.t('cta_sub');
-  document.getElementById('cta-btn-text').textContent   = i18next.t('cta_btn');
-  document.getElementById('reserve-eyebrow').textContent      = i18next.t('reserve_eyebrow');
-  document.getElementById('reserve-title').textContent        = i18next.t('reserve_title');
-  document.getElementById('reserve-desc').textContent         = i18next.t('reserve_desc');
-  document.getElementById('reserve-label-name').textContent   = i18next.t('reserve_label_name');
-  document.getElementById('reserve-label-phone').textContent  = i18next.t('reserve_label_phone');
-  document.getElementById('reserve-label-email').textContent  = i18next.t('reserve_label_email');
-  document.getElementById('reserve-label-date').textContent   = i18next.t('reserve_label_date');
-  document.getElementById('reserve-label-time').textContent   = i18next.t('reserve_label_time');
-  document.getElementById('reserve-label-guests').textContent = i18next.t('reserve_label_guests');
-  document.getElementById('reserve-label-notes').textContent  = i18next.t('reserve_label_notes');
-  document.getElementById('reserve-submit-text').textContent  = i18next.t('reserve_submit');
-  document.getElementById('reserve-disclaimer').textContent   = i18next.t('reserve_disclaimer');
-  document.getElementById('reserve-success-title').textContent = i18next.t('reserve_success_title');
-  document.getElementById('reserve-success-text').textContent  = i18next.t('reserve_success_text');
-  document.getElementById('reserve-open-wa').textContent       = i18next.t('reserve_open_wa');
-  document.getElementById('reserve-reset-text').textContent    = i18next.t('reserve_reset');
+  if (welcomeEl) welcomeEl.textContent = t('welcome');
+  set('btn-text', t('btn'));
+  set('scroll-label', t('scroll'));
+  set('eyebrow-label', t('eyebrow'));
+  set('section-title', t('section_title'));
+  set('section-desc', t('section_desc'));
+  set('about-title', t('about_title'));
+  set('about-text', t('about_text'));
+  set('location-title', t('location_title'));
+  setHTML('location-text', t('location_text'));
+  set('hours-title', t('hours_title'));
+  setHTML('hours-text', t('hours_text'));
+  set('contact-title', t('contact_title'));
+  set('contact-text', t('contact_text'));
+  set('cta-label', t('cta_label'));
+  set('cta-title', t('cta_title'));
+  set('cta-sub', t('cta_sub'));
+  set('cta-btn-text', t('cta_btn'));
+  set('reserve-eyebrow', t('reserve_eyebrow'));
+  set('reserve-title', t('reserve_title'));
+  set('reserve-desc', t('reserve_desc'));
+  set('reserve-label-name', t('reserve_label_name'));
+  set('reserve-label-phone', t('reserve_label_phone'));
+  set('reserve-label-date', t('reserve_label_date'));
+  set('reserve-label-time', t('reserve_label_time'));
+  set('reserve-label-guests', t('reserve_label_guests'));
+  set('reserve-label-notes', t('reserve_label_notes'));
+  set('reserve-label-channel', t('reserve_label_channel'));
+  set('channel-wa-text', t('channel_wa'));
+  set('channel-email-text', t('channel_email'));
+  set('reserve-label-email', t('reserve_label_email'));
+  set('reserve-success-title', t('reserve_success_title'));
+  set('reserve-reset-text', t('reserve_reset'));
+  set('footer-privacy-link', t('footer_privacy'));
+  set('footer-cookie-link', t('footer_cookie'));
+  // hamburger menu
+  set('hmenu-menu-text', t('hmenu_menu'));
+  set('hmenu-info-text', t('hmenu_info'));
+  set('hmenu-prenota-text', t('hmenu_prenota'));
+  set('hmenu-wa-text', t('hmenu_wa'));
+
+  document.getElementById('currentFlag').textContent = FLAGS[i18next.language] || '🇮🇹';
+
+  // Aggiorna UI canale
+  updateChannelUI();
+
   const reserveDayWarning = document.getElementById('dayWarning');
   if (reserveDayWarning && !reserveDayWarning.hidden && reserveDayWarning.dataset.kind === 'sunday') {
-    reserveDayWarning.textContent = i18next.t('reserve_closed_sunday');
+    reserveDayWarning.textContent = t('reserve_closed_sunday');
   }
   if (typeof window.__spiReserveRefresh === 'function') window.__spiReserveRefresh();
-  document.getElementById('footer-privacy-link').textContent = i18next.t('footer_privacy');
-  document.getElementById('footer-cookie-link').textContent  = i18next.t('footer_cookie');
-  document.getElementById('currentFlag').textContent    = FLAGS[i18next.language] || '🇮🇹';
 }
 
 function changeLanguage(event, lang) {
@@ -947,9 +1093,9 @@ function changeLanguage(event, lang) {
   if (typeof spiRefreshCookieBannerTexts === 'function') spiRefreshCookieBannerTexts();
 }
 
-// ── RISERVA UN TAVOLO ──────────────────────────────────────────────
+// ── RISERVA UN TAVOLO ──
 (function () {
-  const form = document.getElementById('reserveForm');
+  const form        = document.getElementById('reserveForm');
   if (!form) return;
 
   const dateInput    = document.getElementById('resDate');
@@ -961,24 +1107,29 @@ function changeLanguage(event, lang) {
   const successPanel = document.getElementById('reserveSuccess');
   const waLink       = document.getElementById('reserveWaLink');
   const resetBtn     = document.getElementById('reserveResetBtn');
+  const emailGroup   = document.getElementById('emailGroup');
+  const resEmail     = document.getElementById('resEmail');
+  const channelWa    = document.getElementById('channelWa');
+  const channelEmail = document.getElementById('channelEmail');
+  const submitIcon   = document.getElementById('submit-icon');
+  const submitText   = document.getElementById('reserve-submit-text');
+  const disclaimer   = document.getElementById('reserve-disclaimer');
+  const successLinkIcon = document.getElementById('success-link-icon');
+  const successText     = document.getElementById('reserve-success-text');
+  const openLink        = document.getElementById('reserve-open-wa');
 
-  // La data minima selezionabile è oggi
+  // Data minima = oggi
   const today = new Date();
   const pad = n => String(n).padStart(2, '0');
-  dateInput.min = `${today.getFullYear()}-${pad(today.getMonth() + 1)}-${pad(today.getDate())}`;
+  dateInput.min = `${today.getFullYear()}-${pad(today.getMonth()+1)}-${pad(today.getDate())}`;
 
   function setDayWarning(kind) {
-    if (!kind) {
-      dayWarning.hidden = true;
-      delete dayWarning.dataset.kind;
-      return;
-    }
+    if (!kind) { dayWarning.hidden = true; delete dayWarning.dataset.kind; return; }
     dayWarning.dataset.kind = kind;
     dayWarning.textContent = i18next.t('reserve_closed_sunday');
     dayWarning.hidden = false;
   }
 
-  // Genera orari ogni 30 minuti tra un'ora di apertura e una di chiusura (incluse)
   function buildSlots(startH, endH) {
     const slots = [];
     for (let h = startH; h <= endH; h++) {
@@ -1003,7 +1154,6 @@ function changeLanguage(event, lang) {
     timeSelect.value = slots.includes(keepValue) ? keepValue : '';
   }
 
-  // Orari: Lun–Ven 09:00–19:00, Sab 09:00–12:00, Dom chiuso — slot ogni 30 minuti
   function applyDateConstraints() {
     if (!dateInput.value) {
       timeSelect.disabled = true;
@@ -1026,77 +1176,133 @@ function changeLanguage(event, lang) {
   dateInput.addEventListener('change', applyDateConstraints);
   applyDateConstraints();
 
-  // Permette di digitare il numero di persone, oltre a usare i pulsanti +/-
   function clampGuests(v) { return Math.max(1, Math.min(20, v || 1)); }
-  minusBtn.addEventListener('click', () => { guestsInput.value = clampGuests(parseInt(guestsInput.value, 10) - 1); });
-  plusBtn.addEventListener('click',  () => { guestsInput.value = clampGuests(parseInt(guestsInput.value, 10) + 1); });
+  minusBtn.addEventListener('click', () => { guestsInput.value = clampGuests(parseInt(guestsInput.value,10)-1); });
+  plusBtn.addEventListener('click',  () => { guestsInput.value = clampGuests(parseInt(guestsInput.value,10)+1); });
   guestsInput.addEventListener('blur', () => {
     if (guestsInput.value === '') return;
-    guestsInput.value = clampGuests(parseInt(guestsInput.value, 10));
+    guestsInput.value = clampGuests(parseInt(guestsInput.value,10));
   });
 
-  const LOCALE_MAP = { it: 'it-IT', en: 'en-GB', es: 'es-ES', fr: 'fr-FR', de: 'de-DE' };
+  // GESTIONE CANALE
+  function getChannel() {
+    return channelEmail.checked ? 'email' : 'whatsapp';
+  }
 
-  // Costruisce un messaggio WhatsApp pulito, con etichette ed emoji, righe vuote omesse
-  function buildWaMessage({ name, phone, email, date, time, guests, notes }) {
-    const lines = [`📋 *${i18next.t('reserve_wa_header')}*`, ''];
-    lines.push(`👤 ${i18next.t('reserve_wa_name_label')}: ${name}`);
-    lines.push(`📞 ${i18next.t('reserve_wa_phone_label')}: ${phone}`);
-    if (email) lines.push(`✉️ ${i18next.t('reserve_wa_email_label')}: ${email}`);
-    lines.push(`📅 ${i18next.t('reserve_wa_date_label')}: ${date}`);
-    lines.push(`🕐 ${i18next.t('reserve_wa_time_label')}: ${time}`);
-    lines.push(`👥 ${i18next.t('reserve_wa_guests_label')}: ${guests}`);
-    if (notes) lines.push(`📝 ${i18next.t('reserve_wa_notes_label')}: ${notes}`);
-    lines.push('', i18next.t('reserve_wa_footer'));
+  window.updateChannelUI = function() {
+    const ch = getChannel();
+    if (ch === 'email') {
+      emailGroup.classList.add('visible');
+      resEmail.required = true;
+      submitIcon.className = 'fas fa-envelope';
+      submitText.textContent = i18next.t('reserve_submit_email');
+      disclaimer.textContent = i18next.t('reserve_disclaimer_email');
+    } else {
+      emailGroup.classList.remove('visible');
+      resEmail.required = false;
+      submitIcon.className = 'fab fa-whatsapp';
+      submitText.textContent = i18next.t('reserve_submit_wa');
+      disclaimer.textContent = i18next.t('reserve_disclaimer_wa');
+    }
+  };
+
+  channelWa.addEventListener('change', updateChannelUI);
+  channelEmail.addEventListener('change', updateChannelUI);
+
+  const LOCALE_MAP = { it:'it-IT', en:'en-GB', es:'es-ES', fr:'fr-FR', de:'de-DE' };
+
+  function buildWaMessage({ name, phone, date, time, guests, notes }) {
+    const t = k => i18next.t(k);
+    const lines = [`📋 *${t('reserve_wa_header')}*`, ''];
+    lines.push(`👤 ${t('reserve_wa_name_label')}: ${name}`);
+    lines.push(`📞 ${t('reserve_wa_phone_label')}: ${phone}`);
+    lines.push(`📅 ${t('reserve_wa_date_label')}: ${date}`);
+    lines.push(`🕐 ${t('reserve_wa_time_label')}: ${time}`);
+    lines.push(`👥 ${t('reserve_wa_guests_label')}: ${guests}`);
+    if (notes) lines.push(`📝 ${t('reserve_wa_notes_label')}: ${notes}`);
+    lines.push('', t('reserve_wa_footer'));
     return lines.join('\n');
   }
 
-  form.addEventListener('submit', function (e) {
+  function buildEmailBody({ name, phone, date, time, guests, notes }) {
+    const t = k => i18next.t(k);
+    const lines = [
+      `${t('reserve_wa_header')}`,
+      '',
+      `${t('reserve_wa_name_label')}: ${name}`,
+      `${t('reserve_wa_phone_label')}: ${phone}`,
+      `${t('reserve_wa_date_label')}: ${date}`,
+      `${t('reserve_wa_time_label')}: ${time}`,
+      `${t('reserve_wa_guests_label')}: ${guests}`,
+    ];
+    if (notes) lines.push(`${t('reserve_wa_notes_label')}: ${notes}`);
+    lines.push('', t('reserve_wa_footer'));
+    return lines.join('\n');
+  }
+
+  form.addEventListener('submit', function(e) {
     e.preventDefault();
     applyDateConstraints();
-    guestsInput.value = clampGuests(parseInt(guestsInput.value, 10));
+    guestsInput.value = clampGuests(parseInt(guestsInput.value,10));
     if (!form.checkValidity()) { form.reportValidity(); return; }
-
     const day = new Date(dateInput.value + 'T00:00:00').getDay();
-    if (day === 0) return; // chiuso la domenica: avviso già visibile
+    if (day === 0) return;
 
     const lang = localStorage.getItem('selectedLanguage') || 'it';
     const dateObj = new Date(dateInput.value + 'T00:00:00');
-    const dateFmt = dateObj.toLocaleDateString(LOCALE_MAP[lang] || 'it-IT', { day: '2-digit', month: '2-digit', year: 'numeric' });
+    const dateFmt = dateObj.toLocaleDateString(LOCALE_MAP[lang]||'it-IT', {day:'2-digit',month:'2-digit',year:'numeric'});
 
-    const message = buildWaMessage({
+    const data = {
       name:   document.getElementById('resName').value.trim(),
       phone:  document.getElementById('resPhone').value.trim(),
-      email:  document.getElementById('resEmail').value.trim(),
       date:   dateFmt,
       time:   timeSelect.value,
       guests: guestsInput.value,
       notes:  document.getElementById('resNotes').value.trim(),
-    });
+    };
 
-    const waUrl = 'https://wa.me/3935560714?text=' + encodeURIComponent(message);
-    waLink.href = waUrl;
+    const ch = getChannel();
+    let actionUrl;
 
+    if (ch === 'email') {
+      const emailAddr = resEmail.value.trim();
+      const subject = encodeURIComponent(i18next.t('reserve_wa_header'));
+      const body = encodeURIComponent(buildEmailBody(data));
+      actionUrl = `mailto:${emailAddr}?subject=${subject}&body=${body}`;
+
+      // Aggiorna pannello successo per email
+      successLinkIcon.className = 'fas fa-envelope';
+      document.getElementById('reserve-open-wa').textContent = i18next.t('reserve_open_email');
+      document.getElementById('reserve-success-text').textContent = i18next.t('reserve_success_text_email');
+    } else {
+      const message = buildWaMessage(data);
+      actionUrl = 'https://wa.me/3935560714?text=' + encodeURIComponent(message);
+
+      successLinkIcon.className = 'fab fa-whatsapp';
+      document.getElementById('reserve-open-wa').textContent = i18next.t('reserve_open_wa');
+      document.getElementById('reserve-success-text').textContent = i18next.t('reserve_success_text_wa');
+    }
+
+    waLink.href = actionUrl;
     form.hidden = true;
     successPanel.hidden = false;
-    window.open(waUrl, '_blank');
+    window.open(actionUrl, ch === 'email' ? '_self' : '_blank');
   });
 
-  resetBtn.addEventListener('click', function () {
+  resetBtn.addEventListener('click', function() {
     form.reset();
     guestsInput.value = 2;
     applyDateConstraints();
+    updateChannelUI();
     successPanel.hidden = true;
     form.hidden = false;
   });
 
-  // Espone un hook per ritradurre il placeholder dell'orario al cambio lingua
-  window.__spiReserveRefresh = function () {
+  window.__spiReserveRefresh = function() {
     if (timeSelect.value === '') applyDateConstraints();
+    updateChannelUI();
   };
 })();
-
-
 </script>
 <script src="spi-common.js"></script>
 <script>
