@@ -52,13 +52,17 @@ nav .language-dropdown { background:#11151f; border-color:rgba(255,255,255,0.1);
 nav .language-dropdown a { color:#eaf0f8; }
 nav .language-dropdown a:hover { background:rgba(255,255,255,0.08); }
 
+/* HAMBURGER WRAPPER */
+.hamburger-wrap {
+  position:relative; flex-shrink:0;
+}
+
 /* HAMBURGER BUTTON */
 .hamburger-btn {
   width:42px; height:42px;
   display:flex; flex-direction:column; align-items:center; justify-content:center; gap:5px;
   cursor:pointer; border:1px solid rgba(255,255,255,0.14); border-radius:10px;
   background:rgba(255,255,255,0.05); transition:background 0.2s, border-color 0.2s;
-  flex-shrink:0;
 }
 .hamburger-btn:hover { background:var(--brown-soft); border-color:var(--brown-border); }
 .hamburger-btn span {
@@ -75,19 +79,19 @@ nav .language-dropdown a:hover { background:rgba(255,255,255,0.08); }
   display:none; position:absolute; top:calc(100% + 8px); right:0;
   background:#11151f; border:1px solid rgba(255,255,255,0.1);
   border-radius:16px; overflow:hidden;
-  box-shadow:0 24px 60px rgba(3,8,18,0.3); z-index:1002; min-width:210px;
-  animation:dropIn 0.18s ease;
+  box-shadow:0 24px 60px rgba(3,8,18,0.3); z-index:1002; min-width:220px;
 }
-.hamburger-menu.open { display:block; }
+.hamburger-menu.open { display:block; animation:dropIn 0.18s ease; }
 @keyframes dropIn { from{opacity:0;transform:translateY(-6px)} to{opacity:1;transform:translateY(0)} }
 .hamburger-menu a {
   display:flex; align-items:center; gap:12px; padding:14px 18px;
-  text-decoration:none; color:var(--text); font-size:0.88rem;
+  text-decoration:none; color:#eaf0f8; font-size:0.88rem;
   white-space:nowrap; transition:background 0.18s;
   border-bottom:1px solid rgba(255,255,255,0.05);
 }
 .hamburger-menu a:last-child { border-bottom:none; }
-.hamburger-menu a i { width:16px; text-align:center; color:var(--brown-light); font-size:0.85rem; }
+.hamburger-menu a i { width:16px; text-align:center; color:var(--brown-light); font-size:0.85rem; flex-shrink:0; }
+.hamburger-menu a span { color:#eaf0f8; }
 .hamburger-menu a:hover { background:var(--brown-soft); }
 
 /* LINGUA */
@@ -264,6 +268,7 @@ nav .language-dropdown a:hover { background:rgba(255,255,255,0.08); }
 }
 .reserve-form { display:flex; flex-direction:column; gap:18px; }
 .form-row { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.form-row .form-group { min-width:0; }
 .form-group { display:flex; flex-direction:column; gap:7px; }
 .form-label { font-size:0.74rem; letter-spacing:0.03em; color:var(--muted); }
 .form-input {
@@ -524,6 +529,8 @@ footer a, footer span, footer p { color:inherit; text-decoration:none !important
   .cta-section { padding:52px 20px; }
   .reserve-section { padding:64px 18px 64px; }
   .reserve-card { padding:30px 22px; }
+}
+@media(max-width:480px){
   .form-row { grid-template-columns:1fr; }
 }
 
@@ -584,8 +591,10 @@ footer a, footer span, footer p { color:inherit; text-decoration:none !important
       </div>
     </div>
     <!-- HAMBURGER -->
-    <div class="hamburger-btn" id="hamburgerBtn" aria-label="Menu navigazione">
-      <span></span><span></span><span></span>
+    <div class="hamburger-wrap" id="hamburgerWrap">
+      <div class="hamburger-btn" id="hamburgerBtn" aria-label="Menu navigazione">
+        <span></span><span></span><span></span>
+      </div>
       <div class="hamburger-menu" id="hamburgerMenu">
         <a href="menu.html" id="hmenu-menu"><i class="fas fa-utensils"></i><span id="hmenu-menu-text">Visualizza Menù</span></a>
         <a href="#info" id="hmenu-info"><i class="fas fa-info-circle"></i><span id="hmenu-info-text">Chi siamo</span></a>
@@ -795,26 +804,32 @@ langSelector.addEventListener('click', e => {
 });
 
 // HAMBURGER
-const hamburgerBtn = document.getElementById('hamburgerBtn');
+const hamburgerBtn  = document.getElementById('hamburgerBtn');
 const hamburgerMenu = document.getElementById('hamburgerMenu');
-hamburgerBtn.addEventListener('click', e => {
+const hamburgerWrap = document.getElementById('hamburgerWrap');
+
+hamburgerWrap.addEventListener('click', e => {
   e.stopPropagation();
   const open = hamburgerMenu.classList.toggle('open');
   hamburgerBtn.classList.toggle('open', open);
+  // chiudi lang se aperto
+  langDropdown.classList.remove('open');
+  langSelector.classList.remove('open');
 });
-// Chiudi entrambi i dropdown al click fuori
-document.addEventListener('click', () => {
+
+function closeAllDropdowns() {
   langDropdown.classList.remove('open');
   langSelector.classList.remove('open');
   hamburgerMenu.classList.remove('open');
   hamburgerBtn.classList.remove('open');
-});
-// Chiudi hamburger al click su link interni (scroll)
+}
+
+// Chiudi tutto al click fuori
+document.addEventListener('click', closeAllDropdowns);
+
+// Chiudi hamburger al click su link interni (ancora smooth scroll)
 hamburgerMenu.querySelectorAll('a[href^="#"]').forEach(a => {
-  a.addEventListener('click', () => {
-    hamburgerMenu.classList.remove('open');
-    hamburgerBtn.classList.remove('open');
-  });
+  a.addEventListener('click', closeAllDropdowns);
 });
 
 // INTERSECTION OBSERVER
@@ -1088,8 +1103,7 @@ function changeLanguage(event, lang) {
   event.preventDefault(); event.stopPropagation();
   localStorage.setItem('selectedLanguage', lang);
   i18next.changeLanguage(lang, updateTexts);
-  langDropdown.classList.remove('open');
-  langSelector.classList.remove('open');
+  closeAllDropdowns();
   if (typeof spiRefreshCookieBannerTexts === 'function') spiRefreshCookieBannerTexts();
 }
 
