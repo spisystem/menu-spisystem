@@ -25,16 +25,16 @@ body {
   color:var(--text); overflow-x:hidden;
 }
 
-/* NAV */
+/* NAV — altezza ridotta per far vedere più hero */
 nav {
   position:fixed; top:0; left:0; width:100%;
   background:linear-gradient(135deg, rgba(8,12,20,0.97) 0%, rgba(26,34,48,0.97) 100%);
   backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px);
   border-bottom:1px solid rgba(255,255,255,0.08);
   padding:0 32px; z-index:1000;
-  display:flex; align-items:center; justify-content:space-between; height:108px;
+  display:flex; align-items:center; justify-content:space-between; height:72px;
 }
-.nav-logo img { height:96px; width:auto; display:block; transition:transform 0.3s, opacity 0.3s; }
+.nav-logo img { height:56px; width:auto; display:block; transition:transform 0.3s, opacity 0.3s; }
 .nav-logo img:hover { transform:scale(1.04); opacity:0.82; }
 
 .nav-right { display:flex; align-items:center; gap:14px; }
@@ -124,9 +124,9 @@ nav .language-dropdown a:hover { background:rgba(255,255,255,0.08); }
 .hero-overlay {
   position:absolute; inset:0;
   background:linear-gradient(180deg,
-    rgba(8,12,20,0.30) 0%,
-    rgba(8,12,20,0.12) 30%,
-    rgba(8,12,20,0.65) 70%,
+    rgba(8,12,20,0.15) 0%,
+    rgba(8,12,20,0.05) 25%,
+    rgba(8,12,20,0.55) 70%,
     rgba(8,12,20,0.96) 100%
   );
 }
@@ -249,7 +249,6 @@ nav .language-dropdown a:hover { background:rgba(255,255,255,0.08); }
 
 .reserve-form { display:flex; flex-direction:column; gap:18px; }
 
-/* FIX: tutti i campi stessa larghezza */
 .form-row { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
 .form-row .form-group { min-width:0; width:100%; }
 .form-group { display:flex; flex-direction:column; gap:7px; width:100%; }
@@ -261,13 +260,15 @@ nav .language-dropdown a:hover { background:rgba(255,255,255,0.08); }
   transition:border-color 0.2s, box-shadow 0.2s, background 0.2s;
   color-scheme: dark;
   box-sizing:border-box;
+  /* Forza altezza uguale per tutti gli input */
+  height:46px;
 }
 .form-input::placeholder { color:var(--muted); opacity:0.7; }
 .form-input:focus {
   border-color:var(--silver-border); background:rgba(255,255,255,0.05);
   box-shadow:0 0 0 3px rgba(199,211,224,0.10);
 }
-.form-textarea { resize:vertical; min-height:64px; font-family:'Poppins',sans-serif; line-height:1.5; }
+.form-textarea { resize:vertical; min-height:64px; height:auto; font-family:'Poppins',sans-serif; line-height:1.5; }
 
 select.form-input {
   appearance:none; -webkit-appearance:none; -moz-appearance:none;
@@ -278,10 +279,14 @@ select.form-input {
 select.form-input:disabled { opacity:0.45; cursor:not-allowed; }
 select.form-input option { background:var(--card); color:var(--text); }
 
-/* FIX: input date stesso stile degli altri */
+/* FIX CRITICO: input date stesso stile e stessa altezza */
 input[type="date"].form-input {
   width:100%;
   display:block;
+  height:46px;
+  padding:12px 14px;
+  -webkit-appearance:none;
+  appearance:none;
 }
 
 .day-warning {
@@ -409,6 +414,15 @@ footer .footer-brand {
   -webkit-text-fill-color: var(--silver);
 }
 footer .footer-copy { opacity:0.5; margin-top:4px; }
+footer .footer-created {
+  margin-top:12px; font-size:0.76rem; opacity:0.55;
+  letter-spacing:0.04em;
+}
+footer .footer-created a {
+  color:var(--silver) !important; -webkit-text-fill-color:var(--silver);
+  text-decoration:none; opacity:0.85; transition:opacity 0.2s;
+}
+footer .footer-created a:hover { opacity:1; text-decoration:underline; }
 footer .footer-links { margin-top:14px; font-size:0.78rem; }
 footer .footer-links a {
   color:var(--silver) !important; text-decoration:none !important;
@@ -504,8 +518,8 @@ footer a, footer span, footer p { color:inherit; text-decoration:none !important
 }
 
 @media(max-width:768px){
-  nav { padding:0 18px; height:88px; }
-  .nav-logo img { height:72px; }
+  nav { padding:0 18px; height:60px; }
+  .nav-logo img { height:44px; }
   .info-section { padding:70px 16px 60px; }
   .hero-bottom { padding-bottom:44px; gap:18px; }
   .cta-section { padding:52px 20px; }
@@ -666,7 +680,7 @@ footer a, footer span, footer p { color:inherit; text-decoration:none !important
         <div class="form-group">
           <label class="form-label" for="resTime" id="reserve-label-time">Ora</label>
           <select class="form-input" id="resTime" name="time" required disabled>
-            <option value="" selected></option>
+            <option value="" disabled selected></option>
           </select>
         </div>
       </div>
@@ -677,7 +691,7 @@ footer a, footer span, footer p { color:inherit; text-decoration:none !important
         <label class="form-label" id="reserve-label-guests">Numero di persone</label>
         <div class="guests-stepper">
           <button type="button" class="stepper-btn" id="guestsMinus" aria-label="Diminuisci">−</button>
-          <input class="guests-input" type="number" id="resGuests" name="guests" min="1" max="20" value="2" inputmode="numeric" required>
+          <input class="guests-input" type="number" id="resGuests" name="guests" min="1" max="20" value="1" inputmode="numeric" required>
           <button type="button" class="stepper-btn" id="guestsPlus" aria-label="Aumenta">+</button>
         </div>
       </div>
@@ -744,6 +758,7 @@ footer a, footer span, footer p { color:inherit; text-decoration:none !important
 <footer>
   <p class="footer-brand">Spi System di Giuseppe Spizzico — P. IVA 08791580726</p>
   <p class="footer-copy">&copy; 2026 Menù demo Spi System</p>
+  <p class="footer-created">Created by <a href="https://wa.me/393935560714" target="_blank">SPI System</a></p>
   <p class="footer-links"><a href="privacy.html" id="footer-privacy-link">Privacy Policy</a> · <a href="#" id="footer-cookie-link">Preferenze Cookie</a></p>
 </footer>
 
@@ -1089,6 +1104,7 @@ function changeLanguage(event, lang) {
   event.preventDefault(); event.stopPropagation();
   localStorage.setItem('selectedLanguage', lang);
   i18next.changeLanguage(lang, updateTexts);
+  // FIX: chiudi sempre il dropdown dopo la selezione lingua
   closeAllDropdowns();
   if (typeof spiRefreshCookieBannerTexts === 'function') spiRefreshCookieBannerTexts();
 }
@@ -1141,15 +1157,18 @@ function changeLanguage(event, lang) {
     var keepValue = timeSelect.value;
     timeSelect.innerHTML = '';
     var ph = document.createElement('option');
-    ph.value = ''; ph.disabled = true;
+    ph.value = ''; ph.disabled = true; ph.selected = true;
     ph.textContent = i18next.t(placeholderKey);
     timeSelect.appendChild(ph);
-    slots.forEach(function(t) {
+    slots.forEach(function(slotVal) {
       var opt = document.createElement('option');
-      opt.value = t; opt.textContent = t;
+      opt.value = slotVal; opt.textContent = slotVal;
       timeSelect.appendChild(opt);
     });
-    timeSelect.value = slots.indexOf(keepValue) !== -1 ? keepValue : '';
+    // Ripristina valore se ancora disponibile
+    if (slots.indexOf(keepValue) !== -1) {
+      timeSelect.value = keepValue;
+    }
   }
 
   function applyDateConstraints() {
@@ -1166,17 +1185,27 @@ function changeLanguage(event, lang) {
       setDayWarning('sunday');
       return;
     }
-    timeSelect.disabled = false;
     setDayWarning(null);
-    var slots = day === 6 ? buildSlots(9, 12) : buildSlots(9, 19);
+    // Sabato solo mattina, altri giorni orario completo
+    var slots = day === 6 ? buildSlots(9, 11) : buildSlots(9, 18);
+    timeSelect.disabled = false;
     fillTimeSelect(slots, 'reserve_time_placeholder');
   }
+
+  // Aspetta che i18next sia pronto prima di inizializzare i time slots
   dateInput.addEventListener('change', applyDateConstraints);
+
+  // Inizializza lo stato iniziale dopo che i18next è pronto (chiamato da updateTexts via __spiReserveRefresh)
+  // ma anche subito se già pronto
   applyDateConstraints();
 
   function clampGuests(v) { return Math.max(1, Math.min(20, v || 1)); }
-  minusBtn.addEventListener('click', function(){ guestsInput.value = clampGuests(parseInt(guestsInput.value,10)-1); });
-  plusBtn.addEventListener('click',  function(){ guestsInput.value = clampGuests(parseInt(guestsInput.value,10)+1); });
+  minusBtn.addEventListener('click', function(){
+    guestsInput.value = clampGuests(parseInt(guestsInput.value,10)-1);
+  });
+  plusBtn.addEventListener('click', function(){
+    guestsInput.value = clampGuests(parseInt(guestsInput.value,10)+1);
+  });
   guestsInput.addEventListener('blur', function(){
     if (guestsInput.value === '') return;
     guestsInput.value = clampGuests(parseInt(guestsInput.value,10));
@@ -1207,8 +1236,7 @@ function changeLanguage(event, lang) {
   channelEmail.addEventListener('change', updateChannelUI);
 
   var LOCALE_MAP = { it:'it-IT', en:'en-GB', es:'es-ES', fr:'fr-FR', de:'de-DE' };
-  // Email aziendale destinatario
-  var BUSINESS_EMAIL = 'info@spisystem.it'; // <-- CAMBIA CON LA TUA EMAIL
+  var BUSINESS_EMAIL = 'info@spisystem.it';
 
   function buildWaMessage(data) {
     var t = function(k){ return i18next.t(k); };
@@ -1243,7 +1271,6 @@ function changeLanguage(event, lang) {
     applyDateConstraints();
     guestsInput.value = clampGuests(parseInt(guestsInput.value,10));
 
-    // Validazione manuale (evita problemi iOS con novalidate)
     var name   = document.getElementById('resName').value.trim();
     var phone  = document.getElementById('resPhone').value.trim();
     var date   = dateInput.value;
@@ -1278,14 +1305,12 @@ function changeLanguage(event, lang) {
     if (ch === 'email') {
       var subject = encodeURIComponent(i18next.t('reserve_email_subject'));
       var body = encodeURIComponent(buildEmailBody(data));
-      // FIX: il destinatario è l'email aziendale, non quella dell'utente
       actionUrl = 'mailto:'+BUSINESS_EMAIL+'?subject='+subject+'&body='+body;
       successLinkIcon.className = 'fas fa-envelope';
       document.getElementById('reserve-open-wa').textContent = i18next.t('reserve_open_email');
       document.getElementById('reserve-success-text').textContent = i18next.t('reserve_success_text_email');
     } else {
       var message = buildWaMessage(data);
-      // FIX: numero con prefisso internazionale corretto
       actionUrl = 'https://wa.me/393935560714?text=' + encodeURIComponent(message);
       successLinkIcon.className = 'fab fa-whatsapp';
       document.getElementById('reserve-open-wa').textContent = i18next.t('reserve_open_wa');
@@ -1296,21 +1321,17 @@ function changeLanguage(event, lang) {
     form.hidden = true;
     successPanel.hidden = false;
 
-    // FIX: usa location.href invece di window.open per evitare blocco popup
     if (ch === 'email') {
       window.location.href = actionUrl;
     } else {
-      // Per WhatsApp apri in nuova scheda con fallback
       var newTab = window.open(actionUrl, '_blank');
-      if (!newTab) {
-        window.location.href = actionUrl;
-      }
+      if (!newTab) { window.location.href = actionUrl; }
     }
   });
 
   resetBtn.addEventListener('click', function() {
     form.reset();
-    guestsInput.value = 2;
+    guestsInput.value = 1;
     applyDateConstraints();
     updateChannelUI();
     successPanel.hidden = true;
@@ -1318,7 +1339,7 @@ function changeLanguage(event, lang) {
   });
 
   window.__spiReserveRefresh = function() {
-    if (timeSelect.value === '') applyDateConstraints();
+    applyDateConstraints();
     updateChannelUI();
   };
 })();
