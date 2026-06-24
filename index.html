@@ -32,9 +32,9 @@ nav {
   backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px);
   border-bottom:1px solid rgba(255,255,255,0.07);
   padding:0 32px; z-index:1000;
-  display:flex; align-items:center; justify-content:space-between; height:72px;
+  display:flex; align-items:center; justify-content:space-between; height:112px;
 }
-.nav-logo img { height:54px; width:auto; display:block; transition:transform 0.3s,opacity 0.3s; }
+.nav-logo img { height:96px; width:auto; display:block; transition:transform 0.3s,opacity 0.3s; }
 .nav-logo img:hover { transform:scale(1.04); opacity:0.82; }
 
 /* LANGUAGE SELECTOR */
@@ -171,6 +171,66 @@ nav {
 }
 .social-row a:hover { background:var(--accent-soft); transform:scale(1.12); border-color:var(--accent-light); }
 
+/* RESERVATION SECTION */
+.reservation-section { background-color:var(--bg); padding:90px 28px 30px; }
+.reservation-card {
+  max-width:560px; margin:0 auto; background:var(--card);
+  border:1px solid var(--accent-border); border-radius:20px; padding:36px 32px;
+}
+.reservation-form .form-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:18px; }
+.reservation-form .form-group { display:flex; flex-direction:column; gap:8px; }
+.reservation-form .form-group.full { margin-bottom:20px; }
+.reservation-form label { font-size:0.78rem; letter-spacing:0.04em; color:var(--accent-light); font-weight:600; }
+.reservation-form input, .reservation-form select, .reservation-form textarea {
+  background:rgba(255,255,255,0.03); border:1px solid var(--accent-border); border-radius:10px;
+  padding:0 14px; color:var(--text); font-family:'Poppins',sans-serif; font-size:0.9rem;
+  outline:none; transition:border-color 0.2s, background 0.2s; width:100%;
+  height:48px; box-sizing:border-box;
+}
+.reservation-form textarea {
+  height:auto; padding:12px 14px;
+}
+.reservation-form select {
+  appearance:none; -webkit-appearance:none; -moz-appearance:none;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23c9d3e0' stroke-width='2.5' stroke-linecap='round'><polyline points='6 9 12 15 18 9'/></svg>");
+  background-repeat:no-repeat; background-position:right 14px center; background-size:13px;
+  padding-right:38px; cursor:pointer;
+}
+.reservation-form select option { background:#13192a; color:var(--text); }
+.reservation-form input::placeholder, .reservation-form textarea::placeholder { color:var(--muted); }
+.reservation-form input:focus, .reservation-form select:focus, .reservation-form textarea:focus { border-color:var(--accent-light); background:rgba(255,255,255,0.05); }
+.reservation-form textarea { resize:vertical; min-height:80px; }
+.reservation-form input[type="date"] {
+  color-scheme:dark;
+  -webkit-appearance:none; appearance:none;
+  display:flex; align-items:center;
+}
+.reservation-form input[type="date"]::-webkit-datetime-edit,
+.reservation-form input[type="date"]::-webkit-datetime-edit-fields-wrapper,
+.reservation-form input[type="date"]::-webkit-datetime-edit-text,
+.reservation-form input[type="date"]::-webkit-datetime-edit-month-field,
+.reservation-form input[type="date"]::-webkit-datetime-edit-day-field,
+.reservation-form input[type="date"]::-webkit-datetime-edit-year-field {
+  color: var(--text);
+}
+.reservation-form input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(0.8);
+  cursor: pointer;
+}
+.reservation-btn {
+  width:100%; display:flex; align-items:center; justify-content:center; gap:10px;
+  position:relative; overflow:hidden;
+  background:linear-gradient(135deg,#0d1220 0%,#1a2438 100%); color:#fff;
+  border:1px solid var(--accent-border); border-radius:10px;
+  padding:15px; font-family:'Poppins',sans-serif; font-size:0.84rem; font-weight:600;
+  letter-spacing:0.08em; text-transform:uppercase; cursor:pointer;
+  transition:box-shadow 0.25s, border-color 0.25s;
+}
+.reservation-btn:hover { box-shadow:0 16px 36px rgba(0,0,0,0.35); border-color:var(--accent-light); }
+.reservation-error { color:#e08a8a; font-size:0.82rem; margin-top:14px; text-align:center; display:none; }
+.reservation-error.show { display:block; }
+@media(max-width:560px){ .reservation-form .form-row { grid-template-columns:1fr; } .reservation-card { padding:28px 22px; } }
+
 /* CTA */
 .cta-section {
   background-color:var(--card2);
@@ -284,8 +344,8 @@ footer, footer * { -webkit-text-size-adjust:100%; -webkit-font-smoothing:antiali
 .spi-switch.disabled .spi-slider { opacity:0.5; cursor:not-allowed; }
 
 @media(max-width:768px){
-  nav { padding:0 18px; height:60px; }
-  .nav-logo img { height:42px; }
+  nav { padding:0 18px; height:92px; }
+  .nav-logo img { height:72px; }
   .info-section { padding:70px 16px 60px; }
   .hero-bottom { padding-bottom:44px; gap:18px; }
   .cta-section { padding:52px 20px; }
@@ -388,6 +448,73 @@ a:focus-visible, button:focus-visible { outline:2px solid var(--accent); outline
   </div>
 </section>
 
+<section class="reservation-section" id="reservation">
+  <p class="section-eyebrow" id="reservation-eyebrow">Prenotazioni</p>
+  <h2 class="section-title" id="reservation-title">Riserva il tuo tavolo</h2>
+  <p class="section-desc" id="reservation-desc">Compila il modulo e invia la richiesta di prenotazione direttamente su WhatsApp: ti risponderemo al più presto per confermare.</p>
+  <div class="reservation-card">
+    <form class="reservation-form" id="reservationForm" novalidate>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="res-name" id="label-name">Nome e Cognome</label>
+          <input type="text" id="res-name" name="res-name" autocomplete="name">
+        </div>
+        <div class="form-group">
+          <label for="res-people" id="label-people">Numero di persone</label>
+          <input type="number" id="res-people" name="res-people" min="1" max="50" inputmode="numeric">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="res-date" id="label-date">Data</label>
+          <input type="date" id="res-date" name="res-date">
+        </div>
+        <div class="form-group">
+          <label for="res-time" id="label-time">Ora</label>
+          <select id="res-time" name="res-time">
+            <option value="" disabled selected id="time-placeholder">Seleziona un orario</option>
+            <option value="11:00">11:00</option>
+            <option value="11:30">11:30</option>
+            <option value="12:00">12:00</option>
+            <option value="12:30">12:30</option>
+            <option value="13:00">13:00</option>
+            <option value="13:30">13:30</option>
+            <option value="14:00">14:00</option>
+            <option value="14:30">14:30</option>
+            <option value="15:00">15:00</option>
+            <option value="15:30">15:30</option>
+            <option value="16:00">16:00</option>
+            <option value="16:30">16:30</option>
+            <option value="17:00">17:00</option>
+            <option value="17:30">17:30</option>
+            <option value="18:00">18:00</option>
+            <option value="18:30">18:30</option>
+            <option value="19:00">19:00</option>
+            <option value="19:30">19:30</option>
+            <option value="20:00">20:00</option>
+            <option value="20:30">20:30</option>
+            <option value="21:00">21:00</option>
+            <option value="21:30">21:30</option>
+            <option value="22:00">22:00</option>
+            <option value="22:30">22:30</option>
+            <option value="23:00">23:00</option>
+            <option value="23:30">23:30</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group full">
+        <label for="res-notes" id="label-notes">Note (opzionale)</label>
+        <textarea id="res-notes" name="res-notes" rows="3" placeholder="Es. allergie, seggiolone, occasione speciale..."></textarea>
+      </div>
+      <button type="submit" class="reservation-btn">
+        <i class="fab fa-whatsapp"></i>
+        <span id="reservation-btn-text">Invia richiesta su WhatsApp</span>
+      </button>
+      <p class="reservation-error" id="reservation-error"></p>
+    </form>
+  </div>
+</section>
+
 <section class="cta-section">
   <p class="cta-label" id="cta-label">Vuoi un menù come questo?</p>
   <h2 class="cta-title" id="cta-title">Porta il tuo locale nel digitale</h2>
@@ -482,7 +609,14 @@ i18next.init({
       contact_title:"Contatti",contact_text:"334 273 2997",
       cta_label:"Vuoi un menù come questo?",cta_title:"Porta il tuo locale nel digitale",
       cta_sub:"Contattaci su WhatsApp o telefonicamente. Realizziamo il tuo menù QR in pochi giorni.",cta_btn:"Contattaci su WhatsApp",
-      footer_privacy:"Privacy Policy",footer_cookie:"Preferenze Cookie"
+      footer_privacy:"Privacy Policy",footer_cookie:"Preferenze Cookie",
+      reservation_eyebrow:"Prenotazioni",reservation_title:"Riserva il tuo tavolo",
+      reservation_desc:"Compila il modulo e invia la richiesta di prenotazione direttamente su WhatsApp: ti risponderemo al più presto per confermare.",
+      label_name:"Nome e Cognome",label_people:"Numero di persone",label_date:"Data",label_time:"Ora",label_notes:"Note (opzionale)",
+      notes_placeholder:"Es. allergie, seggiolone, occasione speciale...",time_placeholder:"Seleziona un orario",
+      reservation_btn:"Invia richiesta su WhatsApp",reservation_error:"Per favore compila tutti i campi obbligatori.",
+      msg_greeting:"Ciao! Vorrei prenotare un tavolo con questi dati:",msg_name:"Nome",msg_people:"Persone",msg_date:"Data",msg_time:"Ora",msg_notes:"Note",msg_notes_empty:"Nessuna",
+      msg_closing:"Resto in attesa di conferma, grazie!"
     }},
     en:{translation:{
       welcome:"Welcome",btn:"View Menu",scroll:"Discover more",
@@ -494,7 +628,14 @@ i18next.init({
       contact_title:"Contacts",contact_text:"334 273 2997",
       cta_label:"Want a menu like this?",cta_title:"Bring your venue into the digital age",
       cta_sub:"Contact us on WhatsApp or by phone. We'll create your QR menu in just a few days.",cta_btn:"Contact us on WhatsApp",
-      footer_privacy:"Privacy Policy",footer_cookie:"Cookie Preferences"
+      footer_privacy:"Privacy Policy",footer_cookie:"Cookie Preferences",
+      reservation_eyebrow:"Reservations",reservation_title:"Reserve your table",
+      reservation_desc:"Fill out the form and send your reservation request directly on WhatsApp: we'll get back to you shortly to confirm.",
+      label_name:"Full Name",label_people:"Number of people",label_date:"Date",label_time:"Time",label_notes:"Notes (optional)",
+      notes_placeholder:"E.g. allergies, high chair, special occasion...",time_placeholder:"Select a time",
+      reservation_btn:"Send request on WhatsApp",reservation_error:"Please fill in all required fields.",
+      msg_greeting:"Hi! I'd like to book a table with these details:",msg_name:"Name",msg_people:"People",msg_date:"Date",msg_time:"Time",msg_notes:"Notes",msg_notes_empty:"None",
+      msg_closing:"Looking forward to your confirmation, thank you!"
     }},
     es:{translation:{
       welcome:"Bienvenido",btn:"Ver Menú",scroll:"Descubre más",
@@ -506,7 +647,14 @@ i18next.init({
       contact_title:"Contacto",contact_text:"334 273 2997",
       cta_label:"¿Quieres un menú como este?",cta_title:"Lleva tu local al mundo digital",
       cta_sub:"Contáctanos por WhatsApp o teléfono.",cta_btn:"Contáctanos en WhatsApp",
-      footer_privacy:"Política de Privacidad",footer_cookie:"Preferencias de Cookies"
+      footer_privacy:"Política de Privacidad",footer_cookie:"Preferencias de Cookies",
+      reservation_eyebrow:"Reservas",reservation_title:"Reserva tu mesa",
+      reservation_desc:"Completa el formulario y envía tu solicitud de reserva directamente por WhatsApp: te responderemos pronto para confirmar.",
+      label_name:"Nombre y Apellido",label_people:"Número de personas",label_date:"Fecha",label_time:"Hora",label_notes:"Notas (opcional)",
+      notes_placeholder:"Ej. alergias, trona, ocasión especial...",time_placeholder:"Selecciona una hora",
+      reservation_btn:"Enviar solicitud por WhatsApp",reservation_error:"Por favor completa todos los campos obligatorios.",
+      msg_greeting:"¡Hola! Quisiera reservar una mesa con estos datos:",msg_name:"Nombre",msg_people:"Personas",msg_date:"Fecha",msg_time:"Hora",msg_notes:"Notas",msg_notes_empty:"Ninguna",
+      msg_closing:"Quedo a la espera de confirmación, ¡gracias!"
     }},
     fr:{translation:{
       welcome:"Bienvenue",btn:"Voir le menu",scroll:"Découvrir",
@@ -518,7 +666,14 @@ i18next.init({
       contact_title:"Contacts",contact_text:"334 273 2997",
       cta_label:"Vous voulez un menu comme celui-ci?",cta_title:"Passez au numérique",
       cta_sub:"Contactez-nous sur WhatsApp ou par téléphone.",cta_btn:"Contactez-nous sur WhatsApp",
-      footer_privacy:"Politique de Confidentialité",footer_cookie:"Préférences Cookies"
+      footer_privacy:"Politique de Confidentialité",footer_cookie:"Préférences Cookies",
+      reservation_eyebrow:"Réservations",reservation_title:"Réservez votre table",
+      reservation_desc:"Remplissez le formulaire et envoyez votre demande de réservation directement sur WhatsApp : nous vous répondrons rapidement pour confirmer.",
+      label_name:"Nom et prénom",label_people:"Nombre de personnes",label_date:"Date",label_time:"Heure",label_notes:"Notes (facultatif)",
+      notes_placeholder:"Ex. allergies, chaise haute, occasion spéciale...",time_placeholder:"Choisissez une heure",
+      reservation_btn:"Envoyer la demande sur WhatsApp",reservation_error:"Merci de remplir tous les champs obligatoires.",
+      msg_greeting:"Bonjour ! Je voudrais réserver une table avec ces informations :",msg_name:"Nom",msg_people:"Personnes",msg_date:"Date",msg_time:"Heure",msg_notes:"Notes",msg_notes_empty:"Aucune",
+      msg_closing:"J'attends votre confirmation, merci !"
     }},
     de:{translation:{
       welcome:"Willkommen",btn:"Menü anzeigen",scroll:"Mehr entdecken",
@@ -530,7 +685,14 @@ i18next.init({
       contact_title:"Kontakt",contact_text:"334 273 2997",
       cta_label:"Möchten Sie ein solches Menü?",cta_title:"Bringen Sie Ihr Lokal ins Digitale",
       cta_sub:"Kontaktieren Sie uns per WhatsApp oder Telefon.",cta_btn:"WhatsApp kontaktieren",
-      footer_privacy:"Datenschutzerklärung",footer_cookie:"Cookie-Einstellungen"
+      footer_privacy:"Datenschutzerklärung",footer_cookie:"Cookie-Einstellungen",
+      reservation_eyebrow:"Reservierungen",reservation_title:"Reservieren Sie Ihren Tisch",
+      reservation_desc:"Füllen Sie das Formular aus und senden Sie Ihre Reservierungsanfrage direkt über WhatsApp: wir antworten Ihnen umgehend zur Bestätigung.",
+      label_name:"Vor- und Nachname",label_people:"Anzahl der Personen",label_date:"Datum",label_time:"Uhrzeit",label_notes:"Anmerkungen (optional)",
+      notes_placeholder:"Z.B. Allergien, Hochstuhl, besonderer Anlass...",time_placeholder:"Uhrzeit wählen",
+      reservation_btn:"Anfrage über WhatsApp senden",reservation_error:"Bitte füllen Sie alle Pflichtfelder aus.",
+      msg_greeting:"Hallo! Ich möchte einen Tisch mit folgenden Angaben reservieren:",msg_name:"Name",msg_people:"Personen",msg_date:"Datum",msg_time:"Uhrzeit",msg_notes:"Anmerkungen",msg_notes_empty:"Keine",
+      msg_closing:"Ich freue mich auf Ihre Bestätigung, danke!"
     }}
   }
 },updateTexts);
@@ -560,6 +722,20 @@ function updateTexts(){
   set('cta-btn-text',t('cta_btn'));
   set('footer-privacy-link',t('footer_privacy'));
   set('footer-cookie-link',t('footer_cookie'));
+  set('reservation-eyebrow',t('reservation_eyebrow'));
+  set('reservation-title',t('reservation_title'));
+  set('reservation-desc',t('reservation_desc'));
+  set('label-name',t('label_name'));
+  set('label-people',t('label_people'));
+  set('label-date',t('label_date'));
+  set('label-time',t('label_time'));
+  set('label-notes',t('label_notes'));
+  set('reservation-btn-text',t('reservation_btn'));
+  set('time-placeholder',t('time_placeholder'));
+  var notesEl=document.getElementById('res-notes');
+  if(notesEl) notesEl.setAttribute('placeholder',t('notes_placeholder'));
+  var resErrEl=document.getElementById('reservation-error');
+  if(resErrEl && resErrEl.classList.contains('show')) resErrEl.textContent=t('reservation_error');
   document.getElementById('currentFlag').textContent=FLAGS[i18next.language]||'🇮🇹';
 }
 
@@ -572,6 +748,55 @@ function changeLanguage(event,lang){
   closeDropdown();
   if(typeof spiRefreshCookieBannerTexts==='function') spiRefreshCookieBannerTexts();
 }
+</script>
+<script>
+// PRENOTAZIONE TAVOLO -> WHATSAPP (orari ogni mezz'ora)
+(function(){
+  var resDateInput = document.getElementById('res-date');
+  if(resDateInput){
+    var todayStr = new Date().toISOString().split('T')[0];
+    resDateInput.min = todayStr;
+  }
+  var LOCALE_MAP = {it:'it-IT',en:'en-GB',es:'es-ES',fr:'fr-FR',de:'de-DE'};
+  var resForm = document.getElementById('reservationForm');
+  if(resForm){
+    resForm.addEventListener('submit', function(e){
+      e.preventDefault();
+      var errorEl = document.getElementById('reservation-error');
+      var name = document.getElementById('res-name').value.trim();
+      var people = document.getElementById('res-people').value.trim();
+      var date = document.getElementById('res-date').value;
+      var time = document.getElementById('res-time').value;
+      var notes = document.getElementById('res-notes').value.trim();
+
+      if(!name || !people || !date || !time){
+        errorEl.textContent = i18next.t('reservation_error');
+        errorEl.classList.add('show');
+        return;
+      }
+      errorEl.classList.remove('show');
+
+      var lang = i18next.language || 'it';
+      var locale = LOCALE_MAP[lang] || 'it-IT';
+      var formattedDate = new Date(date + 'T00:00:00').toLocaleDateString(locale, {day:'2-digit',month:'2-digit',year:'numeric'});
+
+      var lines = [
+        i18next.t('msg_greeting'),
+        '',
+        '👤 ' + i18next.t('msg_name') + ': ' + name,
+        '👥 ' + i18next.t('msg_people') + ': ' + people,
+        '📅 ' + i18next.t('msg_date') + ': ' + formattedDate,
+        '🕐 ' + i18next.t('msg_time') + ': ' + time,
+        '📝 ' + i18next.t('msg_notes') + ': ' + (notes || i18next.t('msg_notes_empty')),
+        '',
+        i18next.t('msg_closing')
+      ];
+      var message = lines.join('\n');
+      var url = 'https://wa.me/393935560714?text=' + encodeURIComponent(message);
+      window.open(url, '_blank');
+    });
+  }
+})();
 </script>
 <script src="spi-common.js"></script>
 <script>
