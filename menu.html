@@ -24,7 +24,6 @@
       color:var(--text);min-height:100vh;padding-top:112px
     }
 
-    /* NAV */
     nav{
       position:fixed;top:0;width:100%;
       background:linear-gradient(135deg, rgba(8,12,20,.97) 0%, rgba(26,34,48,.97) 100%);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
@@ -262,7 +261,6 @@
     .scroll-top:hover{border-color:var(--brown);box-shadow:0 0 24px rgba(37,99,235,.2);transform:translateY(-4px)}
     .scroll-top svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2.2}
 
-    /* FOOTER */
     footer{
       border-top:1px solid var(--border);
       background-color:var(--card2);
@@ -273,6 +271,15 @@
       -webkit-text-fill-color: var(--brown-light);
     }
     footer .footer-copy{opacity:.5;margin-top:4px}
+    footer .footer-created{
+      margin-top:12px;font-size:0.76rem;opacity:0.55;
+      letter-spacing:0.04em;
+    }
+    footer .footer-created a{
+      color:var(--brown-light) !important;-webkit-text-fill-color:var(--brown-light);
+      text-decoration:none;opacity:0.85;transition:opacity .2s;
+    }
+    footer .footer-created a:hover{opacity:1;text-decoration:underline;}
     footer, footer * {
       -webkit-text-size-adjust:100%;
       -webkit-font-smoothing:antialiased;
@@ -290,7 +297,6 @@
     }
     footer .footer-links a:hover { opacity:1; text-decoration:underline !important; }
 
-    /* ── COOKIE BANNER ── */
     .spi-cookie-banner {
       position:fixed; left:0; right:0; bottom:0; z-index:5000;
       display:flex; justify-content:center;
@@ -373,7 +379,6 @@
       .modal-body{padding:18px 20px 22px}
     }
 
-    /* Focus visibile da tastiera */
     a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible {
       outline:2px solid var(--brown-light); outline-offset:2px; border-radius:4px;
     }
@@ -448,30 +453,24 @@
   <div class="cat-panel active" id="cat-rosticceria">
     <ul class="products">
       <li class="product-item" onclick="openModal('images/focaccia.JPG','ruota_focaccia','ruota_focaccia_desc','ruota_focaccia_allergens','€5.00')">
-        <div class="product-left">
-          <div class="product-info">
-            <span class="product-name" data-key="ruota_focaccia">Ruota di focaccia</span>
-            <span class="detail-hint"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span data-key="detail_hint">Tocca per dettagli</span></span>
-          </div>
-        </div>
+        <div class="product-left"><div class="product-info">
+          <span class="product-name" data-key="ruota_focaccia">Ruota di focaccia</span>
+          <span class="detail-hint"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span data-key="detail_hint">Tocca per dettagli</span></span>
+        </div></div>
         <span class="product-price">€5.00</span>
       </li>
       <li class="product-item" onclick="openModal('images/arancino.JPG','arancino','arancino_desc','arancino_allergens','€2.00')">
-        <div class="product-left">
-          <div class="product-info">
-            <span class="product-name" data-key="arancino">Arancino</span>
-            <span class="detail-hint"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span data-key="detail_hint">Tocca per dettagli</span></span>
-          </div>
-        </div>
+        <div class="product-left"><div class="product-info">
+          <span class="product-name" data-key="arancino">Arancino</span>
+          <span class="detail-hint"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span data-key="detail_hint">Tocca per dettagli</span></span>
+        </div></div>
         <span class="product-price">€2.00</span>
       </li>
       <li class="product-item" onclick="openModal('','bombetta','bombetta_desc','bombetta_allergens','€3.50')">
-        <div class="product-left">
-          <div class="product-info">
-            <span class="product-name" data-key="bombetta">Bombetta pugliese <span class="badge-new" data-key="badge_new">Novità</span></span>
-            <span class="detail-hint"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span data-key="detail_hint">Tocca per dettagli</span></span>
-          </div>
-        </div>
+        <div class="product-left"><div class="product-info">
+          <span class="product-name" data-key="bombetta">Bombetta pugliese <span class="badge-new" data-key="badge_new">Novità</span></span>
+          <span class="detail-hint"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span data-key="detail_hint">Tocca per dettagli</span></span>
+        </div></div>
         <span class="product-price">€3.50</span>
       </li>
     </ul>
@@ -480,21 +479,17 @@
   <div class="cat-panel" id="cat-panzerotti">
     <ul class="products">
       <li class="product-item" onclick="openModal('images/panzerotto.JPG','panz_mozz','panz_mozz_desc','panz_mozz_allergens','€1.50')">
-        <div class="product-left">
-          <div class="product-info">
-            <span class="product-name" data-key="panz_mozz">Panzerotto mozzarella e pomodoro</span>
-            <span class="detail-hint"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span data-key="detail_hint">Tocca per dettagli</span></span>
-          </div>
-        </div>
+        <div class="product-left"><div class="product-info">
+          <span class="product-name" data-key="panz_mozz">Panzerotto mozzarella e pomodoro</span>
+          <span class="detail-hint"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span data-key="detail_hint">Tocca per dettagli</span></span>
+        </div></div>
         <span class="product-price">€1.50</span>
       </li>
       <li class="product-item" onclick="openModal('images/panzerottog.JPG','panz_gorg','panz_gorg_desc','panz_gorg_allergens','€2.00')">
-        <div class="product-left">
-          <div class="product-info">
-            <span class="product-name" data-key="panz_gorg">Panzerotto farcito con gorgonzola</span>
-            <span class="detail-hint"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span data-key="detail_hint">Tocca per dettagli</span></span>
-          </div>
-        </div>
+        <div class="product-left"><div class="product-info">
+          <span class="product-name" data-key="panz_gorg">Panzerotto farcito con gorgonzola</span>
+          <span class="detail-hint"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span data-key="detail_hint">Tocca per dettagli</span></span>
+        </div></div>
         <span class="product-price">€2.00</span>
       </li>
     </ul>
@@ -503,30 +498,24 @@
   <div class="cat-panel" id="cat-speciali">
     <ul class="products">
       <li class="product-item" onclick="openModal('images/panzerotttocp.JPG','panz_cp','panz_cp_desc','panz_cp_allergens','€3.00')">
-        <div class="product-left">
-          <div class="product-info">
-            <span class="product-name" data-key="panz_cp">Panzerotto cacio e pepe</span>
-            <span class="detail-hint"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span data-key="detail_hint">Tocca per dettagli</span></span>
-          </div>
-        </div>
+        <div class="product-left"><div class="product-info">
+          <span class="product-name" data-key="panz_cp">Panzerotto cacio e pepe</span>
+          <span class="detail-hint"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span data-key="detail_hint">Tocca per dettagli</span></span>
+        </div></div>
         <span class="product-price">€3.00</span>
       </li>
       <li class="product-item" onclick="openModal('images/panzerottob.JPG','panz_brac','panz_brac_desc','panz_brac_allergens','€3.00')">
-        <div class="product-left">
-          <div class="product-info">
-            <span class="product-name" data-key="panz_brac">Panzerotto braciola</span>
-            <span class="detail-hint"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span data-key="detail_hint">Tocca per dettagli</span></span>
-          </div>
-        </div>
+        <div class="product-left"><div class="product-info">
+          <span class="product-name" data-key="panz_brac">Panzerotto braciola</span>
+          <span class="detail-hint"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span data-key="detail_hint">Tocca per dettagli</span></span>
+        </div></div>
         <span class="product-price">€3.00</span>
       </li>
       <li class="product-item" onclick="openModal('','panz_tartufo','panz_tartufo_desc','panz_tartufo_allergens','€4.50')">
-        <div class="product-left">
-          <div class="product-info">
-            <span class="product-name" data-key="panz_tartufo">Panzerotto al tartufo <span class="badge-new" data-key="badge_new">Novità</span></span>
-            <span class="detail-hint"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span data-key="detail_hint">Tocca per dettagli</span></span>
-          </div>
-        </div>
+        <div class="product-left"><div class="product-info">
+          <span class="product-name" data-key="panz_tartufo">Panzerotto al tartufo <span class="badge-new" data-key="badge_new">Novità</span></span>
+          <span class="detail-hint"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span data-key="detail_hint">Tocca per dettagli</span></span>
+        </div></div>
         <span class="product-price">€4.50</span>
       </li>
     </ul>
@@ -535,30 +524,24 @@
   <div class="cat-panel" id="cat-bevande">
     <ul class="products">
       <li class="product-item" onclick="openModal('images/coca.JPG','cocacola','cocacola_desc','cocacola_allergens','€1.80')">
-        <div class="product-left">
-          <div class="product-info">
-            <span class="product-name" data-key="cocacola">Coca-Cola</span>
-            <span class="detail-hint"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span data-key="detail_hint">Tocca per dettagli</span></span>
-          </div>
-        </div>
+        <div class="product-left"><div class="product-info">
+          <span class="product-name" data-key="cocacola">Coca-Cola</span>
+          <span class="detail-hint"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span data-key="detail_hint">Tocca per dettagli</span></span>
+        </div></div>
         <span class="product-price">€1.80</span>
       </li>
       <li class="product-item" onclick="openModal('images/acqua.JPG','acqua','acqua_desc','acqua_allergens','€1.00')">
-        <div class="product-left">
-          <div class="product-info">
-            <span class="product-name" data-key="acqua">Acqua</span>
-            <span class="detail-hint"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span data-key="detail_hint">Tocca per dettagli</span></span>
-          </div>
-        </div>
+        <div class="product-left"><div class="product-info">
+          <span class="product-name" data-key="acqua">Acqua</span>
+          <span class="detail-hint"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span data-key="detail_hint">Tocca per dettagli</span></span>
+        </div></div>
         <span class="product-price">€1.00</span>
       </li>
       <li class="product-item" onclick="openModal('','succo','succo_desc','succo_allergens','€2.20')">
-        <div class="product-left">
-          <div class="product-info">
-            <span class="product-name" data-key="succo">Succo di frutta</span>
-            <span class="detail-hint"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span data-key="detail_hint">Tocca per dettagli</span></span>
-          </div>
-        </div>
+        <div class="product-left"><div class="product-info">
+          <span class="product-name" data-key="succo">Succo di frutta</span>
+          <span class="detail-hint"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span data-key="detail_hint">Tocca per dettagli</span></span>
+        </div></div>
         <span class="product-price">€2.20</span>
       </li>
     </ul>
@@ -567,21 +550,17 @@
   <div class="cat-panel" id="cat-alcolici">
     <ul class="products">
       <li class="product-item" onclick="openModal('images/peroni.JPG','birra','birra_desc','birra_allergens','€2.00')">
-        <div class="product-left">
-          <div class="product-info">
-            <span class="product-name" data-key="birra">Birra</span>
-            <span class="detail-hint"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span data-key="detail_hint">Tocca per dettagli</span></span>
-          </div>
-        </div>
+        <div class="product-left"><div class="product-info">
+          <span class="product-name" data-key="birra">Birra</span>
+          <span class="detail-hint"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span data-key="detail_hint">Tocca per dettagli</span></span>
+        </div></div>
         <span class="product-price">€2.00</span>
       </li>
       <li class="product-item" onclick="openModal('images/vino.JPG','vino','vino_desc','vino_allergens','€4.00')">
-        <div class="product-left">
-          <div class="product-info">
-            <span class="product-name" data-key="vino">Vino</span>
-            <span class="detail-hint"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span data-key="detail_hint">Tocca per dettagli</span></span>
-          </div>
-        </div>
+        <div class="product-left"><div class="product-info">
+          <span class="product-name" data-key="vino">Vino</span>
+          <span class="detail-hint"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span data-key="detail_hint">Tocca per dettagli</span></span>
+        </div></div>
         <span class="product-price">€4.00</span>
       </li>
     </ul>
@@ -590,21 +569,17 @@
   <div class="cat-panel" id="cat-dolci">
     <ul class="products">
       <li class="product-item" onclick="openModal('','tiramisu','tiramisu_desc','tiramisu_allergens','€4.00')">
-        <div class="product-left">
-          <div class="product-info">
-            <span class="product-name" data-key="tiramisu">Tiramisù della casa</span>
-            <span class="detail-hint"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span data-key="detail_hint">Tocca per dettagli</span></span>
-          </div>
-        </div>
+        <div class="product-left"><div class="product-info">
+          <span class="product-name" data-key="tiramisu">Tiramisù della casa</span>
+          <span class="detail-hint"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span data-key="detail_hint">Tocca per dettagli</span></span>
+        </div></div>
         <span class="product-price">€4.00</span>
       </li>
       <li class="product-item" onclick="openModal('','cartellate','cartellate_desc','cartellate_allergens','€3.00')">
-        <div class="product-left">
-          <div class="product-info">
-            <span class="product-name" data-key="cartellate">Cartellate pugliesi <span class="badge-new" data-key="badge_new">Novità</span></span>
-            <span class="detail-hint"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span data-key="detail_hint">Tocca per dettagli</span></span>
-          </div>
-        </div>
+        <div class="product-left"><div class="product-info">
+          <span class="product-name" data-key="cartellate">Cartellate pugliesi <span class="badge-new" data-key="badge_new">Novità</span></span>
+          <span class="detail-hint"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span data-key="detail_hint">Tocca per dettagli</span></span>
+        </div></div>
         <span class="product-price">€3.00</span>
       </li>
     </ul>
@@ -615,6 +590,7 @@
 <footer>
   <p class="footer-brand">Spi System di Giuseppe Spizzico — P. IVA 08791580726</p>
   <p class="footer-copy">&copy; 2026 Menù demo Spi System</p>
+  <p class="footer-created">Created by <a href="https://wa.me/393935560714" target="_blank">SPI System</a></p>
   <p class="footer-links"><a href="privacy.html" id="footer-privacy-link">Privacy Policy</a> · <a href="#" id="footer-cookie-link">Preferenze Cookie</a></p>
 </footer>
 
@@ -726,7 +702,6 @@ let _titleKey, _descKey, _allergenKey, _price;
 function openModal(src, titleKey, descKey, allergenKey, price) {
   _titleKey = titleKey; _descKey = descKey;
   _allergenKey = allergenKey; _price = price;
-
   renderModal();
   document.getElementById('modal').classList.add('active');
   document.body.style.overflow = 'hidden';
@@ -810,9 +785,7 @@ i18next.init({
       panz_tartufo_allergens:"Glutine, Lattosio",
       cocacola:"Coca-Cola", cocacola_desc:"Coca-Cola classica in lattina 33cl, servita fresca.", cocacola_allergens:"",
       acqua:"Acqua", acqua_desc:"Acqua minerale naturale o frizzante in bottiglia 50cl.", acqua_allergens:"",
-      succo:"Succo di frutta",
-      succo_desc:"Succo di frutta 100% naturale, disponibile in vari gusti.",
-      succo_allergens:"",
+      succo:"Succo di frutta", succo_desc:"Succo di frutta 100% naturale, disponibile in vari gusti.", succo_allergens:"",
       birra:"Birra", birra_desc:"Birra Peroni in bottiglia 33cl. Fresca e leggera.", birra_allergens:"Glutine",
       vino:"Vino", vino_desc:"Vino della casa, rosso o bianco, al calice. Produzione locale pugliese.", vino_allergens:"Solfiti",
       tiramisu:"Tiramisù della casa",
