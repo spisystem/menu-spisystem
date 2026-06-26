@@ -126,139 +126,128 @@ nav {
 @keyframes scrollBounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(7px)} }
 
 /* ═══════════════════════════════════════════
-   INFO SECTION — DESIGN EDITORIALE
+   INFO SECTION — CARD ELEGANTI CENTRATE
 ═══════════════════════════════════════════ */
-.info-section { background-color:var(--bg); padding:100px 28px 80px; overflow:hidden; }
+.info-section { background-color:var(--bg); padding:100px 28px 80px; }
 .section-eyebrow { text-align:center; font-size:0.68rem; letter-spacing:0.26em; text-transform:uppercase; color:var(--accent); margin-bottom:14px; }
 .section-title { text-align:center; font-family:'Lora',serif; font-size:clamp(1.7rem,4vw,2.6rem); color:var(--text); margin-bottom:14px; line-height:1.2; }
-.section-desc { text-align:center; font-size:0.92rem; color:var(--muted); max-width:520px; margin:0 auto 80px; line-height:1.7; }
+.section-desc { text-align:center; font-size:0.92rem; color:var(--muted); max-width:520px; margin:0 auto 64px; line-height:1.7; }
 
-/* ROWS */
-.info-rows { max-width:900px; margin:0 auto; display:flex; flex-direction:column; }
-
-.info-row {
+.info-grid {
   display:grid;
-  grid-template-columns: 1fr 1fr;
-  gap:0;
-  border-top:1px solid rgba(199,210,224,0.10);
-  padding:52px 0;
-  align-items:start;
-  /* animazione scroll */
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:20px;
+  max-width:1060px;
+  margin:0 auto;
+}
+
+.info-card {
+  background:var(--card);
+  border:1px solid rgba(141,164,190,0.18);
+  border-radius:20px;
+  padding:36px 28px;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
   opacity:0;
-  transition: opacity 0.7s ease, transform 0.7s ease;
+  transform:translateY(40px);
+  transition:opacity 0.65s ease, transform 0.65s ease, border-color 0.3s, box-shadow 0.3s;
 }
-.info-row:last-child { border-bottom:1px solid rgba(199,210,224,0.10); }
-
-.info-row.from-left  { transform: translateX(-48px); }
-.info-row.from-right { transform: translateX(48px); }
-.info-row.visible    { opacity:1; transform:translateX(0); }
-
-@media(max-width:640px){
-  .info-row {
-    grid-template-columns:1fr;
-    gap:20px;
-    padding:40px 0;
-  }
-  .info-row.from-left,
-  .info-row.from-right { transform:translateY(32px); }
+.info-card.visible {
+  opacity:1;
+  transform:translateY(0);
 }
-
-/* Colonna sinistra — label */
-.info-row-label {
-  padding-right:32px;
-}
-.info-row-eyebrow {
-  font-size:0.62rem;
-  letter-spacing:0.24em;
-  text-transform:uppercase;
-  color:var(--accent);
-  margin-bottom:10px;
-  display:flex; align-items:center; gap:10px;
-}
-.info-row-eyebrow::after {
+.info-card::before {
   content:'';
-  display:block;
-  flex:1; height:1px;
-  background:linear-gradient(to right, var(--accent), transparent);
-  opacity:0.4;
-  max-width:40px;
+  position:absolute; top:0; left:50%; transform:translateX(-50%);
+  width:0; height:2px;
+  background:linear-gradient(90deg,transparent,var(--accent-light),transparent);
+  transition:width 0.6s ease 0.35s;
+  border-radius:2px;
 }
-.info-row-title {
+.info-card.visible::before { width:55%; }
+.info-card:hover {
+  transform:translateY(-6px);
+  border-color:rgba(141,164,190,0.40);
+  box-shadow:0 24px 52px rgba(0,0,0,0.22);
+}
+
+.info-card .icon {
+  width:54px; height:54px;
+  background:rgba(141,164,190,0.08);
+  border:1px solid rgba(141,164,190,0.20);
+  border-radius:16px;
+  display:flex; align-items:center; justify-content:center;
+  margin:0 auto 22px;
+  transition:background 0.3s, border-color 0.3s;
+}
+.info-card:hover .icon {
+  background:rgba(141,164,190,0.15);
+  border-color:rgba(141,164,190,0.38);
+}
+.info-card .icon i { font-size:1.2rem; color:var(--accent-light); }
+.info-card .icon svg.phone-icon {
+  width:21px; height:21px;
+  stroke:var(--accent-light); fill:none;
+  stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round;
+}
+.info-card h3 {
   font-family:'Lora',serif;
-  font-size:clamp(1.3rem,2.5vw,1.7rem);
+  font-size:1.1rem;
   color:var(--text);
-  line-height:1.2;
+  margin-bottom:12px;
 }
+.info-card p { font-size:0.88rem; color:var(--muted); line-height:1.82; }
+.info-card a { color:var(--accent-light); text-decoration:none; }
+.info-card a:hover { text-decoration:underline; }
 
-/* Colonna destra — contenuto */
-.info-row-content { }
-
-.info-row-text {
-  font-size:0.92rem;
-  color:var(--muted);
-  line-height:1.85;
-}
-.info-row-text a { color:var(--accent-light); text-decoration:none; }
-.info-row-text a:hover { text-decoration:underline; }
-
-/* Orari */
-.hours-list { display:flex; flex-direction:column; gap:0; }
+.hours-entries { display:flex; flex-direction:column; gap:8px; margin-top:4px; }
 .hours-entry {
-  display:flex; align-items:baseline; justify-content:space-between;
-  padding:13px 0;
-  border-bottom:1px solid rgba(199,210,224,0.07);
-  gap:12px;
+  display:flex; justify-content:space-between; align-items:center;
+  background:rgba(141,164,190,0.06);
+  border-radius:8px;
+  padding:8px 14px;
 }
-.hours-entry:last-child { border-bottom:none; }
-.hours-entry-day { font-size:0.88rem; color:var(--muted); }
-.hours-entry-time {
-  font-size:0.88rem; color:var(--accent-light);
-  font-weight:600; letter-spacing:0.04em;
-  font-variant-numeric:tabular-nums;
-}
+.hours-entry-day  { font-size:0.8rem; color:var(--muted); }
+.hours-entry-time { font-size:0.8rem; color:var(--accent-light); font-weight:600; letter-spacing:0.03em; }
 
-/* Maps link */
 .maps-link {
-  display:inline-flex; align-items:center; gap:8px;
-  margin-top:18px;
-  color:var(--accent-light);
-  font-size:0.82rem; font-weight:500;
-  text-decoration:none;
-  border-bottom:1px solid rgba(141,164,190,0.35);
-  padding-bottom:2px;
-  transition:border-color 0.2s, opacity 0.2s;
+  display:inline-flex; align-items:center; gap:7px;
+  margin-top:14px;
+  color:var(--accent-light); font-size:0.8rem; font-weight:500;
+  text-decoration:none; opacity:0.85;
+  transition:opacity 0.2s;
 }
-.maps-link:hover { opacity:0.75; border-color:var(--accent-light); }
-.maps-link i { font-size:0.8rem; }
+.maps-link:hover { opacity:1; }
+.maps-link i { font-size:0.78rem; }
 
-/* Contatti */
 .contact-phone-link {
   font-family:'Lora',serif;
-  font-size:clamp(1.6rem,4vw,2.2rem);
+  font-size:1.35rem;
   color:var(--text);
   text-decoration:none;
   display:block;
-  margin-bottom:28px;
-  letter-spacing:0.02em;
+  margin-bottom:18px;
   transition:color 0.2s;
-  line-height:1.1;
 }
 .contact-phone-link:hover { color:var(--accent-light); }
 
-/* Social chips */
-.social-chips { display:flex; gap:10px; flex-wrap:wrap; }
-.social-chip {
-  display:inline-flex; align-items:center; gap:7px;
-  padding:9px 17px;
+.social-row { display:flex; justify-content:center; gap:10px; margin-top:16px; }
+.social-row a {
+  width:38px; height:38px;
   border:1px solid rgba(141,164,190,0.22);
-  border-radius:99px;
-  color:var(--muted);
-  font-size:0.8rem; font-weight:500;
+  border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  color:var(--muted); font-size:1rem;
+  transition:color 0.2s, border-color 0.2s, background 0.2s, transform 0.2s;
   text-decoration:none;
-  transition:color 0.2s, border-color 0.2s, background 0.2s;
 }
-.social-chip:hover { color:var(--accent-light); border-color:var(--accent-border); background:rgba(141,164,190,0.07); }
-.social-chip i { font-size:0.9rem; }
+.social-row a:hover {
+  color:var(--accent-light);
+  border-color:var(--accent-border);
+  background:rgba(141,164,190,0.08);
+  transform:translateY(-2px);
+}
 
 /* RESERVATION SECTION */
 .reservation-section { background-color:var(--bg); padding:90px 28px 30px; }
@@ -517,73 +506,51 @@ a:focus-visible, button:focus-visible { outline:2px solid var(--accent); outline
   <h2 class="section-title" id="section-title">Tecnologia al servizio del tuo locale</h2>
   <p class="section-desc" id="section-desc">Menù digitali professionali, multilingua e sempre aggiornabili. Tutto quello che serve, accessibile con un semplice QR code.</p>
 
-  <div class="info-rows">
+  <div class="info-grid">
 
-    <!-- CHI SIAMO -->
-    <div class="info-row from-left">
-      <div class="info-row-label">
-        <p class="info-row-eyebrow" id="about-label">Chi siamo</p>
-        <h3 class="info-row-title" id="about-title">SPI System</h3>
-      </div>
-      <div class="info-row-content">
-        <p class="info-row-text" id="about-text">SPI System sviluppa soluzioni tecnologiche per attività commerciali e ristorative. Realizziamo menù digitali QR code multilingua per migliorare l'esperienza del cliente.</p>
-      </div>
+    <div class="info-card">
+      <div class="icon"><i class="fas fa-laptop-code"></i></div>
+      <h3 id="about-title">Chi siamo</h3>
+      <p id="about-text">SPI System sviluppa soluzioni tecnologiche per attività commerciali e ristorative. Realizziamo menù digitali QR code multilingua per migliorare l'esperienza del cliente.</p>
     </div>
 
-    <!-- ORARI -->
-    <div class="info-row from-right">
-      <div class="info-row-label">
-        <p class="info-row-eyebrow" id="hours-label">Orari</p>
-        <h3 class="info-row-title" id="hours-title">Apertura</h3>
-      </div>
-      <div class="info-row-content">
-        <div class="hours-list">
-          <div class="hours-entry">
-            <span class="hours-entry-day" id="hours-weekdays">Lun – Ven</span>
-            <span class="hours-entry-time">09:00 – 19:00</span>
-          </div>
-          <div class="hours-entry">
-            <span class="hours-entry-day" id="hours-saturday">Sabato</span>
-            <span class="hours-entry-time">09:00 – 12:00</span>
-          </div>
+    <div class="info-card">
+      <div class="icon"><i class="fas fa-map-marker-alt"></i></div>
+      <h3 id="location-title">Dove ci troviamo</h3>
+      <p id="location-text">Via Monterosa, 22<br>Palo del Colle (BA)</p>
+      <a class="maps-link" href="https://maps.app.goo.gl/WmcLgRDQcFkZhuqD7?g_st=ic" target="_blank">
+        <i class="fas fa-external-link-alt"></i>
+        <span id="maps-link-text">Apri su Google Maps</span>
+      </a>
+    </div>
+
+    <div class="info-card">
+      <div class="icon"><i class="fas fa-clock"></i></div>
+      <h3 id="hours-title">Orari di apertura</h3>
+      <div class="hours-entries">
+        <div class="hours-entry">
+          <span class="hours-entry-day" id="hours-weekdays">Lun – Ven</span>
+          <span class="hours-entry-time">09:00 – 19:00</span>
+        </div>
+        <div class="hours-entry">
+          <span class="hours-entry-day" id="hours-saturday">Sabato</span>
+          <span class="hours-entry-time">09:00 – 12:00</span>
         </div>
       </div>
     </div>
 
-    <!-- DOVE CI TROVIAMO -->
-    <div class="info-row from-left">
-      <div class="info-row-label">
-        <p class="info-row-eyebrow" id="location-label">Dove siamo</p>
-        <h3 class="info-row-title" id="location-title">Indirizzo</h3>
+    <div class="info-card">
+      <div class="icon">
+        <svg class="phone-icon" viewBox="0 0 24 24">
+          <path d="M20 16.9v2.6a1.5 1.5 0 0 1-1.6 1.5 15.6 15.6 0 0 1-6.8-2.4 15.4 15.4 0 0 1-4.7-4.7 15.6 15.6 0 0 1-2.4-6.9A1.5 1.5 0 0 1 6 4.5h2.6a1.5 1.5 0 0 1 1.5 1.3c.1.9.3 1.8.6 2.6a1.5 1.5 0 0 1-.4 1.6l-1.1 1.1a12.6 12.6 0 0 0 4.7 4.7l1.1-1.1a1.5 1.5 0 0 1 1.6-.4c.8.3 1.7.5 2.6.6a1.5 1.5 0 0 1 1.3 1.5z"/>
+        </svg>
       </div>
-      <div class="info-row-content">
-        <p class="info-row-text" id="location-text">Via Monterosa, 22<br>Palo del Colle (BA)</p>
-        <a class="maps-link" href="https://maps.app.goo.gl/WmcLgRDQcFkZhuqD7?g_st=ic" target="_blank">
-          <i class="fas fa-map-marker-alt"></i>
-          <span id="maps-link-text">Apri su Google Maps</span>
-        </a>
-      </div>
-    </div>
-
-    <!-- CONTATTI -->
-    <div class="info-row from-right">
-      <div class="info-row-label">
-        <p class="info-row-eyebrow" id="contact-label">Contatti</p>
-        <h3 class="info-row-title" id="contact-title">Scrivici o chiamaci</h3>
-      </div>
-      <div class="info-row-content">
-        <a class="contact-phone-link" href="tel:+393342732997" id="contact-phone">334 273 2997</a>
-        <div class="social-chips">
-          <a class="social-chip" href="https://www.instagram.com/giuseppespizzico__" target="_blank">
-            <i class="fab fa-instagram"></i> Instagram
-          </a>
-          <a class="social-chip" href="https://www.tiktok.com/@._giuspi" target="_blank">
-            <i class="fab fa-tiktok"></i> TikTok
-          </a>
-          <a class="social-chip" href="https://wa.me/393935560714" target="_blank">
-            <i class="fab fa-whatsapp"></i> WhatsApp
-          </a>
-        </div>
+      <h3 id="contact-title">Contatti</h3>
+      <a class="contact-phone-link" href="tel:+393342732997" id="contact-phone">334 273 2997</a>
+      <div class="social-row">
+        <a href="https://www.instagram.com/giuseppespizzico__" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.tiktok.com/@._giuspi" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+        <a href="https://wa.me/393935560714" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
       </div>
     </div>
 
@@ -730,16 +697,18 @@ var scrollBtn=document.getElementById('scrollTopBtn');
 window.addEventListener('scroll',function(){ scrollBtn.classList.toggle('show',window.scrollY>400); });
 scrollBtn.addEventListener('click',function(){ window.scrollTo({top:0,behavior:'smooth'}); });
 
-// INTERSECTION OBSERVER — info rows entrano da sinistra/destra
+// INTERSECTION OBSERVER — card entrano dal basso con stagger
 var obs=new IntersectionObserver(function(entries){
   entries.forEach(function(entry){
     if(entry.isIntersecting){
-      entry.target.classList.add('visible');
+      var cards=document.querySelectorAll('.info-card');
+      var idx=Array.prototype.indexOf.call(cards,entry.target);
+      setTimeout(function(){entry.target.classList.add('visible');},idx*110);
       obs.unobserve(entry.target);
     }
   });
 },{threshold:0.12});
-document.querySelectorAll('.info-row').forEach(function(r){obs.observe(r);});
+document.querySelectorAll('.info-card').forEach(function(c){obs.observe(c);});
 
 var FLAGS={it:'🇮🇹',en:'🇬🇧',es:'🇪🇸',fr:'🇫🇷',de:'🇩🇪'};
 
@@ -890,18 +859,14 @@ function updateTexts(){
   set('eyebrow-label',t('eyebrow'));
   set('section-title',t('section_title'));
   set('section-desc',t('section_desc'));
-  set('about-label',t('about_label'));
   set('about-title',t('about_title'));
   set('about-text',t('about_text'));
-  set('hours-label',t('hours_label'));
   set('hours-title',t('hours_title'));
   set('hours-weekdays',t('hours_weekdays'));
   set('hours-saturday',t('hours_saturday'));
-  set('location-label',t('location_label'));
   set('location-title',t('location_title'));
   setHTML('location-text',t('location_text'));
   set('maps-link-text',t('maps_link'));
-  set('contact-label',t('contact_label'));
   set('contact-title',t('contact_title'));
   set('contact-phone',t('contact_phone'));
   set('cta-label',t('cta_label'));
