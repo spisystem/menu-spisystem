@@ -343,22 +343,43 @@ nav {
 
 /* CTA */
 .cta-section {
-  background-color:var(--card2);
-  border-top:1px solid var(--border); border-bottom:1px solid var(--border);
-  padding:70px 28px; text-align:center;
+  position:relative;
+  background-color:var(--bg);
+  padding:120px 28px 130px;
+  text-align:center;
+  overflow:hidden;
 }
-.cta-label { font-size:0.68rem; letter-spacing:0.26em; text-transform:uppercase; color:var(--accent); margin-bottom:16px; }
-.cta-title { font-family:'Lora',serif; font-size:clamp(1.5rem,3.5vw,2.2rem); color:var(--text); margin-bottom:10px; }
-.cta-sub { font-size:0.9rem; color:var(--muted); margin-bottom:32px; line-height:1.65; }
+.cta-glow {
+  position:absolute; top:50%; left:50%;
+  width:560px; height:560px;
+  transform:translate(-50%,-50%);
+  background:radial-gradient(circle, rgba(141,164,190,0.13) 0%, rgba(141,164,190,0.04) 45%, transparent 72%);
+  pointer-events:none;
+}
+.cta-content { position:relative; max-width:520px; margin:0 auto; }
+.cta-label { font-size:0.68rem; letter-spacing:0.3em; text-transform:uppercase; color:var(--accent); margin-bottom:18px; }
+.cta-title { font-family:'Lora',serif; font-style:italic; font-size:clamp(1.6rem,3.8vw,2.4rem); color:var(--text); margin-bottom:14px; line-height:1.3; }
+.cta-sub { font-size:0.92rem; color:var(--muted); margin-bottom:38px; line-height:1.75; max-width:420px; margin-left:auto; margin-right:auto; }
 .cta-btn {
-  display:inline-flex; align-items:center; gap:9px;
-  background:transparent; color:var(--accent-light); border:1px solid var(--accent-border);
-  font-family:'Poppins',sans-serif; font-size:0.85rem; font-weight:600;
-  letter-spacing:0.09em; text-transform:uppercase;
-  padding:14px 34px; border-radius:3px; text-decoration:none;
-  transition:background 0.25s, border-color 0.25s;
+  display:inline-flex; align-items:center; gap:11px;
+  background:rgba(141,164,190,0.07);
+  color:var(--accent-light);
+  font-family:'Poppins',sans-serif; font-size:0.82rem; font-weight:600;
+  letter-spacing:0.11em; text-transform:uppercase;
+  padding:16px 38px; border-radius:50px; text-decoration:none;
+  border:1px solid var(--accent-border);
+  transition:background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
 }
-.cta-btn:hover { background:var(--accent-soft); border-color:var(--accent-light); }
+.cta-btn:hover {
+  background:rgba(141,164,190,0.14);
+  border-color:var(--accent-light);
+  box-shadow:0 0 36px rgba(141,164,190,0.22);
+  transform:translateY(-2px);
+}
+
+@media(max-width:560px){
+  .cta-section { padding:90px 22px 100px; }
+}
 
 .gold-divider { height:1px; background:linear-gradient(to right,transparent,var(--accent),transparent); opacity:0.3; margin:0 60px; }
 
@@ -438,7 +459,6 @@ footer, footer * { -webkit-text-size-adjust:100%; -webkit-font-smoothing:antiali
   .nav-logo img { height:72px; }
   .info-section { padding:70px 16px 60px; }
   .hero-bottom { padding-bottom:44px; gap:18px; }
-  .cta-section { padding:52px 20px; }
 }
 @media(max-width:600px){
   .spi-cookie-card { flex-direction:column; padding:20px; }
@@ -625,13 +645,16 @@ a:focus-visible, button:focus-visible { outline:2px solid var(--accent); outline
 </section>
 
 <section class="cta-section">
-  <p class="cta-label" id="cta-label">Vuoi un menù come questo?</p>
-  <h2 class="cta-title" id="cta-title">Porta il tuo locale nel digitale</h2>
-  <p class="cta-sub" id="cta-sub">Contattaci su WhatsApp o telefonicamente. Realizziamo il tuo menù QR in pochi giorni.</p>
-  <a class="cta-btn" href="https://wa.me/393935560714" target="_blank">
-    <i class="fab fa-whatsapp"></i>
-    <span id="cta-btn-text">Contattaci su WhatsApp</span>
-  </a>
+  <div class="cta-glow"></div>
+  <div class="cta-content">
+    <p class="cta-label" id="cta-label">Vuoi un menù come questo?</p>
+    <h2 class="cta-title" id="cta-title">Porta il tuo locale nel digitale</h2>
+    <p class="cta-sub" id="cta-sub">Contattaci su WhatsApp o telefonicamente. Realizziamo il tuo menù QR in pochi giorni.</p>
+    <a class="cta-btn" href="https://wa.me/393935560714" target="_blank">
+      <i class="fab fa-whatsapp"></i>
+      <span id="cta-btn-text">Contattaci su WhatsApp</span>
+    </a>
+  </div>
 </section>
 
 <div class="gold-divider"></div>
