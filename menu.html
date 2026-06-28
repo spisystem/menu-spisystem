@@ -7,6 +7,7 @@
   <title>Menù — SPI System</title>
   <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/i18next@21.6.3/i18next.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
     :root{
@@ -21,7 +22,7 @@
     body{
       font-family:'Poppins',sans-serif;
       background-color:var(--bg);
-      color:var(--text);min-height:100vh;padding-top:112px
+      color:var(--text);min-height:100vh;padding-top:112px;padding-bottom:86px
     }
 
     nav{
@@ -137,6 +138,112 @@
     }
     .cat-tab.active .tab-count{ background:rgba(255,255,255,.18); color:#fff; }
 
+    /* CATEGORIE A CERCHIO */
+    .cat-circles{
+      display:flex; gap:20px;
+      overflow-x:auto; scrollbar-width:none;
+      padding:4px 2px 18px;
+      -webkit-overflow-scrolling:touch;
+    }
+    .cat-circles::-webkit-scrollbar{display:none}
+    .cat-circle{
+      flex-shrink:0; display:flex; flex-direction:column; align-items:center; gap:8px;
+      cursor:pointer; user-select:none; width:74px;
+    }
+    .cat-circle-img{
+      width:64px; height:64px; border-radius:50%;
+      background:var(--card); border:2px solid var(--border);
+      overflow:hidden; display:flex; align-items:center; justify-content:center;
+      transition:border-color .25s, transform .2s, box-shadow .25s;
+    }
+    .cat-circle-img img{ width:100%; height:100%; object-fit:cover; display:block; }
+    .cat-circle-img i{ font-size:1.3rem; color:var(--brown-light); }
+    .cat-circle:hover .cat-circle-img{ transform:translateY(-3px); border-color:var(--brown-border); }
+    .cat-circle.active .cat-circle-img{
+      border-color:var(--brown-light);
+      box-shadow:0 6px 18px rgba(8,12,20,.35), 0 0 0 3px var(--brown-soft);
+    }
+    .cat-circle-label{
+      font-size:.66rem; font-weight:600; letter-spacing:.03em; text-transform:uppercase;
+      color:var(--muted); text-align:center; line-height:1.25; transition:color .25s;
+    }
+    .cat-circle.active .cat-circle-label{ color:var(--brown-light); }
+
+    /* BANNER IN EVIDENZA */
+    .featured-banner{ max-width:800px; margin:6px auto 22px; padding:0 18px; }
+    .featured-card{
+      position:relative; border-radius:22px; overflow:hidden;
+      background:linear-gradient(135deg,#151b27 0%,#1b2436 100%);
+      border:1px solid var(--brown-border);
+      padding:26px 90px 26px 24px;
+      cursor:pointer; transition:transform .2s, box-shadow .2s;
+    }
+    .featured-card:hover{ transform:translateY(-2px); box-shadow:0 20px 50px rgba(8,12,20,.3); }
+    .featured-eyebrow{
+      font-size:.62rem; letter-spacing:.2em; text-transform:uppercase;
+      color:var(--brown-light); margin-bottom:8px;
+    }
+    .featured-title{
+      font-family:'Lora',serif; font-size:1.3rem; color:var(--text); margin-bottom:10px; line-height:1.25;
+    }
+    .featured-tagline{
+      display:block; font-size:.82rem; color:var(--muted); line-height:1.5;
+    }
+    .featured-add{
+      position:absolute; right:22px; bottom:22px;
+      width:44px; height:44px; border-radius:50%;
+      background:linear-gradient(135deg,#0d1220 0%,#1a2438 100%);
+      border:1px solid var(--brown-border);
+      display:flex; align-items:center; justify-content:center;
+      color:#fff; font-size:1.3rem; line-height:1; transition:transform .2s, box-shadow .2s;
+    }
+    .featured-card:hover .featured-add{ transform:scale(1.08); box-shadow:0 8px 22px rgba(8,12,20,.4); }
+
+    /* BEST SELLER */
+    .bestseller-section{ max-width:800px; margin:0 auto 26px; padding:0 18px; }
+    .bestseller-title{ font-family:'Lora',serif; font-size:1.1rem; color:var(--text); margin-bottom:14px; }
+    .bestseller-row{
+      display:flex; gap:14px; overflow-x:auto; scrollbar-width:none;
+      padding:2px 2px 10px;
+      -webkit-overflow-scrolling:touch;
+    }
+    .bestseller-row::-webkit-scrollbar{display:none}
+    .bestseller-card{
+      flex-shrink:0; width:168px; background:var(--card); border:1px solid var(--border);
+      border-radius:16px; padding:14px; cursor:pointer; position:relative;
+      transition:border-color .2s, transform .2s, background .2s;
+    }
+    .bestseller-card:hover{ border-color:var(--brown-border); background:var(--card2); transform:translateY(-2px); }
+    .bestseller-img{
+      width:100%; height:90px; border-radius:12px; overflow:hidden; margin-bottom:10px;
+      background:rgba(255,255,255,.04); display:flex; align-items:center; justify-content:center;
+    }
+    .bestseller-img img{ width:100%; height:100%; object-fit:cover; display:block; }
+    .bestseller-img i{ font-size:1.4rem; color:var(--brown-light); opacity:.6; }
+    .bestseller-badge{
+      position:absolute; top:10px; left:10px; font-size:.58rem; letter-spacing:.06em; text-transform:uppercase;
+      background:var(--brown); color:#fff; border-radius:99px; padding:3px 9px; font-weight:600;
+    }
+    .bestseller-name{ font-size:.82rem; color:var(--text); line-height:1.3; margin-bottom:6px; min-height:2.4em; }
+    .bestseller-price{ font-size:.88rem; font-weight:700; color:var(--brown-light); }
+
+    /* BOTTOM NAV */
+    .bottom-nav{
+      position:fixed; left:0; right:0; bottom:0; z-index:1500;
+      display:flex; justify-content:space-around; align-items:center;
+      background:linear-gradient(135deg,rgba(8,12,20,0.97) 0%,rgba(26,34,48,0.97) 100%);
+      backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px);
+      border-top:1px solid rgba(255,255,255,.08);
+      padding:10px 6px calc(10px + env(safe-area-inset-bottom));
+    }
+    .bottom-nav a{
+      display:flex; flex-direction:column; align-items:center; gap:4px;
+      text-decoration:none; color:var(--muted); font-size:.62rem; letter-spacing:.02em;
+      flex:1; padding:4px 2px; transition:color .2s;
+    }
+    .bottom-nav a i{ font-size:1.05rem; }
+    .bottom-nav a.active{ color:var(--brown-light); }
+
     .menu{max-width:800px;margin:0 auto;padding:8px 18px 100px}
 
     .cat-panel{
@@ -244,7 +351,7 @@
     #modalPrice{font-family:'Lora',serif;font-size:1.6rem;font-weight:700;color:var(--brown-light);letter-spacing:.02em}
 
     .scroll-top{
-      position:fixed;right:22px;bottom:22px;width:46px;height:46px;
+      position:fixed;right:22px;bottom:90px;width:46px;height:46px;
       display:flex;align-items:center;justify-content:center;
       border:1px solid var(--brown-border);border-radius:50%;
       background:rgba(13,18,28,.9);backdrop-filter:blur(8px);
@@ -421,24 +528,61 @@
 </div>
 
 <div class="cat-tabs-wrap" id="catTabsWrap">
-  <div class="cat-tabs" id="catTabs">
-    <div class="cat-tab active" data-target="cat-rosticceria" onclick="selectTab(this)">
-      <span data-key="rosticceria">Rosticceria</span><span class="tab-count">3</span>
+  <div class="cat-circles" id="catTabs">
+    <div class="cat-circle active" data-target="cat-rosticceria" onclick="selectTab(this)">
+      <div class="cat-circle-img"><img src="images/focaccia.JPG" alt=""></div>
+      <span class="cat-circle-label" data-key="rosticceria">Rosticceria</span>
     </div>
-    <div class="cat-tab" data-target="cat-panzerotti" onclick="selectTab(this)">
-      <span data-key="panzerotti">Panzerotti</span><span class="tab-count">2</span>
+    <div class="cat-circle" data-target="cat-panzerotti" onclick="selectTab(this)">
+      <div class="cat-circle-img"><img src="images/panzerotto.JPG" alt=""></div>
+      <span class="cat-circle-label" data-key="panzerotti">Panzerotti</span>
     </div>
-    <div class="cat-tab" data-target="cat-speciali" onclick="selectTab(this)">
-      <span data-key="speciali">Panzerotti Speciali</span><span class="tab-count">3</span>
+    <div class="cat-circle" data-target="cat-speciali" onclick="selectTab(this)">
+      <div class="cat-circle-img"><img src="images/panzerottocp.JPG" alt=""></div>
+      <span class="cat-circle-label" data-key="speciali">Panzerotti Speciali</span>
     </div>
-    <div class="cat-tab" data-target="cat-bevande" onclick="selectTab(this)">
-      <span data-key="bevande">Bevande</span><span class="tab-count">3</span>
+    <div class="cat-circle" data-target="cat-bevande" onclick="selectTab(this)">
+      <div class="cat-circle-img"><img src="images/coca.JPG" alt=""></div>
+      <span class="cat-circle-label" data-key="bevande">Bevande</span>
     </div>
-    <div class="cat-tab" data-target="cat-alcolici" onclick="selectTab(this)">
-      <span data-key="alcolici">Alcolici</span><span class="tab-count">2</span>
+    <div class="cat-circle" data-target="cat-alcolici" onclick="selectTab(this)">
+      <div class="cat-circle-img"><img src="images/peroni.JPG" alt=""></div>
+      <span class="cat-circle-label" data-key="alcolici">Alcolici</span>
     </div>
-    <div class="cat-tab" data-target="cat-dolci" onclick="selectTab(this)">
-      <span data-key="dolci">Dolci</span><span class="tab-count">2</span>
+    <div class="cat-circle" data-target="cat-dolci" onclick="selectTab(this)">
+      <div class="cat-circle-img"><i class="fas fa-cookie"></i></div>
+      <span class="cat-circle-label" data-key="dolci">Dolci</span>
+    </div>
+  </div>
+</div>
+
+<div class="featured-banner">
+  <div class="featured-card" onclick="openModal('','panz_tartufo','panz_tartufo_desc','panz_tartufo_allergens','€4.50')">
+    <p class="featured-eyebrow" data-key="featured_eyebrow">In evidenza</p>
+    <h2 class="featured-title" data-key="panz_tartufo">Panzerotto al tartufo</h2>
+    <span class="featured-tagline" data-key="featured_tagline">Tartufo nero, mozzarella e funghi porcini</span>
+    <div class="featured-add" aria-hidden="true">+</div>
+  </div>
+</div>
+
+<div class="bestseller-section">
+  <h2 class="bestseller-title" data-key="bestseller_title">Best Seller</h2>
+  <div class="bestseller-row">
+    <div class="bestseller-card" onclick="openModal('images/arancino.JPG','arancino','arancino_desc','arancino_allergens','€2.00')">
+      <span class="bestseller-badge" data-key="bestseller_badge">Più venduto</span>
+      <div class="bestseller-img"><img src="images/arancino.JPG" alt=""></div>
+      <div class="bestseller-name" data-key="arancino">Arancino</div>
+      <div class="bestseller-price">€2.00</div>
+    </div>
+    <div class="bestseller-card" onclick="openModal('images/panzerotto.JPG','panz_mozz','panz_mozz_desc','panz_mozz_allergens','€1.50')">
+      <div class="bestseller-img"><img src="images/panzerotto.JPG" alt=""></div>
+      <div class="bestseller-name" data-key="panz_mozz">Panzerotto mozzarella e pomodoro</div>
+      <div class="bestseller-price">€1.50</div>
+    </div>
+    <div class="bestseller-card" onclick="openModal('','bombetta','bombetta_desc','bombetta_allergens','€3.50')">
+      <div class="bestseller-img"><i class="fas fa-drumstick-bite"></i></div>
+      <div class="bestseller-name" data-key="bombetta">Bombetta pugliese</div>
+      <div class="bestseller-price">€3.50</div>
     </div>
   </div>
 </div>
@@ -492,7 +636,7 @@
 
   <div class="cat-panel" id="cat-speciali">
     <ul class="products">
-      <li class="product-item" onclick="openModal('images/panzerotttocp.JPG','panz_cp','panz_cp_desc','panz_cp_allergens','€3.00')">
+      <li class="product-item" onclick="openModal('images/panzerottocp.JPG','panz_cp','panz_cp_desc','panz_cp_allergens','€3.00')">
         <div class="product-left"><div class="product-info">
           <span class="product-name" data-key="panz_cp">Panzerotto cacio e pepe</span>
           <span class="detail-hint"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span data-key="detail_hint">Tocca per dettagli</span></span>
@@ -593,6 +737,13 @@
   <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
 </button>
 
+<nav class="bottom-nav" id="bottomNav">
+  <a href="index.html"><i class="fas fa-home"></i><span data-key="bn_home">Home</span></a>
+  <a href="menu.html" class="active"><i class="fas fa-utensils"></i><span data-key="bn_menu">Menù</span></a>
+  <a href="index.html#reservation"><i class="fas fa-calendar-check"></i><span data-key="bn_book">Prenota</span></a>
+  <a href="https://wa.me/393935560714" target="_blank"><i class="fab fa-whatsapp"></i><span data-key="bn_contact">Contatti</span></a>
+</nav>
+
 <div class="modal" id="modal">
   <div class="modal-card">
     <button class="modal-close" onclick="closeModal()">&#10005;</button>
@@ -623,7 +774,7 @@ document.addEventListener('click', () => {
 });
 
 function selectTab(tabEl) {
-  document.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.cat-circle').forEach(t => t.classList.remove('active'));
   document.querySelectorAll('.cat-panel').forEach(p => p.classList.remove('active'));
   tabEl.classList.add('active');
   const target = tabEl.getAttribute('data-target');
@@ -635,6 +786,8 @@ const searchInput  = document.getElementById('searchInput');
 const searchClear  = document.getElementById('searchClear');
 const searchEmpty  = document.getElementById('searchEmpty');
 const catTabsWrap  = document.getElementById('catTabsWrap');
+const featuredBanner = document.querySelector('.featured-banner');
+const bestsellerSection = document.querySelector('.bestseller-section');
 
 function doSearch() {
   const q = searchInput.value.trim().toLowerCase();
@@ -642,6 +795,8 @@ function doSearch() {
 
   if (!q) {
     catTabsWrap.style.display = '';
+    if (featuredBanner) featuredBanner.style.display = '';
+    if (bestsellerSection) bestsellerSection.style.display = '';
     document.querySelectorAll('.cat-panel').forEach(p => {
       p.style.display = '';
       p.querySelectorAll('.product-item').forEach(item => {
@@ -650,13 +805,15 @@ function doSearch() {
         nameEl.innerHTML = nameEl.dataset.rawText || nameEl.innerHTML;
       });
     });
-    const firstTab = document.querySelector('.cat-tab');
-    if (firstTab && !document.querySelector('.cat-tab.active')) selectTab(firstTab);
+    const firstTab = document.querySelector('.cat-circle');
+    if (firstTab && !document.querySelector('.cat-circle.active')) selectTab(firstTab);
     searchEmpty.style.display = 'none';
     return;
   }
 
   catTabsWrap.style.display = 'none';
+  if (featuredBanner) featuredBanner.style.display = 'none';
+  if (bestsellerSection) bestsellerSection.style.display = 'none';
   let totalVisible = 0;
 
   document.querySelectorAll('.cat-panel').forEach(panel => {
@@ -789,7 +946,10 @@ i18next.init({
       cartellate:"Cartellate pugliesi",
       cartellate_desc:"Dolce tradizionale natalizio pugliese, fritto e ricoperto di vincotto.",
       cartellate_allergens:"Glutine",
-      footer_privacy:"Privacy Policy", footer_cookie:"Preferenze Cookie"
+      footer_privacy:"Privacy Policy", footer_cookie:"Preferenze Cookie",
+      featured_eyebrow:"In evidenza", featured_tagline:"Tartufo nero, mozzarella e funghi porcini",
+      bestseller_title:"I più venduti", bestseller_badge:"Più venduto",
+      bn_home:"Home", bn_menu:"Menù", bn_book:"Prenota", bn_contact:"Contatti"
     }},
     en:{ translation:{
       back:"Back", menu_eyebrow:"Discover our selection",
@@ -814,7 +974,10 @@ i18next.init({
       vino:"Wine", vino_desc:"House wine, red or white, by the glass. Local Apulian production.", vino_allergens:"Sulphites",
       tiramisu:"House Tiramisù", tiramisu_desc:"The classic Italian dessert, made with fresh mascarpone according to our house recipe.", tiramisu_allergens:"Gluten, Lactose, Eggs",
       cartellate:"Apulian Cartellate", cartellate_desc:"Traditional Apulian Christmas dessert, fried and coated in vincotto syrup.", cartellate_allergens:"Gluten",
-      footer_privacy:"Privacy Policy", footer_cookie:"Cookie Preferences"
+      footer_privacy:"Privacy Policy", footer_cookie:"Cookie Preferences",
+      featured_eyebrow:"Featured", featured_tagline:"Black truffle, mozzarella and porcini mushrooms",
+      bestseller_title:"Best Sellers", bestseller_badge:"Bestseller",
+      bn_home:"Home", bn_menu:"Menu", bn_book:"Book", bn_contact:"Contact"
     }},
     es:{ translation:{
       back:"Volver", menu_eyebrow:"Descubre nuestras propuestas",
@@ -839,7 +1002,10 @@ i18next.init({
       vino:"Vino", vino_desc:"Vino de la casa, tinto o blanco, en copa.", vino_allergens:"Sulfitos",
       tiramisu:"Tiramisú de la casa", tiramisu_desc:"El clásico postre italiano, preparado con mascarpone fresco según receta de la casa.", tiramisu_allergens:"Gluten, Lactosa, Huevos",
       cartellate:"Cartellate apulias", cartellate_desc:"Postre tradicional navideño de Apulia, frito y bañado en vincotto.", cartellate_allergens:"Gluten",
-      footer_privacy:"Política de Privacidad", footer_cookie:"Preferencias de Cookies"
+      footer_privacy:"Política de Privacidad", footer_cookie:"Preferencias de Cookies",
+      featured_eyebrow:"Destacado", featured_tagline:"Trufa negra, mozzarella y setas porcini",
+      bestseller_title:"Los más vendidos", bestseller_badge:"Más vendido",
+      bn_home:"Inicio", bn_menu:"Menú", bn_book:"Reservar", bn_contact:"Contacto"
     }},
     fr:{ translation:{
       back:"Retour", menu_eyebrow:"Découvrez nos propositions",
@@ -864,7 +1030,10 @@ i18next.init({
       vino:"Vin", vino_desc:"Vin de la maison, rouge ou blanc, au verre.", vino_allergens:"Sulfites",
       tiramisu:"Tiramisù maison", tiramisu_desc:"Le classique dessert italien, préparé avec du mascarpone frais selon la recette maison.", tiramisu_allergens:"Gluten, Lactose, Œufs",
       cartellate:"Cartellate des Pouilles", cartellate_desc:"Dessert traditionnel de Noël des Pouilles, frit et nappé de vincotto.", cartellate_allergens:"Gluten",
-      footer_privacy:"Politique de Confidentialité", footer_cookie:"Préférences Cookies"
+      footer_privacy:"Politique de Confidentialité", footer_cookie:"Préférences Cookies",
+      featured_eyebrow:"En vedette", featured_tagline:"Truffe noire, mozzarella et cèpes",
+      bestseller_title:"Meilleures ventes", bestseller_badge:"Best-seller",
+      bn_home:"Accueil", bn_menu:"Menu", bn_book:"Réserver", bn_contact:"Contact"
     }},
     de:{ translation:{
       back:"Zurück", menu_eyebrow:"Entdecken Sie unsere Angebote",
@@ -889,7 +1058,10 @@ i18next.init({
       vino:"Wein", vino_desc:"Hauswein, rot oder weiß, glasweise.", vino_allergens:"Sulfite",
       tiramisu:"Hausgemachtes Tiramisù", tiramisu_desc:"Der klassische italienische Nachtisch, nach Hausrezept mit frischem Mascarpone.", tiramisu_allergens:"Gluten, Laktose, Eier",
       cartellate:"Apulische Cartellate", cartellate_desc:"Traditionelles apulisches Weihnachtsgebäck, frittiert und mit Vincotto überzogen.", cartellate_allergens:"Gluten",
-      footer_privacy:"Datenschutzerklärung", footer_cookie:"Cookie-Einstellungen"
+      footer_privacy:"Datenschutzerklärung", footer_cookie:"Cookie-Einstellungen",
+      featured_eyebrow:"Empfehlung", featured_tagline:"Schwarzer Trüffel, Mozzarella und Steinpilze",
+      bestseller_title:"Bestseller", bestseller_badge:"Bestseller",
+      bn_home:"Start", bn_menu:"Menü", bn_book:"Reservieren", bn_contact:"Kontakt"
     }}
   }
 }, updateTexts);
