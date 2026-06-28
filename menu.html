@@ -169,64 +169,6 @@
     }
     .cat-circle.active .cat-circle-label{ color:var(--brown-light); }
 
-    /* BANNER IN EVIDENZA */
-    .featured-banner{ max-width:800px; margin:6px auto 22px; padding:0 18px; }
-    .featured-card{
-      position:relative; border-radius:22px; overflow:hidden;
-      background:linear-gradient(135deg,#151b27 0%,#1b2436 100%);
-      border:1px solid var(--brown-border);
-      padding:26px 90px 26px 24px;
-      cursor:pointer; transition:transform .2s, box-shadow .2s;
-    }
-    .featured-card:hover{ transform:translateY(-2px); box-shadow:0 20px 50px rgba(8,12,20,.3); }
-    .featured-eyebrow{
-      font-size:.62rem; letter-spacing:.2em; text-transform:uppercase;
-      color:var(--brown-light); margin-bottom:8px;
-    }
-    .featured-title{
-      font-family:'Lora',serif; font-size:1.3rem; color:var(--text); margin-bottom:10px; line-height:1.25;
-    }
-    .featured-tagline{
-      display:block; font-size:.82rem; color:var(--muted); line-height:1.5;
-    }
-    .featured-add{
-      position:absolute; right:22px; bottom:22px;
-      width:44px; height:44px; border-radius:50%;
-      background:linear-gradient(135deg,#0d1220 0%,#1a2438 100%);
-      border:1px solid var(--brown-border);
-      display:flex; align-items:center; justify-content:center;
-      color:#fff; font-size:1.3rem; line-height:1; transition:transform .2s, box-shadow .2s;
-    }
-    .featured-card:hover .featured-add{ transform:scale(1.08); box-shadow:0 8px 22px rgba(8,12,20,.4); }
-
-    /* BEST SELLER */
-    .bestseller-section{ max-width:800px; margin:0 auto 26px; padding:0 18px; }
-    .bestseller-title{ font-family:'Lora',serif; font-size:1.1rem; color:var(--text); margin-bottom:14px; }
-    .bestseller-row{
-      display:flex; gap:14px; overflow-x:auto; scrollbar-width:none;
-      padding:2px 2px 10px;
-      -webkit-overflow-scrolling:touch;
-    }
-    .bestseller-row::-webkit-scrollbar{display:none}
-    .bestseller-card{
-      flex-shrink:0; width:168px; background:var(--card); border:1px solid var(--border);
-      border-radius:16px; padding:14px; cursor:pointer; position:relative;
-      transition:border-color .2s, transform .2s, background .2s;
-    }
-    .bestseller-card:hover{ border-color:var(--brown-border); background:var(--card2); transform:translateY(-2px); }
-    .bestseller-img{
-      width:100%; height:90px; border-radius:12px; overflow:hidden; margin-bottom:10px;
-      background:rgba(255,255,255,.04); display:flex; align-items:center; justify-content:center;
-    }
-    .bestseller-img img{ width:100%; height:100%; object-fit:cover; display:block; }
-    .bestseller-img i{ font-size:1.4rem; color:var(--brown-light); opacity:.6; }
-    .bestseller-badge{
-      position:absolute; top:10px; left:10px; font-size:.58rem; letter-spacing:.06em; text-transform:uppercase;
-      background:var(--brown); color:#fff; border-radius:99px; padding:3px 9px; font-weight:600;
-    }
-    .bestseller-name{ font-size:.82rem; color:var(--text); line-height:1.3; margin-bottom:6px; min-height:2.4em; }
-    .bestseller-price{ font-size:.88rem; font-weight:700; color:var(--brown-light); }
-
     /* BOTTOM NAV */
     .bottom-nav{
       position:fixed; left:0; right:0; bottom:0; z-index:1500;
@@ -556,37 +498,6 @@
   </div>
 </div>
 
-<div class="featured-banner">
-  <div class="featured-card" onclick="openModal('','panz_tartufo','panz_tartufo_desc','panz_tartufo_allergens','€4.50')">
-    <p class="featured-eyebrow" data-key="featured_eyebrow">In evidenza</p>
-    <h2 class="featured-title" data-key="panz_tartufo">Panzerotto al tartufo</h2>
-    <span class="featured-tagline" data-key="featured_tagline">Tartufo nero, mozzarella e funghi porcini</span>
-    <div class="featured-add" aria-hidden="true">+</div>
-  </div>
-</div>
-
-<div class="bestseller-section">
-  <h2 class="bestseller-title" data-key="bestseller_title">Best Seller</h2>
-  <div class="bestseller-row">
-    <div class="bestseller-card" onclick="openModal('images/arancino.JPG','arancino','arancino_desc','arancino_allergens','€2.00')">
-      <span class="bestseller-badge" data-key="bestseller_badge">Più venduto</span>
-      <div class="bestseller-img"><img src="images/arancino.JPG" alt=""></div>
-      <div class="bestseller-name" data-key="arancino">Arancino</div>
-      <div class="bestseller-price">€2.00</div>
-    </div>
-    <div class="bestseller-card" onclick="openModal('images/panzerotto.JPG','panz_mozz','panz_mozz_desc','panz_mozz_allergens','€1.50')">
-      <div class="bestseller-img"><img src="images/panzerotto.JPG" alt=""></div>
-      <div class="bestseller-name" data-key="panz_mozz">Panzerotto mozzarella e pomodoro</div>
-      <div class="bestseller-price">€1.50</div>
-    </div>
-    <div class="bestseller-card" onclick="openModal('','bombetta','bombetta_desc','bombetta_allergens','€3.50')">
-      <div class="bestseller-img"><i class="fas fa-drumstick-bite"></i></div>
-      <div class="bestseller-name" data-key="bombetta">Bombetta pugliese</div>
-      <div class="bestseller-price">€3.50</div>
-    </div>
-  </div>
-</div>
-
 <div class="menu" id="menuWrapper">
 
   <div class="cat-panel active" id="cat-rosticceria">
@@ -786,8 +697,6 @@ const searchInput  = document.getElementById('searchInput');
 const searchClear  = document.getElementById('searchClear');
 const searchEmpty  = document.getElementById('searchEmpty');
 const catTabsWrap  = document.getElementById('catTabsWrap');
-const featuredBanner = document.querySelector('.featured-banner');
-const bestsellerSection = document.querySelector('.bestseller-section');
 
 function doSearch() {
   const q = searchInput.value.trim().toLowerCase();
@@ -795,8 +704,6 @@ function doSearch() {
 
   if (!q) {
     catTabsWrap.style.display = '';
-    if (featuredBanner) featuredBanner.style.display = '';
-    if (bestsellerSection) bestsellerSection.style.display = '';
     document.querySelectorAll('.cat-panel').forEach(p => {
       p.style.display = '';
       p.querySelectorAll('.product-item').forEach(item => {
@@ -812,8 +719,6 @@ function doSearch() {
   }
 
   catTabsWrap.style.display = 'none';
-  if (featuredBanner) featuredBanner.style.display = 'none';
-  if (bestsellerSection) bestsellerSection.style.display = 'none';
   let totalVisible = 0;
 
   document.querySelectorAll('.cat-panel').forEach(panel => {
@@ -947,8 +852,6 @@ i18next.init({
       cartellate_desc:"Dolce tradizionale natalizio pugliese, fritto e ricoperto di vincotto.",
       cartellate_allergens:"Glutine",
       footer_privacy:"Privacy Policy", footer_cookie:"Preferenze Cookie",
-      featured_eyebrow:"In evidenza", featured_tagline:"Tartufo nero, mozzarella e funghi porcini",
-      bestseller_title:"I più venduti", bestseller_badge:"Più venduto",
       bn_home:"Home", bn_menu:"Menù", bn_book:"Prenota", bn_contact:"Contatti"
     }},
     en:{ translation:{
@@ -975,8 +878,6 @@ i18next.init({
       tiramisu:"House Tiramisù", tiramisu_desc:"The classic Italian dessert, made with fresh mascarpone according to our house recipe.", tiramisu_allergens:"Gluten, Lactose, Eggs",
       cartellate:"Apulian Cartellate", cartellate_desc:"Traditional Apulian Christmas dessert, fried and coated in vincotto syrup.", cartellate_allergens:"Gluten",
       footer_privacy:"Privacy Policy", footer_cookie:"Cookie Preferences",
-      featured_eyebrow:"Featured", featured_tagline:"Black truffle, mozzarella and porcini mushrooms",
-      bestseller_title:"Best Sellers", bestseller_badge:"Bestseller",
       bn_home:"Home", bn_menu:"Menu", bn_book:"Book", bn_contact:"Contact"
     }},
     es:{ translation:{
@@ -1003,8 +904,6 @@ i18next.init({
       tiramisu:"Tiramisú de la casa", tiramisu_desc:"El clásico postre italiano, preparado con mascarpone fresco según receta de la casa.", tiramisu_allergens:"Gluten, Lactosa, Huevos",
       cartellate:"Cartellate apulias", cartellate_desc:"Postre tradicional navideño de Apulia, frito y bañado en vincotto.", cartellate_allergens:"Gluten",
       footer_privacy:"Política de Privacidad", footer_cookie:"Preferencias de Cookies",
-      featured_eyebrow:"Destacado", featured_tagline:"Trufa negra, mozzarella y setas porcini",
-      bestseller_title:"Los más vendidos", bestseller_badge:"Más vendido",
       bn_home:"Inicio", bn_menu:"Menú", bn_book:"Reservar", bn_contact:"Contacto"
     }},
     fr:{ translation:{
@@ -1031,8 +930,6 @@ i18next.init({
       tiramisu:"Tiramisù maison", tiramisu_desc:"Le classique dessert italien, préparé avec du mascarpone frais selon la recette maison.", tiramisu_allergens:"Gluten, Lactose, Œufs",
       cartellate:"Cartellate des Pouilles", cartellate_desc:"Dessert traditionnel de Noël des Pouilles, frit et nappé de vincotto.", cartellate_allergens:"Gluten",
       footer_privacy:"Politique de Confidentialité", footer_cookie:"Préférences Cookies",
-      featured_eyebrow:"En vedette", featured_tagline:"Truffe noire, mozzarella et cèpes",
-      bestseller_title:"Meilleures ventes", bestseller_badge:"Best-seller",
       bn_home:"Accueil", bn_menu:"Menu", bn_book:"Réserver", bn_contact:"Contact"
     }},
     de:{ translation:{
@@ -1059,8 +956,6 @@ i18next.init({
       tiramisu:"Hausgemachtes Tiramisù", tiramisu_desc:"Der klassische italienische Nachtisch, nach Hausrezept mit frischem Mascarpone.", tiramisu_allergens:"Gluten, Laktose, Eier",
       cartellate:"Apulische Cartellate", cartellate_desc:"Traditionelles apulisches Weihnachtsgebäck, frittiert und mit Vincotto überzogen.", cartellate_allergens:"Gluten",
       footer_privacy:"Datenschutzerklärung", footer_cookie:"Cookie-Einstellungen",
-      featured_eyebrow:"Empfehlung", featured_tagline:"Schwarzer Trüffel, Mozzarella und Steinpilze",
-      bestseller_title:"Bestseller", bestseller_badge:"Bestseller",
       bn_home:"Start", bn_menu:"Menü", bn_book:"Reservieren", bn_contact:"Kontakt"
     }}
   }
