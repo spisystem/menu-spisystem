@@ -5,7 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
   <meta name="format-detection" content="telephone=no, date=no, address=no, email=no, url=no">
   <title>Menù — SPI System</title>
+  <meta name="description" content="Menù digitale: rosticceria, panzerotti pugliesi, bevande, alcolici e dolci. Sfoglia il menù completo nella tua lingua.">
+  <meta name="theme-color" content="#080c14">
+  <link rel="icon" type="image/png" href="images/logospi1.PNG">
   <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdn.jsdelivr.net/npm/i18next@21.6.3/i18next.min.js"></script>
   <style>
     *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
@@ -53,7 +57,8 @@
       white-space:nowrap;user-select:none;flex-shrink:0;
     }
     .language-selector:hover{background:var(--brown-soft);border-color:var(--brown-border)}
-    .lang-flag{font-size:1.45rem;line-height:1;flex-shrink:0}
+    .lang-globe{width:16px;height:16px;stroke:var(--brown-light);fill:none;stroke-width:1.6;stroke-linecap:round;flex-shrink:0}
+    .lang-code{font-family:'Poppins',sans-serif;font-size:.78rem;font-weight:700;letter-spacing:.05em;color:var(--brown-light);flex-shrink:0}
     .lang-chevron{width:13px;height:13px;stroke:var(--muted);fill:none;stroke-width:2.5;stroke-linecap:round;transition:transform .3s;flex-shrink:0}
     .language-selector.open .lang-chevron{transform:rotate(180deg)}
     .language-dropdown{
@@ -67,7 +72,12 @@
       display:flex;align-items:center;gap:10px;padding:12px 16px;
       text-decoration:none;color:var(--text);font-size:.88rem;white-space:nowrap;transition:background .18s;
     }
-    .language-dropdown a .flag{font-size:1.25rem;flex-shrink:0}
+    .language-dropdown a .lang-item-code{
+      font-size:.68rem;font-weight:700;letter-spacing:.04em;
+      color:var(--brown-light);background:var(--brown-soft);
+      border:1px solid var(--brown-border);border-radius:6px;
+      min-width:28px;text-align:center;padding:2px 6px;flex-shrink:0;
+    }
     .language-dropdown a:hover{background:var(--brown-soft)}
 
     .menu-header{text-align:center;padding:36px 24px 12px}
@@ -374,6 +384,50 @@
       .modal-body{padding:18px 20px 22px}
     }
 
+    .cat-tab i{ font-size:.82rem; opacity:.75; transition:opacity .25s; }
+    .cat-tab.active i{ opacity:1; }
+
+    .product-thumb{
+      width:56px;height:56px;border-radius:12px;overflow:hidden;flex-shrink:0;
+      background:rgba(255,255,255,.04);border:1px solid var(--border);
+      display:flex;align-items:center;justify-content:center;
+    }
+    .product-thumb img{ width:100%;height:100%;object-fit:cover;display:block; }
+    .product-thumb-empty i{ font-size:1rem;color:var(--muted);opacity:.5; }
+
+    .badge-new{ animation:badgePulse 2.4s ease-in-out infinite; }
+    @keyframes badgePulse{
+      0%,100%{ box-shadow:0 0 0 0 rgba(141,164,190,.45); }
+      50%{ box-shadow:0 0 0 5px rgba(141,164,190,0); }
+    }
+
+    .print-btn{
+      display:inline-flex;align-items:center;gap:8px;margin-top:18px;
+      background:transparent;border:1px solid var(--border);color:var(--muted);
+      font-family:'Poppins',sans-serif;font-size:.78rem;font-weight:500;
+      padding:9px 18px;border-radius:99px;cursor:pointer;
+      transition:border-color .2s,color .2s,background .2s;
+    }
+    .print-btn:hover{ color:var(--brown-light);border-color:var(--brown-border);background:var(--brown-soft); }
+    .cat-print-title{ display:none; }
+
+    @media print{
+      nav, .search-wrap, .cat-tabs-wrap, .scroll-top, .modal, .print-btn, .footer-links { display:none !important; }
+      body{ padding-top:0; background:#fff; color:#000; }
+      .cat-panel{ display:block !important; page-break-inside:avoid; }
+      .cat-print-title{ display:block !important; font-family:'Lora',serif; color:#000; font-size:1.15rem; margin:22px 0 10px; }
+      .product-item{ border:1px solid #ccc; background:#fff; color:#000; break-inside:avoid; }
+      .product-thumb{ display:none; }
+      .product-name, .product-price{ color:#000; }
+      .detail-hint{ display:none; }
+      .badge-new{ animation:none; background:#000; }
+      footer{ background:#fff; color:#444; }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      *, *::before, *::after{ animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; }
+    }
+
     a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible {
       outline:2px solid var(--brown-light); outline-offset:2px; border-radius:4px;
     }
@@ -390,14 +444,15 @@
     <div class="nav-logo"><img src="images/logospi1.PNG" alt="SPI System"></div>
   </div>
   <div class="language-selector" id="langSelector">
-    <span class="lang-flag" id="currentFlag">🇮🇹</span>
+    <svg class="lang-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><line x1="3" y1="12" x2="21" y2="12"/><path d="M12 3c2.3 2.6 3.6 5.6 3.6 9s-1.3 6.4-3.6 9c-2.3-2.6-3.6-5.6-3.6-9s1.3-6.4 3.6-9z"/></svg>
+    <span class="lang-code" id="currentLangCode">IT</span>
     <svg class="lang-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
     <div class="language-dropdown" id="langDropdown">
-      <a href="#" onclick="changeLanguage(event,'it')"><span class="flag">🇮🇹</span> Italiano</a>
-      <a href="#" onclick="changeLanguage(event,'en')"><span class="flag">🇬🇧</span> English</a>
-      <a href="#" onclick="changeLanguage(event,'es')"><span class="flag">🇪🇸</span> Español</a>
-      <a href="#" onclick="changeLanguage(event,'fr')"><span class="flag">🇫🇷</span> Français</a>
-      <a href="#" onclick="changeLanguage(event,'de')"><span class="flag">🇩🇪</span> Deutsch</a>
+      <a href="#" onclick="changeLanguage(event,'it')"><span class="lang-item-code">IT</span> Italiano</a>
+      <a href="#" onclick="changeLanguage(event,'en')"><span class="lang-item-code">EN</span> English</a>
+      <a href="#" onclick="changeLanguage(event,'es')"><span class="lang-item-code">ES</span> Español</a>
+      <a href="#" onclick="changeLanguage(event,'fr')"><span class="lang-item-code">FR</span> Français</a>
+      <a href="#" onclick="changeLanguage(event,'de')"><span class="lang-item-code">DE</span> Deutsch</a>
     </div>
   </div>
 </nav>
@@ -407,6 +462,9 @@
   <h1 class="menu-title" id="menu-title">Il nostro Menù</h1>
   <p class="menu-sub" id="menu-sub">Scegli una categoria per esplorare</p>
   <div class="gold-rule"></div>
+  <button class="print-btn" id="printMenuBtn" onclick="window.print()">
+    <i class="fas fa-print"></i> <span id="print-btn-label">Stampa il menù</span>
+  </button>
 </div>
 
 <div class="search-wrap">
@@ -423,22 +481,22 @@
 <div class="cat-tabs-wrap" id="catTabsWrap">
   <div class="cat-tabs" id="catTabs">
     <div class="cat-tab active" data-target="cat-rosticceria" onclick="selectTab(this)">
-      <span data-key="rosticceria">Rosticceria</span><span class="tab-count">3</span>
+      <i class="fas fa-drumstick-bite"></i><span data-key="rosticceria">Rosticceria</span><span class="tab-count">3</span>
     </div>
     <div class="cat-tab" data-target="cat-panzerotti" onclick="selectTab(this)">
-      <span data-key="panzerotti">Panzerotti</span><span class="tab-count">2</span>
+      <i class="fas fa-bread-slice"></i><span data-key="panzerotti">Panzerotti</span><span class="tab-count">2</span>
     </div>
     <div class="cat-tab" data-target="cat-speciali" onclick="selectTab(this)">
-      <span data-key="speciali">Panzerotti Speciali</span><span class="tab-count">3</span>
+      <i class="fas fa-star"></i><span data-key="speciali">Panzerotti Speciali</span><span class="tab-count">3</span>
     </div>
     <div class="cat-tab" data-target="cat-bevande" onclick="selectTab(this)">
-      <span data-key="bevande">Bevande</span><span class="tab-count">3</span>
+      <i class="fas fa-glass-water"></i><span data-key="bevande">Bevande</span><span class="tab-count">3</span>
     </div>
     <div class="cat-tab" data-target="cat-alcolici" onclick="selectTab(this)">
-      <span data-key="alcolici">Alcolici</span><span class="tab-count">2</span>
+      <i class="fas fa-wine-bottle"></i><span data-key="alcolici">Alcolici</span><span class="tab-count">2</span>
     </div>
     <div class="cat-tab" data-target="cat-dolci" onclick="selectTab(this)">
-      <span data-key="dolci">Dolci</span><span class="tab-count">2</span>
+      <i class="fas fa-cookie-bite"></i><span data-key="dolci">Dolci</span><span class="tab-count">2</span>
     </div>
   </div>
 </div>
@@ -585,7 +643,7 @@
 <footer>
   <p class="footer-brand">Spi System di Giuseppe Spizzico — P. IVA 08791580726</p>
   <p class="footer-copy">&copy; 2026 Menù demo Spi System</p>
-  <p class="footer-created">Created by <a href="https://wa.me/393935560714" target="_blank">SPI System</a></p>
+  <p class="footer-created"><span id="footer-created-label">Sito realizzato da</span> <a href="https://wa.me/393935560714" target="_blank">SPI System</a></p>
   <p class="footer-links"><a href="privacy.html" id="footer-privacy-link">Privacy Policy</a> · <a href="#" id="footer-cookie-link">Preferenze Cookie</a></p>
 </footer>
 
@@ -741,7 +799,37 @@ const scrollBtn = document.getElementById('scrollTopBtn');
 window.addEventListener('scroll', () => scrollBtn.classList.toggle('show', window.scrollY > 200));
 scrollBtn.addEventListener('click', () => window.scrollTo({ top:0, behavior:'smooth' }));
 
-const FLAGS = { it:'🇮🇹', en:'🇬🇧', es:'🇪🇸', fr:'🇫🇷', de:'🇩🇪' };
+// MINIATURE PRODOTTO — generate automaticamente dalla foto già usata per il modale
+document.querySelectorAll('.product-item').forEach(item => {
+  const onclickAttr = item.getAttribute('onclick') || '';
+  const match = onclickAttr.match(/openModal\('([^']*)'/);
+  const src = match ? match[1] : '';
+  const left = item.querySelector('.product-left');
+  const thumb = document.createElement('div');
+  thumb.className = 'product-thumb';
+  if (src) {
+    const img = document.createElement('img');
+    img.src = src; img.alt = ''; img.loading = 'lazy';
+    thumb.appendChild(img);
+  } else {
+    thumb.classList.add('product-thumb-empty');
+    thumb.innerHTML = '<i class="fas fa-utensils"></i>';
+  }
+  left.insertBefore(thumb, left.firstChild);
+});
+
+// TITOLI CATEGORIA visibili solo in stampa (presi dalle tab esistenti)
+document.querySelectorAll('.cat-panel').forEach(panel => {
+  const tab = document.querySelector('.cat-tab[data-target="' + panel.id + '"]');
+  const label = tab ? tab.querySelector('span[data-key]') : null;
+  if (label) {
+    const h = document.createElement('h3');
+    h.className = 'cat-print-title';
+    h.setAttribute('data-key', label.getAttribute('data-key'));
+    h.textContent = label.textContent;
+    panel.insertBefore(h, panel.firstChild);
+  }
+});
 
 i18next.init({
   lng: localStorage.getItem('selectedLanguage') || 'it',
@@ -789,7 +877,8 @@ i18next.init({
       cartellate:"Cartellate pugliesi",
       cartellate_desc:"Dolce tradizionale natalizio pugliese, fritto e ricoperto di vincotto.",
       cartellate_allergens:"Glutine",
-      footer_privacy:"Privacy Policy", footer_cookie:"Preferenze Cookie"
+      footer_privacy:"Privacy Policy", footer_cookie:"Preferenze Cookie",
+      print_btn:"Stampa il menù", footer_created:"Sito realizzato da"
     }},
     en:{ translation:{
       back:"Back", menu_eyebrow:"Discover our selection",
@@ -814,7 +903,8 @@ i18next.init({
       vino:"Wine", vino_desc:"House wine, red or white, by the glass. Local Apulian production.", vino_allergens:"Sulphites",
       tiramisu:"House Tiramisù", tiramisu_desc:"The classic Italian dessert, made with fresh mascarpone according to our house recipe.", tiramisu_allergens:"Gluten, Lactose, Eggs",
       cartellate:"Apulian Cartellate", cartellate_desc:"Traditional Apulian Christmas dessert, fried and coated in vincotto syrup.", cartellate_allergens:"Gluten",
-      footer_privacy:"Privacy Policy", footer_cookie:"Cookie Preferences"
+      footer_privacy:"Privacy Policy", footer_cookie:"Cookie Preferences",
+      print_btn:"Print menu", footer_created:"Website by"
     }},
     es:{ translation:{
       back:"Volver", menu_eyebrow:"Descubre nuestras propuestas",
@@ -839,7 +929,8 @@ i18next.init({
       vino:"Vino", vino_desc:"Vino de la casa, tinto o blanco, en copa.", vino_allergens:"Sulfitos",
       tiramisu:"Tiramisú de la casa", tiramisu_desc:"El clásico postre italiano, preparado con mascarpone fresco según receta de la casa.", tiramisu_allergens:"Gluten, Lactosa, Huevos",
       cartellate:"Cartellate apulias", cartellate_desc:"Postre tradicional navideño de Apulia, frito y bañado en vincotto.", cartellate_allergens:"Gluten",
-      footer_privacy:"Política de Privacidad", footer_cookie:"Preferencias de Cookies"
+      footer_privacy:"Política de Privacidad", footer_cookie:"Preferencias de Cookies",
+      print_btn:"Imprimir menú", footer_created:"Sitio creado por"
     }},
     fr:{ translation:{
       back:"Retour", menu_eyebrow:"Découvrez nos propositions",
@@ -864,7 +955,8 @@ i18next.init({
       vino:"Vin", vino_desc:"Vin de la maison, rouge ou blanc, au verre.", vino_allergens:"Sulfites",
       tiramisu:"Tiramisù maison", tiramisu_desc:"Le classique dessert italien, préparé avec du mascarpone frais selon la recette maison.", tiramisu_allergens:"Gluten, Lactose, Œufs",
       cartellate:"Cartellate des Pouilles", cartellate_desc:"Dessert traditionnel de Noël des Pouilles, frit et nappé de vincotto.", cartellate_allergens:"Gluten",
-      footer_privacy:"Politique de Confidentialité", footer_cookie:"Préférences Cookies"
+      footer_privacy:"Politique de Confidentialité", footer_cookie:"Préférences Cookies",
+      print_btn:"Imprimer le menu", footer_created:"Site réalisé par"
     }},
     de:{ translation:{
       back:"Zurück", menu_eyebrow:"Entdecken Sie unsere Angebote",
@@ -889,7 +981,8 @@ i18next.init({
       vino:"Wein", vino_desc:"Hauswein, rot oder weiß, glasweise.", vino_allergens:"Sulfite",
       tiramisu:"Hausgemachtes Tiramisù", tiramisu_desc:"Der klassische italienische Nachtisch, nach Hausrezept mit frischem Mascarpone.", tiramisu_allergens:"Gluten, Laktose, Eier",
       cartellate:"Apulische Cartellate", cartellate_desc:"Traditionelles apulisches Weihnachtsgebäck, frittiert und mit Vincotto überzogen.", cartellate_allergens:"Gluten",
-      footer_privacy:"Datenschutzerklärung", footer_cookie:"Cookie-Einstellungen"
+      footer_privacy:"Datenschutzerklärung", footer_cookie:"Cookie-Einstellungen",
+      print_btn:"Menü drucken", footer_created:"Website erstellt von"
     }}
   }
 }, updateTexts);
@@ -914,9 +1007,12 @@ function updateTexts() {
       }
     }
   });
-  document.getElementById('currentFlag').textContent = FLAGS[i18next.language] || '🇮🇹';
+  document.getElementById('currentLangCode').textContent = (i18next.language || 'it').toUpperCase();
+  document.documentElement.lang = i18next.language || 'it';
   document.getElementById('footer-privacy-link').textContent = i18next.t('footer_privacy');
   document.getElementById('footer-cookie-link').textContent  = i18next.t('footer_cookie');
+  document.getElementById('footer-created-label').textContent = i18next.t('footer_created');
+  document.getElementById('print-btn-label').textContent = i18next.t('print_btn');
   if (document.getElementById('modal').classList.contains('active') && _titleKey) renderModal();
 }
 
@@ -924,6 +1020,7 @@ function changeLanguage(event, lang) {
   event.preventDefault(); event.stopPropagation();
   localStorage.setItem('selectedLanguage', lang);
   i18next.changeLanguage(lang, updateTexts);
+  document.documentElement.lang = lang;
   langDropdown.classList.remove('open');
   langSelector.classList.remove('open');
   if (typeof spiRefreshCookieBannerTexts === 'function') spiRefreshCookieBannerTexts();
