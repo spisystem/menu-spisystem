@@ -47,25 +47,42 @@ nav {
   white-space:nowrap; user-select:none;
 }
 .language-selector:hover { background:rgba(141,164,190,0.16); border-color:var(--accent-light); }
-.lang-flag { font-size:1.4rem; line-height:1; flex-shrink:0; }
+.lang-flag {
+  width:26px; height:26px; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center;
+  border-radius:50%;
+  background:linear-gradient(135deg,#1a2438,#243350);
+  border:1px solid var(--accent-border);
+  font-size:0.62rem; font-weight:700; letter-spacing:0.02em;
+  color:var(--accent-light); text-transform:uppercase;
+}
 .lang-chevron { width:13px; height:13px; stroke:var(--accent-light); fill:none; stroke-width:2.5; stroke-linecap:round; transition:transform 0.3s; flex-shrink:0; }
 .language-selector.open .lang-chevron { transform:rotate(180deg); }
 .language-dropdown {
   display:none; position:absolute; top:calc(100% + 10px); right:0;
   background:#13192a; border:1px solid var(--accent-border); border-radius:14px;
-  overflow:hidden; box-shadow:0 20px 50px rgba(0,0,0,0.35); z-index:1002; min-width:155px;
+  overflow:hidden; box-shadow:0 20px 50px rgba(0,0,0,0.35); z-index:1002; min-width:165px;
 }
 .language-dropdown.open { display:block; animation:dropIn 0.18s ease; }
 @keyframes dropIn { from{opacity:0;transform:translateY(-6px)} to{opacity:1;transform:translateY(0)} }
 .language-dropdown a {
-  display:flex; align-items:center; gap:10px; padding:12px 16px;
+  display:flex; align-items:center; gap:11px; padding:12px 16px;
   text-decoration:none; color:var(--text); font-size:0.88rem;
   white-space:nowrap; transition:background 0.18s;
   border-bottom:1px solid rgba(255,255,255,0.05);
 }
 .language-dropdown a:last-child { border-bottom:none; }
-.language-dropdown a .flag { font-size:1.2rem; flex-shrink:0; }
+.language-dropdown a .flag {
+  width:24px; height:24px; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center;
+  border-radius:50%;
+  background:rgba(141,164,190,0.12);
+  border:1px solid var(--accent-border);
+  font-size:0.6rem; font-weight:700; letter-spacing:0.02em;
+  color:var(--accent-light); text-transform:uppercase;
+}
 .language-dropdown a:hover { background:var(--accent-soft); }
+.language-dropdown a:hover .flag { background:var(--accent); color:#0d1220; }
 
 /* HERO */
 .hero {
@@ -227,12 +244,25 @@ nav {
   color:var(--text);
   text-decoration:none;
   display:block;
-  margin-bottom:18px;
+  margin-bottom:10px;
   transition:color 0.2s;
 }
 .contact-phone-link:hover { color:var(--accent-light); }
 
-.social-row { display:flex; justify-content:center; gap:10px; margin-top:16px; }
+.contact-email-link {
+  display:inline-flex; align-items:center; gap:7px;
+  font-size:0.84rem;
+  color:var(--accent-light);
+  text-decoration:none;
+  margin-bottom:14px;
+  opacity:0.9;
+  word-break:break-word;
+  transition:opacity 0.2s;
+}
+.contact-email-link:hover { opacity:1; text-decoration:underline; }
+.contact-email-link i { font-size:0.78rem; flex-shrink:0; }
+
+.social-row { display:flex; justify-content:center; gap:10px; margin-top:16px; flex-wrap:wrap; }
 .social-row a {
   width:38px; height:38px;
   border:1px solid rgba(141,164,190,0.22);
@@ -261,7 +291,7 @@ nav {
 .reservation-form label { font-size:0.78rem; letter-spacing:0.04em; color:var(--accent-light); font-weight:600; }
 .reservation-form input, .reservation-form select, .reservation-form textarea {
   background:rgba(255,255,255,0.03); border:1px solid var(--accent-border); border-radius:10px;
-  padding:0 14px; color:var(--text); font-family:'Poppins',sans-serif; font-size:0.9rem;
+  padding:0 14px; color:var(--text); font-family:'Poppins',sans-serif; font-size:16px;
   outline:none; transition:border-color 0.2s, background 0.2s; width:100%;
   height:48px; box-sizing:border-box;
 }
@@ -494,14 +524,14 @@ a:focus-visible, button:focus-visible { outline:2px solid var(--accent); outline
 <nav>
   <div class="nav-logo"><img src="images/logospi1.PNG" alt="SPI System"></div>
   <div class="language-selector" id="langSelector">
-    <span class="lang-flag" id="currentFlag">🇮🇹</span>
+    <span class="lang-flag" id="currentFlag">IT</span>
     <svg class="lang-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
     <div class="language-dropdown" id="langDropdown">
-      <a href="#" onclick="changeLanguage(event,'it')"><span class="flag">🇮🇹</span> Italiano</a>
-      <a href="#" onclick="changeLanguage(event,'en')"><span class="flag">🇬🇧</span> English</a>
-      <a href="#" onclick="changeLanguage(event,'es')"><span class="flag">🇪🇸</span> Español</a>
-      <a href="#" onclick="changeLanguage(event,'fr')"><span class="flag">🇫🇷</span> Français</a>
-      <a href="#" onclick="changeLanguage(event,'de')"><span class="flag">🇩🇪</span> Deutsch</a>
+      <a href="#" onclick="changeLanguage(event,'it')"><span class="flag">IT</span> Italiano</a>
+      <a href="#" onclick="changeLanguage(event,'en')"><span class="flag">EN</span> English</a>
+      <a href="#" onclick="changeLanguage(event,'es')"><span class="flag">ES</span> Español</a>
+      <a href="#" onclick="changeLanguage(event,'fr')"><span class="flag">FR</span> Français</a>
+      <a href="#" onclick="changeLanguage(event,'de')"><span class="flag">DE</span> Deutsch</a>
     </div>
   </div>
 </nav>
@@ -567,6 +597,9 @@ a:focus-visible, button:focus-visible { outline:2px solid var(--accent); outline
       </div>
       <h3 id="contact-title">Contatti</h3>
       <a class="contact-phone-link" href="tel:+393342732997" id="contact-phone">334 273 2997</a>
+      <a class="contact-email-link" href="mailto:spisystem20@gmail.com" id="contact-email">
+        <i class="fas fa-envelope"></i><span>spisystem20@gmail.com</span>
+      </a>
       <div class="social-row">
         <a href="https://www.instagram.com/giuseppespizzico__" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
         <a href="https://www.tiktok.com/@._giuspi" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
@@ -662,7 +695,7 @@ a:focus-visible, button:focus-visible { outline:2px solid var(--accent); outline
 <footer>
   <p class="footer-brand">Spi System di Giuseppe Spizzico — P. IVA 08791580726</p>
   <p class="footer-copy">&copy; 2026 Menù demo Spi System</p>
-  <p class="footer-created">Created by <a href="https://wa.me/393935560714" target="_blank">SPI System</a></p>
+  <p class="footer-created"><span id="footer-created-text">Realizzato da</span> <a href="https://wa.me/393935560714" target="_blank">SPI System</a></p>
   <p class="footer-links"><a href="privacy.html" id="footer-privacy-link">Privacy Policy</a> · <a href="#" id="footer-cookie-link">Preferenze Cookie</a></p>
 </footer>
 
@@ -672,11 +705,12 @@ a:focus-visible, button:focus-visible { outline:2px solid var(--accent); outline
 
 <script>
 // ═══════════════════════════════════════════
-// LINGUA: sempre italiano di default alla prima visita
+// LINGUA: ogni nuova sessione (nuova scansione QR) parte sempre in italiano
 // ═══════════════════════════════════════════
 (function(){
-  if(!localStorage.getItem('spiLangChosen')){
+  if(!sessionStorage.getItem('spiSessionActive')){
     localStorage.setItem('selectedLanguage','it');
+    sessionStorage.setItem('spiSessionActive','1');
   }
 })();
 
@@ -733,7 +767,7 @@ var obs=new IntersectionObserver(function(entries){
 },{threshold:0.12});
 document.querySelectorAll('.info-card').forEach(function(c){obs.observe(c);});
 
-var FLAGS={it:'🇮🇹',en:'🇬🇧',es:'🇪🇸',fr:'🇫🇷',de:'🇩🇪'};
+var FLAGS={it:'IT',en:'EN',es:'ES',fr:'FR',de:'DE'};
 
 i18next.init({
   lng: localStorage.getItem('selectedLanguage') || 'it',
@@ -752,7 +786,7 @@ i18next.init({
       contact_label:"Contatti",contact_title:"Scrivici o chiamaci",contact_phone:"334 273 2997",
       cta_label:"Vuoi un menù come questo?",cta_title:"Porta il tuo locale nel digitale",
       cta_sub:"Contattaci su WhatsApp o telefonicamente. Realizziamo il tuo menù QR in pochi giorni.",cta_btn:"Contattaci su WhatsApp",
-      footer_privacy:"Privacy Policy",footer_cookie:"Preferenze Cookie",
+      footer_privacy:"Privacy Policy",footer_cookie:"Preferenze Cookie",footer_created:"Realizzato da",
       reservation_eyebrow:"Prenotazioni",reservation_title:"Riserva il tuo tavolo",
       reservation_desc:"Compila il modulo e invia la richiesta di prenotazione direttamente su WhatsApp: ti risponderemo al più presto per confermare.",
       label_name:"Nome e Cognome",label_people:"Numero di persone",label_date:"Data",label_time:"Ora",label_notes:"Note (opzionale)",
@@ -778,7 +812,7 @@ i18next.init({
       contact_label:"Contacts",contact_title:"Call or write us",contact_phone:"334 273 2997",
       cta_label:"Want a menu like this?",cta_title:"Bring your venue into the digital age",
       cta_sub:"Contact us on WhatsApp or by phone. We'll create your QR menu in just a few days.",cta_btn:"Contact us on WhatsApp",
-      footer_privacy:"Privacy Policy",footer_cookie:"Cookie Preferences",
+      footer_privacy:"Privacy Policy",footer_cookie:"Cookie Preferences",footer_created:"Created by",
       reservation_eyebrow:"Reservations",reservation_title:"Reserve your table",
       reservation_desc:"Fill out the form and send your reservation request directly on WhatsApp: we'll get back to you shortly to confirm.",
       label_name:"Full Name",label_people:"Number of people",label_date:"Date",label_time:"Time",label_notes:"Notes (optional)",
@@ -804,7 +838,7 @@ i18next.init({
       contact_label:"Contacto",contact_title:"Llámanos o escríbenos",contact_phone:"334 273 2997",
       cta_label:"¿Quieres un menú como este?",cta_title:"Lleva tu local al mundo digital",
       cta_sub:"Contáctanos por WhatsApp o teléfono.",cta_btn:"Contáctanos en WhatsApp",
-      footer_privacy:"Política de Privacidad",footer_cookie:"Preferencias de Cookies",
+      footer_privacy:"Política de Privacidad",footer_cookie:"Preferencias de Cookies",footer_created:"Creado por",
       reservation_eyebrow:"Reservas",reservation_title:"Reserva tu mesa",
       reservation_desc:"Completa el formulario y envía tu solicitud de reserva directamente por WhatsApp.",
       label_name:"Nombre y Apellido",label_people:"Número de personas",label_date:"Fecha",label_time:"Hora",label_notes:"Notas (opcional)",
@@ -830,7 +864,7 @@ i18next.init({
       contact_label:"Contacts",contact_title:"Appelez-nous ou écrivez",contact_phone:"334 273 2997",
       cta_label:"Vous voulez un menu comme celui-ci?",cta_title:"Passez au numérique",
       cta_sub:"Contactez-nous sur WhatsApp ou par téléphone.",cta_btn:"Contactez-nous sur WhatsApp",
-      footer_privacy:"Politique de Confidentialité",footer_cookie:"Préférences Cookies",
+      footer_privacy:"Politique de Confidentialité",footer_cookie:"Préférences Cookies",footer_created:"Créé par",
       reservation_eyebrow:"Réservations",reservation_title:"Réservez votre table",
       reservation_desc:"Remplissez le formulaire et envoyez votre demande directement sur WhatsApp.",
       label_name:"Nom et prénom",label_people:"Nombre de personnes",label_date:"Date",label_time:"Heure",label_notes:"Notes (facultatif)",
@@ -856,7 +890,7 @@ i18next.init({
       contact_label:"Kontakt",contact_title:"Rufen Sie uns an oder schreiben Sie",contact_phone:"334 273 2997",
       cta_label:"Möchten Sie ein solches Menü?",cta_title:"Bringen Sie Ihr Lokal ins Digitale",
       cta_sub:"Kontaktieren Sie uns per WhatsApp oder Telefon.",cta_btn:"WhatsApp kontaktieren",
-      footer_privacy:"Datenschutzerklärung",footer_cookie:"Cookie-Einstellungen",
+      footer_privacy:"Datenschutzerklärung",footer_cookie:"Cookie-Einstellungen",footer_created:"Erstellt von",
       reservation_eyebrow:"Reservierungen",reservation_title:"Reservieren Sie Ihren Tisch",
       reservation_desc:"Füllen Sie das Formular aus und senden Sie Ihre Anfrage direkt über WhatsApp.",
       label_name:"Vor- und Nachname",label_people:"Anzahl der Personen",label_date:"Datum",label_time:"Uhrzeit",label_notes:"Anmerkungen (optional)",
@@ -898,6 +932,7 @@ function updateTexts(){
   set('cta-btn-text',t('cta_btn'));
   set('footer-privacy-link',t('footer_privacy'));
   set('footer-cookie-link',t('footer_cookie'));
+  set('footer-created-text',t('footer_created'));
   set('reservation-eyebrow',t('reservation_eyebrow'));
   set('reservation-title',t('reservation_title'));
   set('reservation-desc',t('reservation_desc'));
@@ -915,14 +950,14 @@ function updateTexts(){
   if(notesEl) notesEl.setAttribute('placeholder',t('notes_placeholder'));
   var resErrEl=document.getElementById('reservation-error');
   if(resErrEl && resErrEl.classList.contains('show')) resErrEl.textContent=t('reservation_error');
-  document.getElementById('currentFlag').textContent=FLAGS[i18next.language]||'🇮🇹';
+  document.getElementById('currentFlag').textContent=FLAGS[i18next.language]||'IT';
 }
 
 function changeLanguage(event,lang){
   event.preventDefault();
   event.stopPropagation();
   localStorage.setItem('selectedLanguage',lang);
-  localStorage.setItem('spiLangChosen','1');
+  sessionStorage.setItem('spiSessionActive','1');
   i18next.changeLanguage(lang,updateTexts);
   closeDropdown();
   if(typeof spiRefreshCookieBannerTexts==='function') spiRefreshCookieBannerTexts();
