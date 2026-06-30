@@ -46,24 +46,41 @@ nav{
   transition:background .2s,border-color .2s;white-space:nowrap;user-select:none;flex-shrink:0;
 }
 .language-selector:hover{background:rgba(141,164,190,0.16);border-color:var(--accent-light)}
-.lang-flag{font-size:1.45rem;line-height:1;flex-shrink:0}
+.lang-flag{
+  width:26px;height:26px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  border-radius:50%;
+  background:linear-gradient(135deg,#1a2438,#243350);
+  border:1px solid var(--accent-border);
+  font-size:0.62rem;font-weight:700;letter-spacing:.02em;
+  color:var(--accent-light);text-transform:uppercase;
+}
 .lang-chevron{width:13px;height:13px;stroke:var(--accent-light);fill:none;stroke-width:2.5;stroke-linecap:round;transition:transform .3s;flex-shrink:0}
 .language-selector.open .lang-chevron{transform:rotate(180deg)}
 .language-dropdown{
   display:none;position:absolute;top:calc(100% + 10px);right:0;
   background:#13192a;border:1px solid var(--accent-border);border-radius:14px;
-  overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,.35);z-index:1002;min-width:155px;
+  overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,.35);z-index:1002;min-width:165px;
 }
 .language-dropdown.open{display:block;animation:dropIn .18s ease}
 @keyframes dropIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
 .language-dropdown a{
-  display:flex;align-items:center;gap:10px;padding:12px 16px;
+  display:flex;align-items:center;gap:11px;padding:12px 16px;
   text-decoration:none;color:var(--text);font-size:.88rem;white-space:nowrap;transition:background .18s;
   border-bottom:1px solid rgba(255,255,255,0.05);
 }
 .language-dropdown a:last-child{border-bottom:none}
-.language-dropdown a .flag{font-size:1.2rem;flex-shrink:0}
+.language-dropdown a .flag{
+  width:24px;height:24px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  border-radius:50%;
+  background:rgba(141,164,190,0.12);
+  border:1px solid var(--accent-border);
+  font-size:0.6rem;font-weight:700;letter-spacing:.02em;
+  color:var(--accent-light);text-transform:uppercase;
+}
 .language-dropdown a:hover{background:var(--accent-soft)}
+.language-dropdown a:hover .flag{background:var(--accent);color:#0d1220}
 
 .page-header{text-align:center;padding:48px 24px 20px}
 .page-eyebrow{font-size:.68rem;letter-spacing:.26em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
@@ -76,6 +93,7 @@ nav{
 .policy-section{
   background-color:var(--card);border:1px solid var(--accent-border);
   border-radius:18px;padding:32px 34px;margin-bottom:18px;
+  overflow:hidden;
 }
 .policy-section h2{
   font-family:'Lora',serif;font-size:1.25rem;color:var(--accent-light);
@@ -86,17 +104,31 @@ nav{
   background:var(--accent-soft);border:1px solid var(--accent-border);
   display:flex;align-items:center;justify-content:center;color:var(--accent-light);flex-shrink:0;
 }
-.policy-section p{font-size:.92rem;color:var(--muted);line-height:1.8;margin-bottom:12px}
+.policy-section p{font-size:.92rem;color:var(--muted);line-height:1.8;margin-bottom:12px;word-break:break-word}
 .policy-section p:last-child{margin-bottom:0}
 .policy-section ul{margin:10px 0 12px 0;padding-left:20px}
-.policy-section li{font-size:.92rem;color:var(--muted);line-height:1.8;margin-bottom:6px}
+.policy-section li{font-size:.92rem;color:var(--muted);line-height:1.8;margin-bottom:6px;word-break:break-word}
 .policy-section strong{color:var(--text);font-weight:600}
 .policy-section a{color:var(--accent-light);text-decoration:none}
 .policy-section a:hover{text-decoration:underline}
 
-.policy-table{width:100%;border-collapse:collapse;margin-top:8px;font-size:.85rem}
-.policy-table th,.policy-table td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--border);color:var(--muted)}
+/* FIX iPhone: la tabella non deve più uscire dal riquadro. Wrapper con scroll orizzontale + testo che va a capo. */
+.policy-table-wrap{
+  width:100%;
+  max-width:100%;
+  overflow-x:auto;
+  -webkit-overflow-scrolling:touch;
+  margin-top:8px;
+  border-radius:10px;
+}
+.policy-table{width:100%;min-width:420px;border-collapse:collapse;font-size:.85rem;table-layout:fixed}
+.policy-table th,.policy-table td{
+  text-align:left;padding:10px 12px;border-bottom:1px solid var(--border);color:var(--muted);
+  white-space:normal;word-break:break-word;overflow-wrap:break-word;vertical-align:top;
+}
 .policy-table th{color:var(--accent);font-weight:600;font-size:.78rem;letter-spacing:.03em;text-transform:uppercase}
+.policy-table th:first-child,.policy-table td:first-child{width:32%}
+.policy-table th:last-child,.policy-table td:last-child{width:34%}
 
 footer{
   border-top:1px solid var(--border);background-color:var(--card2);
@@ -176,7 +208,13 @@ footer,footer *{-webkit-text-size-adjust:100%;-webkit-font-smoothing:antialiased
 .spi-switch.disabled .spi-slider{opacity:.5;cursor:not-allowed}
 
 @media(max-width:768px){nav{padding:0 18px;height:88px}.nav-logo img{height:72px}.policy-section{padding:24px 22px}}
-@media(max-width:600px){.spi-cookie-card{flex-direction:column;padding:20px}.spi-cookie-actions{justify-content:stretch}.spi-cookie-btn{flex:1}}
+@media(max-width:600px){
+  .spi-cookie-card{flex-direction:column;padding:20px}
+  .spi-cookie-actions{justify-content:stretch}
+  .spi-cookie-btn{flex:1}
+  .policy-table{font-size:.78rem;min-width:380px}
+  .policy-table th,.policy-table td{padding:8px 8px}
+}
 a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
 </style>
 </head>
@@ -192,14 +230,14 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-off
     <div class="nav-logo"><img src="images/logospi1.PNG" alt="SPI System"></div>
   </div>
   <div class="language-selector" id="langSelector">
-    <span class="lang-flag" id="currentFlag">🇮🇹</span>
+    <span class="lang-flag" id="currentFlag">IT</span>
     <svg class="lang-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
     <div class="language-dropdown" id="langDropdown">
-      <a href="#" onclick="changeLanguage(event,'it')"><span class="flag">🇮🇹</span> Italiano</a>
-      <a href="#" onclick="changeLanguage(event,'en')"><span class="flag">🇬🇧</span> English</a>
-      <a href="#" onclick="changeLanguage(event,'es')"><span class="flag">🇪🇸</span> Español</a>
-      <a href="#" onclick="changeLanguage(event,'fr')"><span class="flag">🇫🇷</span> Français</a>
-      <a href="#" onclick="changeLanguage(event,'de')"><span class="flag">🇩🇪</span> Deutsch</a>
+      <a href="#" onclick="changeLanguage(event,'it')"><span class="flag">IT</span> Italiano</a>
+      <a href="#" onclick="changeLanguage(event,'en')"><span class="flag">EN</span> English</a>
+      <a href="#" onclick="changeLanguage(event,'es')"><span class="flag">ES</span> Español</a>
+      <a href="#" onclick="changeLanguage(event,'fr')"><span class="flag">FR</span> Français</a>
+      <a href="#" onclick="changeLanguage(event,'de')"><span class="flag">DE</span> Deutsch</a>
     </div>
   </div>
 </nav>
@@ -229,13 +267,15 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-off
   <div class="policy-section">
     <h2><span class="num">3</span><span id="s3-title">Cookie e tecnologie simili</span></h2>
     <p id="s3-text">Il sito utilizza esclusivamente <strong>cookie tecnici necessari</strong> al corretto funzionamento, salvati localmente nel browser (localStorage). Non vengono utilizzati cookie di tracciamento, profilazione o pubblicità.</p>
-    <table class="policy-table">
-      <thead><tr><th id="th-name">Nome</th><th id="th-purpose">Finalità</th><th id="th-duration">Durata</th></tr></thead>
-      <tbody>
-        <tr><td>selectedLanguage</td><td id="tr1-purpose">Memorizza la lingua selezionata</td><td id="tr1-duration">Permanente (fino a cancellazione manuale)</td></tr>
-        <tr><td>spi-cookie-consent</td><td id="tr2-purpose">Memorizza la scelta sui cookie</td><td id="tr2-duration">Permanente (fino a cancellazione manuale)</td></tr>
-      </tbody>
-    </table>
+    <div class="policy-table-wrap">
+      <table class="policy-table">
+        <thead><tr><th id="th-name">Nome</th><th id="th-purpose">Finalità</th><th id="th-duration">Durata</th></tr></thead>
+        <tbody>
+          <tr><td>selectedLanguage</td><td id="tr1-purpose">Memorizza la lingua selezionata</td><td id="tr1-duration">Permanente (fino a cancellazione manuale)</td></tr>
+          <tr><td>spi-cookie-consent</td><td id="tr2-purpose">Memorizza la scelta sui cookie</td><td id="tr2-duration">Permanente (fino a cancellazione manuale)</td></tr>
+        </tbody>
+      </table>
+    </div>
     <p id="s3-text2" style="margin-top:14px">Puoi modificare le tue preferenze in qualsiasi momento tramite il link "Preferenze Cookie" in fondo al sito.</p>
   </div>
   <div class="policy-section">
@@ -277,11 +317,19 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-off
 <footer>
   <p class="footer-brand">Spi System di Giuseppe Spizzico — P. IVA 08791580726</p>
   <p class="footer-copy">&copy; 2026 Menù demo Spi System</p>
-  <p class="footer-created">Created by <a href="https://wa.me/393935560714" target="_blank">SPI System</a></p>
+  <p class="footer-created"><span id="footer-created-text">Realizzato da</span> <a href="https://wa.me/393935560714" target="_blank">SPI System</a></p>
   <p class="footer-links"><a href="index.html" id="footer-home-link">Torna alla Home</a> · <a href="#" id="footer-cookie-link">Preferenze Cookie</a></p>
 </footer>
 
 <script>
+// LINGUA: ogni nuova sessione (nuova scansione QR) parte sempre in italiano
+(function(){
+  if(!sessionStorage.getItem('spiSessionActive')){
+    localStorage.setItem('selectedLanguage','it');
+    sessionStorage.setItem('spiSessionActive','1');
+  }
+})();
+
 const langSelector=document.getElementById('langSelector');
 const langDropdown=document.getElementById('langDropdown');
 langSelector.addEventListener('click',e=>{
@@ -292,7 +340,7 @@ langSelector.addEventListener('click',e=>{
 document.addEventListener('click',()=>{ langDropdown.classList.remove('open'); langSelector.classList.remove('open'); });
 function closeDropdown(){ langDropdown.classList.remove('open'); langSelector.classList.remove('open'); }
 
-const FLAGS={it:'🇮🇹',en:'🇬🇧',es:'🇪🇸',fr:'🇫🇷',de:'🇩🇪'};
+const FLAGS={it:'IT',en:'EN',es:'ES',fr:'FR',de:'DE'};
 
 i18next.init({
   lng:localStorage.getItem('selectedLanguage')||'it',
@@ -322,7 +370,7 @@ i18next.init({
       s7_li1:"<strong>Google Fonts</strong> — caricamento font tipografici;",s7_li2:"<strong>Font Awesome</strong> — icone grafiche;",
       s7_li3:"<strong>WhatsApp / Meta</strong> — se si avvia una chat tramite il pulsante WhatsApp;",s7_li4:"<strong>Google Maps</strong> — se si clicca sul link per la posizione.",
       s8_title:"Modifiche alla presente informativa",s8_text:"Questa informativa può essere aggiornata periodicamente. Eventuali modifiche saranno pubblicate in questa pagina con indicazione della data di ultimo aggiornamento.",
-      footer_home:"Torna alla Home",footer_cookie:"Preferenze Cookie"
+      footer_home:"Torna alla Home",footer_cookie:"Preferenze Cookie",footer_created:"Realizzato da"
     }},
     en:{translation:{
       back:"Back",eyebrow:"Notice",page_title:"Privacy Policy",page_updated:"Last updated: June 19, 2026",
@@ -345,7 +393,7 @@ i18next.init({
       s7_li1:"<strong>Google Fonts</strong> — font loading;",s7_li2:"<strong>Font Awesome</strong> — graphic icons;",
       s7_li3:"<strong>WhatsApp / Meta</strong> — if a chat is started via the WhatsApp button;",s7_li4:"<strong>Google Maps</strong> — if the location link is clicked.",
       s8_title:"Changes to this notice",s8_text:"This notice may be updated periodically. Any changes will be published on this page.",
-      footer_home:"Back to Home",footer_cookie:"Cookie Preferences"
+      footer_home:"Back to Home",footer_cookie:"Cookie Preferences",footer_created:"Created by"
     }},
     es:{translation:{
       back:"Volver",eyebrow:"Aviso",page_title:"Política de Privacidad",page_updated:"Última actualización: 19 de junio de 2026",
@@ -368,7 +416,7 @@ i18next.init({
       s7_li1:"<strong>Google Fonts</strong>;",s7_li2:"<strong>Font Awesome</strong>;",
       s7_li3:"<strong>WhatsApp / Meta</strong>;",s7_li4:"<strong>Google Maps</strong>.",
       s8_title:"Cambios",s8_text:"Este aviso puede actualizarse periódicamente.",
-      footer_home:"Volver al Inicio",footer_cookie:"Preferencias de Cookies"
+      footer_home:"Volver al Inicio",footer_cookie:"Preferencias de Cookies",footer_created:"Creado por"
     }},
     fr:{translation:{
       back:"Retour",eyebrow:"Avis",page_title:"Politique de Confidentialité",page_updated:"Dernière mise à jour : 19 juin 2026",
@@ -391,7 +439,7 @@ i18next.init({
       s7_li1:"<strong>Google Fonts</strong> ;",s7_li2:"<strong>Font Awesome</strong> ;",
       s7_li3:"<strong>WhatsApp / Meta</strong> ;",s7_li4:"<strong>Google Maps</strong>.",
       s8_title:"Modifications",s8_text:"Cet avis peut être mis à jour périodiquement.",
-      footer_home:"Retour à l'accueil",footer_cookie:"Préférences Cookies"
+      footer_home:"Retour à l'accueil",footer_cookie:"Préférences Cookies",footer_created:"Créé par"
     }},
     de:{translation:{
       back:"Zurück",eyebrow:"Hinweis",page_title:"Datenschutzerklärung",page_updated:"Letzte Aktualisierung: 19. Juni 2026",
@@ -414,7 +462,7 @@ i18next.init({
       s7_li1:"<strong>Google Fonts</strong>;",s7_li2:"<strong>Font Awesome</strong>;",
       s7_li3:"<strong>WhatsApp / Meta</strong>;",s7_li4:"<strong>Google Maps</strong>.",
       s8_title:"Änderungen",s8_text:"Dieser Hinweis kann regelmäßig aktualisiert werden.",
-      footer_home:"Zurück zur Startseite",footer_cookie:"Cookie-Einstellungen"
+      footer_home:"Zurück zur Startseite",footer_cookie:"Cookie-Einstellungen",footer_created:"Erstellt von"
     }}
   }
 },updateTexts);
@@ -429,7 +477,7 @@ function updateTexts(){
     'th-name':'th_name','th-purpose':'th_purpose','th-duration':'th_duration',
     'tr1-purpose':'tr1_purpose','tr1-duration':'tr1_duration',
     'tr2-purpose':'tr2_purpose','tr2-duration':'tr2_duration',
-    'footer-home-link':'footer_home','footer-cookie-link':'footer_cookie'
+    'footer-home-link':'footer_home','footer-cookie-link':'footer_cookie','footer-created-text':'footer_created'
   };
   Object.keys(ids).forEach(id=>{
     const el=document.getElementById(id); if(el) el.textContent=i18next.t(ids[id]);
@@ -440,12 +488,13 @@ function updateTexts(){
   document.getElementById('s2-list').innerHTML=`<li>${i18next.t('s2_li1')}</li><li>${i18next.t('s2_li2')}</li><li>${i18next.t('s2_li3')}</li>`;
   document.getElementById('s6-list').innerHTML=`<li>${i18next.t('s6_li1')}</li><li>${i18next.t('s6_li2')}</li><li>${i18next.t('s6_li3')}</li><li>${i18next.t('s6_li4')}</li><li>${i18next.t('s6_li5')}</li><li>${i18next.t('s6_li6')}</li>`;
   document.getElementById('s7-list').innerHTML=`<li>${i18next.t('s7_li1')}</li><li>${i18next.t('s7_li2')}</li><li>${i18next.t('s7_li3')}</li><li>${i18next.t('s7_li4')}</li>`;
-  document.getElementById('currentFlag').textContent=FLAGS[i18next.language]||'🇮🇹';
+  document.getElementById('currentFlag').textContent=FLAGS[i18next.language]||'IT';
 }
 
 function changeLanguage(event,lang){
   event.preventDefault(); event.stopPropagation();
   localStorage.setItem('selectedLanguage',lang);
+  sessionStorage.setItem('spiSessionActive','1');
   i18next.changeLanguage(lang,updateTexts);
   closeDropdown();
   if(typeof spiRefreshCookieBannerTexts==='function') spiRefreshCookieBannerTexts();
