@@ -53,22 +53,39 @@
       white-space:nowrap;user-select:none;flex-shrink:0;
     }
     .language-selector:hover{background:var(--brown-soft);border-color:var(--brown-border)}
-    .lang-flag{font-size:1.45rem;line-height:1;flex-shrink:0}
+    .lang-flag{
+      width:26px;height:26px;flex-shrink:0;
+      display:flex;align-items:center;justify-content:center;
+      border-radius:50%;
+      background:linear-gradient(135deg,#1a2438,#243350);
+      border:1px solid var(--brown-border);
+      font-size:0.62rem;font-weight:700;letter-spacing:.02em;
+      color:var(--brown-light);text-transform:uppercase;
+    }
     .lang-chevron{width:13px;height:13px;stroke:var(--muted);fill:none;stroke-width:2.5;stroke-linecap:round;transition:transform .3s;flex-shrink:0}
     .language-selector.open .lang-chevron{transform:rotate(180deg)}
     .language-dropdown{
       display:none;position:absolute;top:calc(100% + 10px);right:0;
       background:#11151f;border:1px solid var(--border);border-radius:14px;
-      overflow:hidden;box-shadow:0 24px 60px rgba(3,8,18,.14);z-index:1002;min-width:155px;
+      overflow:hidden;box-shadow:0 24px 60px rgba(3,8,18,.14);z-index:1002;min-width:165px;
     }
     .language-dropdown.open{display:block;animation:dropIn .18s ease}
     @keyframes dropIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
     .language-dropdown a{
-      display:flex;align-items:center;gap:10px;padding:12px 16px;
+      display:flex;align-items:center;gap:11px;padding:12px 16px;
       text-decoration:none;color:var(--text);font-size:.88rem;white-space:nowrap;transition:background .18s;
     }
-    .language-dropdown a .flag{font-size:1.25rem;flex-shrink:0}
+    .language-dropdown a .flag{
+      width:24px;height:24px;flex-shrink:0;
+      display:flex;align-items:center;justify-content:center;
+      border-radius:50%;
+      background:rgba(141,164,190,0.12);
+      border:1px solid var(--brown-border);
+      font-size:0.6rem;font-weight:700;letter-spacing:.02em;
+      color:var(--brown-light);text-transform:uppercase;
+    }
     .language-dropdown a:hover{background:var(--brown-soft)}
+    .language-dropdown a:hover .flag{background:var(--brown);color:#0d1220}
 
     .menu-header{text-align:center;padding:36px 24px 12px}
     .menu-eyebrow{font-size:.68rem;letter-spacing:.26em;text-transform:uppercase;color:var(--brown-light);margin-bottom:10px}
@@ -390,14 +407,14 @@
     <div class="nav-logo"><img src="images/logospi1.PNG" alt="SPI System"></div>
   </div>
   <div class="language-selector" id="langSelector">
-    <span class="lang-flag" id="currentFlag">🇮🇹</span>
+    <span class="lang-flag" id="currentFlag">IT</span>
     <svg class="lang-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
     <div class="language-dropdown" id="langDropdown">
-      <a href="#" onclick="changeLanguage(event,'it')"><span class="flag">🇮🇹</span> Italiano</a>
-      <a href="#" onclick="changeLanguage(event,'en')"><span class="flag">🇬🇧</span> English</a>
-      <a href="#" onclick="changeLanguage(event,'es')"><span class="flag">🇪🇸</span> Español</a>
-      <a href="#" onclick="changeLanguage(event,'fr')"><span class="flag">🇫🇷</span> Français</a>
-      <a href="#" onclick="changeLanguage(event,'de')"><span class="flag">🇩🇪</span> Deutsch</a>
+      <a href="#" onclick="changeLanguage(event,'it')"><span class="flag">IT</span> Italiano</a>
+      <a href="#" onclick="changeLanguage(event,'en')"><span class="flag">EN</span> English</a>
+      <a href="#" onclick="changeLanguage(event,'es')"><span class="flag">ES</span> Español</a>
+      <a href="#" onclick="changeLanguage(event,'fr')"><span class="flag">FR</span> Français</a>
+      <a href="#" onclick="changeLanguage(event,'de')"><span class="flag">DE</span> Deutsch</a>
     </div>
   </div>
 </nav>
@@ -585,7 +602,7 @@
 <footer>
   <p class="footer-brand">Spi System di Giuseppe Spizzico — P. IVA 08791580726</p>
   <p class="footer-copy">&copy; 2026 Menù demo Spi System</p>
-  <p class="footer-created">Created by <a href="https://wa.me/393935560714" target="_blank">SPI System</a></p>
+  <p class="footer-created"><span id="footer-created-text">Realizzato da</span> <a href="https://wa.me/393935560714" target="_blank">SPI System</a></p>
   <p class="footer-links"><a href="privacy.html" id="footer-privacy-link">Privacy Policy</a> · <a href="#" id="footer-cookie-link">Preferenze Cookie</a></p>
 </footer>
 
@@ -610,6 +627,14 @@
 </div>
 
 <script>
+// LINGUA: ogni nuova sessione (nuova scansione QR) parte sempre in italiano
+(function(){
+  if(!sessionStorage.getItem('spiSessionActive')){
+    localStorage.setItem('selectedLanguage','it');
+    sessionStorage.setItem('spiSessionActive','1');
+  }
+})();
+
 const langSelector = document.getElementById('langSelector');
 const langDropdown = document.getElementById('langDropdown');
 langSelector.addEventListener('click', e => {
@@ -741,7 +766,7 @@ const scrollBtn = document.getElementById('scrollTopBtn');
 window.addEventListener('scroll', () => scrollBtn.classList.toggle('show', window.scrollY > 200));
 scrollBtn.addEventListener('click', () => window.scrollTo({ top:0, behavior:'smooth' }));
 
-const FLAGS = { it:'🇮🇹', en:'🇬🇧', es:'🇪🇸', fr:'🇫🇷', de:'🇩🇪' };
+const FLAGS = { it:'IT', en:'EN', es:'ES', fr:'FR', de:'DE' };
 
 i18next.init({
   lng: localStorage.getItem('selectedLanguage') || 'it',
@@ -789,7 +814,7 @@ i18next.init({
       cartellate:"Cartellate pugliesi",
       cartellate_desc:"Dolce tradizionale natalizio pugliese, fritto e ricoperto di vincotto.",
       cartellate_allergens:"Glutine",
-      footer_privacy:"Privacy Policy", footer_cookie:"Preferenze Cookie"
+      footer_privacy:"Privacy Policy", footer_cookie:"Preferenze Cookie", footer_created:"Realizzato da"
     }},
     en:{ translation:{
       back:"Back", menu_eyebrow:"Discover our selection",
@@ -814,7 +839,7 @@ i18next.init({
       vino:"Wine", vino_desc:"House wine, red or white, by the glass. Local Apulian production.", vino_allergens:"Sulphites",
       tiramisu:"House Tiramisù", tiramisu_desc:"The classic Italian dessert, made with fresh mascarpone according to our house recipe.", tiramisu_allergens:"Gluten, Lactose, Eggs",
       cartellate:"Apulian Cartellate", cartellate_desc:"Traditional Apulian Christmas dessert, fried and coated in vincotto syrup.", cartellate_allergens:"Gluten",
-      footer_privacy:"Privacy Policy", footer_cookie:"Cookie Preferences"
+      footer_privacy:"Privacy Policy", footer_cookie:"Cookie Preferences", footer_created:"Created by"
     }},
     es:{ translation:{
       back:"Volver", menu_eyebrow:"Descubre nuestras propuestas",
@@ -839,7 +864,7 @@ i18next.init({
       vino:"Vino", vino_desc:"Vino de la casa, tinto o blanco, en copa.", vino_allergens:"Sulfitos",
       tiramisu:"Tiramisú de la casa", tiramisu_desc:"El clásico postre italiano, preparado con mascarpone fresco según receta de la casa.", tiramisu_allergens:"Gluten, Lactosa, Huevos",
       cartellate:"Cartellate apulias", cartellate_desc:"Postre tradicional navideño de Apulia, frito y bañado en vincotto.", cartellate_allergens:"Gluten",
-      footer_privacy:"Política de Privacidad", footer_cookie:"Preferencias de Cookies"
+      footer_privacy:"Política de Privacidad", footer_cookie:"Preferencias de Cookies", footer_created:"Creado por"
     }},
     fr:{ translation:{
       back:"Retour", menu_eyebrow:"Découvrez nos propositions",
@@ -864,7 +889,7 @@ i18next.init({
       vino:"Vin", vino_desc:"Vin de la maison, rouge ou blanc, au verre.", vino_allergens:"Sulfites",
       tiramisu:"Tiramisù maison", tiramisu_desc:"Le classique dessert italien, préparé avec du mascarpone frais selon la recette maison.", tiramisu_allergens:"Gluten, Lactose, Œufs",
       cartellate:"Cartellate des Pouilles", cartellate_desc:"Dessert traditionnel de Noël des Pouilles, frit et nappé de vincotto.", cartellate_allergens:"Gluten",
-      footer_privacy:"Politique de Confidentialité", footer_cookie:"Préférences Cookies"
+      footer_privacy:"Politique de Confidentialité", footer_cookie:"Préférences Cookies", footer_created:"Créé par"
     }},
     de:{ translation:{
       back:"Zurück", menu_eyebrow:"Entdecken Sie unsere Angebote",
@@ -889,7 +914,7 @@ i18next.init({
       vino:"Wein", vino_desc:"Hauswein, rot oder weiß, glasweise.", vino_allergens:"Sulfite",
       tiramisu:"Hausgemachtes Tiramisù", tiramisu_desc:"Der klassische italienische Nachtisch, nach Hausrezept mit frischem Mascarpone.", tiramisu_allergens:"Gluten, Laktose, Eier",
       cartellate:"Apulische Cartellate", cartellate_desc:"Traditionelles apulisches Weihnachtsgebäck, frittiert und mit Vincotto überzogen.", cartellate_allergens:"Gluten",
-      footer_privacy:"Datenschutzerklärung", footer_cookie:"Cookie-Einstellungen"
+      footer_privacy:"Datenschutzerklärung", footer_cookie:"Cookie-Einstellungen", footer_created:"Erstellt von"
     }}
   }
 }, updateTexts);
@@ -914,15 +939,17 @@ function updateTexts() {
       }
     }
   });
-  document.getElementById('currentFlag').textContent = FLAGS[i18next.language] || '🇮🇹';
+  document.getElementById('currentFlag').textContent = FLAGS[i18next.language] || 'IT';
   document.getElementById('footer-privacy-link').textContent = i18next.t('footer_privacy');
   document.getElementById('footer-cookie-link').textContent  = i18next.t('footer_cookie');
+  document.getElementById('footer-created-text').textContent = i18next.t('footer_created');
   if (document.getElementById('modal').classList.contains('active') && _titleKey) renderModal();
 }
 
 function changeLanguage(event, lang) {
   event.preventDefault(); event.stopPropagation();
   localStorage.setItem('selectedLanguage', lang);
+  sessionStorage.setItem('spiSessionActive','1');
   i18next.changeLanguage(lang, updateTexts);
   langDropdown.classList.remove('open');
   langSelector.classList.remove('open');
