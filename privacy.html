@@ -7,10 +7,11 @@
 <title>Privacy Policy — SPI System</title>
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/i18next@21.6.3/i18next.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/7.2.3/css/flag-icons.min.css">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --bg:#080c14;--card:#11151f;--card2:#151b27;
+  --bg:#0f1f3d;--card:#16294f;--card2:#1c3260;
   --accent:#8da4be;--accent-light:#c9d3e0;
   --accent-soft:rgba(141,164,190,0.10);--accent-border:rgba(141,164,190,0.30);
   --text:#eaf0f8;--muted:#8a96a8;--border:rgba(199,210,224,0.10);
@@ -20,7 +21,7 @@ body{font-family:'Poppins',sans-serif;background-color:var(--bg);color:var(--tex
 
 nav{
   position:fixed;top:0;width:100%;
-  background:linear-gradient(135deg,rgba(8,12,20,.97) 0%,rgba(26,34,48,.97) 100%);
+  background:linear-gradient(135deg,rgba(15,31,61,.97) 0%,rgba(34,58,104,.97) 100%);
   backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
   border-bottom:1px solid rgba(255,255,255,.07);
   padding:0 24px;display:flex;justify-content:space-between;align-items:center;
@@ -48,18 +49,16 @@ nav{
 .language-selector:hover{background:rgba(141,164,190,0.16);border-color:var(--accent-light)}
 .lang-flag{
   width:26px;height:26px;flex-shrink:0;
-  display:flex;align-items:center;justify-content:center;
-  border-radius:50%;
-  background:linear-gradient(135deg,#1a2438,#243350);
+  border-radius:50%;overflow:hidden;
   border:1px solid var(--accent-border);
-  font-size:0.62rem;font-weight:700;letter-spacing:.02em;
-  color:var(--accent-light);text-transform:uppercase;
+  box-shadow:0 2px 6px rgba(0,0,0,.3);
 }
+.lang-flag .fi{width:100%;height:100%;border-radius:50%;display:block}
 .lang-chevron{width:13px;height:13px;stroke:var(--accent-light);fill:none;stroke-width:2.5;stroke-linecap:round;transition:transform .3s;flex-shrink:0}
 .language-selector.open .lang-chevron{transform:rotate(180deg)}
 .language-dropdown{
   display:none;position:absolute;top:calc(100% + 10px);right:0;
-  background:#13192a;border:1px solid var(--accent-border);border-radius:14px;
+  background:#1a2f56;border:1px solid var(--accent-border);border-radius:14px;
   overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,.35);z-index:1002;min-width:165px;
 }
 .language-dropdown.open{display:block;animation:dropIn .18s ease}
@@ -72,15 +71,13 @@ nav{
 .language-dropdown a:last-child{border-bottom:none}
 .language-dropdown a .flag{
   width:24px;height:24px;flex-shrink:0;
-  display:flex;align-items:center;justify-content:center;
-  border-radius:50%;
-  background:rgba(141,164,190,0.12);
+  border-radius:50%;overflow:hidden;
   border:1px solid var(--accent-border);
-  font-size:0.6rem;font-weight:700;letter-spacing:.02em;
-  color:var(--accent-light);text-transform:uppercase;
+  transition:transform .2s ease, box-shadow .2s ease;
 }
+.language-dropdown a .flag .fi{width:100%;height:100%;border-radius:50%;display:block}
 .language-dropdown a:hover{background:var(--accent-soft)}
-.language-dropdown a:hover .flag{background:var(--accent);color:#0d1220}
+.language-dropdown a:hover .flag{transform:scale(1.1);box-shadow:0 0 0 2px var(--accent-border);}
 
 .page-header{text-align:center;padding:48px 24px 20px}
 .page-eyebrow{font-size:.68rem;letter-spacing:.26em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
@@ -152,7 +149,7 @@ footer,footer *{-webkit-text-size-adjust:100%;-webkit-font-smoothing:antialiased
 }
 .spi-cookie-banner.show{opacity:1;transform:translateY(0);pointer-events:auto}
 .spi-cookie-card{
-  max-width:680px;width:100%;background:#13192a;
+  max-width:680px;width:100%;background:#1a2f56;
   border:1px solid var(--accent-border);border-radius:18px;padding:22px 24px;
   box-shadow:0 30px 70px rgba(0,0,0,.35);
   display:flex;flex-wrap:wrap;align-items:flex-start;gap:16px;
@@ -177,18 +174,18 @@ footer,footer *{-webkit-text-size-adjust:100%;-webkit-font-smoothing:antialiased
 .spi-cookie-btn.ghost:hover{color:var(--text)}
 .spi-cookie-btn.outline{background:transparent;border:1px solid var(--accent-border);color:var(--accent-light)}
 .spi-cookie-btn.outline:hover{background:var(--accent-soft)}
-.spi-cookie-btn.solid{background:linear-gradient(135deg,#1a2438,#243350);color:var(--accent-light);border:1px solid var(--accent-border)}
+.spi-cookie-btn.solid{background:linear-gradient(135deg,#223a68,#2c4678);color:var(--accent-light);border:1px solid var(--accent-border)}
 .spi-cookie-btn.solid:hover{transform:translateY(-2px)}
 .spi-cookie-btn.full{width:100%;justify-content:center;margin-top:18px}
 .spi-cookie-modal{
-  position:fixed;inset:0;background:rgba(2,5,10,.65);
+  position:fixed;inset:0;background:rgba(10,20,40,.65);
   display:flex;justify-content:center;align-items:center;
   z-index:5001;opacity:0;visibility:hidden;
   transition:opacity .3s,visibility .3s;backdrop-filter:blur(8px);padding:20px;
 }
 .spi-cookie-modal.show{opacity:1;visibility:visible}
 .spi-cookie-modal-card{
-  max-width:460px;width:100%;background:#151b27;
+  max-width:460px;width:100%;background:#1c3260;
   border:1px solid var(--accent-border);border-radius:20px;padding:28px;
   box-shadow:0 30px 80px rgba(0,0,0,.35);
 }
@@ -230,14 +227,14 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-off
     <div class="nav-logo"><img src="images/logospi1.PNG" alt="SPI System"></div>
   </div>
   <div class="language-selector" id="langSelector">
-    <span class="lang-flag" id="currentFlag">IT</span>
+    <span class="lang-flag" id="currentFlag"><span class="fi fi-it fis" id="currentFlagIcon"></span></span>
     <svg class="lang-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
     <div class="language-dropdown" id="langDropdown">
-      <a href="#" onclick="changeLanguage(event,'it')"><span class="flag">IT</span> Italiano</a>
-      <a href="#" onclick="changeLanguage(event,'en')"><span class="flag">EN</span> English</a>
-      <a href="#" onclick="changeLanguage(event,'es')"><span class="flag">ES</span> Español</a>
-      <a href="#" onclick="changeLanguage(event,'fr')"><span class="flag">FR</span> Français</a>
-      <a href="#" onclick="changeLanguage(event,'de')"><span class="flag">DE</span> Deutsch</a>
+      <a href="#" onclick="changeLanguage(event,'it')"><span class="flag"><span class="fi fi-it fis"></span></span> Italiano</a>
+      <a href="#" onclick="changeLanguage(event,'en')"><span class="flag"><span class="fi fi-gb fis"></span></span> English</a>
+      <a href="#" onclick="changeLanguage(event,'es')"><span class="flag"><span class="fi fi-es fis"></span></span> Español</a>
+      <a href="#" onclick="changeLanguage(event,'fr')"><span class="flag"><span class="fi fi-fr fis"></span></span> Français</a>
+      <a href="#" onclick="changeLanguage(event,'de')"><span class="flag"><span class="fi fi-de fis"></span></span> Deutsch</a>
     </div>
   </div>
 </nav>
@@ -340,7 +337,7 @@ langSelector.addEventListener('click',e=>{
 document.addEventListener('click',()=>{ langDropdown.classList.remove('open'); langSelector.classList.remove('open'); });
 function closeDropdown(){ langDropdown.classList.remove('open'); langSelector.classList.remove('open'); }
 
-const FLAGS={it:'IT',en:'EN',es:'ES',fr:'FR',de:'DE'};
+const FLAG_CODES={it:'it',en:'gb',es:'es',fr:'fr',de:'de'};
 
 i18next.init({
   lng:localStorage.getItem('selectedLanguage')||'it',
@@ -488,7 +485,9 @@ function updateTexts(){
   document.getElementById('s2-list').innerHTML=`<li>${i18next.t('s2_li1')}</li><li>${i18next.t('s2_li2')}</li><li>${i18next.t('s2_li3')}</li>`;
   document.getElementById('s6-list').innerHTML=`<li>${i18next.t('s6_li1')}</li><li>${i18next.t('s6_li2')}</li><li>${i18next.t('s6_li3')}</li><li>${i18next.t('s6_li4')}</li><li>${i18next.t('s6_li5')}</li><li>${i18next.t('s6_li6')}</li>`;
   document.getElementById('s7-list').innerHTML=`<li>${i18next.t('s7_li1')}</li><li>${i18next.t('s7_li2')}</li><li>${i18next.t('s7_li3')}</li><li>${i18next.t('s7_li4')}</li>`;
-  document.getElementById('currentFlag').textContent=FLAGS[i18next.language]||'IT';
+  const _flagCode=FLAG_CODES[i18next.language]||'it';
+  const _flagIconEl=document.getElementById('currentFlagIcon');
+  if(_flagIconEl) _flagIconEl.className='fi fi-'+_flagCode+' fis';
 }
 
 function changeLanguage(event,lang){
