@@ -8,12 +8,13 @@
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/i18next@21.6.3/i18next.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/7.2.3/css/flag-icons.min.css">
 <style>
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 :root {
-  --bg:#080c14;
-  --card:#11151f;
-  --card2:#151b27;
+  --bg:#0f1f3d;
+  --card:#16294f;
+  --card2:#1c3260;
   --accent:#8da4be;
   --accent-light:#c9d3e0;
   --accent-soft:rgba(141,164,190,0.10);
@@ -28,7 +29,7 @@ body { font-family:'Poppins',sans-serif; background-color:var(--bg); color:var(-
 /* NAV */
 nav {
   position:fixed; top:0; left:0; width:100%;
-  background:linear-gradient(135deg,rgba(8,12,20,0.97) 0%,rgba(26,34,48,0.97) 100%);
+  background:linear-gradient(135deg,rgba(15,31,61,0.97) 0%,rgba(34,58,104,0.97) 100%);
   backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px);
   border-bottom:1px solid rgba(255,255,255,0.07);
   padding:0 32px; z-index:1000;
@@ -49,18 +50,16 @@ nav {
 .language-selector:hover { background:rgba(141,164,190,0.16); border-color:var(--accent-light); }
 .lang-flag {
   width:26px; height:26px; flex-shrink:0;
-  display:flex; align-items:center; justify-content:center;
-  border-radius:50%;
-  background:linear-gradient(135deg,#1a2438,#243350);
+  border-radius:50%; overflow:hidden;
   border:1px solid var(--accent-border);
-  font-size:0.62rem; font-weight:700; letter-spacing:0.02em;
-  color:var(--accent-light); text-transform:uppercase;
+  box-shadow:0 2px 6px rgba(0,0,0,0.3);
 }
+.lang-flag .fi { width:100%; height:100%; border-radius:50%; display:block; }
 .lang-chevron { width:13px; height:13px; stroke:var(--accent-light); fill:none; stroke-width:2.5; stroke-linecap:round; transition:transform 0.3s; flex-shrink:0; }
 .language-selector.open .lang-chevron { transform:rotate(180deg); }
 .language-dropdown {
   display:none; position:absolute; top:calc(100% + 10px); right:0;
-  background:#13192a; border:1px solid var(--accent-border); border-radius:14px;
+  background:#1a2f56; border:1px solid var(--accent-border); border-radius:14px;
   overflow:hidden; box-shadow:0 20px 50px rgba(0,0,0,0.35); z-index:1002; min-width:165px;
 }
 .language-dropdown.open { display:block; animation:dropIn 0.18s ease; }
@@ -74,15 +73,13 @@ nav {
 .language-dropdown a:last-child { border-bottom:none; }
 .language-dropdown a .flag {
   width:24px; height:24px; flex-shrink:0;
-  display:flex; align-items:center; justify-content:center;
-  border-radius:50%;
-  background:rgba(141,164,190,0.12);
+  border-radius:50%; overflow:hidden;
   border:1px solid var(--accent-border);
-  font-size:0.6rem; font-weight:700; letter-spacing:0.02em;
-  color:var(--accent-light); text-transform:uppercase;
+  transition:transform 0.2s ease, box-shadow 0.2s ease;
 }
+.language-dropdown a .flag .fi { width:100%; height:100%; border-radius:50%; display:block; }
 .language-dropdown a:hover { background:var(--accent-soft); }
-.language-dropdown a:hover .flag { background:var(--accent); color:#0d1220; }
+.language-dropdown a:hover .flag { transform:scale(1.1); box-shadow:0 0 0 2px var(--accent-border); }
 
 /* HERO */
 .hero {
@@ -100,10 +97,10 @@ nav {
 .hero-overlay {
   position:absolute; inset:0;
   background:linear-gradient(180deg,
-    rgba(8,12,20,0.12) 0%,
-    rgba(8,12,20,0.05) 25%,
-    rgba(8,12,20,0.55) 70%,
-    rgba(8,12,20,0.96) 100%);
+    rgba(15,31,61,0.12) 0%,
+    rgba(15,31,61,0.05) 25%,
+    rgba(15,31,61,0.55) 70%,
+    rgba(15,31,61,0.96) 100%);
 }
 .hero-bottom {
   position:relative; z-index:2;
@@ -116,7 +113,7 @@ nav {
 .hero-btn {
   display:inline-flex; align-items:center; gap:11px;
   position:relative; overflow:hidden;
-  background:linear-gradient(135deg,#0d1220 0%,#1a2438 100%);
+  background:linear-gradient(135deg,#142850 0%,#223a68 100%);
   color:#ffffff;
   font-family:'Poppins',sans-serif; font-size:0.84rem; font-weight:600;
   letter-spacing:0.10em; text-transform:uppercase;
@@ -240,7 +237,7 @@ nav {
 
 .contact-phone-link {
   font-family:'Lora',serif;
-  font-size:1.35rem;
+  font-size:1.08rem;
   color:var(--text);
   text-decoration:none;
   display:block;
@@ -302,7 +299,7 @@ nav {
   background-repeat:no-repeat; background-position:right 14px center; background-size:13px;
   padding-right:38px; cursor:pointer;
 }
-.reservation-form select option { background:#13192a; color:var(--text); }
+.reservation-form select option { background:#1a2f56; color:var(--text); }
 .reservation-form input::placeholder, .reservation-form textarea::placeholder { color:var(--muted); }
 .reservation-form input:focus, .reservation-form select:focus, .reservation-form textarea:focus { border-color:var(--accent-light); background:rgba(255,255,255,0.05); }
 .reservation-form textarea { resize:vertical; min-height:80px; }
@@ -317,7 +314,7 @@ nav {
 .reservation-btn {
   width:100%; display:flex; align-items:center; justify-content:center; gap:10px;
   position:relative; overflow:hidden;
-  background:linear-gradient(135deg,#0d1220 0%,#1a2438 100%); color:#fff;
+  background:linear-gradient(135deg,#142850 0%,#223a68 100%); color:#fff;
   border:1px solid var(--accent-border); border-radius:10px;
   padding:15px; font-family:'Poppins',sans-serif; font-size:0.84rem; font-weight:600;
   letter-spacing:0.08em; text-transform:uppercase; cursor:pointer;
@@ -418,7 +415,7 @@ nav {
   position:fixed; right:22px; bottom:22px; width:46px; height:46px;
   display:flex; align-items:center; justify-content:center;
   border:1px solid var(--accent-border); border-radius:50%;
-  background:rgba(13,18,28,0.9); backdrop-filter:blur(8px);
+  background:rgba(20,35,65,0.9); backdrop-filter:blur(8px);
   color:var(--accent-light); cursor:pointer;
   opacity:0; visibility:hidden; transform:translateY(14px);
   transition:opacity 0.3s,transform 0.3s,border-color 0.3s,box-shadow 0.3s; z-index:2000;
@@ -450,7 +447,7 @@ footer, footer * { -webkit-text-size-adjust:100%; -webkit-font-smoothing:antiali
 }
 .spi-cookie-banner.show { opacity:1; transform:translateY(0); pointer-events:auto; }
 .spi-cookie-card {
-  max-width:680px; width:100%; background:#13192a;
+  max-width:680px; width:100%; background:#1a2f56;
   border:1px solid var(--accent-border); border-radius:18px; padding:22px 24px;
   box-shadow:0 30px 70px rgba(0,0,0,0.35);
   display:flex; flex-wrap:wrap; align-items:flex-start; gap:16px;
@@ -467,11 +464,11 @@ footer, footer * { -webkit-text-size-adjust:100%; -webkit-font-smoothing:antiali
 .spi-cookie-btn.ghost:hover { color:var(--text); }
 .spi-cookie-btn.outline { background:transparent; border:1px solid var(--accent-border); color:var(--accent-light); }
 .spi-cookie-btn.outline:hover { background:var(--accent-soft); }
-.spi-cookie-btn.solid { background:linear-gradient(135deg,#1a2438,#243350); color:var(--accent-light); border:1px solid var(--accent-border); }
+.spi-cookie-btn.solid { background:linear-gradient(135deg,#223a68,#2c4678); color:var(--accent-light); border:1px solid var(--accent-border); }
 .spi-cookie-btn.solid:hover { transform:translateY(-2px); }
-.spi-cookie-modal { position:fixed; inset:0; background:rgba(2,5,10,0.65); display:flex; justify-content:center; align-items:center; z-index:5001; opacity:0; visibility:hidden; transition:opacity 0.3s,visibility 0.3s; backdrop-filter:blur(8px); padding:20px; }
+.spi-cookie-modal { position:fixed; inset:0; background:rgba(10,20,40,0.65); display:flex; justify-content:center; align-items:center; z-index:5001; opacity:0; visibility:hidden; transition:opacity 0.3s,visibility 0.3s; backdrop-filter:blur(8px); padding:20px; }
 .spi-cookie-modal.show { opacity:1; visibility:visible; }
-.spi-cookie-modal-card { max-width:460px; width:100%; background:#151b27; border:1px solid var(--accent-border); border-radius:20px; padding:28px; box-shadow:0 30px 80px rgba(0,0,0,0.35); }
+.spi-cookie-modal-card { max-width:460px; width:100%; background:#1c3260; border:1px solid var(--accent-border); border-radius:20px; padding:28px; box-shadow:0 30px 80px rgba(0,0,0,0.35); }
 .spi-cookie-modal-card h3 { font-family:'Lora',serif; color:var(--accent-light); font-size:1.2rem; margin-bottom:20px; }
 .spi-cookie-row { display:flex; justify-content:space-between; align-items:flex-start; gap:14px; padding:14px 0; border-bottom:1px solid var(--border); }
 .spi-cookie-row strong { font-size:0.92rem; color:var(--text); display:block; margin-bottom:4px; }
@@ -524,14 +521,14 @@ a:focus-visible, button:focus-visible { outline:2px solid var(--accent); outline
 <nav>
   <div class="nav-logo"><img src="images/logospi1.PNG" alt="SPI System"></div>
   <div class="language-selector" id="langSelector">
-    <span class="lang-flag" id="currentFlag">IT</span>
+    <span class="lang-flag" id="currentFlag"><span class="fi fi-it fis" id="currentFlagIcon"></span></span>
     <svg class="lang-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
     <div class="language-dropdown" id="langDropdown">
-      <a href="#" onclick="changeLanguage(event,'it')"><span class="flag">IT</span> Italiano</a>
-      <a href="#" onclick="changeLanguage(event,'en')"><span class="flag">EN</span> English</a>
-      <a href="#" onclick="changeLanguage(event,'es')"><span class="flag">ES</span> Español</a>
-      <a href="#" onclick="changeLanguage(event,'fr')"><span class="flag">FR</span> Français</a>
-      <a href="#" onclick="changeLanguage(event,'de')"><span class="flag">DE</span> Deutsch</a>
+      <a href="#" onclick="changeLanguage(event,'it')"><span class="flag"><span class="fi fi-it fis"></span></span> Italiano</a>
+      <a href="#" onclick="changeLanguage(event,'en')"><span class="flag"><span class="fi fi-gb fis"></span></span> English</a>
+      <a href="#" onclick="changeLanguage(event,'es')"><span class="flag"><span class="fi fi-es fis"></span></span> Español</a>
+      <a href="#" onclick="changeLanguage(event,'fr')"><span class="flag"><span class="fi fi-fr fis"></span></span> Français</a>
+      <a href="#" onclick="changeLanguage(event,'de')"><span class="flag"><span class="fi fi-de fis"></span></span> Deutsch</a>
     </div>
   </div>
 </nav>
@@ -596,7 +593,7 @@ a:focus-visible, button:focus-visible { outline:2px solid var(--accent); outline
         </svg>
       </div>
       <h3 id="contact-title">Contatti</h3>
-      <a class="contact-phone-link" href="tel:+393342732997" id="contact-phone">334 273 2997</a>
+      <a class="contact-phone-link" href="tel:+393935560714" id="contact-phone">393 556 0714</a>
       <a class="contact-email-link" href="mailto:spisystem20@gmail.com" id="contact-email">
         <i class="fas fa-envelope"></i><span>spisystem20@gmail.com</span>
       </a>
@@ -767,7 +764,7 @@ var obs=new IntersectionObserver(function(entries){
 },{threshold:0.12});
 document.querySelectorAll('.info-card').forEach(function(c){obs.observe(c);});
 
-var FLAGS={it:'IT',en:'EN',es:'ES',fr:'FR',de:'DE'};
+var FLAG_CODES={it:'it',en:'gb',es:'es',fr:'fr',de:'de'};
 
 i18next.init({
   lng: localStorage.getItem('selectedLanguage') || 'it',
@@ -783,7 +780,7 @@ i18next.init({
       location_label:"Dove siamo",location_title:"Indirizzo",
       location_text:"Via Monterosa, 22<br>Palo del Colle (BA)",
       maps_link:"Apri su Google Maps",
-      contact_label:"Contatti",contact_title:"Scrivici o chiamaci",contact_phone:"334 273 2997",
+      contact_label:"Contatti",contact_title:"Scrivici o chiamaci",contact_phone:"393 556 0714",
       cta_label:"Vuoi un menù come questo?",cta_title:"Porta il tuo locale nel digitale",
       cta_sub:"Contattaci su WhatsApp o telefonicamente. Realizziamo il tuo menù QR in pochi giorni.",cta_btn:"Contattaci su WhatsApp",
       footer_privacy:"Privacy Policy",footer_cookie:"Preferenze Cookie",footer_created:"Realizzato da",
@@ -809,7 +806,7 @@ i18next.init({
       location_label:"Location",location_title:"Address",
       location_text:"22 Monterosa Street<br>Palo del Colle (BA)",
       maps_link:"Open in Google Maps",
-      contact_label:"Contacts",contact_title:"Call or write us",contact_phone:"334 273 2997",
+      contact_label:"Contacts",contact_title:"Call or write us",contact_phone:"393 556 0714",
       cta_label:"Want a menu like this?",cta_title:"Bring your venue into the digital age",
       cta_sub:"Contact us on WhatsApp or by phone. We'll create your QR menu in just a few days.",cta_btn:"Contact us on WhatsApp",
       footer_privacy:"Privacy Policy",footer_cookie:"Cookie Preferences",footer_created:"Created by",
@@ -835,7 +832,7 @@ i18next.init({
       location_label:"Ubicación",location_title:"Dirección",
       location_text:"Calle Monterosa, 22<br>Palo del Colle (BA)",
       maps_link:"Abrir en Google Maps",
-      contact_label:"Contacto",contact_title:"Llámanos o escríbenos",contact_phone:"334 273 2997",
+      contact_label:"Contacto",contact_title:"Llámanos o escríbenos",contact_phone:"393 556 0714",
       cta_label:"¿Quieres un menú como este?",cta_title:"Lleva tu local al mundo digital",
       cta_sub:"Contáctanos por WhatsApp o teléfono.",cta_btn:"Contáctanos en WhatsApp",
       footer_privacy:"Política de Privacidad",footer_cookie:"Preferencias de Cookies",footer_created:"Creado por",
@@ -861,7 +858,7 @@ i18next.init({
       location_label:"Emplacement",location_title:"Adresse",
       location_text:"22 Rue Monterosa<br>Palo del Colle (BA)",
       maps_link:"Ouvrir sur Google Maps",
-      contact_label:"Contacts",contact_title:"Appelez-nous ou écrivez",contact_phone:"334 273 2997",
+      contact_label:"Contacts",contact_title:"Appelez-nous ou écrivez",contact_phone:"393 556 0714",
       cta_label:"Vous voulez un menu comme celui-ci?",cta_title:"Passez au numérique",
       cta_sub:"Contactez-nous sur WhatsApp ou par téléphone.",cta_btn:"Contactez-nous sur WhatsApp",
       footer_privacy:"Politique de Confidentialité",footer_cookie:"Préférences Cookies",footer_created:"Créé par",
@@ -887,7 +884,7 @@ i18next.init({
       location_label:"Standort",location_title:"Adresse",
       location_text:"Monterosa Straße 22<br>Palo del Colle (BA)",
       maps_link:"In Google Maps öffnen",
-      contact_label:"Kontakt",contact_title:"Rufen Sie uns an oder schreiben Sie",contact_phone:"334 273 2997",
+      contact_label:"Kontakt",contact_title:"Rufen Sie uns an oder schreiben Sie",contact_phone:"393 556 0714",
       cta_label:"Möchten Sie ein solches Menü?",cta_title:"Bringen Sie Ihr Lokal ins Digitale",
       cta_sub:"Kontaktieren Sie uns per WhatsApp oder Telefon.",cta_btn:"WhatsApp kontaktieren",
       footer_privacy:"Datenschutzerklärung",footer_cookie:"Cookie-Einstellungen",footer_created:"Erstellt von",
@@ -950,7 +947,9 @@ function updateTexts(){
   if(notesEl) notesEl.setAttribute('placeholder',t('notes_placeholder'));
   var resErrEl=document.getElementById('reservation-error');
   if(resErrEl && resErrEl.classList.contains('show')) resErrEl.textContent=t('reservation_error');
-  document.getElementById('currentFlag').textContent=FLAGS[i18next.language]||'IT';
+  var _flagCode=FLAG_CODES[i18next.language]||'it';
+  var _flagIconEl=document.getElementById('currentFlagIcon');
+  if(_flagIconEl) _flagIconEl.className='fi fi-'+_flagCode+' fis';
 }
 
 function changeLanguage(event,lang){
