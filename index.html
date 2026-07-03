@@ -8,20 +8,21 @@
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/i18next@21.6.3/i18next.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/7.2.3/css/flag-icons.min.css">
 <style>
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 :root {
-  --bg:#f5f8fc;
+  /* TEMA CHIARO — bianco, bordi blu, testi neri */
+  --bg:#ffffff;
   --card:#ffffff;
-  --card2:#eef3fa;
-  --accent:#2c4a7c;
-  --accent-light:#3f63a0;
-  --accent-soft:rgba(44,74,124,0.07);
-  --accent-border:rgba(44,74,124,0.22);
-  --text:#132242;
-  --muted:#5c6b85;
-  --border:rgba(19,34,66,0.10);
+  --card2:#f6f8fb;
+  --accent:#153a6e;
+  --accent-light:#2c5a9e;
+  --accent-soft:rgba(21,58,110,0.06);
+  --accent-border:rgba(21,58,110,0.32);
+  --card-border:rgba(21,58,110,0.16);
+  --text:#12151b;
+  --muted:#5b6472;
+  --border:rgba(21,58,110,0.14);
 }
 html { scroll-behavior:smooth; }
 body { font-family:'Poppins',sans-serif; background-color:var(--bg); color:var(--text); overflow-x:hidden; }
@@ -29,59 +30,63 @@ body { font-family:'Poppins',sans-serif; background-color:var(--bg); color:var(-
 /* NAV */
 nav {
   position:fixed; top:0; left:0; width:100%;
-  background:linear-gradient(135deg,rgba(15,31,61,0.97) 0%,rgba(34,58,104,0.97) 100%);
+  background:rgba(255,255,255,0.94);
   backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px);
-  border-bottom:1px solid rgba(255,255,255,0.07);
+  border-bottom:1px solid var(--accent-border);
   padding:0 32px; z-index:1000;
   display:flex; align-items:center; justify-content:space-between; height:112px;
 }
 .nav-logo img { height:96px; width:auto; display:block; transition:transform 0.3s,opacity 0.3s; }
-.nav-logo img:hover { transform:scale(1.04); opacity:0.82; }
+.nav-logo img:hover { transform:scale(1.04); opacity:0.85; }
 
 /* LANGUAGE SELECTOR */
 .language-selector {
   position:relative; display:flex; align-items:center; gap:7px; cursor:pointer;
   padding:8px 13px; border-radius:10px;
-  border:1px solid rgba(255,255,255,0.15);
-  background:rgba(255,255,255,0.035);
+  border:1px solid var(--accent-border);
+  background:var(--accent-soft);
   transition:background 0.2s, border-color 0.2s;
   white-space:nowrap; user-select:none;
 }
-.language-selector:hover { background:rgba(255,255,255,0.1); border-color:rgba(255,255,255,0.3); }
+.language-selector:hover { background:rgba(21,58,110,0.12); border-color:var(--accent); }
 .lang-flag {
   width:26px; height:26px; flex-shrink:0;
-  border-radius:50%; overflow:hidden;
+  display:flex; align-items:center; justify-content:center;
+  border-radius:50%;
+  background:var(--accent-soft);
   border:1px solid var(--accent-border);
-  box-shadow:0 2px 6px rgba(0,0,0,0.3);
+  font-size:0.62rem; font-weight:700; letter-spacing:0.02em;
+  color:var(--accent); text-transform:uppercase;
 }
-.lang-flag .fi { width:100%; height:100%; border-radius:50%; display:block; }
-.lang-chevron { width:13px; height:13px; stroke:rgba(255,255,255,0.7); fill:none; stroke-width:2.5; stroke-linecap:round; transition:transform 0.3s; flex-shrink:0; }
+.lang-chevron { width:13px; height:13px; stroke:var(--accent); fill:none; stroke-width:2.5; stroke-linecap:round; transition:transform 0.3s; flex-shrink:0; }
 .language-selector.open .lang-chevron { transform:rotate(180deg); }
 .language-dropdown {
   display:none; position:absolute; top:calc(100% + 10px); right:0;
-  background:#1a2f56; border:1px solid var(--accent-border); border-radius:14px;
-  overflow:hidden; box-shadow:0 20px 50px rgba(0,0,0,0.35); z-index:1002; min-width:165px;
+  background:#ffffff; border:1px solid var(--accent-border); border-radius:14px;
+  overflow:hidden; box-shadow:0 20px 50px rgba(21,58,110,0.18); z-index:1002; min-width:165px;
 }
 .language-dropdown.open { display:block; animation:dropIn 0.18s ease; }
 @keyframes dropIn { from{opacity:0;transform:translateY(-6px)} to{opacity:1;transform:translateY(0)} }
 .language-dropdown a {
   display:flex; align-items:center; gap:11px; padding:12px 16px;
-  text-decoration:none; color:#eaf0f8; font-size:0.88rem;
+  text-decoration:none; color:var(--text); font-size:0.88rem;
   white-space:nowrap; transition:background 0.18s;
-  border-bottom:1px solid rgba(255,255,255,0.05);
+  border-bottom:1px solid var(--border);
 }
 .language-dropdown a:last-child { border-bottom:none; }
 .language-dropdown a .flag {
   width:24px; height:24px; flex-shrink:0;
-  border-radius:50%; overflow:hidden;
-  border:1px solid rgba(255,255,255,0.18);
-  transition:transform 0.2s ease, box-shadow 0.2s ease;
+  display:flex; align-items:center; justify-content:center;
+  border-radius:50%;
+  background:var(--accent-soft);
+  border:1px solid var(--accent-border);
+  font-size:0.6rem; font-weight:700; letter-spacing:0.02em;
+  color:var(--accent); text-transform:uppercase;
 }
-.language-dropdown a .flag .fi { width:100%; height:100%; border-radius:50%; display:block; }
-.language-dropdown a:hover { background:rgba(255,255,255,0.08); }
-.language-dropdown a:hover .flag { transform:scale(1.1); box-shadow:0 0 0 2px rgba(255,255,255,0.25); }
+.language-dropdown a:hover { background:var(--accent-soft); }
+.language-dropdown a:hover .flag { background:var(--accent); color:#ffffff; }
 
-/* HERO */
+/* HERO — unica sezione scura, per far leggere bene il testo sopra la foto */
 .hero {
   position:relative; height:100vh; min-height:620px;
   display:flex; flex-direction:column; justify-content:flex-end;
@@ -97,10 +102,10 @@ nav {
 .hero-overlay {
   position:absolute; inset:0;
   background:linear-gradient(180deg,
-    rgba(15,31,61,0.15) 0%,
-    rgba(15,31,61,0.06) 25%,
-    rgba(245,248,252,0.45) 72%,
-    rgba(245,248,252,0.97) 100%);
+    rgba(8,14,26,0.10) 0%,
+    rgba(8,14,26,0.05) 25%,
+    rgba(8,14,26,0.50) 70%,
+    rgba(8,14,26,0.90) 100%);
 }
 .hero-bottom {
   position:relative; z-index:2;
@@ -113,35 +118,33 @@ nav {
 .hero-btn {
   display:inline-flex; align-items:center; gap:11px;
   position:relative; overflow:hidden;
-  background:linear-gradient(135deg,#142850 0%,#223a68 100%);
-  color:#ffffff;
+  background:#ffffff;
+  color:var(--accent);
   font-family:'Poppins',sans-serif; font-size:0.84rem; font-weight:600;
   letter-spacing:0.10em; text-transform:uppercase;
   padding:16px 38px; border-radius:3px;
   border:1px solid var(--accent-border);
   text-decoration:none;
-  transition:box-shadow 0.25s, border-color 0.25s;
-  box-shadow:0 10px 30px rgba(0,0,0,0.3);
+  transition:box-shadow 0.25s, border-color 0.25s, background 0.25s;
+  box-shadow:0 10px 30px rgba(8,14,26,0.25);
 }
 .hero-btn::before {
   content:''; position:absolute; top:0; left:-100%; width:100%; height:100%;
-  background:linear-gradient(120deg,transparent,rgba(255,255,255,0.12),transparent);
+  background:linear-gradient(120deg,transparent,rgba(21,58,110,0.10),transparent);
   transition:left 0.6s ease;
 }
-.hero-btn:hover { box-shadow:0 16px 42px rgba(0,0,0,0.4); border-color:var(--accent-light); }
+.hero-btn:hover { box-shadow:0 16px 42px rgba(8,14,26,0.32); border-color:var(--accent); background:#f4f7fb; }
 .hero-btn:hover::before { left:100%; }
 
 .hero-scroll {
   display:flex; flex-direction:column; align-items:center; gap:6px;
-  color:rgba(19,34,66,0.62); font-size:0.62rem; letter-spacing:0.18em; text-transform:uppercase;
+  color:rgba(255,255,255,0.65); font-size:0.62rem; letter-spacing:0.18em; text-transform:uppercase;
   text-decoration:none; animation:scrollBounce 2.4s ease-in-out infinite; transition:color 0.2s;
 }
-.hero-scroll:hover { color:var(--accent-light); }
+.hero-scroll:hover { color:#ffffff; }
 @keyframes scrollBounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(7px)} }
 
-/* ═══════════════════════════════════════════
-   INFO SECTION — CARD ELEGANTI CENTRATE
-═══════════════════════════════════════════ */
+/* INFO SECTION */
 .info-section { background-color:var(--bg); padding:100px 28px 80px; }
 .section-eyebrow { text-align:center; font-size:0.68rem; letter-spacing:0.26em; text-transform:uppercase; color:var(--accent); margin-bottom:14px; }
 .section-title { text-align:center; font-family:'Lora',serif; font-size:clamp(1.7rem,4vw,2.6rem); color:var(--text); margin-bottom:14px; line-height:1.2; }
@@ -157,7 +160,7 @@ nav {
 
 .info-card {
   background:var(--card);
-  border:1px solid rgba(44,74,124,0.18);
+  border:1px solid var(--card-border);
   border-radius:20px;
   padding:36px 28px;
   text-align:center;
@@ -166,6 +169,7 @@ nav {
   opacity:0;
   transform:translateY(40px);
   transition:opacity 0.65s ease, transform 0.65s ease, border-color 0.3s, box-shadow 0.3s;
+  box-shadow:0 4px 22px rgba(21,58,110,0.05);
 }
 .info-card.visible {
   opacity:1;
@@ -175,34 +179,34 @@ nav {
   content:'';
   position:absolute; top:0; left:50%; transform:translateX(-50%);
   width:0; height:2px;
-  background:linear-gradient(90deg,transparent,var(--accent-light),transparent);
+  background:linear-gradient(90deg,transparent,var(--accent),transparent);
   transition:width 0.6s ease 0.35s;
   border-radius:2px;
 }
 .info-card.visible::before { width:55%; }
 .info-card:hover {
   transform:translateY(-6px);
-  border-color:rgba(44,74,124,0.40);
-  box-shadow:0 24px 52px rgba(0,0,0,0.22);
+  border-color:var(--accent);
+  box-shadow:0 24px 52px rgba(21,58,110,0.14);
 }
 
 .info-card .icon {
   width:54px; height:54px;
-  background:rgba(44,74,124,0.08);
-  border:1px solid rgba(44,74,124,0.20);
+  background:var(--accent-soft);
+  border:1px solid var(--accent-border);
   border-radius:16px;
   display:flex; align-items:center; justify-content:center;
   margin:0 auto 22px;
   transition:background 0.3s, border-color 0.3s;
 }
 .info-card:hover .icon {
-  background:rgba(44,74,124,0.15);
-  border-color:rgba(44,74,124,0.38);
+  background:rgba(21,58,110,0.12);
+  border-color:var(--accent);
 }
-.info-card .icon i { font-size:1.2rem; color:var(--accent-light); }
+.info-card .icon i { font-size:1.2rem; color:var(--accent); }
 .info-card .icon svg.phone-icon {
   width:21px; height:21px;
-  stroke:var(--accent-light); fill:none;
+  stroke:var(--accent); fill:none;
   stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round;
 }
 .info-card h3 {
@@ -212,24 +216,24 @@ nav {
   margin-bottom:12px;
 }
 .info-card p { font-size:0.88rem; color:var(--muted); line-height:1.82; }
-.info-card a { color:var(--accent-light); text-decoration:none; }
+.info-card a { color:var(--accent); text-decoration:none; }
 .info-card a:hover { text-decoration:underline; }
 
 .hours-entries { display:flex; flex-direction:column; gap:8px; margin-top:4px; }
 .hours-entry {
   display:flex; justify-content:space-between; align-items:center;
-  background:rgba(44,74,124,0.06);
+  background:var(--accent-soft);
   border-radius:8px;
   padding:8px 14px;
 }
 .hours-entry-day  { font-size:0.8rem; color:var(--muted); }
-.hours-entry-time { font-size:0.8rem; color:var(--accent-light); font-weight:600; letter-spacing:0.03em; }
+.hours-entry-time { font-size:0.8rem; color:var(--accent); font-weight:600; letter-spacing:0.03em; }
 
 .maps-link {
   display:inline-flex; align-items:center; gap:7px;
   margin-top:14px;
-  color:var(--accent-light); font-size:0.8rem; font-weight:500;
-  text-decoration:none; opacity:0.85;
+  color:var(--accent); font-size:0.8rem; font-weight:500;
+  text-decoration:none; opacity:0.9;
   transition:opacity 0.2s;
 }
 .maps-link:hover { opacity:1; }
@@ -237,22 +241,22 @@ nav {
 
 .contact-phone-link {
   font-family:'Lora',serif;
-  font-size:1.08rem;
+  font-size:1.35rem;
   color:var(--text);
   text-decoration:none;
   display:block;
   margin-bottom:10px;
   transition:color 0.2s;
 }
-.contact-phone-link:hover { color:var(--accent-light); }
+.contact-phone-link:hover { color:var(--accent); }
 
 .contact-email-link {
   display:inline-flex; align-items:center; gap:7px;
   font-size:0.84rem;
-  color:var(--accent-light);
+  color:var(--accent);
   text-decoration:none;
   margin-bottom:14px;
-  opacity:0.9;
+  opacity:0.95;
   word-break:break-word;
   transition:opacity 0.2s;
 }
@@ -262,32 +266,33 @@ nav {
 .social-row { display:flex; justify-content:center; gap:10px; margin-top:16px; flex-wrap:wrap; }
 .social-row a {
   width:38px; height:38px;
-  border:1px solid rgba(44,74,124,0.22);
+  border:1px solid var(--accent-border);
   border-radius:50%;
   display:flex; align-items:center; justify-content:center;
-  color:var(--muted); font-size:1rem;
+  color:var(--accent); font-size:1rem;
   transition:color 0.2s, border-color 0.2s, background 0.2s, transform 0.2s;
   text-decoration:none;
 }
 .social-row a:hover {
-  color:var(--accent-light);
-  border-color:var(--accent-border);
-  background:rgba(44,74,124,0.08);
+  color:#ffffff;
+  border-color:var(--accent);
+  background:var(--accent);
   transform:translateY(-2px);
 }
 
 /* RESERVATION SECTION */
-.reservation-section { background-color:var(--bg); padding:90px 28px 30px; }
+.reservation-section { background-color:var(--card2); padding:90px 28px 30px; }
 .reservation-card {
   max-width:560px; margin:0 auto; background:var(--card);
   border:1px solid var(--accent-border); border-radius:20px; padding:36px 32px;
+  box-shadow:0 20px 60px rgba(21,58,110,0.08);
 }
 .reservation-form .form-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:18px; }
 .reservation-form .form-group { display:flex; flex-direction:column; gap:8px; }
 .reservation-form .form-group.full { margin-bottom:20px; }
-.reservation-form label { font-size:0.78rem; letter-spacing:0.04em; color:var(--accent-light); font-weight:600; }
+.reservation-form label { font-size:0.78rem; letter-spacing:0.04em; color:var(--accent); font-weight:600; }
 .reservation-form input, .reservation-form select, .reservation-form textarea {
-  background:rgba(19,34,66,0.035); border:1px solid var(--accent-border); border-radius:10px;
+  background:rgba(21,58,110,0.035); border:1px solid var(--accent-border); border-radius:10px;
   padding:0 14px; color:var(--text); font-family:'Poppins',sans-serif; font-size:16px;
   outline:none; transition:border-color 0.2s, background 0.2s; width:100%;
   height:48px; box-sizing:border-box;
@@ -295,13 +300,13 @@ nav {
 .reservation-form textarea { height:auto; padding:12px 14px; }
 .reservation-form select {
   appearance:none; -webkit-appearance:none; -moz-appearance:none;
-  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233f63a0' stroke-width='2.5' stroke-linecap='round'><polyline points='6 9 12 15 18 9'/></svg>");
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23153a6e' stroke-width='2.5' stroke-linecap='round'><polyline points='6 9 12 15 18 9'/></svg>");
   background-repeat:no-repeat; background-position:right 14px center; background-size:13px;
   padding-right:38px; cursor:pointer;
 }
 .reservation-form select option { background:#ffffff; color:var(--text); }
 .reservation-form input::placeholder, .reservation-form textarea::placeholder { color:var(--muted); }
-.reservation-form input:focus, .reservation-form select:focus, .reservation-form textarea:focus { border-color:var(--accent-light); background:rgba(44,74,124,0.05); }
+.reservation-form input:focus, .reservation-form select:focus, .reservation-form textarea:focus { border-color:var(--accent); background:rgba(21,58,110,0.06); }
 .reservation-form textarea { resize:vertical; min-height:80px; }
 .reservation-form input[type="date"] { color-scheme:light; -webkit-appearance:none; appearance:none; display:flex; align-items:center; }
 .reservation-form input[type="date"]::-webkit-datetime-edit,
@@ -310,21 +315,20 @@ nav {
 .reservation-form input[type="date"]::-webkit-datetime-edit-month-field,
 .reservation-form input[type="date"]::-webkit-datetime-edit-day-field,
 .reservation-form input[type="date"]::-webkit-datetime-edit-year-field { color:var(--text); }
-.reservation-form input[type="date"]::-webkit-calendar-picker-indicator { filter:none; opacity:0.65; cursor:pointer; }
+.reservation-form input[type="date"]::-webkit-calendar-picker-indicator { cursor:pointer; opacity:0.75; }
 .reservation-btn {
   width:100%; display:flex; align-items:center; justify-content:center; gap:10px;
   position:relative; overflow:hidden;
-  background:linear-gradient(135deg,#142850 0%,#223a68 100%); color:#fff;
-  border:1px solid var(--accent-border); border-radius:10px;
+  background:var(--accent); color:#fff;
+  border:1px solid var(--accent); border-radius:10px;
   padding:15px; font-family:'Poppins',sans-serif; font-size:0.84rem; font-weight:600;
   letter-spacing:0.08em; text-transform:uppercase; cursor:pointer;
-  transition:box-shadow 0.25s, border-color 0.25s;
+  transition:box-shadow 0.25s, background 0.25s;
 }
-.reservation-btn:hover { box-shadow:0 16px 36px rgba(0,0,0,0.35); border-color:var(--accent-light); }
-.reservation-error { color:#e08a8a; font-size:0.82rem; margin-top:14px; text-align:center; display:none; }
+.reservation-btn:hover { box-shadow:0 16px 36px rgba(21,58,110,0.30); background:#0f2c56; }
+.reservation-error { color:#c0392b; font-size:0.82rem; margin-top:14px; text-align:center; display:none; }
 .reservation-error.show { display:block; }
 
-/* THANK YOU CARD */
 .thankyou-card {
   display:none;
   text-align:center; padding:48px 32px;
@@ -332,13 +336,13 @@ nav {
 .thankyou-card.show { display:block; animation:fadeUp 0.6s ease both; }
 .thankyou-icon {
   width:72px; height:72px;
-  background:rgba(44,74,124,0.12);
+  background:var(--accent-soft);
   border:1px solid var(--accent-border);
   border-radius:50%;
   display:flex; align-items:center; justify-content:center;
   margin:0 auto 24px;
 }
-.thankyou-icon i { font-size:1.8rem; color:var(--accent-light); }
+.thankyou-icon i { font-size:1.8rem; color:var(--accent); }
 .thankyou-title {
   font-family:'Lora',serif;
   font-size:1.5rem;
@@ -354,13 +358,13 @@ nav {
 }
 .thankyou-btn {
   display:inline-flex; align-items:center; gap:9px;
-  background:transparent; color:var(--accent-light); border:1px solid var(--accent-border);
+  background:transparent; color:var(--accent); border:1px solid var(--accent-border);
   font-family:'Poppins',sans-serif; font-size:0.82rem; font-weight:600;
   letter-spacing:0.08em; text-transform:uppercase;
   padding:13px 28px; border-radius:10px; cursor:pointer;
   transition:background 0.25s, border-color 0.25s;
 }
-.thankyou-btn:hover { background:var(--accent-soft); border-color:var(--accent-light); }
+.thankyou-btn:hover { background:var(--accent-soft); border-color:var(--accent); }
 
 @media(max-width:560px){
   .reservation-form .form-row { grid-template-columns:1fr; }
@@ -380,7 +384,7 @@ nav {
   position:absolute; top:50%; left:50%;
   width:560px; height:560px;
   transform:translate(-50%,-50%);
-  background:radial-gradient(circle, rgba(44,74,124,0.13) 0%, rgba(44,74,124,0.04) 45%, transparent 72%);
+  background:radial-gradient(circle, rgba(21,58,110,0.09) 0%, rgba(21,58,110,0.03) 45%, transparent 72%);
   pointer-events:none;
 }
 .cta-content { position:relative; max-width:520px; margin:0 auto; }
@@ -389,8 +393,8 @@ nav {
 .cta-sub { font-size:0.92rem; color:var(--muted); margin-bottom:38px; line-height:1.75; max-width:420px; margin-left:auto; margin-right:auto; }
 .cta-btn {
   display:inline-flex; align-items:center; gap:11px;
-  background:rgba(44,74,124,0.07);
-  color:var(--accent-light);
+  background:var(--accent-soft);
+  color:var(--accent);
   font-family:'Poppins',sans-serif; font-size:0.82rem; font-weight:600;
   letter-spacing:0.11em; text-transform:uppercase;
   padding:16px 38px; border-radius:50px; text-decoration:none;
@@ -398,9 +402,9 @@ nav {
   transition:background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
 }
 .cta-btn:hover {
-  background:rgba(44,74,124,0.14);
-  border-color:var(--accent-light);
-  box-shadow:0 0 36px rgba(44,74,124,0.22);
+  background:rgba(21,58,110,0.12);
+  border-color:var(--accent);
+  box-shadow:0 0 36px rgba(21,58,110,0.18);
   transform:translateY(-2px);
 }
 
@@ -408,21 +412,21 @@ nav {
   .cta-section { padding:90px 22px 100px; }
 }
 
-.gold-divider { height:1px; background:linear-gradient(to right,transparent,var(--accent),transparent); opacity:0.3; margin:0 60px; }
+.gold-divider { height:1px; background:linear-gradient(to right,transparent,var(--accent),transparent); opacity:0.35; margin:0 60px; }
 
 /* SCROLL TOP */
 .scroll-top {
   position:fixed; right:22px; bottom:22px; width:46px; height:46px;
   display:flex; align-items:center; justify-content:center;
   border:1px solid var(--accent-border); border-radius:50%;
-  background:rgba(255,255,255,0.92); backdrop-filter:blur(8px);
-  box-shadow:0 10px 26px rgba(19,34,66,0.16);
-  color:var(--accent-light); cursor:pointer;
+  background:#ffffff; backdrop-filter:blur(8px);
+  color:var(--accent); cursor:pointer;
   opacity:0; visibility:hidden; transform:translateY(14px);
+  box-shadow:0 8px 24px rgba(21,58,110,0.14);
   transition:opacity 0.3s,transform 0.3s,border-color 0.3s,box-shadow 0.3s; z-index:2000;
 }
 .scroll-top.show { opacity:1; visibility:visible; transform:translateY(0); }
-.scroll-top:hover { border-color:var(--accent-light); box-shadow:0 0 24px rgba(44,74,124,0.15); }
+.scroll-top:hover { border-color:var(--accent); box-shadow:0 0 24px rgba(21,58,110,0.22); }
 .scroll-top svg { width:15px; height:15px; stroke:currentColor; fill:none; stroke-width:2.2; }
 
 /* FOOTER */
@@ -430,13 +434,13 @@ footer {
   border-top:1px solid var(--border); background-color:var(--card2);
   text-align:center; padding:40px 24px; font-size:0.84rem; color:var(--muted);
 }
-footer .footer-brand { font-family:'Lora',serif; color:var(--accent-light); font-size:0.92rem; margin-bottom:8px; }
-footer .footer-copy { opacity:0.5; margin-top:4px; }
-footer .footer-created { margin-top:12px; font-size:0.76rem; opacity:0.55; }
-footer .footer-created a { color:var(--accent-light); text-decoration:none; opacity:0.85; transition:opacity 0.2s; }
+footer .footer-brand { font-family:'Lora',serif; color:var(--accent); font-size:0.92rem; margin-bottom:8px; }
+footer .footer-copy { opacity:0.6; margin-top:4px; }
+footer .footer-created { margin-top:12px; font-size:0.76rem; opacity:0.7; }
+footer .footer-created a { color:var(--accent); text-decoration:none; opacity:0.9; transition:opacity 0.2s; }
 footer .footer-created a:hover { opacity:1; text-decoration:underline; }
 footer .footer-links { margin-top:14px; font-size:0.78rem; }
-footer .footer-links a { color:var(--accent-light); text-decoration:none; opacity:0.8; transition:opacity 0.2s; }
+footer .footer-links a { color:var(--accent); text-decoration:none; opacity:0.85; transition:opacity 0.2s; }
 footer .footer-links a:hover { opacity:1; text-decoration:underline; }
 footer, footer * { -webkit-text-size-adjust:100%; -webkit-font-smoothing:antialiased; }
 
@@ -448,36 +452,36 @@ footer, footer * { -webkit-text-size-adjust:100%; -webkit-font-smoothing:antiali
 }
 .spi-cookie-banner.show { opacity:1; transform:translateY(0); pointer-events:auto; }
 .spi-cookie-card {
-  max-width:680px; width:100%; background:var(--card);
+  max-width:680px; width:100%; background:#ffffff;
   border:1px solid var(--accent-border); border-radius:18px; padding:22px 24px;
-  box-shadow:0 30px 70px rgba(19,34,66,0.18);
+  box-shadow:0 30px 70px rgba(21,58,110,0.20);
   display:flex; flex-wrap:wrap; align-items:flex-start; gap:16px;
 }
 .spi-cookie-icon { width:40px; height:40px; flex-shrink:0; background:var(--accent-soft); border:1px solid var(--accent-border); border-radius:12px; display:flex; align-items:center; justify-content:center; }
-.spi-cookie-icon svg { width:20px; height:20px; color:var(--accent-light); }
+.spi-cookie-icon svg { width:20px; height:20px; color:var(--accent); }
 .spi-cookie-body { flex:1; min-width:200px; }
-.spi-cookie-body h3 { font-family:'Lora',serif; color:var(--accent-light); font-size:1.05rem; margin-bottom:6px; }
+.spi-cookie-body h3 { font-family:'Lora',serif; color:var(--accent); font-size:1.05rem; margin-bottom:6px; }
 .spi-cookie-body p { font-size:0.85rem; color:var(--muted); line-height:1.55; }
-.spi-cookie-body a { color:var(--accent-light); text-decoration:underline; }
+.spi-cookie-body a { color:var(--accent); text-decoration:underline; }
 .spi-cookie-actions { display:flex; flex-wrap:wrap; gap:10px; width:100%; justify-content:flex-end; }
 .spi-cookie-btn { font-family:'Poppins',sans-serif; font-size:0.8rem; font-weight:600; letter-spacing:0.03em; padding:11px 22px; border-radius:8px; cursor:pointer; border:none; transition:transform 0.2s,background 0.2s; white-space:nowrap; }
 .spi-cookie-btn.ghost { background:transparent; color:var(--muted); }
 .spi-cookie-btn.ghost:hover { color:var(--text); }
-.spi-cookie-btn.outline { background:transparent; border:1px solid var(--accent-border); color:var(--accent-light); }
+.spi-cookie-btn.outline { background:transparent; border:1px solid var(--accent-border); color:var(--accent); }
 .spi-cookie-btn.outline:hover { background:var(--accent-soft); }
-.spi-cookie-btn.solid { background:linear-gradient(135deg,#223a68,#2c4678); color:#fff; border:1px solid var(--accent-border); }
-.spi-cookie-btn.solid:hover { transform:translateY(-2px); }
-.spi-cookie-modal { position:fixed; inset:0; background:rgba(10,20,40,0.65); display:flex; justify-content:center; align-items:center; z-index:5001; opacity:0; visibility:hidden; transition:opacity 0.3s,visibility 0.3s; backdrop-filter:blur(8px); padding:20px; }
+.spi-cookie-btn.solid { background:var(--accent); color:#ffffff; border:1px solid var(--accent); }
+.spi-cookie-btn.solid:hover { transform:translateY(-2px); background:#0f2c56; }
+.spi-cookie-modal { position:fixed; inset:0; background:rgba(8,14,26,0.55); display:flex; justify-content:center; align-items:center; z-index:5001; opacity:0; visibility:hidden; transition:opacity 0.3s,visibility 0.3s; backdrop-filter:blur(8px); padding:20px; }
 .spi-cookie-modal.show { opacity:1; visibility:visible; }
-.spi-cookie-modal-card { max-width:460px; width:100%; background:var(--card); border:1px solid var(--accent-border); border-radius:20px; padding:28px; box-shadow:0 30px 80px rgba(19,34,66,0.22); }
-.spi-cookie-modal-card h3 { font-family:'Lora',serif; color:var(--accent-light); font-size:1.2rem; margin-bottom:20px; }
+.spi-cookie-modal-card { max-width:460px; width:100%; background:#ffffff; border:1px solid var(--accent-border); border-radius:20px; padding:28px; box-shadow:0 30px 80px rgba(21,58,110,0.25); }
+.spi-cookie-modal-card h3 { font-family:'Lora',serif; color:var(--accent); font-size:1.2rem; margin-bottom:20px; }
 .spi-cookie-row { display:flex; justify-content:space-between; align-items:flex-start; gap:14px; padding:14px 0; border-bottom:1px solid var(--border); }
 .spi-cookie-row strong { font-size:0.92rem; color:var(--text); display:block; margin-bottom:4px; }
 .spi-cookie-row p { font-size:0.8rem; color:var(--muted); line-height:1.5; }
 .spi-switch { position:relative; display:inline-block; width:42px; height:24px; flex-shrink:0; }
 .spi-switch input { opacity:0; width:0; height:0; }
-.spi-slider { position:absolute; cursor:pointer; inset:0; background:rgba(19,34,66,0.16); border-radius:24px; transition:0.3s; }
-.spi-slider::before { position:absolute; content:""; height:18px; width:18px; left:3px; bottom:3px; background:#fff; border-radius:50%; transition:0.3s; }
+.spi-slider { position:absolute; cursor:pointer; inset:0; background:rgba(21,58,110,0.18); border-radius:24px; transition:0.3s; }
+.spi-slider::before { position:absolute; content:""; height:18px; width:18px; left:3px; bottom:3px; background:#fff; border-radius:50%; transition:0.3s; box-shadow:0 1px 3px rgba(21,58,110,0.35); }
 .spi-switch input:checked + .spi-slider { background:var(--accent); }
 .spi-switch input:checked + .spi-slider::before { transform:translateX(18px); }
 .spi-switch.disabled .spi-slider { opacity:0.5; cursor:not-allowed; }
@@ -496,7 +500,7 @@ footer, footer * { -webkit-text-size-adjust:100%; -webkit-font-smoothing:antiali
 
 /* SPLASH */
 #welcomeSplash {
-  position:fixed; inset:0; z-index:99999; background:var(--bg);
+  position:fixed; inset:0; z-index:99999; background:#ffffff;
   display:flex; flex-direction:column; align-items:center; justify-content:center; gap:18px;
   transition:opacity 0.5s ease,visibility 0.5s ease;
 }
@@ -505,7 +509,7 @@ footer, footer * { -webkit-text-size-adjust:100%; -webkit-font-smoothing:antiali
 @keyframes wLogoIn { to{opacity:1;transform:translateY(0)} }
 .welcome-text { font-family:'Lora',serif; font-style:italic; font-size:0.85rem; letter-spacing:0.12em; color:var(--muted); opacity:0; animation:wTextIn 0.6s ease 0.4s forwards; }
 @keyframes wTextIn { to{opacity:1} }
-.welcome-line { width:0; height:1px; background:linear-gradient(to right,transparent,var(--accent-light),transparent); animation:wLineGrow 0.6s ease 0.55s forwards; }
+.welcome-line { width:0; height:1px; background:linear-gradient(to right,transparent,var(--accent),transparent); animation:wLineGrow 0.6s ease 0.55s forwards; }
 @keyframes wLineGrow { to{width:70px} }
 
 a:focus-visible, button:focus-visible { outline:2px solid var(--accent); outline-offset:2px; border-radius:4px; }
@@ -522,14 +526,14 @@ a:focus-visible, button:focus-visible { outline:2px solid var(--accent); outline
 <nav>
   <div class="nav-logo"><img src="images/logospi1.PNG" alt="SPI System"></div>
   <div class="language-selector" id="langSelector">
-    <span class="lang-flag" id="currentFlag"><span class="fi fi-it fis" id="currentFlagIcon"></span></span>
+    <span class="lang-flag" id="currentFlag">IT</span>
     <svg class="lang-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
     <div class="language-dropdown" id="langDropdown">
-      <a href="#" onclick="changeLanguage(event,'it')"><span class="flag"><span class="fi fi-it fis"></span></span> Italiano</a>
-      <a href="#" onclick="changeLanguage(event,'en')"><span class="flag"><span class="fi fi-gb fis"></span></span> English</a>
-      <a href="#" onclick="changeLanguage(event,'es')"><span class="flag"><span class="fi fi-es fis"></span></span> Español</a>
-      <a href="#" onclick="changeLanguage(event,'fr')"><span class="flag"><span class="fi fi-fr fis"></span></span> Français</a>
-      <a href="#" onclick="changeLanguage(event,'de')"><span class="flag"><span class="fi fi-de fis"></span></span> Deutsch</a>
+      <a href="#" onclick="changeLanguage(event,'it')"><span class="flag">IT</span> Italiano</a>
+      <a href="#" onclick="changeLanguage(event,'en')"><span class="flag">EN</span> English</a>
+      <a href="#" onclick="changeLanguage(event,'es')"><span class="flag">ES</span> Español</a>
+      <a href="#" onclick="changeLanguage(event,'fr')"><span class="flag">FR</span> Français</a>
+      <a href="#" onclick="changeLanguage(event,'de')"><span class="flag">DE</span> Deutsch</a>
     </div>
   </div>
 </nav>
@@ -594,7 +598,7 @@ a:focus-visible, button:focus-visible { outline:2px solid var(--accent); outline
         </svg>
       </div>
       <h3 id="contact-title">Contatti</h3>
-      <a class="contact-phone-link" href="tel:+393935560714" id="contact-phone">393 556 0714</a>
+      <a class="contact-phone-link" href="tel:+3935560714" id="contact-phone">334 273 2997</a>
       <a class="contact-email-link" href="mailto:spisystem20@gmail.com" id="contact-email">
         <i class="fas fa-envelope"></i><span>spisystem20@gmail.com</span>
       </a>
@@ -765,7 +769,7 @@ var obs=new IntersectionObserver(function(entries){
 },{threshold:0.12});
 document.querySelectorAll('.info-card').forEach(function(c){obs.observe(c);});
 
-var FLAG_CODES={it:'it',en:'gb',es:'es',fr:'fr',de:'de'};
+var FLAGS={it:'IT',en:'EN',es:'ES',fr:'FR',de:'DE'};
 
 i18next.init({
   lng: localStorage.getItem('selectedLanguage') || 'it',
@@ -781,7 +785,7 @@ i18next.init({
       location_label:"Dove siamo",location_title:"Indirizzo",
       location_text:"Via Monterosa, 22<br>Palo del Colle (BA)",
       maps_link:"Apri su Google Maps",
-      contact_label:"Contatti",contact_title:"Scrivici o chiamaci",contact_phone:"393 556 0714",
+      contact_label:"Contatti",contact_title:"Scrivici o chiamaci",contact_phone:"3935560714",
       cta_label:"Vuoi un menù come questo?",cta_title:"Porta il tuo locale nel digitale",
       cta_sub:"Contattaci su WhatsApp o telefonicamente. Realizziamo il tuo menù QR in pochi giorni.",cta_btn:"Contattaci su WhatsApp",
       footer_privacy:"Privacy Policy",footer_cookie:"Preferenze Cookie",footer_created:"Realizzato da",
@@ -807,7 +811,7 @@ i18next.init({
       location_label:"Location",location_title:"Address",
       location_text:"22 Monterosa Street<br>Palo del Colle (BA)",
       maps_link:"Open in Google Maps",
-      contact_label:"Contacts",contact_title:"Call or write us",contact_phone:"393 556 0714",
+      contact_label:"Contacts",contact_title:"Call or write us",contact_phone:"3935560714",
       cta_label:"Want a menu like this?",cta_title:"Bring your venue into the digital age",
       cta_sub:"Contact us on WhatsApp or by phone. We'll create your QR menu in just a few days.",cta_btn:"Contact us on WhatsApp",
       footer_privacy:"Privacy Policy",footer_cookie:"Cookie Preferences",footer_created:"Created by",
@@ -833,7 +837,7 @@ i18next.init({
       location_label:"Ubicación",location_title:"Dirección",
       location_text:"Calle Monterosa, 22<br>Palo del Colle (BA)",
       maps_link:"Abrir en Google Maps",
-      contact_label:"Contacto",contact_title:"Llámanos o escríbenos",contact_phone:"393 556 0714",
+      contact_label:"Contacto",contact_title:"Llámanos o escríbenos",contact_phone:"3935560714",
       cta_label:"¿Quieres un menú como este?",cta_title:"Lleva tu local al mundo digital",
       cta_sub:"Contáctanos por WhatsApp o teléfono.",cta_btn:"Contáctanos en WhatsApp",
       footer_privacy:"Política de Privacidad",footer_cookie:"Preferencias de Cookies",footer_created:"Creado por",
@@ -859,7 +863,7 @@ i18next.init({
       location_label:"Emplacement",location_title:"Adresse",
       location_text:"22 Rue Monterosa<br>Palo del Colle (BA)",
       maps_link:"Ouvrir sur Google Maps",
-      contact_label:"Contacts",contact_title:"Appelez-nous ou écrivez",contact_phone:"393 556 0714",
+      contact_label:"Contacts",contact_title:"Appelez-nous ou écrivez",contact_phone:"3935560714",
       cta_label:"Vous voulez un menu comme celui-ci?",cta_title:"Passez au numérique",
       cta_sub:"Contactez-nous sur WhatsApp ou par téléphone.",cta_btn:"Contactez-nous sur WhatsApp",
       footer_privacy:"Politique de Confidentialité",footer_cookie:"Préférences Cookies",footer_created:"Créé par",
@@ -885,7 +889,7 @@ i18next.init({
       location_label:"Standort",location_title:"Adresse",
       location_text:"Monterosa Straße 22<br>Palo del Colle (BA)",
       maps_link:"In Google Maps öffnen",
-      contact_label:"Kontakt",contact_title:"Rufen Sie uns an oder schreiben Sie",contact_phone:"393 556 0714",
+      contact_label:"Kontakt",contact_title:"Rufen Sie uns an oder schreiben Sie",contact_phone:"3935560714",
       cta_label:"Möchten Sie ein solches Menü?",cta_title:"Bringen Sie Ihr Lokal ins Digitale",
       cta_sub:"Kontaktieren Sie uns per WhatsApp oder Telefon.",cta_btn:"WhatsApp kontaktieren",
       footer_privacy:"Datenschutzerklärung",footer_cookie:"Cookie-Einstellungen",footer_created:"Erstellt von",
@@ -948,9 +952,7 @@ function updateTexts(){
   if(notesEl) notesEl.setAttribute('placeholder',t('notes_placeholder'));
   var resErrEl=document.getElementById('reservation-error');
   if(resErrEl && resErrEl.classList.contains('show')) resErrEl.textContent=t('reservation_error');
-  var _flagCode=FLAG_CODES[i18next.language]||'it';
-  var _flagIconEl=document.getElementById('currentFlagIcon');
-  if(_flagIconEl) _flagIconEl.className='fi fi-'+_flagCode+' fis';
+  document.getElementById('currentFlag').textContent=FLAGS[i18next.language]||'IT';
 }
 
 function changeLanguage(event,lang){
