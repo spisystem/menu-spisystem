@@ -11,9 +11,12 @@
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{
   --bg:#080c14;--card:#11151f;--card2:#151b27;
-  --accent:#8da4be;--accent-light:#c9d3e0;
-  --accent-soft:rgba(141,164,190,0.10);--accent-border:rgba(141,164,190,0.30);
-  --text:#eaf0f8;--muted:#8a96a8;--border:rgba(199,210,224,0.10);
+  --accent:#3d63e8;--accent-light:#8aa4f5;
+  --accent-soft:rgba(61,99,232,0.10);--accent-border:rgba(61,99,232,0.30);
+  --gold:#c9a463;--gold-light:#e3c98a;--gold-soft:rgba(201,164,99,0.12);--gold-border:rgba(201,164,99,0.35);
+  --text:#f5f0e6;--muted:#9a9184;--border:rgba(255,255,255,0.12);
+  --white-soft:rgba(255,255,255,0.05);
+  --white-line:rgba(255,255,255,0.16);
 }
 html{scroll-behavior:smooth}
 body{font-family:'Poppins',sans-serif;background-color:var(--bg);color:var(--text);min-height:100vh;padding-top:112px}
@@ -23,11 +26,11 @@ nav{
   background:linear-gradient(135deg,rgba(8,12,20,.97) 0%,rgba(26,34,48,.97) 100%);
   backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
   border-bottom:1px solid rgba(255,255,255,.07);
-  padding:0 24px;display:flex;justify-content:space-between;align-items:center;
+  padding:0 24px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;
   height:112px;z-index:1000;
 }
-.nav-left{display:flex;align-items:center;gap:14px}
 .back-btn{
+  justify-self:start;
   display:flex;align-items:center;gap:7px;
   color:var(--accent);text-decoration:none;font-size:0.8rem;
   letter-spacing:.04em;padding:7px 13px;
@@ -35,25 +38,27 @@ nav{
   background:var(--accent-soft);
   transition:color .2s,border-color .2s,background .2s;white-space:nowrap;
 }
-.back-btn:hover{color:var(--accent-light);border-color:var(--accent-light);background:rgba(141,164,190,0.16)}
+.back-btn:hover{color:var(--accent-light);border-color:var(--accent-light);background:rgba(61,99,232,0.16)}
 .back-btn svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.5;flex-shrink:0}
+.nav-logo{justify-self:center}
 .nav-logo img{height:96px;width:auto;display:block}
 
 .language-selector{
+  justify-self:end;
   position:relative;display:flex;align-items:center;gap:7px;cursor:pointer;
   padding:8px 13px;border-radius:10px;
   border:1px solid var(--accent-border);background:var(--accent-soft);
   transition:background .2s,border-color .2s;white-space:nowrap;user-select:none;flex-shrink:0;
 }
-.language-selector:hover{background:rgba(141,164,190,0.16);border-color:var(--accent-light)}
+.language-selector:hover{background:rgba(61,99,232,0.16);border-color:var(--accent-light)}
 .lang-flag{
+  position:relative;
   width:26px;height:26px;flex-shrink:0;
   display:flex;align-items:center;justify-content:center;
   border-radius:50%;
   background:linear-gradient(135deg,#1a2438,#243350);
   border:1px solid var(--accent-border);
-  font-size:0.62rem;font-weight:700;letter-spacing:.02em;
-  color:var(--accent-light);text-transform:uppercase;
+  overflow:hidden;
 }
 .lang-chevron{width:13px;height:13px;stroke:var(--accent-light);fill:none;stroke-width:2.5;stroke-linecap:round;transition:transform .3s;flex-shrink:0}
 .language-selector.open .lang-chevron{transform:rotate(180deg)}
@@ -71,29 +76,39 @@ nav{
 }
 .language-dropdown a:last-child{border-bottom:none}
 .language-dropdown a .flag{
+  position:relative;
   width:24px;height:24px;flex-shrink:0;
   display:flex;align-items:center;justify-content:center;
   border-radius:50%;
-  background:rgba(141,164,190,0.12);
+  background:rgba(61,99,232,0.12);
   border:1px solid var(--accent-border);
-  font-size:0.6rem;font-weight:700;letter-spacing:.02em;
-  color:var(--accent-light);text-transform:uppercase;
+  overflow:hidden;
 }
+.lang-flag .fi, .language-dropdown a .flag .fi {
+  position:absolute !important; top:0 !important; left:0 !important;
+  width:100% !important; height:100% !important;
+  margin:0 !important; padding:0 !important;
+  background-size:cover !important; background-position:center !important;
+  border-radius:50% !important;
+}
+.lang-flag .fi::before, .language-dropdown a .flag .fi::before { content:none !important; }
 .language-dropdown a:hover{background:var(--accent-soft)}
 .language-dropdown a:hover .flag{background:var(--accent);color:#0d1220}
+.lang-flag .fi, .language-dropdown a .flag .fi { transition:transform 0.3s ease; }
+.language-dropdown a:hover .flag .fi { transform:scale(1.12); }
 
 .page-header{text-align:center;padding:48px 24px 20px}
-.page-eyebrow{font-size:.68rem;letter-spacing:.26em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
-.page-title{font-family:'Lora',serif;font-size:clamp(1.9rem,4.5vw,2.8rem);color:var(--text)}
+.page-eyebrow{font-size:.68rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold-light);font-weight:600;margin-bottom:14px}
+.page-title{font-family:'Lora',serif;font-weight:600;font-size:clamp(1.9rem,4.5vw,2.8rem);color:var(--text);letter-spacing:0.01em}
 .page-updated{margin-top:10px;font-size:.82rem;color:var(--muted)}
-.gold-rule{width:48px;height:2px;background:linear-gradient(to right,transparent,var(--accent-light),transparent);margin:20px auto 0;border-radius:2px;opacity:.6}
+.gold-rule{width:48px;height:2px;background:linear-gradient(to right,transparent,var(--gold-light),transparent);margin:20px auto 0;border-radius:2px;opacity:.75}
 
 .content{max-width:760px;margin:0 auto;padding:50px 24px 100px}
 
 .policy-section{
-  background-color:var(--card);border:1px solid var(--accent-border);
-  border-radius:18px;padding:32px 34px;margin-bottom:18px;
-  overflow:hidden;
+  background:transparent;border:none;
+  border-top:1px solid var(--border);
+  padding:30px 2px;margin-bottom:0;
 }
 .policy-section h2{
   font-family:'Lora',serif;font-size:1.25rem;color:var(--accent-light);
@@ -207,7 +222,7 @@ footer,footer *{-webkit-text-size-adjust:100%;-webkit-font-smoothing:antialiased
 .spi-switch input:checked+.spi-slider::before{transform:translateX(18px)}
 .spi-switch.disabled .spi-slider{opacity:.5;cursor:not-allowed}
 
-@media(max-width:768px){nav{padding:0 18px;height:88px}.nav-logo img{height:72px}.policy-section{padding:24px 22px}}
+@media(max-width:768px){nav{padding:0 18px;height:88px}.nav-logo img{height:72px}.policy-section{padding:24px 2px}}
 @media(max-width:600px){
   .spi-cookie-card{flex-direction:column;padding:20px}
   .spi-cookie-actions{justify-content:stretch}
@@ -217,27 +232,25 @@ footer,footer *{-webkit-text-size-adjust:100%;-webkit-font-smoothing:antialiased
 }
 a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
 </style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/7.2.3/css/flag-icons.min.css">
 </head>
 <body>
 
 <nav>
-  <div class="nav-left">
-    <!-- FIX: torna sempre alla home -->
-    <a class="back-btn" href="index.html" id="back-btn">
-      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
-      <span id="back-label">Indietro</span>
-    </a>
-    <div class="nav-logo"><img src="images/logospi1.PNG" alt="SPI System"></div>
-  </div>
+  <a class="back-btn" href="index.html" id="back-btn">
+    <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+    <span id="back-label">Indietro</span>
+  </a>
+  <div class="nav-logo"><img src="images/logospi1.PNG" alt="SPI System"></div>
   <div class="language-selector" id="langSelector">
-    <span class="lang-flag" id="currentFlag">IT</span>
+    <span class="lang-flag"><span class="fi fis fi-it" id="currentFlag"></span></span>
     <svg class="lang-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
     <div class="language-dropdown" id="langDropdown">
-      <a href="#" onclick="changeLanguage(event,'it')"><span class="flag">IT</span> Italiano</a>
-      <a href="#" onclick="changeLanguage(event,'en')"><span class="flag">EN</span> English</a>
-      <a href="#" onclick="changeLanguage(event,'es')"><span class="flag">ES</span> Español</a>
-      <a href="#" onclick="changeLanguage(event,'fr')"><span class="flag">FR</span> Français</a>
-      <a href="#" onclick="changeLanguage(event,'de')"><span class="flag">DE</span> Deutsch</a>
+      <a href="#" onclick="changeLanguage(event,'it')"><span class="flag"><span class="fi fis fi-it"></span></span> Italiano</a>
+      <a href="#" onclick="changeLanguage(event,'en')"><span class="flag"><span class="fi fis fi-gb"></span></span> English</a>
+      <a href="#" onclick="changeLanguage(event,'es')"><span class="flag"><span class="fi fis fi-es"></span></span> Español</a>
+      <a href="#" onclick="changeLanguage(event,'fr')"><span class="flag"><span class="fi fis fi-fr"></span></span> Français</a>
+      <a href="#" onclick="changeLanguage(event,'de')"><span class="flag"><span class="fi fis fi-de"></span></span> Deutsch</a>
     </div>
   </div>
 </nav>
@@ -340,7 +353,7 @@ langSelector.addEventListener('click',e=>{
 document.addEventListener('click',()=>{ langDropdown.classList.remove('open'); langSelector.classList.remove('open'); });
 function closeDropdown(){ langDropdown.classList.remove('open'); langSelector.classList.remove('open'); }
 
-const FLAGS={it:'IT',en:'EN',es:'ES',fr:'FR',de:'DE'};
+const FLAGS={it:'it',en:'gb',es:'es',fr:'fr',de:'de'};
 
 i18next.init({
   lng:localStorage.getItem('selectedLanguage')||'it',
@@ -488,7 +501,7 @@ function updateTexts(){
   document.getElementById('s2-list').innerHTML=`<li>${i18next.t('s2_li1')}</li><li>${i18next.t('s2_li2')}</li><li>${i18next.t('s2_li3')}</li>`;
   document.getElementById('s6-list').innerHTML=`<li>${i18next.t('s6_li1')}</li><li>${i18next.t('s6_li2')}</li><li>${i18next.t('s6_li3')}</li><li>${i18next.t('s6_li4')}</li><li>${i18next.t('s6_li5')}</li><li>${i18next.t('s6_li6')}</li>`;
   document.getElementById('s7-list').innerHTML=`<li>${i18next.t('s7_li1')}</li><li>${i18next.t('s7_li2')}</li><li>${i18next.t('s7_li3')}</li><li>${i18next.t('s7_li4')}</li>`;
-  document.getElementById('currentFlag').textContent=FLAGS[i18next.language]||'IT';
+  document.getElementById('currentFlag').className='fi fis fi-'+(FLAGS[i18next.language]||'it');
 }
 
 function changeLanguage(event,lang){
