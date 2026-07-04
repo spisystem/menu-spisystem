@@ -14,13 +14,19 @@
   --bg:#080c14;
   --card:#11151f;
   --card2:#151b27;
-  --accent:#8da4be;
-  --accent-light:#c9d3e0;
-  --accent-soft:rgba(141,164,190,0.10);
-  --accent-border:rgba(141,164,190,0.30);
-  --text:#eaf0f8;
-  --muted:#8a96a8;
-  --border:rgba(199,210,224,0.10);
+  --accent:#3d63e8;
+  --accent-light:#8aa4f5;
+  --accent-soft:rgba(61,99,232,0.10);
+  --accent-border:rgba(61,99,232,0.30);
+  --gold:#c9a463;
+  --gold-light:#e3c98a;
+  --gold-soft:rgba(201,164,99,0.12);
+  --gold-border:rgba(201,164,99,0.35);
+  --text:#f5f0e6;
+  --muted:#9a9184;
+  --border:rgba(255,255,255,0.12);
+  --white-soft:rgba(255,255,255,0.05);
+  --white-line:rgba(255,255,255,0.16);
 }
 html { scroll-behavior:smooth; }
 body { font-family:'Poppins',sans-serif; background-color:var(--bg); color:var(--text); overflow-x:hidden; }
@@ -31,30 +37,101 @@ nav {
   background:linear-gradient(135deg,rgba(8,12,20,0.97) 0%,rgba(26,34,48,0.97) 100%);
   backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px);
   border-bottom:1px solid rgba(255,255,255,0.07);
-  padding:0 32px; z-index:1000;
-  display:flex; align-items:center; justify-content:space-between; height:112px;
+  padding:0 28px; z-index:1000;
+  display:grid; grid-template-columns:1fr auto 1fr; align-items:center; height:112px;
 }
+.nav-logo { justify-self:center; }
 .nav-logo img { height:96px; width:auto; display:block; transition:transform 0.3s,opacity 0.3s; }
 .nav-logo img:hover { transform:scale(1.04); opacity:0.82; }
 
+/* HAMBURGER */
+.hamburger-btn {
+  justify-self:start;
+  width:44px; height:44px;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px;
+  background:transparent; border:none; cursor:pointer; padding:0;
+  flex-shrink:0;
+}
+.hamburger-btn span {
+  display:block; width:23px; height:1.5px; border-radius:2px;
+  background:var(--accent-light);
+  transition:transform 0.35s cubic-bezier(.4,0,.2,1), opacity 0.25s ease, background 0.3s ease;
+}
+.hamburger-btn:hover span { background:var(--gold-light); }
+.hamburger-btn.open span:nth-child(1) { transform:translateY(7.5px) rotate(45deg); }
+.hamburger-btn.open span:nth-child(2) { opacity:0; }
+.hamburger-btn.open span:nth-child(3) { transform:translateY(-7.5px) rotate(-45deg); }
+
+/* NAV DRAWER (side panel) */
+.nav-drawer-backdrop {
+  position:fixed; inset:0; background:rgba(5,8,14,0.6);
+  backdrop-filter:blur(4px); -webkit-backdrop-filter:blur(4px);
+  opacity:0; visibility:hidden; transition:opacity 0.35s ease, visibility 0.35s ease;
+  z-index:1998;
+}
+.nav-drawer-backdrop.open { opacity:1; visibility:visible; }
+.nav-drawer-panel {
+  position:fixed; top:0; left:0; height:100%; width:min(300px,80vw);
+  background:var(--card2);
+  border-right:1px solid var(--white-line);
+  box-shadow:30px 0 70px rgba(0,0,0,0.4);
+  z-index:1999;
+  transform:translateX(-100%);
+  transition:transform 0.4s cubic-bezier(.4,0,.2,1);
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  padding:40px 28px;
+}
+.nav-drawer-panel.open { transform:translateX(0); }
+.nav-drawer-close {
+  position:absolute; top:20px; right:20px;
+  width:36px; height:36px; border-radius:50%; border:1px solid var(--white-line);
+  background:transparent; color:var(--text); font-size:1.15rem; line-height:1; cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+  transition:border-color 0.2s, color 0.2s, background 0.2s;
+}
+.nav-drawer-close:hover { border-color:var(--gold-light); color:var(--gold-light); background:var(--gold-soft); }
+
+.nav-drawer-links {
+  display:flex; flex-direction:column; align-items:center;
+}
+.nav-drawer-links a {
+  font-family:'Lora',serif; font-weight:600; font-size:1.15rem;
+  color:var(--text); text-decoration:none;
+  padding:14px 4px;
+  text-align:center;
+  border-bottom:1px solid var(--border);
+  transition:color 0.2s ease;
+}
+.nav-drawer-links a:last-child { border-bottom:none; }
+.nav-drawer-links a:hover { color:var(--gold-light); }
+
+.nav-drawer-foot {
+  margin-top:32px; padding-top:20px; text-align:center;
+  border-top:1px solid var(--border);
+}
+.nav-drawer-foot a { font-size:0.74rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--muted); text-decoration:none; transition:color 0.2s; }
+.nav-drawer-foot a:hover { color:var(--accent-light); }
+
 /* LANGUAGE SELECTOR */
 .language-selector {
+  justify-self:end;
   position:relative; display:flex; align-items:center; gap:7px; cursor:pointer;
   padding:8px 13px; border-radius:10px;
   border:1px solid var(--accent-border);
   background:var(--accent-soft);
   transition:background 0.2s, border-color 0.2s;
   white-space:nowrap; user-select:none;
+  flex-shrink:0;
 }
-.language-selector:hover { background:rgba(141,164,190,0.16); border-color:var(--accent-light); }
+.language-selector:hover { background:rgba(61,99,232,0.16); border-color:var(--accent-light); }
 .lang-flag {
+  position:relative;
   width:26px; height:26px; flex-shrink:0;
   display:flex; align-items:center; justify-content:center;
   border-radius:50%;
   background:linear-gradient(135deg,#1a2438,#243350);
   border:1px solid var(--accent-border);
-  font-size:0.62rem; font-weight:700; letter-spacing:0.02em;
-  color:var(--accent-light); text-transform:uppercase;
+  overflow:hidden;
 }
 .lang-chevron { width:13px; height:13px; stroke:var(--accent-light); fill:none; stroke-width:2.5; stroke-linecap:round; transition:transform 0.3s; flex-shrink:0; }
 .language-selector.open .lang-chevron { transform:rotate(180deg); }
@@ -73,16 +150,26 @@ nav {
 }
 .language-dropdown a:last-child { border-bottom:none; }
 .language-dropdown a .flag {
+  position:relative;
   width:24px; height:24px; flex-shrink:0;
   display:flex; align-items:center; justify-content:center;
   border-radius:50%;
-  background:rgba(141,164,190,0.12);
+  background:rgba(61,99,232,0.12);
   border:1px solid var(--accent-border);
-  font-size:0.6rem; font-weight:700; letter-spacing:0.02em;
-  color:var(--accent-light); text-transform:uppercase;
+  overflow:hidden;
 }
+.lang-flag .fi, .language-dropdown a .flag .fi {
+  position:absolute !important; top:0 !important; left:0 !important;
+  width:100% !important; height:100% !important;
+  margin:0 !important; padding:0 !important;
+  background-size:cover !important; background-position:center !important;
+  border-radius:50% !important;
+}
+.lang-flag .fi::before, .language-dropdown a .flag .fi::before { content:none !important; }
 .language-dropdown a:hover { background:var(--accent-soft); }
 .language-dropdown a:hover .flag { background:var(--accent); color:#0d1220; }
+.lang-flag .fi, .language-dropdown a .flag .fi { transition:transform 0.3s ease; }
+.language-dropdown a:hover .flag .fi { transform:scale(1.12); }
 
 /* HERO */
 .hero {
@@ -117,7 +204,7 @@ nav {
   display:inline-flex; align-items:center; gap:11px;
   position:relative; overflow:hidden;
   background:linear-gradient(135deg,#0d1220 0%,#1a2438 100%);
-  color:#ffffff;
+  color:#f7f2e6;
   font-family:'Poppins',sans-serif; font-size:0.84rem; font-weight:600;
   letter-spacing:0.10em; text-transform:uppercase;
   padding:16px 38px; border-radius:3px;
@@ -131,12 +218,12 @@ nav {
   background:linear-gradient(120deg,transparent,rgba(255,255,255,0.12),transparent);
   transition:left 0.6s ease;
 }
-.hero-btn:hover { box-shadow:0 16px 42px rgba(0,0,0,0.4); border-color:var(--accent-light); }
+.hero-btn:hover { box-shadow:0 16px 42px rgba(0,0,0,0.4); border-color:var(--gold-light); }
 .hero-btn:hover::before { left:100%; }
 
 .hero-scroll {
   display:flex; flex-direction:column; align-items:center; gap:6px;
-  color:rgba(255,255,255,0.5); font-size:0.62rem; letter-spacing:0.18em; text-transform:uppercase;
+  color:rgba(245,240,230,0.55); font-size:0.62rem; letter-spacing:0.18em; text-transform:uppercase;
   text-decoration:none; animation:scrollBounce 2.4s ease-in-out infinite; transition:color 0.2s;
 }
 .hero-scroll:hover { color:var(--accent-light); }
@@ -146,87 +233,87 @@ nav {
    INFO SECTION — CARD ELEGANTI CENTRATE
 ═══════════════════════════════════════════ */
 .info-section { background-color:var(--bg); padding:100px 28px 80px; }
-.section-eyebrow { text-align:center; font-size:0.68rem; letter-spacing:0.26em; text-transform:uppercase; color:var(--accent); margin-bottom:14px; }
-.section-title { text-align:center; font-family:'Lora',serif; font-size:clamp(1.7rem,4vw,2.6rem); color:var(--text); margin-bottom:14px; line-height:1.2; }
+.section-eyebrow { text-align:center; font-size:0.68rem; letter-spacing:0.3em; text-transform:uppercase; color:var(--gold-light); font-weight:600; margin-bottom:14px; }
+.section-title { text-align:center; font-family:'Lora',serif; font-weight:600; font-size:clamp(1.7rem,4vw,2.6rem); color:var(--text); margin-bottom:14px; line-height:1.2; letter-spacing:0.01em; }
 .section-desc { text-align:center; font-size:0.92rem; color:var(--muted); max-width:520px; margin:0 auto 64px; line-height:1.7; }
 
 .info-grid {
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-  gap:20px;
-  max-width:1060px;
+  grid-template-columns:repeat(4,1fr);
+  max-width:1120px;
   margin:0 auto;
 }
+@media(max-width:900px){ .info-grid{ grid-template-columns:repeat(2,1fr); } }
+@media(max-width:560px){ .info-grid{ grid-template-columns:1fr; } }
 
 .info-card {
-  background:var(--card);
-  border:1px solid rgba(141,164,190,0.18);
-  border-radius:20px;
-  padding:36px 28px;
-  text-align:center;
   position:relative;
-  overflow:hidden;
+  text-align:center;
+  padding:6px 24px 10px;
+  border-left:1px solid var(--white-line);
   opacity:0;
-  transform:translateY(40px);
-  transition:opacity 0.65s ease, transform 0.65s ease, border-color 0.3s, box-shadow 0.3s;
+  transform:translateY(26px);
+  transition:opacity 0.75s ease, transform 0.75s ease;
+}
+.info-grid > .info-card:nth-child(4n+1) { border-left:none; }
+@media(max-width:900px){
+  .info-grid > .info-card { border-left:none; border-top:1px solid var(--white-line); padding:34px 4px 4px; }
+  .info-grid > .info-card:nth-child(-n+2) { border-top:none; padding-top:4px; }
+}
+@media(max-width:560px){
+  .info-grid > .info-card { border-top:1px solid var(--white-line) !important; padding:34px 4px 4px !important; }
+  .info-grid > .info-card:first-child { border-top:none !important; padding-top:4px !important; }
 }
 .info-card.visible {
   opacity:1;
   transform:translateY(0);
 }
-.info-card::before {
-  content:'';
-  position:absolute; top:0; left:50%; transform:translateX(-50%);
-  width:0; height:2px;
-  background:linear-gradient(90deg,transparent,var(--accent-light),transparent);
-  transition:width 0.6s ease 0.35s;
-  border-radius:2px;
-}
-.info-card.visible::before { width:55%; }
-.info-card:hover {
-  transform:translateY(-6px);
-  border-color:rgba(141,164,190,0.40);
-  box-shadow:0 24px 52px rgba(0,0,0,0.22);
+
+.info-kicker {
+  display:block;
+  font-size:0.66rem; font-weight:600; letter-spacing:0.24em; text-transform:uppercase;
+  color:var(--gold-light); opacity:0.85;
+  margin-bottom:16px;
 }
 
 .info-card .icon {
-  width:54px; height:54px;
-  background:rgba(141,164,190,0.08);
-  border:1px solid rgba(141,164,190,0.20);
-  border-radius:16px;
+  width:46px; height:46px;
+  border:1px solid var(--white-line);
+  border-radius:50%;
   display:flex; align-items:center; justify-content:center;
-  margin:0 auto 22px;
-  transition:background 0.3s, border-color 0.3s;
+  margin:0 auto 24px;
+  transition:border-color 0.35s, transform 0.35s;
 }
 .info-card:hover .icon {
-  background:rgba(141,164,190,0.15);
-  border-color:rgba(141,164,190,0.38);
+  border-color:var(--gold-light);
+  transform:translateY(-3px);
 }
-.info-card .icon i { font-size:1.2rem; color:var(--accent-light); }
+.info-card .icon i { font-size:1.05rem; color:var(--gold-light); }
 .info-card .icon svg.phone-icon {
-  width:21px; height:21px;
-  stroke:var(--accent-light); fill:none;
-  stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round;
+  width:19px; height:19px;
+  stroke:var(--gold-light); fill:none;
+  stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round;
 }
 .info-card h3 {
   font-family:'Lora',serif;
-  font-size:1.1rem;
+  font-size:1.12rem;
   color:var(--text);
   margin-bottom:12px;
+  letter-spacing:0.01em;
 }
-.info-card p { font-size:0.88rem; color:var(--muted); line-height:1.82; }
+.info-card p { font-size:0.87rem; color:var(--muted); line-height:1.8; }
 .info-card a { color:var(--accent-light); text-decoration:none; }
 .info-card a:hover { text-decoration:underline; }
 
-.hours-entries { display:flex; flex-direction:column; gap:8px; margin-top:4px; }
+.hours-entries { display:flex; flex-direction:column; gap:2px; margin-top:6px; }
 .hours-entry {
   display:flex; justify-content:space-between; align-items:center;
-  background:rgba(141,164,190,0.06);
-  border-radius:8px;
-  padding:8px 14px;
+  padding:9px 0;
+  border-bottom:1px solid var(--border);
 }
+.hours-entry:last-child { border-bottom:none; }
 .hours-entry-day  { font-size:0.8rem; color:var(--muted); }
-.hours-entry-time { font-size:0.8rem; color:var(--accent-light); font-weight:600; letter-spacing:0.03em; }
+.hours-entry-time { font-size:0.8rem; color:var(--gold-light); font-weight:600; letter-spacing:0.03em; }
 
 .maps-link {
   display:inline-flex; align-items:center; gap:7px;
@@ -237,17 +324,6 @@ nav {
 }
 .maps-link:hover { opacity:1; }
 .maps-link i { font-size:0.78rem; }
-
-.contact-phone-link {
-  font-family:'Lora',serif;
-  font-size:1.35rem;
-  color:var(--text);
-  text-decoration:none;
-  display:block;
-  margin-bottom:10px;
-  transition:color 0.2s;
-}
-.contact-phone-link:hover { color:var(--accent-light); }
 
 .contact-email-link {
   display:inline-flex; align-items:center; gap:7px;
@@ -265,7 +341,7 @@ nav {
 .social-row { display:flex; justify-content:center; gap:10px; margin-top:16px; flex-wrap:wrap; }
 .social-row a {
   width:38px; height:38px;
-  border:1px solid rgba(141,164,190,0.22);
+  border:1px solid rgba(61,99,232,0.22);
   border-radius:50%;
   display:flex; align-items:center; justify-content:center;
   color:var(--muted); font-size:1rem;
@@ -275,7 +351,7 @@ nav {
 .social-row a:hover {
   color:var(--accent-light);
   border-color:var(--accent-border);
-  background:rgba(141,164,190,0.08);
+  background:rgba(61,99,232,0.08);
   transform:translateY(-2px);
 }
 
@@ -298,7 +374,7 @@ nav {
 .reservation-form textarea { height:auto; padding:12px 14px; }
 .reservation-form select {
   appearance:none; -webkit-appearance:none; -moz-appearance:none;
-  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23c9d3e0' stroke-width='2.5' stroke-linecap='round'><polyline points='6 9 12 15 18 9'/></svg>");
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238aa4f5' stroke-width='2.5' stroke-linecap='round'><polyline points='6 9 12 15 18 9'/></svg>");
   background-repeat:no-repeat; background-position:right 14px center; background-size:13px;
   padding-right:38px; cursor:pointer;
 }
@@ -317,7 +393,7 @@ nav {
 .reservation-btn {
   width:100%; display:flex; align-items:center; justify-content:center; gap:10px;
   position:relative; overflow:hidden;
-  background:linear-gradient(135deg,#0d1220 0%,#1a2438 100%); color:#fff;
+  background:linear-gradient(135deg,#0d1220 0%,#1a2438 100%); color:#f7f2e6;
   border:1px solid var(--accent-border); border-radius:10px;
   padding:15px; font-family:'Poppins',sans-serif; font-size:0.84rem; font-weight:600;
   letter-spacing:0.08em; text-transform:uppercase; cursor:pointer;
@@ -335,7 +411,7 @@ nav {
 .thankyou-card.show { display:block; animation:fadeUp 0.6s ease both; }
 .thankyou-icon {
   width:72px; height:72px;
-  background:rgba(141,164,190,0.12);
+  background:rgba(61,99,232,0.12);
   border:1px solid var(--accent-border);
   border-radius:50%;
   display:flex; align-items:center; justify-content:center;
@@ -383,16 +459,16 @@ nav {
   position:absolute; top:50%; left:50%;
   width:560px; height:560px;
   transform:translate(-50%,-50%);
-  background:radial-gradient(circle, rgba(141,164,190,0.13) 0%, rgba(141,164,190,0.04) 45%, transparent 72%);
+  background:radial-gradient(circle, rgba(61,99,232,0.14) 0%, rgba(201,164,99,0.06) 45%, transparent 72%);
   pointer-events:none;
 }
 .cta-content { position:relative; max-width:520px; margin:0 auto; }
-.cta-label { font-size:0.68rem; letter-spacing:0.3em; text-transform:uppercase; color:var(--accent); margin-bottom:18px; }
+.cta-label { font-size:0.68rem; letter-spacing:0.32em; text-transform:uppercase; color:var(--gold-light); font-weight:600; margin-bottom:18px; }
 .cta-title { font-family:'Lora',serif; font-style:italic; font-size:clamp(1.6rem,3.8vw,2.4rem); color:var(--text); margin-bottom:14px; line-height:1.3; }
 .cta-sub { font-size:0.92rem; color:var(--muted); margin-bottom:38px; line-height:1.75; max-width:420px; margin-left:auto; margin-right:auto; }
 .cta-btn {
   display:inline-flex; align-items:center; gap:11px;
-  background:rgba(141,164,190,0.07);
+  background:rgba(61,99,232,0.07);
   color:var(--accent-light);
   font-family:'Poppins',sans-serif; font-size:0.82rem; font-weight:600;
   letter-spacing:0.11em; text-transform:uppercase;
@@ -401,9 +477,9 @@ nav {
   transition:background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
 }
 .cta-btn:hover {
-  background:rgba(141,164,190,0.14);
+  background:rgba(61,99,232,0.14);
   border-color:var(--accent-light);
-  box-shadow:0 0 36px rgba(141,164,190,0.22);
+  box-shadow:0 0 36px rgba(61,99,232,0.22);
   transform:translateY(-2px);
 }
 
@@ -411,7 +487,7 @@ nav {
   .cta-section { padding:90px 22px 100px; }
 }
 
-.gold-divider { height:1px; background:linear-gradient(to right,transparent,var(--accent),transparent); opacity:0.3; margin:0 60px; }
+.gold-divider { height:1px; background:linear-gradient(to right,transparent,var(--gold),transparent); opacity:0.45; margin:0 60px; }
 
 /* SCROLL TOP */
 .scroll-top {
@@ -424,7 +500,7 @@ nav {
   transition:opacity 0.3s,transform 0.3s,border-color 0.3s,box-shadow 0.3s; z-index:2000;
 }
 .scroll-top.show { opacity:1; visibility:visible; transform:translateY(0); }
-.scroll-top:hover { border-color:var(--accent-light); box-shadow:0 0 24px rgba(141,164,190,0.15); }
+.scroll-top:hover { border-color:var(--accent-light); box-shadow:0 0 24px rgba(61,99,232,0.15); }
 .scroll-top svg { width:15px; height:15px; stroke:currentColor; fill:none; stroke-width:2.2; }
 
 /* FOOTER */
@@ -512,6 +588,7 @@ footer, footer * { -webkit-text-size-adjust:100%; -webkit-font-smoothing:antiali
 
 a:focus-visible, button:focus-visible { outline:2px solid var(--accent); outline-offset:2px; border-radius:4px; }
 </style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/7.2.3/css/flag-icons.min.css">
 </head>
 <body>
 
@@ -522,17 +599,35 @@ a:focus-visible, button:focus-visible { outline:2px solid var(--accent); outline
 </div>
 
 <nav>
+  <button class="hamburger-btn" id="hamburgerBtn" aria-label="Apri menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
   <div class="nav-logo"><img src="images/logospi1.PNG" alt="SPI System"></div>
   <div class="language-selector" id="langSelector">
-    <span class="lang-flag" id="currentFlag">IT</span>
+    <span class="lang-flag"><span class="fi fis fi-it" id="currentFlag"></span></span>
     <svg class="lang-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
     <div class="language-dropdown" id="langDropdown">
-      <a href="#" onclick="changeLanguage(event,'it')"><span class="flag">IT</span> Italiano</a>
-      <a href="#" onclick="changeLanguage(event,'en')"><span class="flag">EN</span> English</a>
-      <a href="#" onclick="changeLanguage(event,'es')"><span class="flag">ES</span> Español</a>
-      <a href="#" onclick="changeLanguage(event,'fr')"><span class="flag">FR</span> Français</a>
-      <a href="#" onclick="changeLanguage(event,'de')"><span class="flag">DE</span> Deutsch</a>
+      <a href="#" onclick="changeLanguage(event,'it')"><span class="flag"><span class="fi fis fi-it"></span></span> Italiano</a>
+      <a href="#" onclick="changeLanguage(event,'en')"><span class="flag"><span class="fi fis fi-gb"></span></span> English</a>
+      <a href="#" onclick="changeLanguage(event,'es')"><span class="flag"><span class="fi fis fi-es"></span></span> Español</a>
+      <a href="#" onclick="changeLanguage(event,'fr')"><span class="flag"><span class="fi fis fi-fr"></span></span> Français</a>
+      <a href="#" onclick="changeLanguage(event,'de')"><span class="flag"><span class="fi fis fi-de"></span></span> Deutsch</a>
     </div>
+  </div>
+</nav>
+
+<div class="nav-drawer-backdrop" id="navDrawerBackdrop"></div>
+<nav class="nav-drawer-panel" id="navDrawerPanel" aria-hidden="true">
+  <button class="nav-drawer-close" id="navDrawerClose" aria-label="Chiudi menu">&times;</button>
+  <div class="nav-drawer-links">
+    <a href="#hero"><span id="drawer-home">Home</span></a>
+    <a href="#info"><span id="drawer-services">Chi Siamo</span></a>
+    <a href="#reservation"><span id="drawer-reservation">Prenotazioni</span></a>
+    <a href="menu.html"><span id="drawer-menu">Il Nostro Menù</span></a>
+    <a href="#contact-card"><span id="drawer-contact">Contatti</span></a>
+  </div>
+  <div class="nav-drawer-foot">
+    <a href="privacy.html" id="drawer-privacy">Privacy Policy</a>
   </div>
 </nav>
 
@@ -559,12 +654,14 @@ a:focus-visible, button:focus-visible { outline:2px solid var(--accent); outline
   <div class="info-grid">
 
     <div class="info-card">
+      <span class="info-kicker" id="kicker-1">Tecnologia</span>
       <div class="icon"><i class="fas fa-laptop-code"></i></div>
       <h3 id="about-title">Chi siamo</h3>
       <p id="about-text">SPI System sviluppa soluzioni tecnologiche per attività commerciali e ristorative. Realizziamo menù digitali QR code multilingua per migliorare l'esperienza del cliente.</p>
     </div>
 
     <div class="info-card">
+      <span class="info-kicker" id="kicker-2">Location</span>
       <div class="icon"><i class="fas fa-map-marker-alt"></i></div>
       <h3 id="location-title">Dove ci troviamo</h3>
       <p id="location-text">Via Monterosa, 22<br>Palo del Colle (BA)</p>
@@ -575,6 +672,7 @@ a:focus-visible, button:focus-visible { outline:2px solid var(--accent); outline
     </div>
 
     <div class="info-card">
+      <span class="info-kicker" id="kicker-3">Orari</span>
       <div class="icon"><i class="fas fa-clock"></i></div>
       <h3 id="hours-title">Orari di apertura</h3>
       <div class="hours-entries">
@@ -589,14 +687,10 @@ a:focus-visible, button:focus-visible { outline:2px solid var(--accent); outline
       </div>
     </div>
 
-    <div class="info-card">
-      <div class="icon">
-        <svg class="phone-icon" viewBox="0 0 24 24">
-          <path d="M20 16.9v2.6a1.5 1.5 0 0 1-1.6 1.5 15.6 15.6 0 0 1-6.8-2.4 15.4 15.4 0 0 1-4.7-4.7 15.6 15.6 0 0 1-2.4-6.9A1.5 1.5 0 0 1 6 4.5h2.6a1.5 1.5 0 0 1 1.5 1.3c.1.9.3 1.8.6 2.6a1.5 1.5 0 0 1-.4 1.6l-1.1 1.1a12.6 12.6 0 0 0 4.7 4.7l1.1-1.1a1.5 1.5 0 0 1 1.6-.4c.8.3 1.7.5 2.6.6a1.5 1.5 0 0 1 1.3 1.5z"/>
-        </svg>
-      </div>
-      <h3 id="contact-title">Contatti</h3>
-      <a class="contact-phone-link" href="tel:+3935560714" id="contact-phone">334 273 2997</a>
+    <div class="info-card" id="contact-card">
+      <span class="info-kicker" id="kicker-4">Contatti</span>
+      <div class="icon"><i class="fas fa-paper-plane"></i></div>
+      <h3 id="contact-title">Restiamo in contatto</h3>
       <a class="contact-email-link" href="mailto:spisystem20@gmail.com" id="contact-email">
         <i class="fas fa-envelope"></i><span>spisystem20@gmail.com</span>
       </a>
@@ -732,6 +826,41 @@ a:focus-visible, button:focus-visible { outline:2px solid var(--accent); outline
   else{document.addEventListener('DOMContentLoaded',dismiss);setTimeout(dismiss,2500);}
 })();
 
+// NAV DRAWER (hamburger menu)
+(function(){
+  var btn = document.getElementById('hamburgerBtn');
+  var panel = document.getElementById('navDrawerPanel');
+  var backdrop = document.getElementById('navDrawerBackdrop');
+  var closeBtn = document.getElementById('navDrawerClose');
+  if(!btn || !panel || !backdrop) return;
+
+  function openDrawer(){
+    btn.classList.add('open');
+    btn.setAttribute('aria-expanded','true');
+    panel.classList.add('open');
+    panel.setAttribute('aria-hidden','false');
+    backdrop.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeDrawer(){
+    btn.classList.remove('open');
+    btn.setAttribute('aria-expanded','false');
+    panel.classList.remove('open');
+    panel.setAttribute('aria-hidden','true');
+    backdrop.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  btn.addEventListener('click', function(){
+    if(panel.classList.contains('open')) closeDrawer(); else openDrawer();
+  });
+  backdrop.addEventListener('click', closeDrawer);
+  if(closeBtn) closeBtn.addEventListener('click', closeDrawer);
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeDrawer(); });
+  panel.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', closeDrawer);
+  });
+})();
+
 // DROPDOWN LINGUA
 var langSelector=document.getElementById('langSelector');
 var langDropdown=document.getElementById('langDropdown');
@@ -767,7 +896,7 @@ var obs=new IntersectionObserver(function(entries){
 },{threshold:0.12});
 document.querySelectorAll('.info-card').forEach(function(c){obs.observe(c);});
 
-var FLAGS={it:'IT',en:'EN',es:'ES',fr:'FR',de:'DE'};
+var FLAGS={it:'it',en:'gb',es:'es',fr:'fr',de:'de'};
 
 i18next.init({
   lng: localStorage.getItem('selectedLanguage') || 'it',
@@ -777,13 +906,15 @@ i18next.init({
       eyebrow:"I nostri servizi",section_title:"Tecnologia al servizio del tuo locale",
       section_desc:"Menù digitali professionali, multilingua e sempre aggiornabili. Tutto quello che serve, accessibile con un semplice QR code.",
       about_label:"Chi siamo",about_title:"SPI System",
+      kicker_1:"Tecnologia",kicker_2:"Location",kicker_3:"Orari",kicker_4:"Contatti",
+      drawer_home:"Home",drawer_services:"Chi Siamo",drawer_reservation:"Prenotazioni",drawer_menu:"Il Nostro Menù",drawer_contact:"Contatti",drawer_privacy:"Privacy Policy",
       about_text:"SPI System sviluppa soluzioni tecnologiche per attività commerciali e ristorative. Realizziamo menù digitali QR code multilingua per migliorare l'esperienza del cliente.",
       hours_label:"Orari",hours_title:"Apertura",
       hours_weekdays:"Lun – Ven",hours_saturday:"Sabato",
       location_label:"Dove siamo",location_title:"Indirizzo",
       location_text:"Via Monterosa, 22<br>Palo del Colle (BA)",
       maps_link:"Apri su Google Maps",
-      contact_label:"Contatti",contact_title:"Scrivici o chiamaci",contact_phone:"3935560714",
+      contact_label:"Contatti",contact_title:"Restiamo in contatto",
       cta_label:"Vuoi un menù come questo?",cta_title:"Porta il tuo locale nel digitale",
       cta_sub:"Contattaci su WhatsApp o telefonicamente. Realizziamo il tuo menù QR in pochi giorni.",cta_btn:"Contattaci su WhatsApp",
       footer_privacy:"Privacy Policy",footer_cookie:"Preferenze Cookie",footer_created:"Realizzato da",
@@ -803,13 +934,15 @@ i18next.init({
       eyebrow:"Our services",section_title:"Technology at your service",
       section_desc:"Professional, multilingual digital menus, always up to date. Everything you need, accessible with a simple QR code.",
       about_label:"About us",about_title:"SPI System",
+      kicker_1:"Technology",kicker_2:"Location",kicker_3:"Hours",kicker_4:"Contact",
+      drawer_home:"Home",drawer_services:"About Us",drawer_reservation:"Reservations",drawer_menu:"Our Menu",drawer_contact:"Contact",drawer_privacy:"Privacy Policy",
       about_text:"SPI System develops technological solutions for commercial and hospitality businesses. We create multilingual QR code digital menus to enhance the customer experience.",
       hours_label:"Hours",hours_title:"Opening",
       hours_weekdays:"Mon – Fri",hours_saturday:"Saturday",
       location_label:"Location",location_title:"Address",
       location_text:"22 Monterosa Street<br>Palo del Colle (BA)",
       maps_link:"Open in Google Maps",
-      contact_label:"Contacts",contact_title:"Call or write us",contact_phone:"3935560714",
+      contact_label:"Contacts",contact_title:"Let's stay in touch",
       cta_label:"Want a menu like this?",cta_title:"Bring your venue into the digital age",
       cta_sub:"Contact us on WhatsApp or by phone. We'll create your QR menu in just a few days.",cta_btn:"Contact us on WhatsApp",
       footer_privacy:"Privacy Policy",footer_cookie:"Cookie Preferences",footer_created:"Created by",
@@ -829,13 +962,15 @@ i18next.init({
       eyebrow:"Nuestros servicios",section_title:"Tecnología al servicio de tu local",
       section_desc:"Menús digitales profesionales, multilingües y siempre actualizables.",
       about_label:"Sobre nosotros",about_title:"SPI System",
+      kicker_1:"Tecnología",kicker_2:"Ubicación",kicker_3:"Horario",kicker_4:"Contacto",
+      drawer_home:"Inicio",drawer_services:"Sobre Nosotros",drawer_reservation:"Reservas",drawer_menu:"Nuestro Menú",drawer_contact:"Contacto",drawer_privacy:"Política de Privacidad",
       about_text:"SPI System desarrolla soluciones tecnológicas para actividades comerciales y de restauración.",
       hours_label:"Horario",hours_title:"Apertura",
       hours_weekdays:"Lun – Vie",hours_saturday:"Sábado",
       location_label:"Ubicación",location_title:"Dirección",
       location_text:"Calle Monterosa, 22<br>Palo del Colle (BA)",
       maps_link:"Abrir en Google Maps",
-      contact_label:"Contacto",contact_title:"Llámanos o escríbenos",contact_phone:"3935560714",
+      contact_label:"Contacto",contact_title:"Sigamos en contacto",
       cta_label:"¿Quieres un menú como este?",cta_title:"Lleva tu local al mundo digital",
       cta_sub:"Contáctanos por WhatsApp o teléfono.",cta_btn:"Contáctanos en WhatsApp",
       footer_privacy:"Política de Privacidad",footer_cookie:"Preferencias de Cookies",footer_created:"Creado por",
@@ -855,13 +990,15 @@ i18next.init({
       eyebrow:"Nos services",section_title:"La technologie au service de votre établissement",
       section_desc:"Menus numériques professionnels, multilingues et toujours à jour.",
       about_label:"À propos",about_title:"SPI System",
+      kicker_1:"Technologie",kicker_2:"Emplacement",kicker_3:"Horaires",kicker_4:"Contact",
+      drawer_home:"Accueil",drawer_services:"À Propos",drawer_reservation:"Réservations",drawer_menu:"Notre Menu",drawer_contact:"Contact",drawer_privacy:"Politique de Confidentialité",
       about_text:"SPI System développe des solutions technologiques pour les commerces et la restauration.",
       hours_label:"Horaires",hours_title:"Ouverture",
       hours_weekdays:"Lun – Ven",hours_saturday:"Samedi",
       location_label:"Emplacement",location_title:"Adresse",
       location_text:"22 Rue Monterosa<br>Palo del Colle (BA)",
       maps_link:"Ouvrir sur Google Maps",
-      contact_label:"Contacts",contact_title:"Appelez-nous ou écrivez",contact_phone:"3935560714",
+      contact_label:"Contacts",contact_title:"Restons en contact",
       cta_label:"Vous voulez un menu comme celui-ci?",cta_title:"Passez au numérique",
       cta_sub:"Contactez-nous sur WhatsApp ou par téléphone.",cta_btn:"Contactez-nous sur WhatsApp",
       footer_privacy:"Politique de Confidentialité",footer_cookie:"Préférences Cookies",footer_created:"Créé par",
@@ -881,13 +1018,15 @@ i18next.init({
       eyebrow:"Unsere Dienste",section_title:"Technologie im Dienst Ihres Lokals",
       section_desc:"Professionelle, mehrsprachige digitale Menüs, immer aktuell.",
       about_label:"Über uns",about_title:"SPI System",
+      kicker_1:"Technologie",kicker_2:"Standort",kicker_3:"Öffnungszeiten",kicker_4:"Kontakt",
+      drawer_home:"Startseite",drawer_services:"Über Uns",drawer_reservation:"Reservierungen",drawer_menu:"Unsere Speisekarte",drawer_contact:"Kontakt",drawer_privacy:"Datenschutzerklärung",
       about_text:"SPI System entwickelt technologische Lösungen für Handels- und Gastronomiebetriebe.",
       hours_label:"Zeiten",hours_title:"Öffnung",
       hours_weekdays:"Mo – Fr",hours_saturday:"Samstag",
       location_label:"Standort",location_title:"Adresse",
       location_text:"Monterosa Straße 22<br>Palo del Colle (BA)",
       maps_link:"In Google Maps öffnen",
-      contact_label:"Kontakt",contact_title:"Rufen Sie uns an oder schreiben Sie",contact_phone:"3935560714",
+      contact_label:"Kontakt",contact_title:"Bleiben wir in Kontakt",
       cta_label:"Möchten Sie ein solches Menü?",cta_title:"Bringen Sie Ihr Lokal ins Digitale",
       cta_sub:"Kontaktieren Sie uns per WhatsApp oder Telefon.",cta_btn:"WhatsApp kontaktieren",
       footer_privacy:"Datenschutzerklärung",footer_cookie:"Cookie-Einstellungen",footer_created:"Erstellt von",
@@ -917,6 +1056,10 @@ function updateTexts(){
   set('section-title',t('section_title'));
   set('section-desc',t('section_desc'));
   set('about-title',t('about_title'));
+  set('kicker-1',t('kicker_1'));
+  set('kicker-2',t('kicker_2'));
+  set('kicker-3',t('kicker_3'));
+  set('kicker-4',t('kicker_4'));
   set('about-text',t('about_text'));
   set('hours-title',t('hours_title'));
   set('hours-weekdays',t('hours_weekdays'));
@@ -925,7 +1068,6 @@ function updateTexts(){
   setHTML('location-text',t('location_text'));
   set('maps-link-text',t('maps_link'));
   set('contact-title',t('contact_title'));
-  set('contact-phone',t('contact_phone'));
   set('cta-label',t('cta_label'));
   set('cta-title',t('cta_title'));
   set('cta-sub',t('cta_sub'));
@@ -933,6 +1075,12 @@ function updateTexts(){
   set('footer-privacy-link',t('footer_privacy'));
   set('footer-cookie-link',t('footer_cookie'));
   set('footer-created-text',t('footer_created'));
+  set('drawer-home',t('drawer_home'));
+  set('drawer-services',t('drawer_services'));
+  set('drawer-reservation',t('drawer_reservation'));
+  set('drawer-menu',t('drawer_menu'));
+  set('drawer-contact',t('drawer_contact'));
+  set('drawer-privacy',t('drawer_privacy'));
   set('reservation-eyebrow',t('reservation_eyebrow'));
   set('reservation-title',t('reservation_title'));
   set('reservation-desc',t('reservation_desc'));
@@ -950,7 +1098,7 @@ function updateTexts(){
   if(notesEl) notesEl.setAttribute('placeholder',t('notes_placeholder'));
   var resErrEl=document.getElementById('reservation-error');
   if(resErrEl && resErrEl.classList.contains('show')) resErrEl.textContent=t('reservation_error');
-  document.getElementById('currentFlag').textContent=FLAGS[i18next.language]||'IT';
+  document.getElementById('currentFlag').className='fi fis fi-'+(FLAGS[i18next.language]||'it');
 }
 
 function changeLanguage(event,lang){
