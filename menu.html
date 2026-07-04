@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
   <meta name="format-detection" content="telephone=no, date=no, address=no, email=no, url=no">
   <title>Menù — SPI System</title>
-  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/i18next@21.6.3/i18next.min.js"></script>
   <style>
     *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
@@ -164,10 +164,10 @@
     .cat-tab:hover{ border-color:var(--brown-border); color:var(--text); }
     .cat-tab.active{
       background:linear-gradient(135deg, #0a0e16 0%, #1b2436 100%);
-      border-color:transparent; color:#fff; font-weight:600;
+      border-color:transparent; color:#f7f2e6; font-weight:600;
       box-shadow:0 6px 18px rgba(8,12,20,.3);
     }
-    .cat-tab.active .tab-count{ background:rgba(255,255,255,.18); color:#fff; }
+    .cat-tab.active .tab-count{ background:rgba(255,255,255,.18); color:#f7f2e6; }
 
     .menu{max-width:800px;margin:0 auto;padding:8px 18px 100px}
 
@@ -360,7 +360,7 @@
     .spi-cookie-btn.ghost:hover { color:var(--text); }
     .spi-cookie-btn.outline { background:transparent; border:1px solid var(--brown-border); color:var(--brown-light); }
     .spi-cookie-btn.outline:hover { background:var(--brown-soft); }
-    .spi-cookie-btn.solid { background:linear-gradient(135deg, var(--brown), var(--brown-light)); color:#fff; }
+    .spi-cookie-btn.solid { background:linear-gradient(135deg, var(--brown), var(--brown-light)); color:#f7f2e6; }
     .spi-cookie-btn.solid:hover { transform:translateY(-2px); }
     .spi-cookie-btn.full { width:100%; justify-content:center; margin-top:18px; }
 
@@ -387,7 +387,7 @@
     .spi-switch { position:relative; display:inline-block; width:42px; height:24px; flex-shrink:0; }
     .spi-switch input { opacity:0; width:0; height:0; }
     .spi-slider { position:absolute; cursor:pointer; inset:0; background:rgba(255,255,255,.12); border-radius:24px; transition:.3s; }
-    .spi-slider::before { position:absolute; content:""; height:18px; width:18px; left:3px; bottom:3px; background:#fff; border-radius:50%; transition:.3s; }
+    .spi-slider::before { position:absolute; content:""; height:18px; width:18px; left:3px; bottom:3px; background:#f7f2e6; border-radius:50%; transition:.3s; }
     .spi-switch input:checked + .spi-slider { background:var(--brown); }
     .spi-switch input:checked + .spi-slider::before { transform:translateX(18px); }
     .spi-switch.disabled .spi-slider { opacity:.5; cursor:not-allowed; }
