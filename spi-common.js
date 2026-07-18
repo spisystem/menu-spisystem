@@ -1,6 +1,6 @@
 /* ============================================
    SPI SYSTEM — Script condiviso
-   Palette: argento/grigio-blu coerente
+   Palette: monocromatica bianco/nero (stile Tesla)
    ============================================ */
 
 const SPI_COOKIE_TEXTS = {
