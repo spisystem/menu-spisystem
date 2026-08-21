@@ -739,7 +739,7 @@
 // ═══════════════════════════════════════════
 // CONFIGURAZIONE FOGLIO GOOGLE
 // ═══════════════════════════════════════════
-const SHEET_ID = '1CGTYEZbP6TQ0BPfGqvvCrxc67FG-A-d3';
+const SHEET_ID = '1-Ft8yH4Efs2QyrGkaPb-gr3iVcGNlc1sEv05iSXFd3s';
 const CATEGORIES_URL = `https://opensheet.elk.sh/${SHEET_ID}/Categorie`;
 const PRODUCTS_URL   = `https://opensheet.elk.sh/${SHEET_ID}/Prodotti`;
 const LANGS = ['it','en','es','fr','de'];
@@ -1259,6 +1259,20 @@ document.getElementById('orderModal').addEventListener('click', e => {
   if (e.target === document.getElementById('orderModal')) closeOrderModal();
 });
 
+// Prodotto "Il Brigante" gestito direttamente nel codice (non nel foglio Google) —
+// per aggiungere altri prodotti hardcoded in futuro, basta aggiungerli a questo array
+// seguendo lo stesso schema di colonne usato nel foglio Prodotti.
+const HARDCODED_PRODUCTS = [
+  {
+    id: 'il_brigante', categoria_id: 'rosticceria', ordine: 4, prezzo: '10', immagine: '', novita: 'si',
+    nome_it: 'Il Brigante', descrizione_it: 'Puccia, hamburger di manzo, bacon jam, pomodoro al forno, caciocavallo', allergeni_it: 'Glutine, Lattosio',
+    nome_en: 'The Brigand', descrizione_en: 'Puccia, beef burger, bacon jam, baked tomato, caciocavallo cheese', allergeni_en: 'Gluten, Lactose',
+    nome_es: 'El Bandido', descrizione_es: 'Puccia, hamburguesa de ternera, mermelada de tocino, tomate al horno, queso caciocavallo', allergeni_es: 'Gluten, Lactosa',
+    nome_fr: 'Le Brigand', descrizione_fr: 'Puccia, burger de bœuf, confiture de bacon, tomates au four, fromage caciocavallo', allergeni_fr: 'Gluten, Lactose',
+    nome_de: 'Der Räuber', descrizione_de: 'Puccia, Burger de Bœuf, Confiture de Bacon, Tomates au Four, Fromage Caciocavallo', allergeni_de: 'Gluten, Laktose'
+  }
+];
+
 Promise.all([fetchSheetJSON(CATEGORIES_URL), fetchSheetJSON(PRODUCTS_URL)])
   .then(([catRows, prodRows]) => {
     const categories = catRows
@@ -1268,7 +1282,8 @@ Promise.all([fetchSheetJSON(CATEGORIES_URL), fetchSheetJSON(PRODUCTS_URL)])
 
     const products = prodRows
       .filter(r => r.id && r.id.trim() && r.categoria_id && r.categoria_id.trim())
-      .map(r => ({ ...r, id:r.id.trim(), categoria_id:r.categoria_id.trim(), ordine: parseInt(r.ordine,10) || 0 }));
+      .map(r => ({ ...r, id:r.id.trim(), categoria_id:r.categoria_id.trim(), ordine: parseInt(r.ordine,10) || 0 }))
+      .concat(HARDCODED_PRODUCTS);
 
     // Costruisce le risorse i18next: stringhe fisse UI + categorie + prodotti, per ogni lingua
     const resources = {};
