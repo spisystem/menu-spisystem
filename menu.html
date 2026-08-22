@@ -290,77 +290,153 @@
     #modalPrice{font-family:'Poppins',sans-serif;font-size:1.6rem;font-weight:700;color:var(--gold-light);letter-spacing:.02em}
 
     /* ═══════════════════════════════════════════
-       ORDINAZIONE ASPORTO — DEMO "IL BRIGANTE"
-       Riusa: .modal/.modal-card/.modal-close/.modal-badge, .spi-switch/.spi-slider
+       ORDINAZIONE ASPORTO — stile "app fast food"
+       Riusa: .modal/.modal-card/.modal-close/.modal-badge, .reservation-btn
     ═══════════════════════════════════════════ */
-    .order-modal-card{ max-width:500px; }
+    .order-modal-card{
+      max-width:460px; display:flex; flex-direction:column;
+      max-height:88vh; padding-top:0;
+    }
+    .order-modal-card .modal-close{ top:14px; right:14px; background:rgba(255,255,255,.9); box-shadow:0 2px 10px rgba(0,0,0,.08); }
+
+    .order-progress{
+      display:flex; align-items:center; gap:8px;
+      padding:22px 26px 16px; flex-shrink:0;
+      border-bottom:1px solid var(--border);
+    }
+    .order-progress-dot{
+      width:26px; height:26px; border-radius:50%; flex-shrink:0;
+      display:flex; align-items:center; justify-content:center;
+      font-size:.72rem; font-weight:700; font-family:'Poppins',sans-serif;
+      background:var(--card2); color:var(--muted); border:1px solid var(--border);
+      transition:background .25s, color .25s, border-color .25s;
+    }
+    .order-progress-dot.active{ background:var(--brown); color:#fff; border-color:var(--brown); }
+    .order-progress-dot.done{ background:var(--brown-soft); color:var(--brown); border-color:var(--brown-border); }
+    .order-progress-bar{ flex:1; height:2px; background:var(--border); border-radius:2px; overflow:hidden; }
+    .order-progress-fill{ height:100%; width:0%; background:var(--brown); transition:width .3s ease; }
+
     .order-modal-body{
-      padding:44px 26px 28px; text-align:left;
-      max-height:82vh; overflow-y:auto; -webkit-overflow-scrolling:touch;
+      padding:0; text-align:left; flex:1; min-height:0;
+      overflow-y:auto; -webkit-overflow-scrolling:touch;
     }
-    .order-modal-body .modal-badge{ display:block; width:fit-content; margin-left:auto; margin-right:auto; }
+    .order-modal-body .modal-badge{ display:none; }
     .order-step{ display:none; }
-    .order-step.active{ display:block; animation:panelFade .3s ease; }
+    .order-step.active{ display:flex; flex-direction:column; min-height:100%; animation:panelFade .3s ease; }
+    .order-step-scroll{ padding:20px 26px 24px; flex:1; }
 
-    .order-product-img{ width:100%; height:150px; object-fit:cover; border-radius:14px; margin-bottom:16px; display:block; }
-    .order-product-name{ font-family:'Poppins',sans-serif; font-size:1.3rem; font-weight:600; color:var(--text); text-align:center; margin-bottom:6px; }
-    .order-product-price{ text-align:center; color:var(--gold-light); font-weight:700; font-size:1.05rem; margin-bottom:10px; }
-    .order-product-desc{ font-size:.86rem; color:var(--muted); line-height:1.6; text-align:center; margin-bottom:22px; }
+    .order-hero{
+      position:relative; margin:0 0 18px; border-radius:16px; overflow:hidden;
+      background:linear-gradient(135deg, var(--card) 0%, var(--card2) 100%);
+    }
+    .order-product-img{ width:100%; height:170px; object-fit:cover; display:block; }
+    .order-hero-noimg{ height:64px; }
+    .order-product-name{ font-family:'Poppins',sans-serif; font-size:1.35rem; font-weight:700; color:var(--text); margin-bottom:4px; }
+    .order-product-price{ color:var(--brown); font-weight:700; font-size:1.05rem; margin-bottom:8px; }
+    .order-product-desc{ font-size:.86rem; color:var(--muted); line-height:1.6; margin-bottom:24px; }
 
-    .order-section{ margin-bottom:22px; }
+    .order-section{ margin-bottom:24px; }
     .order-section-title{
-      font-size:.68rem; letter-spacing:.14em; text-transform:uppercase; font-weight:700;
-      color:var(--muted); margin-bottom:10px;
+      font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; font-weight:700;
+      color:var(--text); margin-bottom:12px; display:flex; align-items:center; gap:8px;
     }
+    .order-section-title .count-tag{
+      font-size:.64rem; font-weight:600; letter-spacing:0; text-transform:none;
+      color:var(--muted); background:var(--card2); border-radius:99px; padding:1px 8px;
+    }
+
     .order-base-ingredient{
-      font-size:.86rem; color:var(--text); background:rgba(23,26,32,.04);
-      border:1px solid var(--border); border-radius:10px; padding:10px 14px; margin-bottom:8px;
+      display:flex; align-items:center; gap:12px; font-size:.9rem; color:var(--text);
+      background:var(--card); border:1px solid var(--border); border-radius:14px; padding:12px 14px; margin-bottom:10px;
     }
-    .order-base-ingredient .tag{ font-size:.62rem; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin-left:6px; }
-
-    .order-row{
-      display:flex; align-items:center; justify-content:space-between; gap:12px;
-      padding:11px 0; border-bottom:1px solid var(--border);
-    }
-    .order-row:last-child{ border-bottom:none; }
-    .order-row-label{ font-size:.88rem; color:var(--text); flex:1; }
-    .order-row-price{ font-size:.8rem; color:var(--muted); white-space:nowrap; }
-    .order-row.removed .order-row-label{ text-decoration:line-through; color:var(--muted); }
-
-    .order-checkbox{
-      width:20px; height:20px; flex-shrink:0; border-radius:6px;
-      border:1.5px solid var(--border); cursor:pointer; accent-color:var(--brown);
+    .order-base-ingredient .emoji{ font-size:1.2rem; flex-shrink:0; }
+    .order-base-ingredient .tag{
+      margin-left:auto; font-size:.6rem; letter-spacing:.08em; text-transform:uppercase; color:var(--muted);
+      background:var(--card2); border-radius:6px; padding:3px 8px; flex-shrink:0;
     }
 
-    .order-field-label{ display:block; font-size:.78rem; letter-spacing:.04em; color:var(--brown-light); font-weight:600; margin-bottom:8px; }
-    .order-textarea, .order-input{
+    .ing-card{
+      display:flex; align-items:center; gap:12px; cursor:pointer; user-select:none;
+      background:var(--card); border:1.5px solid var(--border); border-radius:14px;
+      padding:12px 14px; margin-bottom:10px; transition:border-color .18s, background .18s, opacity .18s;
+    }
+    .ing-card .emoji{ font-size:1.3rem; flex-shrink:0; width:28px; text-align:center; }
+    .ing-card .ing-label{ font-size:.9rem; color:var(--text); flex:1; font-weight:500; }
+    .ing-card .ing-check{
+      width:24px; height:24px; border-radius:50%; flex-shrink:0;
+      border:2px solid var(--border); display:flex; align-items:center; justify-content:center;
+      transition:background .18s, border-color .18s;
+    }
+    .ing-card .ing-check svg{ width:13px; height:13px; stroke:#fff; fill:none; stroke-width:3; stroke-linecap:round; stroke-linejoin:round; opacity:0; transition:opacity .15s; }
+    .ing-card.on{ border-color:var(--brown-border); background:var(--brown-soft); }
+    .ing-card.on .ing-check{ background:var(--brown); border-color:var(--brown); }
+    .ing-card.on .ing-check svg{ opacity:1; }
+    .ing-card.off .ing-label{ color:var(--muted); text-decoration:line-through; }
+
+    .order-extras-grid{ display:flex; flex-direction:column; gap:10px; }
+    .extra-chip{
+      display:flex; align-items:center; gap:12px; cursor:pointer; user-select:none;
+      background:var(--card); border:1.5px solid var(--border); border-radius:14px;
+      padding:12px 14px; transition:border-color .18s, background .18s;
+    }
+    .extra-chip .emoji{ font-size:1.3rem; flex-shrink:0; width:28px; text-align:center; }
+    .extra-chip .extra-label{ font-size:.9rem; color:var(--text); flex:1; font-weight:500; }
+    .extra-chip .extra-price{ font-size:.82rem; color:var(--muted); font-weight:600; flex-shrink:0; }
+    .extra-chip .extra-add{
+      width:26px; height:26px; border-radius:50%; flex-shrink:0;
+      border:1.5px solid var(--brown-border); color:var(--brown); background:transparent;
+      display:flex; align-items:center; justify-content:center; font-size:1.1rem; font-weight:700;
+      transition:background .18s, color .18s;
+    }
+    .extra-chip.on{ border-color:var(--brown-border); background:var(--brown-soft); }
+    .extra-chip.on .extra-add{ background:var(--brown); color:#fff; }
+    .extra-chip.on .extra-add::before{ content:'✓'; }
+    .extra-chip:not(.on) .extra-add::before{ content:'+'; }
+
+    .order-field-label{ display:block; font-size:.78rem; letter-spacing:.04em; color:var(--text); font-weight:600; margin-bottom:8px; }
+    .order-field-hint{ font-size:.74rem; color:var(--muted); margin-top:6px; line-height:1.5; }
+    .order-textarea, .order-input, .order-select{
       width:100%; background:rgba(23,26,32,.025); border:1px solid var(--border); border-radius:10px;
       padding:12px 14px; color:var(--text); font-family:'Poppins',sans-serif; font-size:16px;
       outline:none; transition:border-color .2s, background .2s;
     }
     .order-textarea{ min-height:70px; resize:vertical; }
-    .order-input{ height:46px; }
+    .order-input, .order-select{ height:46px; }
+    .order-select{
+      appearance:none; -webkit-appearance:none;
+      background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23171a20' stroke-width='2.5' stroke-linecap='round'><polyline points='6 9 12 15 18 9'/></svg>");
+      background-repeat:no-repeat; background-position:right 14px center; background-size:13px;
+      padding-right:38px; cursor:pointer;
+    }
     .order-textarea::placeholder, .order-input::placeholder{ color:var(--muted); }
-    .order-textarea:focus, .order-input:focus{ border-color:var(--brown-border); background:rgba(23,26,32,.04); }
+    .order-textarea:focus, .order-input:focus, .order-select:focus{ border-color:var(--brown-border); background:rgba(23,26,32,.04); }
 
-    .order-qty-row{ display:flex; align-items:center; justify-content:space-between; margin-bottom:20px; }
+    .order-sticky-footer{
+      position:sticky; bottom:0; left:0; right:0; z-index:3;
+      background:#ffffff; border-top:1px solid var(--border);
+      padding:14px 26px calc(14px + env(safe-area-inset-bottom));
+      display:flex; align-items:center; gap:14px;
+      box-shadow:0 -8px 24px rgba(0,0,0,.05);
+    }
     .order-qty-stepper{
-      display:flex; align-items:center; gap:0; border:1px solid var(--border); border-radius:10px; overflow:hidden;
+      display:flex; align-items:center; gap:0; border:1.5px solid var(--border); border-radius:12px; overflow:hidden; flex-shrink:0;
     }
     .order-qty-stepper button{
-      width:38px; height:38px; border:none; background:var(--card); color:var(--text);
-      font-size:1.1rem; cursor:pointer; transition:background .2s;
+      width:36px; height:44px; border:none; background:var(--card); color:var(--text);
+      font-size:1.15rem; cursor:pointer; transition:background .2s;
     }
     .order-qty-stepper button:hover{ background:var(--brown-soft); color:var(--brown); }
-    .order-qty-stepper span{ width:36px; text-align:center; font-weight:600; font-size:.95rem; color:var(--text); }
+    .order-qty-stepper span{ width:30px; text-align:center; font-weight:700; font-size:.95rem; color:var(--text); }
 
-    .order-total-row{
-      display:flex; align-items:center; justify-content:space-between;
-      background:var(--brown-soft); border:1px solid var(--brown-border); border-radius:12px;
-      padding:14px 16px; margin-bottom:20px;
+    .order-sticky-cta{
+      flex:1; display:flex; align-items:center; justify-content:center; gap:10px;
+      background:var(--brown); color:#fff; border:none; border-radius:12px;
+      height:48px; font-family:'Poppins',sans-serif; font-size:.86rem; font-weight:700;
+      letter-spacing:.03em; text-transform:uppercase; cursor:pointer; transition:background .2s;
+      padding:0 16px;
     }
-    .order-total-row span:first-child{ font-size:.78rem; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); font-weight:600; }
-    .order-total-row span:last-child{ font-family:'Poppins',sans-serif; font-size:1.4rem; font-weight:700; color:var(--brown); }
+    .order-sticky-cta:hover{ background:var(--brown-light); }
+    .order-sticky-cta .cta-total{ font-size:.95rem; }
 
     .order-form-group{ margin-bottom:16px; }
     .order-error{ color:#c0392b; font-size:.82rem; margin-bottom:14px; text-align:center; display:none; }
@@ -369,18 +445,18 @@
     .order-step-actions{ display:flex; gap:10px; margin-top:6px; }
     .order-btn-ghost{
       flex:1; display:flex; align-items:center; justify-content:center; gap:8px;
-      background:transparent; color:var(--brown-light); border:1px solid var(--brown-border);
+      background:transparent; color:var(--text); border:1.5px solid var(--border);
       font-family:'Poppins',sans-serif; font-size:.82rem; font-weight:600;
       letter-spacing:.05em; text-transform:uppercase; padding:13px 20px; border-radius:10px; cursor:pointer;
       transition:background .2s, border-color .2s;
     }
-    .order-btn-ghost:hover{ background:var(--brown-soft); }
+    .order-btn-ghost:hover{ background:var(--card); border-color:var(--brown-border); }
     .order-step-actions .reservation-btn{ flex:1.4; }
 
-    .order-summary{ margin-bottom:22px; }
+    .order-summary{ margin-bottom:6px; }
     .order-summary-item{
       display:flex; justify-content:space-between; align-items:baseline;
-      font-family:'Poppins',sans-serif; font-weight:600; font-size:1rem; color:var(--text); margin-bottom:10px;
+      font-family:'Poppins',sans-serif; font-weight:700; font-size:1.05rem; color:var(--text); margin-bottom:14px;
     }
     .order-summary-block{ margin-bottom:16px; }
     .order-summary-label{ font-size:.66rem; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); font-weight:700; margin-bottom:6px; }
@@ -394,11 +470,16 @@
     }
     .order-summary-total span:first-child{ font-weight:700; letter-spacing:.04em; color:var(--text); text-transform:uppercase; font-size:.85rem; }
     .order-summary-total span:last-child{ font-family:'Poppins',sans-serif; font-weight:700; font-size:1.3rem; color:var(--brown); }
+    .order-confirm-note{
+      display:flex; gap:10px; align-items:flex-start; background:var(--brown-soft); border:1px solid var(--brown-border);
+      border-radius:12px; padding:12px 14px; margin-bottom:18px; font-size:.8rem; color:var(--text); line-height:1.55;
+    }
+    .order-confirm-note svg{ width:16px; height:16px; stroke:var(--brown); fill:none; stroke-width:2; flex-shrink:0; margin-top:1px; }
 
     .order-whatsapp-btn{ display:flex; align-items:center; justify-content:center; gap:10px; }
     .order-whatsapp-btn .wa-icon{ width:18px; height:18px; stroke:#fff; fill:none; stroke-width:1.8; flex-shrink:0; }
 
-    .order-thankyou{ text-align:center; padding:20px 0 6px; }
+    .order-thankyou{ text-align:center; padding:30px 0 6px; }
     .order-thankyou-icon{
       width:64px; height:64px; margin:0 auto 20px; border-radius:50%;
       background:var(--brown-soft); border:1px solid var(--brown-border);
@@ -626,108 +707,141 @@
 </div>
 
 <!-- ═══════════════════════════════════════════
-     MODAL ORDINAZIONE ASPORTO — demo "Il Brigante"
+     MODAL ORDINAZIONE ASPORTO — stile app fast food
 ═══════════════════════════════════════════ -->
 <div class="modal" id="orderModal">
   <div class="modal-card order-modal-card">
     <button class="modal-close" onclick="closeOrderModal()">&#10005;</button>
+
+    <div class="order-progress" id="orderProgress">
+      <div class="order-progress-dot active" id="orderDot1">1</div>
+      <div class="order-progress-bar"><div class="order-progress-fill" id="orderFill1"></div></div>
+      <div class="order-progress-dot" id="orderDot2">2</div>
+      <div class="order-progress-bar"><div class="order-progress-fill" id="orderFill2"></div></div>
+      <div class="order-progress-dot" id="orderDot3">3</div>
+    </div>
+
     <div class="modal-body order-modal-body">
 
       <!-- STEP 1 — PERSONALIZZA -->
       <div class="order-step active" id="orderStepCustomize">
-        <img class="order-product-img" id="orderProductImg" src="" alt="" style="display:none">
-        <span class="modal-badge" data-key="order_badge">Personalizza il tuo ordine</span>
-        <div class="order-product-name" id="orderProductName"></div>
-        <div class="order-product-price" id="orderProductBasePrice"></div>
-        <p class="order-product-desc" id="orderProductDesc"></p>
+        <div class="order-step-scroll">
+          <div class="order-hero">
+            <img class="order-product-img" id="orderProductImg" src="" alt="" style="display:none">
+          </div>
+          <div class="order-product-name" id="orderProductName"></div>
+          <div class="order-product-price" id="orderProductBasePrice"></div>
+          <p class="order-product-desc" id="orderProductDesc"></p>
 
-        <div class="order-section">
-          <div class="order-section-title" data-key="order_ingredients_title">Ingredienti</div>
-          <div id="orderIngredients"></div>
+          <div class="order-section">
+            <div class="order-section-title" data-key="order_ingredients_title">Ingredienti</div>
+            <div id="orderIngredients"></div>
+          </div>
+
+          <div class="order-section">
+            <div class="order-section-title"><span data-key="order_extras_title">Extra</span></div>
+            <div class="order-extras-grid" id="orderExtras"></div>
+          </div>
+
+          <div class="order-section" style="margin-bottom:0">
+            <label class="order-field-label" for="orderNotes" data-key="order_notes_label">Note per il panino</label>
+            <textarea class="order-textarea" id="orderNotes" data-i18n-placeholder="order_notes_placeholder"></textarea>
+          </div>
         </div>
 
-        <div class="order-section">
-          <div class="order-section-title" data-key="order_extras_title">Extra</div>
-          <div id="orderExtras"></div>
-        </div>
-
-        <div class="order-section">
-          <label class="order-field-label" for="orderNotes" data-key="order_notes_label">Note per il panino</label>
-          <textarea class="order-textarea" id="orderNotes" data-i18n-placeholder="order_notes_placeholder"></textarea>
-        </div>
-
-        <div class="order-qty-row">
-          <span class="order-field-label" style="margin:0" data-key="order_qty_label">Quantità</span>
+        <div class="order-sticky-footer">
           <div class="order-qty-stepper">
             <button type="button" onclick="changeOrderQty(-1)">−</button>
             <span id="orderQtyVal">1</span>
             <button type="button" onclick="changeOrderQty(1)">+</button>
           </div>
+          <button class="order-sticky-cta" onclick="goToCheckout()">
+            <span data-key="order_go_checkout">Ordina</span>
+            <span class="cta-total" id="orderTotalStep1">€0.00</span>
+          </button>
         </div>
-
-        <div class="order-total-row">
-          <span data-key="order_total_label">Totale</span>
-          <span id="orderTotalStep1">€0.00</span>
-        </div>
-
-        <button class="reservation-btn" style="width:100%" onclick="goToCheckout()">
-          <span data-key="order_go_checkout">Ordina</span>
-        </button>
       </div>
 
       <!-- STEP 2 — DATI CLIENTE -->
       <div class="order-step" id="orderStepCheckout">
-        <span class="modal-badge" data-key="checkout_badge">Ritiro d'asporto</span>
-        <div class="order-product-name" style="margin-bottom:20px" data-key="checkout_title">I tuoi dati</div>
+        <div class="order-step-scroll">
+          <span class="modal-badge" data-key="checkout_badge">Ritiro d'asporto</span>
+          <div class="order-product-name" style="margin-bottom:20px" data-key="checkout_title">I tuoi dati</div>
 
-        <div class="order-form-group">
-          <label class="order-field-label" data-key="label_nome">Nome</label>
-          <input type="text" class="order-input" id="orderNome" autocomplete="given-name">
-        </div>
-        <div class="order-form-group">
-          <label class="order-field-label" data-key="label_cognome">Cognome</label>
-          <input type="text" class="order-input" id="orderCognome" autocomplete="family-name">
-        </div>
-        <div class="order-form-group">
-          <label class="order-field-label" data-key="label_telefono">Numero di telefono</label>
-          <input type="tel" class="order-input" id="orderTelefono" autocomplete="tel">
-        </div>
-        <div class="order-form-group">
-          <label class="order-field-label" data-key="label_orario">Orario preferito per il ritiro</label>
-          <input type="time" class="order-input" id="orderOrario">
-        </div>
-        <div class="order-form-group">
-          <label class="order-field-label" data-key="label_note_locale">Note per il locale (opzionale)</label>
-          <textarea class="order-textarea" id="orderNoteLocale"></textarea>
-        </div>
+          <div class="order-form-group">
+            <label class="order-field-label" data-key="label_nome">Nome</label>
+            <input type="text" class="order-input" id="orderNome" autocomplete="given-name">
+          </div>
+          <div class="order-form-group">
+            <label class="order-field-label" data-key="label_cognome">Cognome</label>
+            <input type="text" class="order-input" id="orderCognome" autocomplete="family-name">
+          </div>
+          <div class="order-form-group">
+            <label class="order-field-label" data-key="label_telefono">Numero di telefono</label>
+            <input type="tel" class="order-input" id="orderTelefono" autocomplete="tel">
+          </div>
+          <div class="order-form-group">
+            <label class="order-field-label" data-key="label_orario">Orario desiderato per il ritiro</label>
+            <select class="order-select" id="orderOrario">
+              <option value="" disabled selected data-key="order_time_placeholder">Seleziona un orario</option>
+              <option value="11:00">11:00</option><option value="11:30">11:30</option>
+              <option value="12:00">12:00</option><option value="12:30">12:30</option>
+              <option value="13:00">13:00</option><option value="13:30">13:30</option>
+              <option value="14:00">14:00</option><option value="14:30">14:30</option>
+              <option value="15:00">15:00</option><option value="15:30">15:30</option>
+              <option value="16:00">16:00</option><option value="16:30">16:30</option>
+              <option value="17:00">17:00</option><option value="17:30">17:30</option>
+              <option value="18:00">18:00</option><option value="18:30">18:30</option>
+              <option value="19:00">19:00</option><option value="19:30">19:30</option>
+              <option value="20:00">20:00</option><option value="20:30">20:30</option>
+              <option value="21:00">21:00</option><option value="21:30">21:30</option>
+              <option value="22:00">22:00</option><option value="22:30">22:30</option>
+              <option value="23:00">23:00</option><option value="23:30">23:30</option>
+            </select>
+            <p class="order-field-hint" data-key="order_time_hint">L'orario è una richiesta: il locale te lo confermerà (o proporrà un'alternativa) direttamente su WhatsApp.</p>
+          </div>
+          <div class="order-form-group">
+            <label class="order-field-label" data-key="label_note_locale">Note per il locale (opzionale)</label>
+            <textarea class="order-textarea" id="orderNoteLocale"></textarea>
+          </div>
 
-        <p class="order-error" id="orderFormError"></p>
+          <p class="order-error" id="orderFormError"></p>
 
-        <div class="order-step-actions">
-          <button class="order-btn-ghost" onclick="backToCustomize()" data-key="btn_back">Indietro</button>
-          <button class="reservation-btn" onclick="goToSummary()"><span data-key="btn_go_summary">Vai al riepilogo</span></button>
+          <div class="order-step-actions">
+            <button class="order-btn-ghost" onclick="backToCustomize()" data-key="btn_back">Indietro</button>
+            <button class="reservation-btn" onclick="goToSummary()"><span data-key="btn_go_summary">Vai al riepilogo</span></button>
+          </div>
         </div>
       </div>
 
       <!-- STEP 3 — RIEPILOGO -->
       <div class="order-step" id="orderStepSummary">
-        <span class="modal-badge" data-key="summary_badge">Riepilogo ordine</span>
-        <div class="order-summary" id="orderSummaryContent"></div>
+        <div class="order-step-scroll">
+          <span class="modal-badge" data-key="summary_badge">Riepilogo ordine</span>
+          <div class="order-summary" id="orderSummaryContent"></div>
 
-        <button class="reservation-btn order-whatsapp-btn" style="width:100%; margin-bottom:12px" onclick="confirmOrderWhatsApp()">
-          <svg class="wa-icon" viewBox="0 0 24 24"><path d="M20.5 3.5A11 11 0 0 0 3.2 17.3L2 22l4.8-1.2A11 11 0 1 0 20.5 3.5z"/><path d="M8.5 8.7c.2-.6.6-.6 1-.6h.5c.2 0 .5 0 .7.5s.8 1.9.9 2c.1.2.1.4 0 .6-.1.2-.2.4-.4.6-.2.2-.4.4-.2.8.2.4 1 1.6 2.1 2.6 1.4 1.2 1.9 1.3 2.1 1.4.2.1.4.1.6-.1.2-.2.7-.8.9-1.1.2-.3.4-.2.7-.1.3.1 1.8.9 2.1 1 .3.1.5.2.6.3.1.2.1 1-.3 1.9-.4.9-2.2 1.7-3 1.7-.8 0-1.6.1-5-1.3-4.1-1.7-6.7-6-6.9-6.3-.2-.3-1.6-2.1-1.6-4 0-1.9 1-2.8 1.3-3.2z"/></svg>
-          <span data-key="btn_confirm_whatsapp">Conferma ordine e ordina su WhatsApp</span>
-        </button>
-        <button class="order-btn-ghost" style="width:100%" onclick="backToCheckout()" data-key="btn_back">Indietro</button>
+          <div class="order-confirm-note">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            <span data-key="order_confirm_note">L'orario indicato è una richiesta: il locale ti confermerà su WhatsApp l'orario esatto di ritiro.</span>
+          </div>
+
+          <button class="reservation-btn order-whatsapp-btn" style="width:100%; margin-bottom:12px" onclick="confirmOrderWhatsApp()">
+            <svg class="wa-icon" viewBox="0 0 24 24"><path d="M20.5 3.5A11 11 0 0 0 3.2 17.3L2 22l4.8-1.2A11 11 0 1 0 20.5 3.5z"/><path d="M8.5 8.7c.2-.6.6-.6 1-.6h.5c.2 0 .5 0 .7.5s.8 1.9.9 2c.1.2.1.4 0 .6-.1.2-.2.4-.4.6-.2.2-.4.4-.2.8.2.4 1 1.6 2.1 2.6 1.4 1.2 1.9 1.3 2.1 1.4.2.1.4.1.6-.1.2-.2.7-.8.9-1.1.2-.3.4-.2.7-.1.3.1 1.8.9 2.1 1 .3.1.5.2.6.3.1.2.1 1-.3 1.9-.4.9-2.2 1.7-3 1.7-.8 0-1.6.1-5-1.3-4.1-1.7-6.7-6-6.9-6.3-.2-.3-1.6-2.1-1.6-4 0-1.9 1-2.8 1.3-3.2z"/></svg>
+            <span data-key="btn_confirm_whatsapp">Conferma ordine e ordina su WhatsApp</span>
+          </button>
+          <button class="order-btn-ghost" style="width:100%" onclick="backToCheckout()" data-key="btn_back">Indietro</button>
+        </div>
       </div>
 
       <!-- STEP 4 — CONFERMA -->
       <div class="order-step" id="orderStepThankyou">
-        <div class="order-thankyou">
-          <div class="order-thankyou-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
-          <h2 data-key="order_thankyou_title">Ordine inviato!</h2>
-          <p data-key="order_thankyou_sub">Il tuo ordine è stato inviato su WhatsApp. Il locale ti confermerà a breve l'orario di ritiro.</p>
-          <button class="order-btn-ghost" style="width:100%" onclick="closeOrderModal()" data-key="btn_close">Chiudi</button>
+        <div class="order-step-scroll">
+          <div class="order-thankyou">
+            <div class="order-thankyou-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <h2 data-key="order_thankyou_title">Ordine inviato!</h2>
+            <p data-key="order_thankyou_sub">Il tuo ordine è stato inviato su WhatsApp. Il locale confermerà a breve l'orario di ritiro effettivo.</p>
+            <button class="order-btn-ghost" style="width:100%" onclick="closeOrderModal()" data-key="btn_close">Chiudi</button>
+          </div>
         </div>
       </div>
 
@@ -903,7 +1017,9 @@ const UI_STRINGS = {
        order_qty_label:"Quantità", order_total_label:"Totale", order_go_checkout:"Ordina",
        checkout_badge:"Ritiro d'asporto", checkout_title:"I tuoi dati",
        label_nome:"Nome", label_cognome:"Cognome", label_telefono:"Numero di telefono",
-       label_orario:"Orario preferito per il ritiro", label_note_locale:"Note per il locale (opzionale)",
+       label_orario:"Orario desiderato per il ritiro", label_note_locale:"Note per il locale (opzionale)",
+       order_time_placeholder:"Seleziona un orario", order_time_hint:"L'orario è una richiesta: il locale te lo confermerà (o proporrà un'alternativa) direttamente su WhatsApp.",
+       order_confirm_note:"L'orario indicato è una richiesta: il locale ti confermerà su WhatsApp l'orario esatto di ritiro.",
        checkout_error:"Compila tutti i campi obbligatori (nome, cognome, telefono, orario).",
        btn_back:"Indietro", btn_go_summary:"Vai al riepilogo", summary_badge:"Riepilogo ordine",
        summary_customizations:"Personalizzazioni", summary_without:"Senza", summary_notes:"Note",
@@ -911,7 +1027,7 @@ const UI_STRINGS = {
        btn_confirm_whatsapp:"Conferma ordine e ordina su WhatsApp",
        order_thankyou_title:"Ordine inviato!", order_thankyou_sub:"Il tuo ordine è stato inviato su WhatsApp. Il locale ti confermerà a breve l'orario di ritiro.",
        btn_close:"Chiudi", wa_msg_title:"NUOVO ORDINE ASPORTO", wa_customer:"Cliente", wa_phone:"Telefono",
-       wa_pickup:"Ritiro", wa_order:"ORDINE", wa_total:"TOTALE", wa_notes:"NOTE", wa_extra:"Extra" },
+       wa_pickup:"Ritiro", wa_order:"ORDINE", wa_total:"TOTALE", wa_notes:"NOTE", wa_extra:"Extra", wa_to_confirm:"da confermare" },
   en:{ back:"Back", menu_eyebrow:"Discover our selection", menu_title:"Our Menu", menu_sub:"Choose a category to explore",
        search_placeholder:"Search a product...", search_empty:"No products found", detail_hint:"Tap for details",
        modal_badge:"Product detail", badge_new:"New", contains_label:"CONTAINS", no_allergens:"No declared allergens",
@@ -925,6 +1041,8 @@ const UI_STRINGS = {
        checkout_badge:"Takeaway pickup", checkout_title:"Your details",
        label_nome:"First name", label_cognome:"Last name", label_telefono:"Phone number",
        label_orario:"Preferred pickup time", label_note_locale:"Notes for the venue (optional)",
+       order_time_placeholder:"Select a time", order_time_hint:"This time is a request: the venue will confirm it (or suggest another one) directly on WhatsApp.",
+       order_confirm_note:"The selected time is a request: the venue will confirm the exact pickup time on WhatsApp.",
        checkout_error:"Please fill in all required fields (name, last name, phone, time).",
        btn_back:"Back", btn_go_summary:"Go to summary", summary_badge:"Order summary",
        summary_customizations:"Customizations", summary_without:"Without", summary_notes:"Notes",
@@ -932,7 +1050,7 @@ const UI_STRINGS = {
        btn_confirm_whatsapp:"Confirm order and send on WhatsApp",
        order_thankyou_title:"Order sent!", order_thankyou_sub:"Your order has been sent on WhatsApp. The venue will confirm the pickup time shortly.",
        btn_close:"Close", wa_msg_title:"NEW TAKEAWAY ORDER", wa_customer:"Customer", wa_phone:"Phone",
-       wa_pickup:"Pickup", wa_order:"ORDER", wa_total:"TOTAL", wa_notes:"NOTES", wa_extra:"Extra" },
+       wa_pickup:"Pickup", wa_order:"ORDER", wa_total:"TOTAL", wa_notes:"NOTES", wa_extra:"Extra", wa_to_confirm:"to be confirmed" },
   es:{ back:"Volver", menu_eyebrow:"Descubre nuestras propuestas", menu_title:"Nuestro Menú", menu_sub:"Elige una categoría para explorar",
        search_placeholder:"Buscar un producto...", search_empty:"No se encontraron productos", detail_hint:"Toca para detalles",
        modal_badge:"Detalle del producto", badge_new:"Novedad", contains_label:"CONTIENE", no_allergens:"Sin alérgenos declarados",
@@ -946,6 +1064,8 @@ const UI_STRINGS = {
        checkout_badge:"Recogida para llevar", checkout_title:"Tus datos",
        label_nome:"Nombre", label_cognome:"Apellido", label_telefono:"Número de teléfono",
        label_orario:"Hora preferida de recogida", label_note_locale:"Notas para el local (opcional)",
+       order_time_placeholder:"Selecciona una hora", order_time_hint:"Esta hora es una solicitud: el local te la confirmará (o propondrá otra) directamente por WhatsApp.",
+       order_confirm_note:"La hora indicada es una solicitud: el local te confirmará por WhatsApp la hora exacta de recogida.",
        checkout_error:"Completa todos los campos obligatorios (nombre, apellido, teléfono, hora).",
        btn_back:"Atrás", btn_go_summary:"Ir al resumen", summary_badge:"Resumen del pedido",
        summary_customizations:"Personalizaciones", summary_without:"Sin", summary_notes:"Notas",
@@ -953,7 +1073,7 @@ const UI_STRINGS = {
        btn_confirm_whatsapp:"Confirmar pedido y enviar por WhatsApp",
        order_thankyou_title:"¡Pedido enviado!", order_thankyou_sub:"Tu pedido se ha enviado por WhatsApp. El local confirmará pronto la hora de recogida.",
        btn_close:"Cerrar", wa_msg_title:"NUEVO PEDIDO PARA LLEVAR", wa_customer:"Cliente", wa_phone:"Teléfono",
-       wa_pickup:"Recogida", wa_order:"PEDIDO", wa_total:"TOTAL", wa_notes:"NOTAS", wa_extra:"Extra" },
+       wa_pickup:"Recogida", wa_order:"PEDIDO", wa_total:"TOTAL", wa_notes:"NOTAS", wa_extra:"Extra", wa_to_confirm:"a confirmar" },
   fr:{ back:"Retour", menu_eyebrow:"Découvrez nos propositions", menu_title:"Notre Menu", menu_sub:"Choisissez une catégorie à explorer",
        search_placeholder:"Rechercher un produit...", search_empty:"Aucun produit trouvé", detail_hint:"Appuyer pour détails",
        modal_badge:"Détail du produit", badge_new:"Nouveau", contains_label:"CONTIENT", no_allergens:"Aucun allergène déclaré",
@@ -967,6 +1087,8 @@ const UI_STRINGS = {
        checkout_badge:"Retrait à emporter", checkout_title:"Vos coordonnées",
        label_nome:"Prénom", label_cognome:"Nom", label_telefono:"Numéro de téléphone",
        label_orario:"Heure de retrait préférée", label_note_locale:"Notes pour l'établissement (facultatif)",
+       order_time_placeholder:"Choisissez une heure", order_time_hint:"Cette heure est une demande : l'établissement vous la confirmera (ou en proposera une autre) directement sur WhatsApp.",
+       order_confirm_note:"L'heure indiquée est une demande : l'établissement vous confirmera l'heure exacte de retrait sur WhatsApp.",
        checkout_error:"Veuillez remplir tous les champs obligatoires (prénom, nom, téléphone, heure).",
        btn_back:"Retour", btn_go_summary:"Voir le résumé", summary_badge:"Résumé de la commande",
        summary_customizations:"Personnalisations", summary_without:"Sans", summary_notes:"Notes",
@@ -974,7 +1096,7 @@ const UI_STRINGS = {
        btn_confirm_whatsapp:"Confirmer la commande et envoyer sur WhatsApp",
        order_thankyou_title:"Commande envoyée !", order_thankyou_sub:"Votre commande a été envoyée sur WhatsApp. L'établissement confirmera bientôt l'heure de retrait.",
        btn_close:"Fermer", wa_msg_title:"NOUVELLE COMMANDE À EMPORTER", wa_customer:"Client", wa_phone:"Téléphone",
-       wa_pickup:"Retrait", wa_order:"COMMANDE", wa_total:"TOTAL", wa_notes:"NOTES", wa_extra:"Extra" },
+       wa_pickup:"Retrait", wa_order:"COMMANDE", wa_total:"TOTAL", wa_notes:"NOTES", wa_extra:"Extra", wa_to_confirm:"à confirmer" },
   de:{ back:"Zurück", menu_eyebrow:"Entdecken Sie unsere Angebote", menu_title:"Unsere Speisekarte", menu_sub:"Wählen Sie eine Kategorie",
        search_placeholder:"Produkt suchen...", search_empty:"Keine Produkte gefunden", detail_hint:"Antippen für Details",
        modal_badge:"Produktdetail", badge_new:"Neu", contains_label:"ENTHÄLT", no_allergens:"Keine deklarierten Allergene",
@@ -988,6 +1110,8 @@ const UI_STRINGS = {
        checkout_badge:"Abholung zum Mitnehmen", checkout_title:"Ihre Daten",
        label_nome:"Vorname", label_cognome:"Nachname", label_telefono:"Telefonnummer",
        label_orario:"Bevorzugte Abholzeit", label_note_locale:"Anmerkungen für das Lokal (optional)",
+       order_time_placeholder:"Uhrzeit wählen", order_time_hint:"Diese Uhrzeit ist ein Wunsch: das Lokal bestätigt sie (oder schlägt eine andere vor) direkt über WhatsApp.",
+       order_confirm_note:"Die angegebene Uhrzeit ist ein Wunsch: das Lokal bestätigt die genaue Abholzeit über WhatsApp.",
        checkout_error:"Bitte füllen Sie alle Pflichtfelder aus (Vorname, Nachname, Telefon, Uhrzeit).",
        btn_back:"Zurück", btn_go_summary:"Zur Übersicht", summary_badge:"Bestellübersicht",
        summary_customizations:"Anpassungen", summary_without:"Ohne", summary_notes:"Anmerkungen",
@@ -995,7 +1119,7 @@ const UI_STRINGS = {
        btn_confirm_whatsapp:"Bestellung bestätigen und über WhatsApp senden",
        order_thankyou_title:"Bestellung gesendet!", order_thankyou_sub:"Ihre Bestellung wurde über WhatsApp gesendet. Das Lokal bestätigt in Kürze die Abholzeit.",
        btn_close:"Schließen", wa_msg_title:"NEUE BESTELLUNG ZUM MITNEHMEN", wa_customer:"Kunde", wa_phone:"Telefon",
-       wa_pickup:"Abholung", wa_order:"BESTELLUNG", wa_total:"GESAMT", wa_notes:"ANMERKUNGEN", wa_extra:"Extra" }
+       wa_pickup:"Abholung", wa_order:"BESTELLUNG", wa_total:"GESAMT", wa_notes:"ANMERKUNGEN", wa_extra:"Extra", wa_to_confirm:"zu bestätigen" }
 };
 
 // ═══════════════════════════════════════════
@@ -1035,16 +1159,16 @@ const ORDERABLE_PRODUCTS = {
     price: 10.00,
     description: 'Puccia, hamburger di manzo, bacon jam, pomodoro al forno, caciocavallo.',
     image: '', // es. 'images/brigante.JPG'
-    baseIngredient: { key:'puccia', label:'Puccia' }, // ingrediente fisso, non rimovibile
+    baseIngredient: { key:'puccia', label:'Puccia', emoji:'🍞' }, // ingrediente fisso, non rimovibile
     ingredients: [
-      { key:'hamburger',  label:'Hamburger di manzo', removable:true, defaultOn:true },
-      { key:'bacon_jam',  label:'Bacon jam',          removable:true, defaultOn:true },
-      { key:'pomodoro',   label:'Pomodoro al forno',  removable:true, defaultOn:true },
-      { key:'caciocavallo', label:'Caciocavallo',     removable:true, defaultOn:true },
+      { key:'hamburger',  label:'Hamburger di manzo', emoji:'🍔', removable:true, defaultOn:true },
+      { key:'bacon_jam',  label:'Bacon jam',          emoji:'🥓', removable:true, defaultOn:true },
+      { key:'pomodoro',   label:'Pomodoro al forno',  emoji:'🍅', removable:true, defaultOn:true },
+      { key:'caciocavallo', label:'Caciocavallo',     emoji:'🧀', removable:true, defaultOn:true },
     ],
     extras: [
-      { key:'extra_caciocavallo', label:'Extra caciocavallo', price:1.00 },
-      { key:'extra_bacon_jam',    label:'Extra bacon jam',    price:1.00 },
+      { key:'extra_caciocavallo', label:'Extra caciocavallo', emoji:'🧀', price:1.00 },
+      { key:'extra_bacon_jam',    label:'Extra bacon jam',    emoji:'🥓', price:1.00 },
     ]
   }
   // Per aggiungere un altro panino ordinabile in futuro, basta aggiungere qui
@@ -1097,21 +1221,34 @@ function closeOrderModal(){
 function showOrderStep(stepId){
   document.querySelectorAll('.order-step').forEach(s => s.classList.remove('active'));
   document.getElementById(stepId).classList.add('active');
+  updateOrderProgress(stepId);
+}
+
+function updateOrderProgress(stepId){
+  const progress = document.getElementById('orderProgress');
+  const map = { orderStepCustomize:1, orderStepCheckout:2, orderStepSummary:3, orderStepThankyou:4 };
+  const n = map[stepId] || 1;
+  progress.style.display = (n === 4) ? 'none' : 'flex';
+  [1,2,3].forEach(i => {
+    const dot = document.getElementById('orderDot' + i);
+    dot.classList.toggle('active', i === n);
+    dot.classList.toggle('done', i < n);
+  });
+  document.getElementById('orderFill1').style.width = (n > 1) ? '100%' : '0%';
+  document.getElementById('orderFill2').style.width = (n > 2) ? '100%' : '0%';
 }
 
 function renderOrderIngredients(){
   const product = orderState.product;
   const wrap = document.getElementById('orderIngredients');
-  let html = `<div class="order-base-ingredient">${product.baseIngredient.label}<span class="tag" data-key="order_base_tag">Base</span></div>`;
+  let html = `<div class="order-base-ingredient"><span class="emoji">${product.baseIngredient.emoji||'🍽️'}</span>${product.baseIngredient.label}<span class="tag" data-key="order_base_tag">Base</span></div>`;
   product.ingredients.forEach(ing => {
     if (ing.defaultOn) orderState.removed.delete(ing.key); // stato iniziale: tutti inclusi
     html += `
-      <div class="order-row" id="ing-row-${ing.key}">
-        <span class="order-row-label">${ing.label}</span>
-        <label class="spi-switch">
-          <input type="checkbox" checked onchange="toggleIngredient('${ing.key}', this.checked)">
-          <span class="spi-slider"></span>
-        </label>
+      <div class="ing-card on" id="ing-row-${ing.key}" onclick="toggleIngredient('${ing.key}')">
+        <span class="emoji">${ing.emoji||'🥗'}</span>
+        <span class="ing-label">${ing.label}</span>
+        <span class="ing-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
       </div>`;
   });
   wrap.innerHTML = html;
@@ -1123,24 +1260,29 @@ function renderOrderExtras(){
   let html = '';
   product.extras.forEach(ex => {
     html += `
-      <div class="order-row">
-        <span class="order-row-label">${ex.label}</span>
-        <span class="order-row-price">+€${ex.price.toFixed(2)}</span>
-        <input type="checkbox" class="order-checkbox" onchange="toggleExtra('${ex.key}', this.checked)">
+      <div class="extra-chip" id="extra-row-${ex.key}" onclick="toggleExtra('${ex.key}')">
+        <span class="emoji">${ex.emoji||'➕'}</span>
+        <span class="extra-label">${ex.label}</span>
+        <span class="extra-price">+€${ex.price.toFixed(2)}</span>
+        <span class="extra-add"></span>
       </div>`;
   });
   wrap.innerHTML = html;
 }
 
-function toggleIngredient(key, isChecked){
+function toggleIngredient(key){
   const row = document.getElementById('ing-row-' + key);
-  if (isChecked) { orderState.removed.delete(key); row.classList.remove('removed'); }
-  else { orderState.removed.add(key); row.classList.add('removed'); }
+  const isOn = row.classList.contains('on');
+  if (isOn) { orderState.removed.add(key); row.classList.remove('on'); row.classList.add('off'); }
+  else { orderState.removed.delete(key); row.classList.add('on'); row.classList.remove('off'); }
   updateOrderTotal();
 }
 
-function toggleExtra(key, isChecked){
-  if (isChecked) orderState.extras.add(key); else orderState.extras.delete(key);
+function toggleExtra(key){
+  const row = document.getElementById('extra-row-' + key);
+  const isOn = row.classList.contains('on');
+  if (isOn) { orderState.extras.delete(key); row.classList.remove('on'); }
+  else { orderState.extras.add(key); row.classList.add('on'); }
   updateOrderTotal();
 }
 
@@ -1213,7 +1355,7 @@ function renderOrderSummary(){
     html += `<div class="order-summary-block"><div class="order-summary-label" data-key="summary_notes">Note</div><div class="order-summary-text">${orderState.notes}</div></div>`;
   }
 
-  html += `<div class="order-summary-block"><div class="order-summary-label" data-key="summary_pickup">Ritiro</div><div class="order-summary-text">${orderState.customer.orario}</div></div>`;
+  html += `<div class="order-summary-block"><div class="order-summary-label" data-key="summary_pickup">Ritiro</div><div class="order-summary-text">${orderState.customer.orario} <span style="color:var(--muted); font-weight:400;">(${i18next.t('wa_to_confirm')})</span></div></div>`;
   html += `<div class="order-summary-block"><div class="order-summary-label" data-key="summary_customer">Cliente</div><div class="order-summary-text">${orderState.customer.nome} ${orderState.customer.cognome}<br>${orderState.customer.telefono}</div></div>`;
   if (orderState.customer.noteLocale){
     html += `<div class="order-summary-block"><div class="order-summary-label" data-key="summary_notes">Note</div><div class="order-summary-text">${orderState.customer.noteLocale}</div></div>`;
@@ -1235,7 +1377,7 @@ function confirmOrderWhatsApp(){
     '🥪 ' + i18next.t('wa_msg_title'), '',
     i18next.t('wa_customer') + ': ' + orderState.customer.nome + ' ' + orderState.customer.cognome,
     i18next.t('wa_phone') + ': ' + orderState.customer.telefono,
-    i18next.t('wa_pickup') + ': ' + orderState.customer.orario, '',
+    i18next.t('wa_pickup') + ': ' + orderState.customer.orario + ' (' + i18next.t('wa_to_confirm') + ')', '',
     i18next.t('wa_order') + ':',
     orderState.qty + '× ' + product.name + ' — €' + total.toFixed(2)
   ];
@@ -1259,20 +1401,6 @@ document.getElementById('orderModal').addEventListener('click', e => {
   if (e.target === document.getElementById('orderModal')) closeOrderModal();
 });
 
-// Prodotto "Il Brigante" gestito direttamente nel codice (non nel foglio Google) —
-// per aggiungere altri prodotti hardcoded in futuro, basta aggiungerli a questo array
-// seguendo lo stesso schema di colonne usato nel foglio Prodotti.
-const HARDCODED_PRODUCTS = [
-  {
-    id: 'il_brigante', categoria_id: 'rosticceria', ordine: 4, prezzo: '10', immagine: '', novita: 'si',
-    nome_it: 'Il Brigante', descrizione_it: 'Puccia, hamburger di manzo, bacon jam, pomodoro al forno, caciocavallo', allergeni_it: 'Glutine, Lattosio',
-    nome_en: 'The Brigand', descrizione_en: 'Puccia, beef burger, bacon jam, baked tomato, caciocavallo cheese', allergeni_en: 'Gluten, Lactose',
-    nome_es: 'El Bandido', descrizione_es: 'Puccia, hamburguesa de ternera, mermelada de tocino, tomate al horno, queso caciocavallo', allergeni_es: 'Gluten, Lactosa',
-    nome_fr: 'Le Brigand', descrizione_fr: 'Puccia, burger de bœuf, confiture de bacon, tomates au four, fromage caciocavallo', allergeni_fr: 'Gluten, Lactose',
-    nome_de: 'Der Räuber', descrizione_de: 'Puccia, Burger de Bœuf, Confiture de Bacon, Tomates au Four, Fromage Caciocavallo', allergeni_de: 'Gluten, Laktose'
-  }
-];
-
 Promise.all([fetchSheetJSON(CATEGORIES_URL), fetchSheetJSON(PRODUCTS_URL)])
   .then(([catRows, prodRows]) => {
     const categories = catRows
@@ -1282,8 +1410,7 @@ Promise.all([fetchSheetJSON(CATEGORIES_URL), fetchSheetJSON(PRODUCTS_URL)])
 
     const products = prodRows
       .filter(r => r.id && r.id.trim() && r.categoria_id && r.categoria_id.trim())
-      .map(r => ({ ...r, id:r.id.trim(), categoria_id:r.categoria_id.trim(), ordine: parseInt(r.ordine,10) || 0 }))
-      .concat(HARDCODED_PRODUCTS);
+      .map(r => ({ ...r, id:r.id.trim(), categoria_id:r.categoria_id.trim(), ordine: parseInt(r.ordine,10) || 0 }));
 
     // Costruisce le risorse i18next: stringhe fisse UI + categorie + prodotti, per ogni lingua
     const resources = {};
