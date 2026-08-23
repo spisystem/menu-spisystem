@@ -290,24 +290,56 @@
     #modalPrice{font-family:'Poppins',sans-serif;font-size:1.6rem;font-weight:700;color:var(--gold-light);letter-spacing:.02em}
 
     /* ═══════════════════════════════════════════
-       ORDINAZIONE ASPORTO — stile "app fast food"
+       ORDINAZIONE ASPORTO — design system "app moderna"
        Riusa: .modal/.modal-card/.modal-close/.modal-badge, .reservation-btn
     ═══════════════════════════════════════════ */
+
+    /* --- barra carrello flottante sul menù --- */
+    .cart-fab{
+      position:fixed; left:18px; right:18px; bottom:18px; z-index:1500;
+      max-width:520px; margin:0 auto;
+      display:none; align-items:center; gap:14px;
+      background:var(--brown); color:#fff; border-radius:16px;
+      padding:14px 18px; box-shadow:0 14px 34px rgba(0,0,0,.22);
+      cursor:pointer; transition:transform .2s ease;
+    }
+    .cart-fab.show{ display:flex; animation:cartFabIn .35s cubic-bezier(.34,1.4,.64,1); }
+    .cart-fab:active{ transform:scale(.98); }
+    @keyframes cartFabIn{ from{ opacity:0; transform:translateY(16px);} to{ opacity:1; transform:translateY(0);} }
+    .cart-fab-count{
+      width:26px; height:26px; border-radius:50%; background:rgba(255,255,255,.22);
+      display:flex; align-items:center; justify-content:center; font-size:.78rem; font-weight:700; flex-shrink:0;
+    }
+    .cart-fab-label{ flex:1; font-size:.86rem; font-weight:600; }
+    .cart-fab-total{ font-family:'Poppins',sans-serif; font-weight:700; font-size:.98rem; }
+    .cart-fab-arrow{ width:16px; height:16px; stroke:#fff; fill:none; stroke-width:2.4; flex-shrink:0; }
+
+    /* --- shell del modal --- */
     .order-modal-card{
       max-width:460px; display:flex; flex-direction:column;
-      max-height:88vh; padding-top:0;
+      max-height:90vh; padding-top:0; overflow:hidden;
     }
-    .order-modal-card .modal-close{ top:14px; right:14px; background:rgba(255,255,255,.9); box-shadow:0 2px 10px rgba(0,0,0,.08); }
+    .order-modal-card .modal-close{
+      top:14px; right:14px; background:rgba(255,255,255,.92); box-shadow:0 2px 10px rgba(0,0,0,.1); z-index:5;
+    }
+    .order-back-btn{
+      position:absolute; top:14px; left:14px; z-index:5;
+      width:34px; height:34px; border-radius:50%; border:none;
+      background:rgba(255,255,255,.92); box-shadow:0 2px 10px rgba(0,0,0,.1);
+      display:flex; align-items:center; justify-content:center; cursor:pointer;
+    }
+    .order-back-btn svg{ width:15px; height:15px; stroke:var(--text); fill:none; stroke-width:2.4; }
 
     .order-progress{
-      display:flex; align-items:center; gap:8px;
-      padding:22px 26px 16px; flex-shrink:0;
+      display:none; align-items:center; gap:8px;
+      padding:20px 26px 14px; flex-shrink:0;
       border-bottom:1px solid var(--border);
     }
+    .order-progress.show{ display:flex; }
     .order-progress-dot{
-      width:26px; height:26px; border-radius:50%; flex-shrink:0;
+      width:24px; height:24px; border-radius:50%; flex-shrink:0;
       display:flex; align-items:center; justify-content:center;
-      font-size:.72rem; font-weight:700; font-family:'Poppins',sans-serif;
+      font-size:.68rem; font-weight:700; font-family:'Poppins',sans-serif;
       background:var(--card2); color:var(--muted); border:1px solid var(--border);
       transition:background .25s, color .25s, border-color .25s;
     }
@@ -318,31 +350,30 @@
 
     .order-modal-body{
       padding:0; text-align:left; flex:1; min-height:0;
-      overflow-y:auto; -webkit-overflow-scrolling:touch;
+      overflow-y:auto; -webkit-overflow-scrolling:touch; position:relative;
     }
     .order-modal-body .modal-badge{ display:none; }
     .order-step{ display:none; }
     .order-step.active{ display:flex; flex-direction:column; min-height:100%; animation:panelFade .3s ease; }
     .order-step-scroll{ padding:20px 26px 24px; flex:1; }
 
+    /* --- hero prodotto --- */
     .order-hero{
-      position:relative; margin:0 0 18px; border-radius:16px; overflow:hidden;
+      position:relative; margin:-1px -1px 18px; border-radius:0;
       background:linear-gradient(135deg, var(--card) 0%, var(--card2) 100%);
     }
-    .order-product-img{ width:100%; height:170px; object-fit:cover; display:block; }
-    .order-hero-noimg{ height:64px; }
-    .order-product-name{ font-family:'Poppins',sans-serif; font-size:1.35rem; font-weight:700; color:var(--text); margin-bottom:4px; }
-    .order-product-price{ color:var(--brown); font-weight:700; font-size:1.05rem; margin-bottom:8px; }
-    .order-product-desc{ font-size:.86rem; color:var(--muted); line-height:1.6; margin-bottom:24px; }
+    .order-product-img{ width:100%; height:230px; object-fit:cover; display:block; }
+    .order-hero-noimg{ height:20px; }
+    .order-hero .order-back-btn{ position:absolute; }
+    .order-detail-body{ padding:0 26px 0; }
+    .order-product-name{ font-family:'Poppins',sans-serif; font-size:1.5rem; font-weight:700; color:var(--text); margin-bottom:4px; letter-spacing:-.01em; }
+    .order-product-price{ color:var(--brown); font-weight:700; font-size:1.1rem; margin-bottom:10px; }
+    .order-product-desc{ font-size:.9rem; color:var(--muted); line-height:1.65; margin-bottom:26px; }
 
-    .order-section{ margin-bottom:24px; }
+    .order-section{ margin-bottom:26px; }
     .order-section-title{
-      font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; font-weight:700;
+      font-size:.74rem; letter-spacing:.1em; text-transform:uppercase; font-weight:700;
       color:var(--text); margin-bottom:12px; display:flex; align-items:center; gap:8px;
-    }
-    .order-section-title .count-tag{
-      font-size:.64rem; font-weight:600; letter-spacing:0; text-transform:none;
-      color:var(--muted); background:var(--card2); border-radius:99px; padding:1px 8px;
     }
 
     .order-base-ingredient{
@@ -355,90 +386,170 @@
       background:var(--card2); border-radius:6px; padding:3px 8px; flex-shrink:0;
     }
 
+    /* --- ingredienti: incluso / rimosso con ripristino --- */
     .ing-card{
-      display:flex; align-items:center; gap:12px; cursor:pointer; user-select:none;
+      display:flex; align-items:center; gap:12px;
       background:var(--card); border:1.5px solid var(--border); border-radius:14px;
-      padding:12px 14px; margin-bottom:10px; transition:border-color .18s, background .18s, opacity .18s;
+      padding:12px 14px; margin-bottom:10px; transition:border-color .18s, background .18s;
     }
-    .ing-card .emoji{ font-size:1.3rem; flex-shrink:0; width:28px; text-align:center; }
+    .ing-card .emoji{ font-size:1.3rem; flex-shrink:0; width:26px; text-align:center; }
     .ing-card .ing-label{ font-size:.9rem; color:var(--text); flex:1; font-weight:500; }
-    .ing-card .ing-check{
-      width:24px; height:24px; border-radius:50%; flex-shrink:0;
-      border:2px solid var(--border); display:flex; align-items:center; justify-content:center;
-      transition:background .18s, border-color .18s;
+    .ing-card.on{ border-color:var(--border); }
+    .ing-card.off{ background:var(--card2); border-style:dashed; }
+    .ing-card.off .ing-label{ color:var(--muted); }
+    .ing-toggle-on{
+      display:flex; align-items:center; gap:6px; flex-shrink:0; cursor:pointer; user-select:none;
+      background:var(--brown-soft); border:1px solid var(--brown-border); color:var(--brown);
+      border-radius:99px; padding:6px 12px; font-size:.72rem; font-weight:700; letter-spacing:.03em;
+      transition:background .15s;
     }
-    .ing-card .ing-check svg{ width:13px; height:13px; stroke:#fff; fill:none; stroke-width:3; stroke-linecap:round; stroke-linejoin:round; opacity:0; transition:opacity .15s; }
-    .ing-card.on{ border-color:var(--brown-border); background:var(--brown-soft); }
-    .ing-card.on .ing-check{ background:var(--brown); border-color:var(--brown); }
-    .ing-card.on .ing-check svg{ opacity:1; }
-    .ing-card.off .ing-label{ color:var(--muted); text-decoration:line-through; }
+    .ing-toggle-on svg{ width:12px; height:12px; stroke:var(--brown); fill:none; stroke-width:3; stroke-linecap:round; stroke-linejoin:round; }
+    .ing-toggle-off{
+      display:flex; align-items:center; gap:8px; flex-shrink:0;
+    }
+    .ing-toggle-off .removed-tag{
+      font-size:.66rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:#b5423a;
+      background:rgba(181,66,58,.09); border-radius:99px; padding:5px 10px;
+    }
+    .ing-toggle-off .restore-btn{
+      display:flex; align-items:center; justify-content:center; width:28px; height:28px; border-radius:50%;
+      border:1px solid var(--border); background:#fff; cursor:pointer; flex-shrink:0; transition:border-color .15s;
+    }
+    .ing-toggle-off .restore-btn svg{ width:13px; height:13px; stroke:var(--muted); fill:none; stroke-width:2.4; }
+    .ing-toggle-off .restore-btn:hover{ border-color:var(--brown-border); }
+    .ing-toggle-off .restore-btn:hover svg{ stroke:var(--brown); }
 
+    /* --- extra --- */
     .order-extras-grid{ display:flex; flex-direction:column; gap:10px; }
     .extra-chip{
-      display:flex; align-items:center; gap:12px; cursor:pointer; user-select:none;
+      display:flex; align-items:center; gap:12px;
       background:var(--card); border:1.5px solid var(--border); border-radius:14px;
       padding:12px 14px; transition:border-color .18s, background .18s;
     }
-    .extra-chip .emoji{ font-size:1.3rem; flex-shrink:0; width:28px; text-align:center; }
+    .extra-chip .emoji{ font-size:1.3rem; flex-shrink:0; width:26px; text-align:center; }
     .extra-chip .extra-label{ font-size:.9rem; color:var(--text); flex:1; font-weight:500; }
-    .extra-chip .extra-price{ font-size:.82rem; color:var(--muted); font-weight:600; flex-shrink:0; }
-    .extra-chip .extra-add{
-      width:26px; height:26px; border-radius:50%; flex-shrink:0;
-      border:1.5px solid var(--brown-border); color:var(--brown); background:transparent;
-      display:flex; align-items:center; justify-content:center; font-size:1.1rem; font-weight:700;
-      transition:background .18s, color .18s;
-    }
+    .extra-chip .extra-price{ font-size:.8rem; color:var(--muted); font-weight:600; flex-shrink:0; margin-right:2px; }
     .extra-chip.on{ border-color:var(--brown-border); background:var(--brown-soft); }
-    .extra-chip.on .extra-add{ background:var(--brown); color:#fff; }
-    .extra-chip.on .extra-add::before{ content:'✓'; }
-    .extra-chip:not(.on) .extra-add::before{ content:'+'; }
+    .extra-btn{
+      flex-shrink:0; cursor:pointer; user-select:none; border-radius:99px; font-weight:700;
+      font-size:.72rem; letter-spacing:.03em; padding:7px 14px; transition:background .15s, color .15s, border-color .15s;
+      border:1.5px solid var(--brown-border); background:transparent; color:var(--brown);
+      display:flex; align-items:center; gap:5px;
+    }
+    .extra-chip.on .extra-btn{ background:var(--brown); color:#fff; border-color:var(--brown); }
+    .extra-btn svg{ width:11px; height:11px; stroke:currentColor; fill:none; stroke-width:3; stroke-linecap:round; stroke-linejoin:round; }
 
     .order-field-label{ display:block; font-size:.78rem; letter-spacing:.04em; color:var(--text); font-weight:600; margin-bottom:8px; }
-    .order-field-hint{ font-size:.74rem; color:var(--muted); margin-top:6px; line-height:1.5; }
+    .order-field-hint{ font-size:.74rem; color:var(--muted); margin-top:8px; line-height:1.5; display:flex; gap:6px; align-items:flex-start; }
+    .order-field-hint svg{ width:13px; height:13px; stroke:var(--muted); fill:none; stroke-width:2; flex-shrink:0; margin-top:2px; }
     .order-textarea, .order-input, .order-select{
-      width:100%; background:rgba(23,26,32,.025); border:1px solid var(--border); border-radius:10px;
-      padding:12px 14px; color:var(--text); font-family:'Poppins',sans-serif; font-size:16px;
+      width:100%; background:var(--card); border:1.5px solid var(--border); border-radius:12px;
+      padding:13px 15px; color:var(--text); font-family:'Poppins',sans-serif; font-size:16px;
       outline:none; transition:border-color .2s, background .2s;
     }
-    .order-textarea{ min-height:70px; resize:vertical; }
-    .order-input, .order-select{ height:46px; }
+    .order-textarea{ min-height:76px; resize:vertical; }
+    .order-input, .order-select{ height:48px; }
     .order-select{
       appearance:none; -webkit-appearance:none;
       background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23171a20' stroke-width='2.5' stroke-linecap='round'><polyline points='6 9 12 15 18 9'/></svg>");
-      background-repeat:no-repeat; background-position:right 14px center; background-size:13px;
-      padding-right:38px; cursor:pointer;
+      background-repeat:no-repeat; background-position:right 15px center; background-size:13px;
+      padding-right:40px; cursor:pointer;
     }
     .order-textarea::placeholder, .order-input::placeholder{ color:var(--muted); }
-    .order-textarea:focus, .order-input:focus, .order-select:focus{ border-color:var(--brown-border); background:rgba(23,26,32,.04); }
+    .order-textarea:focus, .order-input:focus, .order-select:focus{ border-color:var(--brown); background:#fff; }
 
+    /* --- footer sticky con quantità + CTA --- */
     .order-sticky-footer{
-      position:sticky; bottom:0; left:0; right:0; z-index:3;
+      position:sticky; bottom:0; left:0; right:0; z-index:3; flex-shrink:0;
       background:#ffffff; border-top:1px solid var(--border);
       padding:14px 26px calc(14px + env(safe-area-inset-bottom));
-      display:flex; align-items:center; gap:14px;
+      display:flex; align-items:center; gap:12px;
       box-shadow:0 -8px 24px rgba(0,0,0,.05);
     }
     .order-qty-stepper{
       display:flex; align-items:center; gap:0; border:1.5px solid var(--border); border-radius:12px; overflow:hidden; flex-shrink:0;
     }
     .order-qty-stepper button{
-      width:36px; height:44px; border:none; background:var(--card); color:var(--text);
-      font-size:1.15rem; cursor:pointer; transition:background .2s;
+      width:38px; height:46px; border:none; background:var(--card); color:var(--text);
+      font-size:1.2rem; cursor:pointer; transition:background .2s;
     }
     .order-qty-stepper button:hover{ background:var(--brown-soft); color:var(--brown); }
     .order-qty-stepper span{ width:30px; text-align:center; font-weight:700; font-size:.95rem; color:var(--text); }
+    .order-qty-stepper.small{ transform:scale(.86); transform-origin:left center; }
 
     .order-sticky-cta{
-      flex:1; display:flex; align-items:center; justify-content:center; gap:10px;
+      flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1px;
       background:var(--brown); color:#fff; border:none; border-radius:12px;
-      height:48px; font-family:'Poppins',sans-serif; font-size:.86rem; font-weight:700;
-      letter-spacing:.03em; text-transform:uppercase; cursor:pointer; transition:background .2s;
-      padding:0 16px;
+      height:48px; font-family:'Poppins',sans-serif; cursor:pointer; transition:background .2s;
+      padding:0 16px; line-height:1.15;
     }
     .order-sticky-cta:hover{ background:var(--brown-light); }
-    .order-sticky-cta .cta-total{ font-size:.95rem; }
+    .order-sticky-cta .cta-label{ font-size:.78rem; font-weight:700; letter-spacing:.04em; text-transform:uppercase; }
+    .order-sticky-cta .cta-total{ font-size:.82rem; font-weight:600; opacity:.92; }
 
-    .order-form-group{ margin-bottom:16px; }
+    /* --- feedback "aggiunto al carrello" --- */
+    .order-added-overlay{
+      position:absolute; inset:0; z-index:6; background:#fff;
+      display:flex; flex-direction:column; align-items:center; justify-content:center;
+      padding:40px 30px; text-align:center; opacity:0; visibility:hidden; transition:opacity .25s ease;
+    }
+    .order-added-overlay.show{ opacity:1; visibility:visible; }
+    .order-added-check{
+      width:68px; height:68px; border-radius:50%; margin-bottom:22px;
+      background:var(--brown-soft); border:1px solid var(--brown-border);
+      display:flex; align-items:center; justify-content:center;
+      animation:addedPop .4s cubic-bezier(.34,1.5,.64,1);
+    }
+    @keyframes addedPop{ from{ transform:scale(.4); opacity:0;} to{ transform:scale(1); opacity:1;} }
+    .order-added-check svg{ width:28px; height:28px; stroke:var(--brown); fill:none; stroke-width:2.6; stroke-linecap:round; stroke-linejoin:round; }
+    .order-added-overlay h3{ font-family:'Poppins',sans-serif; font-size:1.15rem; color:var(--text); margin-bottom:26px; }
+    .order-added-actions{ display:flex; flex-direction:column; gap:10px; width:100%; }
+
+    /* --- carrello --- */
+    .cart-line{
+      background:var(--card); border:1px solid var(--border); border-radius:16px;
+      padding:16px; margin-bottom:14px;
+    }
+    .cart-line-top{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:8px; }
+    .cart-line-name{ font-family:'Poppins',sans-serif; font-weight:700; font-size:1rem; color:var(--text); }
+    .cart-line-unit{ font-size:.78rem; color:var(--muted); }
+    .cart-line-custom{ margin:10px 0; }
+    .cart-line-custom-label{ font-size:.66rem; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); font-weight:700; margin-bottom:6px; }
+    .cart-line-custom ul{ list-style:none; }
+    .cart-line-custom li{ font-size:.83rem; color:var(--text); padding:2px 0; }
+    .cart-line-custom li::before{ content:'• '; color:var(--brown); }
+    .cart-line-bottom{ display:flex; align-items:center; justify-content:space-between; margin-top:12px; padding-top:12px; border-top:1px solid var(--border); }
+    .cart-line-actions{ display:flex; align-items:center; gap:10px; }
+    .cart-line-edit{
+      font-size:.74rem; font-weight:700; letter-spacing:.03em; text-transform:uppercase; color:var(--brown);
+      background:none; border:none; cursor:pointer; padding:6px 0;
+    }
+    .cart-line-remove{
+      width:26px; height:26px; border-radius:50%; border:1px solid var(--border); background:#fff;
+      display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0;
+    }
+    .cart-line-remove svg{ width:12px; height:12px; stroke:var(--muted); fill:none; stroke-width:2.4; }
+    .cart-line-price{ font-family:'Poppins',sans-serif; font-weight:700; color:var(--text); font-size:.95rem; }
+
+    .cart-empty{ text-align:center; padding:50px 20px; color:var(--muted); font-size:.9rem; }
+    .cart-empty svg{ width:40px; height:40px; stroke:var(--border); fill:none; stroke-width:1.4; margin-bottom:16px; }
+
+    .cart-total-row{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:16px 0 4px; margin-top:6px; border-top:1px solid var(--border);
+    }
+    .cart-total-row span:first-child{ font-weight:700; letter-spacing:.04em; color:var(--text); text-transform:uppercase; font-size:.85rem; }
+    .cart-total-row span:last-child{ font-family:'Poppins',sans-serif; font-weight:700; font-size:1.35rem; color:var(--brown); }
+
+    .order-continue-link{
+      display:flex; align-items:center; gap:6px; justify-content:center;
+      font-size:.82rem; color:var(--muted); background:none; border:none; cursor:pointer;
+      padding:12px 0 0; width:100%; font-family:'Poppins',sans-serif; font-weight:600;
+    }
+    .order-continue-link svg{ width:13px; height:13px; stroke:var(--muted); fill:none; stroke-width:2.4; }
+    .order-continue-link:hover{ color:var(--text); }
+
+    .order-form-group{ margin-bottom:18px; }
     .order-error{ color:#c0392b; font-size:.82rem; margin-bottom:14px; text-align:center; display:none; }
     .order-error.show{ display:block; }
 
@@ -454,10 +565,6 @@
     .order-step-actions .reservation-btn{ flex:1.4; }
 
     .order-summary{ margin-bottom:6px; }
-    .order-summary-item{
-      display:flex; justify-content:space-between; align-items:baseline;
-      font-family:'Poppins',sans-serif; font-weight:700; font-size:1.05rem; color:var(--text); margin-bottom:14px;
-    }
     .order-summary-block{ margin-bottom:16px; }
     .order-summary-label{ font-size:.66rem; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); font-weight:700; margin-bottom:6px; }
     .order-summary-list{ list-style:none; }
@@ -491,6 +598,18 @@
 
     .order-hint{ color:var(--brown); font-weight:600; }
     .order-hint svg{ stroke:var(--brown); }
+
+    /* --- desktop: due colonne per il dettaglio prodotto --- */
+    @media(min-width:820px){
+      .order-modal-card{ max-width:760px; max-height:82vh; }
+      #orderStepCustomize.active{ flex-direction:row; }
+      #orderStepCustomize .order-step-scroll{ display:grid; grid-template-columns:280px 1fr; gap:0; padding:0; }
+      #orderStepCustomize .order-hero{ grid-row:1 / span 3; height:100%; margin:0; border-radius:0; }
+      #orderStepCustomize .order-product-img{ height:100%; min-height:420px; }
+      #orderStepCustomize .order-detail-body{ padding:28px 30px 8px; }
+      #orderStepCustomize .order-sticky-footer{ border-radius:0 0 22px 0; }
+    }
+
 
     .scroll-top{
       position:fixed;right:22px;bottom:22px;width:46px;height:46px;
@@ -706,8 +825,16 @@
   </div>
 </div>
 
+<!-- barra carrello flottante, visibile quando ci sono articoli -->
+<div class="cart-fab" id="cartFab" onclick="openCartStep()">
+  <span class="cart-fab-count" id="cartFabCount">1</span>
+  <span class="cart-fab-label" data-key="cart_fab_label">Vedi il carrello</span>
+  <span class="cart-fab-total" id="cartFabTotal">€0.00</span>
+  <svg class="cart-fab-arrow" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+</div>
+
 <!-- ═══════════════════════════════════════════
-     MODAL ORDINAZIONE ASPORTO — stile app fast food
+     MODAL ORDINAZIONE ASPORTO — dettaglio, carrello, checkout, riepilogo
 ═══════════════════════════════════════════ -->
 <div class="modal" id="orderModal">
   <div class="modal-card order-modal-card">
@@ -723,29 +850,34 @@
 
     <div class="modal-body order-modal-body">
 
-      <!-- STEP 1 — PERSONALIZZA -->
+      <!-- STEP — DETTAGLIO + PERSONALIZZA -->
       <div class="order-step active" id="orderStepCustomize">
         <div class="order-step-scroll">
           <div class="order-hero">
+            <button class="order-back-btn" onclick="closeOrderModal()" aria-label="Indietro">
+              <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
             <img class="order-product-img" id="orderProductImg" src="" alt="" style="display:none">
           </div>
-          <div class="order-product-name" id="orderProductName"></div>
-          <div class="order-product-price" id="orderProductBasePrice"></div>
-          <p class="order-product-desc" id="orderProductDesc"></p>
+          <div class="order-detail-body">
+            <div class="order-product-name" id="orderProductName"></div>
+            <div class="order-product-price" id="orderProductBasePrice"></div>
+            <p class="order-product-desc" id="orderProductDesc"></p>
 
-          <div class="order-section">
-            <div class="order-section-title" data-key="order_ingredients_title">Ingredienti</div>
-            <div id="orderIngredients"></div>
-          </div>
+            <div class="order-section">
+              <div class="order-section-title" data-key="order_ingredients_title">Ingredienti</div>
+              <div id="orderIngredients"></div>
+            </div>
 
-          <div class="order-section">
-            <div class="order-section-title"><span data-key="order_extras_title">Extra</span></div>
-            <div class="order-extras-grid" id="orderExtras"></div>
-          </div>
+            <div class="order-section">
+              <div class="order-section-title"><span data-key="order_extras_title">Aggiungi extra</span></div>
+              <div class="order-extras-grid" id="orderExtras"></div>
+            </div>
 
-          <div class="order-section" style="margin-bottom:0">
-            <label class="order-field-label" for="orderNotes" data-key="order_notes_label">Note per il panino</label>
-            <textarea class="order-textarea" id="orderNotes" data-i18n-placeholder="order_notes_placeholder"></textarea>
+            <div class="order-section" style="margin-bottom:8px">
+              <label class="order-field-label" for="orderNotes" data-key="order_notes_label">Note per il panino</label>
+              <textarea class="order-textarea" id="orderNotes" data-i18n-placeholder="order_notes_placeholder"></textarea>
+            </div>
           </div>
         </div>
 
@@ -755,18 +887,51 @@
             <span id="orderQtyVal">1</span>
             <button type="button" onclick="changeOrderQty(1)">+</button>
           </div>
-          <button class="order-sticky-cta" onclick="goToCheckout()">
-            <span data-key="order_go_checkout">Ordina</span>
+          <button class="order-sticky-cta" onclick="addToCart()">
+            <span class="cta-label" data-key="order_add_to_cart">Aggiungi al carrello</span>
             <span class="cta-total" id="orderTotalStep1">€0.00</span>
+          </button>
+        </div>
+
+        <!-- feedback dopo l'aggiunta al carrello -->
+        <div class="order-added-overlay" id="orderAddedOverlay">
+          <div class="order-added-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <h3 id="orderAddedText" data-key="order_added_text">Aggiunto al carrello</h3>
+          <div class="order-added-actions">
+            <button class="reservation-btn" style="width:100%" onclick="openCartStep()"><span data-key="btn_go_cart">Vai al carrello</span></button>
+            <button class="order-btn-ghost" style="width:100%" onclick="closeOrderModal()"><span data-key="btn_continue">Continua a scegliere</span></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP — CARRELLO -->
+      <div class="order-step" id="orderStepCart">
+        <div class="order-step-scroll">
+          <span class="modal-badge" data-key="cart_badge">Il tuo ordine</span>
+          <div class="order-product-name" style="margin-bottom:18px" data-key="cart_title">Il tuo ordine</div>
+
+          <div id="cartLinesWrap"></div>
+
+          <div class="cart-total-row">
+            <span data-key="summary_total">Totale</span>
+            <span id="cartTotal">€0.00</span>
+          </div>
+
+          <button class="reservation-btn" style="width:100%; margin-top:18px" onclick="goToCheckout()">
+            <span data-key="btn_go_checkout">Procedi al checkout</span>
+          </button>
+          <button class="order-continue-link" onclick="closeOrderModal()">
+            <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+            <span data-key="cart_continue_shopping">Continua a scegliere</span>
           </button>
         </div>
       </div>
 
-      <!-- STEP 2 — DATI CLIENTE -->
+      <!-- STEP — CHECKOUT -->
       <div class="order-step" id="orderStepCheckout">
         <div class="order-step-scroll">
           <span class="modal-badge" data-key="checkout_badge">Ritiro d'asporto</span>
-          <div class="order-product-name" style="margin-bottom:20px" data-key="checkout_title">I tuoi dati</div>
+          <div class="order-product-name" style="margin-bottom:22px" data-key="checkout_title">Come possiamo riconoscerti?</div>
 
           <div class="order-form-group">
             <label class="order-field-label" data-key="label_nome">Nome</label>
@@ -780,8 +945,10 @@
             <label class="order-field-label" data-key="label_telefono">Numero di telefono</label>
             <input type="tel" class="order-input" id="orderTelefono" autocomplete="tel">
           </div>
+
+          <div class="order-section-title" style="margin-top:8px" data-key="checkout_pickup_title">Ritiro</div>
           <div class="order-form-group">
-            <label class="order-field-label" data-key="label_orario">Orario desiderato per il ritiro</label>
+            <label class="order-field-label" data-key="label_orario">Orario desiderato</label>
             <select class="order-select" id="orderOrario">
               <option value="" disabled selected data-key="order_time_placeholder">Seleziona un orario</option>
               <option value="11:00">11:00</option><option value="11:30">11:30</option>
@@ -798,26 +965,30 @@
               <option value="22:00">22:00</option><option value="22:30">22:30</option>
               <option value="23:00">23:00</option><option value="23:30">23:30</option>
             </select>
-            <p class="order-field-hint" data-key="order_time_hint">L'orario è una richiesta: il locale te lo confermerà (o proporrà un'alternativa) direttamente su WhatsApp.</p>
+            <p class="order-field-hint">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              <span data-key="order_time_hint">L'orario sarà confermato dal locale tramite WhatsApp.</span>
+            </p>
           </div>
+
+          <div class="order-section-title" style="margin-top:8px" data-key="checkout_notes_title">Note per il locale</div>
           <div class="order-form-group">
-            <label class="order-field-label" data-key="label_note_locale">Note per il locale (opzionale)</label>
-            <textarea class="order-textarea" id="orderNoteLocale"></textarea>
+            <textarea class="order-textarea" id="orderNoteLocale" data-i18n-placeholder="checkout_notes_placeholder"></textarea>
           </div>
 
           <p class="order-error" id="orderFormError"></p>
 
           <div class="order-step-actions">
-            <button class="order-btn-ghost" onclick="backToCustomize()" data-key="btn_back">Indietro</button>
-            <button class="reservation-btn" onclick="goToSummary()"><span data-key="btn_go_summary">Vai al riepilogo</span></button>
+            <button class="order-btn-ghost" onclick="backToCart()" data-key="btn_back">Indietro</button>
+            <button class="reservation-btn" onclick="goToSummary()"><span data-key="btn_continue_checkout">Continua</span></button>
           </div>
         </div>
       </div>
 
-      <!-- STEP 3 — RIEPILOGO -->
+      <!-- STEP — RIEPILOGO -->
       <div class="order-step" id="orderStepSummary">
         <div class="order-step-scroll">
-          <span class="modal-badge" data-key="summary_badge">Riepilogo ordine</span>
+          <span class="modal-badge" data-key="summary_badge">Controlla il tuo ordine</span>
           <div class="order-summary" id="orderSummaryContent"></div>
 
           <div class="order-confirm-note">
@@ -827,13 +998,13 @@
 
           <button class="reservation-btn order-whatsapp-btn" style="width:100%; margin-bottom:12px" onclick="confirmOrderWhatsApp()">
             <svg class="wa-icon" viewBox="0 0 24 24"><path d="M20.5 3.5A11 11 0 0 0 3.2 17.3L2 22l4.8-1.2A11 11 0 1 0 20.5 3.5z"/><path d="M8.5 8.7c.2-.6.6-.6 1-.6h.5c.2 0 .5 0 .7.5s.8 1.9.9 2c.1.2.1.4 0 .6-.1.2-.2.4-.4.6-.2.2-.4.4-.2.8.2.4 1 1.6 2.1 2.6 1.4 1.2 1.9 1.3 2.1 1.4.2.1.4.1.6-.1.2-.2.7-.8.9-1.1.2-.3.4-.2.7-.1.3.1 1.8.9 2.1 1 .3.1.5.2.6.3.1.2.1 1-.3 1.9-.4.9-2.2 1.7-3 1.7-.8 0-1.6.1-5-1.3-4.1-1.7-6.7-6-6.9-6.3-.2-.3-1.6-2.1-1.6-4 0-1.9 1-2.8 1.3-3.2z"/></svg>
-            <span data-key="btn_confirm_whatsapp">Conferma ordine e ordina su WhatsApp</span>
+            <span data-key="btn_confirm_whatsapp">Conferma e ordina su WhatsApp</span>
           </button>
           <button class="order-btn-ghost" style="width:100%" onclick="backToCheckout()" data-key="btn_back">Indietro</button>
         </div>
       </div>
 
-      <!-- STEP 4 — CONFERMA -->
+      <!-- STEP — CONFERMA -->
       <div class="order-step" id="orderStepThankyou">
         <div class="order-step-scroll">
           <div class="order-thankyou">
@@ -1012,19 +1183,28 @@ const UI_STRINGS = {
        menu_loading:"Caricamento menù...", menu_error_title:"Impossibile caricare il menù",
        menu_error_text:"Controlla la connessione o riprova tra qualche istante.",
        order_hint:"Personalizza e ordina", order_badge:"Personalizza il tuo ordine",
-       order_ingredients_title:"Ingredienti", order_extras_title:"Extra", order_base_tag:"Base",
+       order_ingredients_title:"Ingredienti", order_extras_title:"Aggiungi extra", order_base_tag:"Base",
+       ing_included:"Incluso", ing_removed:"RIMOSSO", extra_add:"Aggiungi", extra_added:"Aggiunto",
        order_notes_label:"Note per il panino", order_notes_placeholder:"Es. carne ben cotta, senza sale...",
        order_qty_label:"Quantità", order_total_label:"Totale", order_go_checkout:"Ordina",
-       checkout_badge:"Ritiro d'asporto", checkout_title:"I tuoi dati",
+       order_add_to_cart:"Aggiungi al carrello", order_added_suffix:"aggiunto al carrello",
+       btn_go_cart:"Vai al carrello", btn_continue:"Continua a scegliere",
+       cart_fab_label:"Vedi il carrello", cart_badge:"Il tuo ordine", cart_title:"Il tuo ordine",
+       cart_empty:"Il carrello è vuoto", cart_each:"cad.", cart_edit:"Modifica",
+       btn_go_checkout:"Procedi al checkout", cart_continue_shopping:"Continua a scegliere",
+       checkout_badge:"Ritiro d'asporto", checkout_title:"Come possiamo riconoscerti?",
+       checkout_pickup_title:"Ritiro", checkout_notes_title:"Note per il locale",
+       checkout_notes_placeholder:"Es. suoneremo al citofono, siamo in due...",
+       btn_continue_checkout:"Continua",
        label_nome:"Nome", label_cognome:"Cognome", label_telefono:"Numero di telefono",
        label_orario:"Orario desiderato per il ritiro", label_note_locale:"Note per il locale (opzionale)",
-       order_time_placeholder:"Seleziona un orario", order_time_hint:"L'orario è una richiesta: il locale te lo confermerà (o proporrà un'alternativa) direttamente su WhatsApp.",
+       order_time_placeholder:"Seleziona un orario", order_time_hint:"L'orario sarà confermato dal locale tramite WhatsApp.",
        order_confirm_note:"L'orario indicato è una richiesta: il locale ti confermerà su WhatsApp l'orario esatto di ritiro.",
        checkout_error:"Compila tutti i campi obbligatori (nome, cognome, telefono, orario).",
-       btn_back:"Indietro", btn_go_summary:"Vai al riepilogo", summary_badge:"Riepilogo ordine",
+       btn_back:"Indietro", btn_go_summary:"Vai al riepilogo", summary_badge:"Controlla il tuo ordine",
        summary_customizations:"Personalizzazioni", summary_without:"Senza", summary_notes:"Note",
        summary_pickup:"Ritiro", summary_customer:"Cliente", summary_total:"Totale",
-       btn_confirm_whatsapp:"Conferma ordine e ordina su WhatsApp",
+       btn_confirm_whatsapp:"Conferma e ordina su WhatsApp",
        order_thankyou_title:"Ordine inviato!", order_thankyou_sub:"Il tuo ordine è stato inviato su WhatsApp. Il locale ti confermerà a breve l'orario di ritiro.",
        btn_close:"Chiudi", wa_msg_title:"NUOVO ORDINE ASPORTO", wa_customer:"Cliente", wa_phone:"Telefono",
        wa_pickup:"Ritiro", wa_order:"ORDINE", wa_total:"TOTALE", wa_notes:"NOTE", wa_extra:"Extra", wa_to_confirm:"da confermare" },
@@ -1035,19 +1215,28 @@ const UI_STRINGS = {
        menu_loading:"Loading menu...", menu_error_title:"Could not load the menu",
        menu_error_text:"Check your connection or try again shortly.",
        order_hint:"Customize and order", order_badge:"Customize your order",
-       order_ingredients_title:"Ingredients", order_extras_title:"Extras", order_base_tag:"Base",
+       order_ingredients_title:"Ingredients", order_extras_title:"Add extras", order_base_tag:"Base",
+       ing_included:"Included", ing_removed:"REMOVED", extra_add:"Add", extra_added:"Added",
        order_notes_label:"Notes for the sandwich", order_notes_placeholder:"E.g. well-done meat, no salt...",
        order_qty_label:"Quantity", order_total_label:"Total", order_go_checkout:"Order",
-       checkout_badge:"Takeaway pickup", checkout_title:"Your details",
+       order_add_to_cart:"Add to cart", order_added_suffix:"added to cart",
+       btn_go_cart:"Go to cart", btn_continue:"Keep browsing",
+       cart_fab_label:"View cart", cart_badge:"Your order", cart_title:"Your order",
+       cart_empty:"Your cart is empty", cart_each:"each", cart_edit:"Edit",
+       btn_go_checkout:"Proceed to checkout", cart_continue_shopping:"Keep browsing",
+       checkout_badge:"Takeaway pickup", checkout_title:"How can we recognize you?",
+       checkout_pickup_title:"Pickup", checkout_notes_title:"Notes for the venue",
+       checkout_notes_placeholder:"E.g. we'll ring the bell, we're two people...",
+       btn_continue_checkout:"Continue",
        label_nome:"First name", label_cognome:"Last name", label_telefono:"Phone number",
        label_orario:"Preferred pickup time", label_note_locale:"Notes for the venue (optional)",
-       order_time_placeholder:"Select a time", order_time_hint:"This time is a request: the venue will confirm it (or suggest another one) directly on WhatsApp.",
+       order_time_placeholder:"Select a time", order_time_hint:"The time will be confirmed by the venue via WhatsApp.",
        order_confirm_note:"The selected time is a request: the venue will confirm the exact pickup time on WhatsApp.",
        checkout_error:"Please fill in all required fields (name, last name, phone, time).",
-       btn_back:"Back", btn_go_summary:"Go to summary", summary_badge:"Order summary",
+       btn_back:"Back", btn_go_summary:"Go to summary", summary_badge:"Check your order",
        summary_customizations:"Customizations", summary_without:"Without", summary_notes:"Notes",
        summary_pickup:"Pickup", summary_customer:"Customer", summary_total:"Total",
-       btn_confirm_whatsapp:"Confirm order and send on WhatsApp",
+       btn_confirm_whatsapp:"Confirm and order on WhatsApp",
        order_thankyou_title:"Order sent!", order_thankyou_sub:"Your order has been sent on WhatsApp. The venue will confirm the pickup time shortly.",
        btn_close:"Close", wa_msg_title:"NEW TAKEAWAY ORDER", wa_customer:"Customer", wa_phone:"Phone",
        wa_pickup:"Pickup", wa_order:"ORDER", wa_total:"TOTAL", wa_notes:"NOTES", wa_extra:"Extra", wa_to_confirm:"to be confirmed" },
@@ -1058,19 +1247,28 @@ const UI_STRINGS = {
        menu_loading:"Cargando menú...", menu_error_title:"No se pudo cargar el menú",
        menu_error_text:"Comprueba la conexión o inténtalo de nuevo en breve.",
        order_hint:"Personaliza y pide", order_badge:"Personaliza tu pedido",
-       order_ingredients_title:"Ingredientes", order_extras_title:"Extras", order_base_tag:"Base",
+       order_ingredients_title:"Ingredientes", order_extras_title:"Añadir extras", order_base_tag:"Base",
+       ing_included:"Incluido", ing_removed:"QUITADO", extra_add:"Añadir", extra_added:"Añadido",
        order_notes_label:"Notas para el bocadillo", order_notes_placeholder:"Ej. carne bien hecha, sin sal...",
        order_qty_label:"Cantidad", order_total_label:"Total", order_go_checkout:"Pedir",
-       checkout_badge:"Recogida para llevar", checkout_title:"Tus datos",
+       order_add_to_cart:"Añadir al carrito", order_added_suffix:"añadido al carrito",
+       btn_go_cart:"Ir al carrito", btn_continue:"Seguir eligiendo",
+       cart_fab_label:"Ver carrito", cart_badge:"Tu pedido", cart_title:"Tu pedido",
+       cart_empty:"Tu carrito está vacío", cart_each:"c/u", cart_edit:"Editar",
+       btn_go_checkout:"Ir al pago", cart_continue_shopping:"Seguir eligiendo",
+       checkout_badge:"Recogida para llevar", checkout_title:"¿Cómo podemos reconocerte?",
+       checkout_pickup_title:"Recogida", checkout_notes_title:"Notas para el local",
+       checkout_notes_placeholder:"Ej. tocaremos el timbre, somos dos personas...",
+       btn_continue_checkout:"Continuar",
        label_nome:"Nombre", label_cognome:"Apellido", label_telefono:"Número de teléfono",
        label_orario:"Hora preferida de recogida", label_note_locale:"Notas para el local (opcional)",
-       order_time_placeholder:"Selecciona una hora", order_time_hint:"Esta hora es una solicitud: el local te la confirmará (o propondrá otra) directamente por WhatsApp.",
+       order_time_placeholder:"Selecciona una hora", order_time_hint:"La hora será confirmada por el local vía WhatsApp.",
        order_confirm_note:"La hora indicada es una solicitud: el local te confirmará por WhatsApp la hora exacta de recogida.",
        checkout_error:"Completa todos los campos obligatorios (nombre, apellido, teléfono, hora).",
-       btn_back:"Atrás", btn_go_summary:"Ir al resumen", summary_badge:"Resumen del pedido",
+       btn_back:"Atrás", btn_go_summary:"Ir al resumen", summary_badge:"Revisa tu pedido",
        summary_customizations:"Personalizaciones", summary_without:"Sin", summary_notes:"Notas",
        summary_pickup:"Recogida", summary_customer:"Cliente", summary_total:"Total",
-       btn_confirm_whatsapp:"Confirmar pedido y enviar por WhatsApp",
+       btn_confirm_whatsapp:"Confirmar y pedir por WhatsApp",
        order_thankyou_title:"¡Pedido enviado!", order_thankyou_sub:"Tu pedido se ha enviado por WhatsApp. El local confirmará pronto la hora de recogida.",
        btn_close:"Cerrar", wa_msg_title:"NUEVO PEDIDO PARA LLEVAR", wa_customer:"Cliente", wa_phone:"Teléfono",
        wa_pickup:"Recogida", wa_order:"PEDIDO", wa_total:"TOTAL", wa_notes:"NOTAS", wa_extra:"Extra", wa_to_confirm:"a confirmar" },
@@ -1081,19 +1279,28 @@ const UI_STRINGS = {
        menu_loading:"Chargement du menu...", menu_error_title:"Impossible de charger le menu",
        menu_error_text:"Vérifiez la connexion ou réessayez bientôt.",
        order_hint:"Personnaliser et commander", order_badge:"Personnalisez votre commande",
-       order_ingredients_title:"Ingrédients", order_extras_title:"Extras", order_base_tag:"Base",
+       order_ingredients_title:"Ingrédients", order_extras_title:"Ajouter des extras", order_base_tag:"Base",
+       ing_included:"Inclus", ing_removed:"RETIRÉ", extra_add:"Ajouter", extra_added:"Ajouté",
        order_notes_label:"Notes pour le sandwich", order_notes_placeholder:"Ex. viande bien cuite, sans sel...",
        order_qty_label:"Quantité", order_total_label:"Total", order_go_checkout:"Commander",
-       checkout_badge:"Retrait à emporter", checkout_title:"Vos coordonnées",
+       order_add_to_cart:"Ajouter au panier", order_added_suffix:"ajouté au panier",
+       btn_go_cart:"Voir le panier", btn_continue:"Continuer mes achats",
+       cart_fab_label:"Voir le panier", cart_badge:"Votre commande", cart_title:"Votre commande",
+       cart_empty:"Votre panier est vide", cart_each:"l'unité", cart_edit:"Modifier",
+       btn_go_checkout:"Passer au paiement", cart_continue_shopping:"Continuer mes achats",
+       checkout_badge:"Retrait à emporter", checkout_title:"Comment pouvons-nous vous reconnaître ?",
+       checkout_pickup_title:"Retrait", checkout_notes_title:"Notes pour l'établissement",
+       checkout_notes_placeholder:"Ex. nous sonnerons, nous sommes deux...",
+       btn_continue_checkout:"Continuer",
        label_nome:"Prénom", label_cognome:"Nom", label_telefono:"Numéro de téléphone",
        label_orario:"Heure de retrait préférée", label_note_locale:"Notes pour l'établissement (facultatif)",
-       order_time_placeholder:"Choisissez une heure", order_time_hint:"Cette heure est une demande : l'établissement vous la confirmera (ou en proposera une autre) directement sur WhatsApp.",
+       order_time_placeholder:"Choisissez une heure", order_time_hint:"L'heure sera confirmée par l'établissement sur WhatsApp.",
        order_confirm_note:"L'heure indiquée est une demande : l'établissement vous confirmera l'heure exacte de retrait sur WhatsApp.",
        checkout_error:"Veuillez remplir tous les champs obligatoires (prénom, nom, téléphone, heure).",
-       btn_back:"Retour", btn_go_summary:"Voir le résumé", summary_badge:"Résumé de la commande",
+       btn_back:"Retour", btn_go_summary:"Voir le résumé", summary_badge:"Vérifiez votre commande",
        summary_customizations:"Personnalisations", summary_without:"Sans", summary_notes:"Notes",
        summary_pickup:"Retrait", summary_customer:"Client", summary_total:"Total",
-       btn_confirm_whatsapp:"Confirmer la commande et envoyer sur WhatsApp",
+       btn_confirm_whatsapp:"Confirmer et commander sur WhatsApp",
        order_thankyou_title:"Commande envoyée !", order_thankyou_sub:"Votre commande a été envoyée sur WhatsApp. L'établissement confirmera bientôt l'heure de retrait.",
        btn_close:"Fermer", wa_msg_title:"NOUVELLE COMMANDE À EMPORTER", wa_customer:"Client", wa_phone:"Téléphone",
        wa_pickup:"Retrait", wa_order:"COMMANDE", wa_total:"TOTAL", wa_notes:"NOTES", wa_extra:"Extra", wa_to_confirm:"à confirmer" },
@@ -1104,19 +1311,28 @@ const UI_STRINGS = {
        menu_loading:"Menü wird geladen...", menu_error_title:"Menü konnte nicht geladen werden",
        menu_error_text:"Bitte Verbindung prüfen oder später erneut versuchen.",
        order_hint:"Anpassen und bestellen", order_badge:"Bestellung anpassen",
-       order_ingredients_title:"Zutaten", order_extras_title:"Extras", order_base_tag:"Basis",
+       order_ingredients_title:"Zutaten", order_extras_title:"Extras hinzufügen", order_base_tag:"Basis",
+       ing_included:"Enthalten", ing_removed:"ENTFERNT", extra_add:"Hinzufügen", extra_added:"Hinzugefügt",
        order_notes_label:"Anmerkungen zum Sandwich", order_notes_placeholder:"Z.B. Fleisch gut durch, ohne Salz...",
        order_qty_label:"Menge", order_total_label:"Gesamt", order_go_checkout:"Bestellen",
-       checkout_badge:"Abholung zum Mitnehmen", checkout_title:"Ihre Daten",
+       order_add_to_cart:"In den Warenkorb", order_added_suffix:"zum Warenkorb hinzugefügt",
+       btn_go_cart:"Zum Warenkorb", btn_continue:"Weiter stöbern",
+       cart_fab_label:"Warenkorb ansehen", cart_badge:"Ihre Bestellung", cart_title:"Ihre Bestellung",
+       cart_empty:"Ihr Warenkorb ist leer", cart_each:"je", cart_edit:"Bearbeiten",
+       btn_go_checkout:"Zur Kasse", cart_continue_shopping:"Weiter stöbern",
+       checkout_badge:"Abholung zum Mitnehmen", checkout_title:"Wie können wir Sie erkennen?",
+       checkout_pickup_title:"Abholung", checkout_notes_title:"Anmerkungen für das Lokal",
+       checkout_notes_placeholder:"Z.B. wir klingeln, wir sind zu zweit...",
+       btn_continue_checkout:"Weiter",
        label_nome:"Vorname", label_cognome:"Nachname", label_telefono:"Telefonnummer",
        label_orario:"Bevorzugte Abholzeit", label_note_locale:"Anmerkungen für das Lokal (optional)",
-       order_time_placeholder:"Uhrzeit wählen", order_time_hint:"Diese Uhrzeit ist ein Wunsch: das Lokal bestätigt sie (oder schlägt eine andere vor) direkt über WhatsApp.",
+       order_time_placeholder:"Uhrzeit wählen", order_time_hint:"Die Uhrzeit wird vom Lokal über WhatsApp bestätigt.",
        order_confirm_note:"Die angegebene Uhrzeit ist ein Wunsch: das Lokal bestätigt die genaue Abholzeit über WhatsApp.",
        checkout_error:"Bitte füllen Sie alle Pflichtfelder aus (Vorname, Nachname, Telefon, Uhrzeit).",
-       btn_back:"Zurück", btn_go_summary:"Zur Übersicht", summary_badge:"Bestellübersicht",
+       btn_back:"Zurück", btn_go_summary:"Zur Übersicht", summary_badge:"Bestellung prüfen",
        summary_customizations:"Anpassungen", summary_without:"Ohne", summary_notes:"Anmerkungen",
        summary_pickup:"Abholung", summary_customer:"Kunde", summary_total:"Gesamt",
-       btn_confirm_whatsapp:"Bestellung bestätigen und über WhatsApp senden",
+       btn_confirm_whatsapp:"Bestätigen und über WhatsApp bestellen",
        order_thankyou_title:"Bestellung gesendet!", order_thankyou_sub:"Ihre Bestellung wurde über WhatsApp gesendet. Das Lokal bestätigt in Kürze die Abholzeit.",
        btn_close:"Schließen", wa_msg_title:"NEUE BESTELLUNG ZUM MITNEHMEN", wa_customer:"Kunde", wa_phone:"Telefon",
        wa_pickup:"Abholung", wa_order:"BESTELLUNG", wa_total:"GESAMT", wa_notes:"ANMERKUNGEN", wa_extra:"Extra", wa_to_confirm:"zu bestätigen" }
@@ -1146,9 +1362,17 @@ function isTrue(v){
 function escAttr(s){ return String(s||'').replace(/'/g,"\\'"); }
 
 // ═══════════════════════════════════════════
-// ORDINAZIONE ASPORTO — DEMO "IL BRIGANTE"
-// Struttura dati pensata per essere estesa: basta aggiungere altre voci
-// a ORDERABLE_PRODUCTS per rendere ordinabili altri panini in futuro.
+// ORDINAZIONE ASPORTO — "IL BRIGANTE"
+// Architettura concettuale (anche se per ora un solo prodotto è ordinabile):
+//   Product              → ORDERABLE_PRODUCTS[id]           (dati prodotto/ingredienti/extra)
+//   ProductCustomization  → orderState                        (personalizzazione in corso)
+//   Cart                  → cart[]                            (righe aggiunte al carrello)
+//   Checkout              → orderState.customer + step checkout
+//   OrderSummary          → renderOrderSummary()
+//   WhatsAppOrder          → confirmOrderWhatsApp()
+// Per aggiungere un altro prodotto ordinabile in futuro basta una nuova voce
+// in ORDERABLE_PRODUCTS: tutto il resto (carrello, checkout, riepilogo, WhatsApp)
+// è già generico e funziona per qualunque numero di articoli/prodotti.
 // ═══════════════════════════════════════════
 const WHATSAPP_NUMBER = '393935560714';
 
@@ -1175,20 +1399,20 @@ const ORDERABLE_PRODUCTS = {
   // una nuova voce con lo stesso schema (id, name, price, ingredients, extras...).
 };
 
-let orderState = null; // stato dell'ordine corrente, ricreato ad ogni apertura
+let cart = [];            // righe nel carrello: { lineId, product, qty, removed:Set, extras:Set, notes }
+let orderState = null;    // personalizzazione in corso (prima di "aggiungi al carrello")
+let editingLineId = null; // se stiamo modificando una riga già nel carrello
 
-function openOrderModal(productId){
+function openOrderModal(productId, lineIdToEdit){
   const product = ORDERABLE_PRODUCTS[productId];
   if (!product) return;
 
-  orderState = {
-    product,
-    qty: 1,
-    removed: new Set(),
-    extras: new Set(),
-    notes: '',
-    customer: { nome:'', cognome:'', telefono:'', orario:'', noteLocale:'' }
-  };
+  editingLineId = lineIdToEdit || null;
+  const existingLine = editingLineId ? cart.find(l => l.lineId === editingLineId) : null;
+
+  orderState = existingLine
+    ? { product, qty: existingLine.qty, removed: new Set(existingLine.removed), extras: new Set(existingLine.extras), notes: existingLine.notes }
+    : { product, qty: 1, removed: new Set(), extras: new Set(), notes: '' };
 
   document.getElementById('orderProductName').textContent = product.name;
   document.getElementById('orderProductDesc').textContent = product.description;
@@ -1198,15 +1422,10 @@ function openOrderModal(productId){
 
   renderOrderIngredients();
   renderOrderExtras();
-  document.getElementById('orderNotes').value = '';
-  document.getElementById('orderQtyVal').textContent = '1';
+  document.getElementById('orderNotes').value = orderState.notes;
+  document.getElementById('orderQtyVal').textContent = orderState.qty;
+  document.getElementById('orderAddedOverlay').classList.remove('show');
   updateOrderTotal();
-
-  // reset form step 2
-  ['orderNome','orderCognome','orderTelefono','orderOrario','orderNoteLocale'].forEach(id => {
-    document.getElementById(id).value = '';
-  });
-  document.getElementById('orderFormError').classList.remove('show');
 
   showOrderStep('orderStepCustomize');
   document.getElementById('orderModal').classList.add('active');
@@ -1216,6 +1435,7 @@ function openOrderModal(productId){
 function closeOrderModal(){
   document.getElementById('orderModal').classList.remove('active');
   document.body.style.overflow = '';
+  editingLineId = null;
 }
 
 function showOrderStep(stepId){
@@ -1226,9 +1446,10 @@ function showOrderStep(stepId){
 
 function updateOrderProgress(stepId){
   const progress = document.getElementById('orderProgress');
-  const map = { orderStepCustomize:1, orderStepCheckout:2, orderStepSummary:3, orderStepThankyou:4 };
-  const n = map[stepId] || 1;
-  progress.style.display = (n === 4) ? 'none' : 'flex';
+  const map = { orderStepCart:1, orderStepCheckout:2, orderStepSummary:3 };
+  const n = map[stepId];
+  if (!n) { progress.classList.remove('show'); return; }
+  progress.classList.add('show');
   [1,2,3].forEach(i => {
     const dot = document.getElementById('orderDot' + i);
     dot.classList.toggle('active', i === n);
@@ -1243,12 +1464,18 @@ function renderOrderIngredients(){
   const wrap = document.getElementById('orderIngredients');
   let html = `<div class="order-base-ingredient"><span class="emoji">${product.baseIngredient.emoji||'🍽️'}</span>${product.baseIngredient.label}<span class="tag" data-key="order_base_tag">Base</span></div>`;
   product.ingredients.forEach(ing => {
-    if (ing.defaultOn) orderState.removed.delete(ing.key); // stato iniziale: tutti inclusi
+    const isOn = !orderState.removed.has(ing.key);
     html += `
-      <div class="ing-card on" id="ing-row-${ing.key}" onclick="toggleIngredient('${ing.key}')">
+      <div class="ing-card ${isOn ? 'on' : 'off'}" id="ing-row-${ing.key}">
         <span class="emoji">${ing.emoji||'🥗'}</span>
         <span class="ing-label">${ing.label}</span>
-        <span class="ing-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
+        ${isOn
+          ? `<span class="ing-toggle-on" onclick="toggleIngredient('${ing.key}')"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span data-key="ing_included">Incluso</span></span>`
+          : `<span class="ing-toggle-off">
+               <span class="removed-tag" data-key="ing_removed">RIMOSSO</span>
+               <span class="restore-btn" onclick="toggleIngredient('${ing.key}')" aria-label="Ripristina"><svg viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg></span>
+             </span>`
+        }
       </div>`;
   });
   wrap.innerHTML = html;
@@ -1259,30 +1486,34 @@ function renderOrderExtras(){
   const wrap = document.getElementById('orderExtras');
   let html = '';
   product.extras.forEach(ex => {
+    const isOn = orderState.extras.has(ex.key);
     html += `
-      <div class="extra-chip" id="extra-row-${ex.key}" onclick="toggleExtra('${ex.key}')">
+      <div class="extra-chip ${isOn ? 'on' : ''}" id="extra-row-${ex.key}">
         <span class="emoji">${ex.emoji||'➕'}</span>
         <span class="extra-label">${ex.label}</span>
         <span class="extra-price">+€${ex.price.toFixed(2)}</span>
-        <span class="extra-add"></span>
+        <button type="button" class="extra-btn" onclick="toggleExtra('${ex.key}')">
+          ${isOn
+            ? `<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span data-key="extra_added">Aggiunto</span>`
+            : `<span data-key="extra_add">Aggiungi</span>`
+          }
+        </button>
       </div>`;
   });
   wrap.innerHTML = html;
 }
 
 function toggleIngredient(key){
-  const row = document.getElementById('ing-row-' + key);
-  const isOn = row.classList.contains('on');
-  if (isOn) { orderState.removed.add(key); row.classList.remove('on'); row.classList.add('off'); }
-  else { orderState.removed.delete(key); row.classList.add('on'); row.classList.remove('off'); }
+  if (orderState.removed.has(key)) orderState.removed.delete(key);
+  else orderState.removed.add(key);
+  renderOrderIngredients();
   updateOrderTotal();
 }
 
 function toggleExtra(key){
-  const row = document.getElementById('extra-row-' + key);
-  const isOn = row.classList.contains('on');
-  if (isOn) { orderState.extras.delete(key); row.classList.remove('on'); }
-  else { orderState.extras.add(key); row.classList.add('on'); }
+  if (orderState.extras.has(key)) orderState.extras.delete(key);
+  else orderState.extras.add(key);
+  renderOrderExtras();
   updateOrderTotal();
 }
 
@@ -1292,27 +1523,150 @@ function changeOrderQty(delta){
   updateOrderTotal();
 }
 
-function calcOrderUnitPrice(){
-  const product = orderState.product;
+function calcUnitPrice(product, extrasSet){
   let unit = product.price;
-  product.extras.forEach(ex => { if (orderState.extras.has(ex.key)) unit += ex.price; });
+  product.extras.forEach(ex => { if (extrasSet.has(ex.key)) unit += ex.price; });
   return unit;
 }
 
 function updateOrderTotal(){
   const product = orderState.product;
   document.getElementById('orderProductBasePrice').textContent = '€' + product.price.toFixed(2);
-  const total = calcOrderUnitPrice() * orderState.qty;
+  const total = calcUnitPrice(product, orderState.extras) * orderState.qty;
   document.getElementById('orderTotalStep1').textContent = '€' + total.toFixed(2);
 }
 
-function goToCheckout(){
+function addToCart(){
   orderState.notes = document.getElementById('orderNotes').value.trim();
+  const lineData = {
+    lineId: editingLineId || ('line_' + Date.now() + '_' + Math.floor(Math.random()*1000)),
+    product: orderState.product,
+    qty: orderState.qty,
+    removed: new Set(orderState.removed),
+    extras: new Set(orderState.extras),
+    notes: orderState.notes
+  };
+
+  if (editingLineId){
+    const idx = cart.findIndex(l => l.lineId === editingLineId);
+    if (idx > -1) cart[idx] = lineData;
+    editingLineId = null;
+    updateCartFab();
+    openCartStep();
+    return;
+  }
+
+  cart.push(lineData);
+  updateCartFab();
+
+  document.getElementById('orderAddedText').textContent = orderState.product.name + ' ' + i18next.t('order_added_suffix');
+  document.getElementById('orderAddedOverlay').classList.add('show');
+}
+
+function updateCartFab(){
+  const fab = document.getElementById('cartFab');
+  const count = cart.reduce((sum, l) => sum + l.qty, 0);
+  if (count === 0){ fab.classList.remove('show'); return; }
+  const total = cart.reduce((sum, l) => sum + calcUnitPrice(l.product, l.extras) * l.qty, 0);
+  document.getElementById('cartFabCount').textContent = count;
+  document.getElementById('cartFabTotal').textContent = '€' + total.toFixed(2);
+  fab.classList.add('show');
+}
+
+function openCartStep(){
+  document.getElementById('orderAddedOverlay').classList.remove('show');
+  renderCart();
+  document.getElementById('orderModal').classList.add('active');
+  document.body.style.overflow = 'hidden';
+  showOrderStep('orderStepCart');
+}
+
+function renderCart(){
+  const wrap = document.getElementById('cartLinesWrap');
+  if (cart.length === 0){
+    wrap.innerHTML = `<div class="cart-empty">
+      <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+      <div data-key="cart_empty">Il carrello è vuoto</div>
+    </div>`;
+    document.getElementById('cartTotal').textContent = '€0.00';
+    return;
+  }
+
+  let html = '';
+  let total = 0;
+  cart.forEach(line => {
+    const unit = calcUnitPrice(line.product, line.extras);
+    const lineTotal = unit * line.qty;
+    total += lineTotal;
+
+    const removedNames = line.product.ingredients.filter(i => line.removed.has(i.key)).map(i => i.label);
+    const extraNames = line.product.extras.filter(e => line.extras.has(e.key));
+
+    let customHTML = '';
+    if (removedNames.length || extraNames.length || line.notes){
+      customHTML = `<div class="cart-line-custom"><div class="cart-line-custom-label" data-key="summary_customizations">Personalizzazioni</div><ul>`;
+      removedNames.forEach(n => customHTML += `<li>${i18next.t('summary_without')} ${n}</li>`);
+      extraNames.forEach(e => customHTML += `<li>${e.label} +€${e.price.toFixed(2)}</li>`);
+      if (line.notes) customHTML += `<li>${line.notes}</li>`;
+      customHTML += `</ul></div>`;
+    }
+
+    html += `
+      <div class="cart-line">
+        <div class="cart-line-top">
+          <span class="cart-line-name">${line.product.name}</span>
+          <span class="cart-line-unit">€${unit.toFixed(2)} ${i18next.t('cart_each')}</span>
+        </div>
+        ${customHTML}
+        <div class="cart-line-bottom">
+          <div class="order-qty-stepper small">
+            <button type="button" onclick="changeCartLineQty('${line.lineId}', -1)">−</button>
+            <span>${line.qty}</span>
+            <button type="button" onclick="changeCartLineQty('${line.lineId}', 1)">+</button>
+          </div>
+          <div class="cart-line-actions">
+            <button class="cart-line-edit" onclick="editCartLine('${line.lineId}')" data-key="cart_edit">Modifica</button>
+            <span class="cart-line-price">€${lineTotal.toFixed(2)}</span>
+            <button class="cart-line-remove" onclick="removeCartLine('${line.lineId}')" aria-label="Rimuovi"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+          </div>
+        </div>
+      </div>`;
+  });
+
+  wrap.innerHTML = html;
+  document.getElementById('cartTotal').textContent = '€' + total.toFixed(2);
+}
+
+function changeCartLineQty(lineId, delta){
+  const line = cart.find(l => l.lineId === lineId);
+  if (!line) return;
+  line.qty = Math.max(1, line.qty + delta);
+  renderCart();
+  updateCartFab();
+}
+
+function editCartLine(lineId){
+  const line = cart.find(l => l.lineId === lineId);
+  if (!line) return;
+  openOrderModal(line.product.id, lineId);
+}
+
+function removeCartLine(lineId){
+  cart = cart.filter(l => l.lineId !== lineId);
+  renderCart();
+  updateCartFab();
+  if (cart.length === 0) closeOrderModal();
+}
+
+function backToCart(){ openCartStep(); }
+
+function goToCheckout(){
   showOrderStep('orderStepCheckout');
 }
 
-function backToCustomize(){ showOrderStep('orderStepCustomize'); }
 function backToCheckout(){ showOrderStep('orderStepCheckout'); }
+
+let checkoutCustomer = { nome:'', cognome:'', telefono:'', orario:'', noteLocale:'' };
 
 function goToSummary(){
   const nome = document.getElementById('orderNome').value.trim();
@@ -1329,36 +1683,38 @@ function goToSummary(){
   }
   errorEl.classList.remove('show');
 
-  orderState.customer = { nome, cognome, telefono, orario, noteLocale };
+  checkoutCustomer = { nome, cognome, telefono, orario, noteLocale };
   renderOrderSummary();
   showOrderStep('orderStepSummary');
 }
 
 function renderOrderSummary(){
-  const product = orderState.product;
-  const unit = calcOrderUnitPrice();
-  const total = unit * orderState.qty;
+  let total = 0;
+  let html = '';
 
-  const removedNames = product.ingredients.filter(i => orderState.removed.has(i.key)).map(i => i.label);
-  const extraNames = product.extras.filter(e => orderState.extras.has(e.key));
+  cart.forEach(line => {
+    const unit = calcUnitPrice(line.product, line.extras);
+    const lineTotal = unit * line.qty;
+    total += lineTotal;
+    const removedNames = line.product.ingredients.filter(i => line.removed.has(i.key)).map(i => i.label);
+    const extraNames = line.product.extras.filter(e => line.extras.has(e.key));
 
-  let html = `<div class="order-summary-item"><span>${product.name} × ${orderState.qty}</span><span>€${total.toFixed(2)}</span></div>`;
+    html += `<div class="order-summary-block">
+      <div class="order-summary-item"><span>${line.product.name} × ${line.qty}</span><span>€${lineTotal.toFixed(2)}</span></div>`;
+    if (removedNames.length || extraNames.length){
+      html += `<ul class="order-summary-list">`;
+      removedNames.forEach(n => html += `<li>${i18next.t('summary_without')} ${n}</li>`);
+      extraNames.forEach(e => html += `<li>${e.label} +€${e.price.toFixed(2)}</li>`);
+      html += `</ul>`;
+    }
+    if (line.notes) html += `<div class="order-summary-text" style="margin-top:6px">${line.notes}</div>`;
+    html += `</div>`;
+  });
 
-  if (removedNames.length || extraNames.length){
-    html += `<div class="order-summary-block"><div class="order-summary-label" data-key="summary_customizations">Personalizzazioni</div><ul class="order-summary-list">`;
-    removedNames.forEach(n => html += `<li>${i18next.t('summary_without')} ${n}</li>`);
-    extraNames.forEach(e => html += `<li>${e.label} +€${e.price.toFixed(2)}</li>`);
-    html += `</ul></div>`;
-  }
-
-  if (orderState.notes){
-    html += `<div class="order-summary-block"><div class="order-summary-label" data-key="summary_notes">Note</div><div class="order-summary-text">${orderState.notes}</div></div>`;
-  }
-
-  html += `<div class="order-summary-block"><div class="order-summary-label" data-key="summary_pickup">Ritiro</div><div class="order-summary-text">${orderState.customer.orario} <span style="color:var(--muted); font-weight:400;">(${i18next.t('wa_to_confirm')})</span></div></div>`;
-  html += `<div class="order-summary-block"><div class="order-summary-label" data-key="summary_customer">Cliente</div><div class="order-summary-text">${orderState.customer.nome} ${orderState.customer.cognome}<br>${orderState.customer.telefono}</div></div>`;
-  if (orderState.customer.noteLocale){
-    html += `<div class="order-summary-block"><div class="order-summary-label" data-key="summary_notes">Note</div><div class="order-summary-text">${orderState.customer.noteLocale}</div></div>`;
+  html += `<div class="order-summary-block"><div class="order-summary-label" data-key="summary_pickup">Ritiro</div><div class="order-summary-text">${checkoutCustomer.orario} <span style="color:var(--muted); font-weight:400;">(${i18next.t('wa_to_confirm')})</span></div></div>`;
+  html += `<div class="order-summary-block"><div class="order-summary-label" data-key="summary_customer">Cliente</div><div class="order-summary-text">${checkoutCustomer.nome} ${checkoutCustomer.cognome}<br>${checkoutCustomer.telefono}</div></div>`;
+  if (checkoutCustomer.noteLocale){
+    html += `<div class="order-summary-block"><div class="order-summary-label" data-key="summary_notes">Note</div><div class="order-summary-text">${checkoutCustomer.noteLocale}</div></div>`;
   }
 
   html += `<div class="order-summary-total"><span data-key="summary_total">Totale</span><span>€${total.toFixed(2)}</span></div>`;
@@ -1367,39 +1723,48 @@ function renderOrderSummary(){
 }
 
 function confirmOrderWhatsApp(){
-  const product = orderState.product;
-  const unit = calcOrderUnitPrice();
-  const total = unit * orderState.qty;
-  const removedNames = product.ingredients.filter(i => orderState.removed.has(i.key)).map(i => i.label);
-  const extraNames = product.extras.filter(e => orderState.extras.has(e.key));
-
+  let total = 0;
   const lines = [
     '🥪 ' + i18next.t('wa_msg_title'), '',
-    i18next.t('wa_customer') + ': ' + orderState.customer.nome + ' ' + orderState.customer.cognome,
-    i18next.t('wa_phone') + ': ' + orderState.customer.telefono,
-    i18next.t('wa_pickup') + ': ' + orderState.customer.orario + ' (' + i18next.t('wa_to_confirm') + ')', '',
-    i18next.t('wa_order') + ':',
-    orderState.qty + '× ' + product.name + ' — €' + total.toFixed(2)
+    i18next.t('wa_customer') + ': ' + checkoutCustomer.nome + ' ' + checkoutCustomer.cognome,
+    i18next.t('wa_phone') + ': ' + checkoutCustomer.telefono,
+    i18next.t('wa_pickup') + ': ' + checkoutCustomer.orario + ' (' + i18next.t('wa_to_confirm') + ')', '',
+    i18next.t('wa_order') + ':'
   ];
-  removedNames.forEach(n => lines.push('• ' + i18next.t('summary_without') + ' ' + n));
-  extraNames.forEach(e => lines.push('• ' + i18next.t('wa_extra') + ' ' + e.label + ' +€' + e.price.toFixed(2)));
-  if (orderState.notes) lines.push('• ' + orderState.notes);
+
+  cart.forEach(line => {
+    const unit = calcUnitPrice(line.product, line.extras);
+    const lineTotal = unit * line.qty;
+    total += lineTotal;
+    const removedNames = line.product.ingredients.filter(i => line.removed.has(i.key)).map(i => i.label);
+    const extraNames = line.product.extras.filter(e => line.extras.has(e.key));
+
+    lines.push(line.qty + '× ' + line.product.name + ' — €' + lineTotal.toFixed(2));
+    removedNames.forEach(n => lines.push('• ' + i18next.t('summary_without') + ' ' + n));
+    extraNames.forEach(e => lines.push('• ' + i18next.t('wa_extra') + ' ' + e.label + ' +€' + e.price.toFixed(2)));
+    if (line.notes) lines.push('• ' + line.notes);
+  });
+
   lines.push('');
   lines.push(i18next.t('wa_total') + ': €' + total.toFixed(2));
-  if (orderState.customer.noteLocale){
+  if (checkoutCustomer.noteLocale){
     lines.push('');
-    lines.push(i18next.t('wa_notes') + ': ' + orderState.customer.noteLocale);
+    lines.push(i18next.t('wa_notes') + ': ' + checkoutCustomer.noteLocale);
   }
 
   const message = lines.join('\n');
   const url = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(message);
   window.open(url, '_blank');
+
+  cart = [];
+  updateCartFab();
   showOrderStep('orderStepThankyou');
 }
 
 document.getElementById('orderModal').addEventListener('click', e => {
   if (e.target === document.getElementById('orderModal')) closeOrderModal();
 });
+
 
 Promise.all([fetchSheetJSON(CATEGORIES_URL), fetchSheetJSON(PRODUCTS_URL)])
   .then(([catRows, prodRows]) => {
@@ -1529,6 +1894,7 @@ function updateTexts() {
   document.getElementById('footer-created-text').textContent = i18next.t('footer_created');
   if (document.getElementById('modal').classList.contains('active') && _titleKey) renderModal();
   if (orderState && document.getElementById('orderStepSummary').classList.contains('active')) renderOrderSummary();
+  if (document.getElementById('orderStepCart').classList.contains('active')) renderCart();
 }
 
 function changeLanguage(event, lang) {
