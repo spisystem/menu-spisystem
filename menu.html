@@ -310,7 +310,7 @@
       width:26px; height:26px; border-radius:50%; background:rgba(255,255,255,.22);
       display:flex; align-items:center; justify-content:center; font-size:.78rem; font-weight:700; flex-shrink:0;
     }
-    .cart-fab-label{ flex:1; font-size:.86rem; font-weight:600; }
+    .cart-fab-label{ flex:1; min-width:0; font-size:.86rem; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
     .cart-fab-total{ font-family:'Poppins',sans-serif; font-weight:700; font-size:.98rem; }
     .cart-fab-arrow{ width:16px; height:16px; stroke:#fff; fill:none; stroke-width:2.4; flex-shrink:0; }
 
@@ -377,67 +377,61 @@
     }
 
     .order-base-ingredient{
-      display:flex; align-items:center; gap:12px; font-size:.9rem; color:var(--text);
+      display:flex; align-items:center; gap:10px; font-size:.88rem; color:var(--text);
       background:var(--card); border:1px solid var(--border); border-radius:14px; padding:12px 14px; margin-bottom:10px;
+      width:100%; box-sizing:border-box;
     }
-    .order-base-ingredient .emoji{ font-size:1.2rem; flex-shrink:0; }
+    .order-base-ingredient .emoji{ font-size:1.15rem; flex-shrink:0; }
+    .order-base-ingredient .label-text{ flex:1; min-width:0; overflow-wrap:break-word; }
     .order-base-ingredient .tag{
-      margin-left:auto; font-size:.6rem; letter-spacing:.08em; text-transform:uppercase; color:var(--muted);
-      background:var(--card2); border-radius:6px; padding:3px 8px; flex-shrink:0;
+      margin-left:auto; font-size:.6rem; letter-spacing:.06em; text-transform:uppercase; color:var(--muted);
+      background:var(--card2); border-radius:6px; padding:3px 8px; flex-shrink:0; white-space:nowrap;
     }
 
-    /* --- ingredienti: incluso / rimosso con ripristino --- */
+    /* --- ingredienti: intera card cliccabile, incluso / rimosso con ripristino --- */
     .ing-card{
-      display:flex; align-items:center; gap:12px;
+      display:flex; align-items:center; gap:10px; width:100%; box-sizing:border-box;
       background:var(--card); border:1.5px solid var(--border); border-radius:14px;
-      padding:12px 14px; margin-bottom:10px; transition:border-color .18s, background .18s;
+      padding:12px 14px; margin-bottom:10px; cursor:pointer; user-select:none;
+      transition:border-color .18s, background .18s;
     }
-    .ing-card .emoji{ font-size:1.3rem; flex-shrink:0; width:26px; text-align:center; }
-    .ing-card .ing-label{ font-size:.9rem; color:var(--text); flex:1; font-weight:500; }
+    .ing-card .emoji{ font-size:1.15rem; flex-shrink:0; width:22px; text-align:center; }
+    .ing-card .ing-label{ font-size:.88rem; color:var(--text); flex:1; min-width:0; overflow-wrap:break-word; font-weight:500; line-height:1.35; }
     .ing-card.on{ border-color:var(--border); }
     .ing-card.off{ background:var(--card2); border-style:dashed; }
     .ing-card.off .ing-label{ color:var(--muted); }
-    .ing-toggle-on{
-      display:flex; align-items:center; gap:6px; flex-shrink:0; cursor:pointer; user-select:none;
-      background:var(--brown-soft); border:1px solid var(--brown-border); color:var(--brown);
-      border-radius:99px; padding:6px 12px; font-size:.72rem; font-weight:700; letter-spacing:.03em;
-      transition:background .15s;
+    .ing-check-circle{
+      flex-shrink:0; width:24px; height:24px; border-radius:50%;
+      display:flex; align-items:center; justify-content:center;
+      border:1.5px solid var(--border); background:#fff; transition:background .15s, border-color .15s;
     }
-    .ing-toggle-on svg{ width:12px; height:12px; stroke:var(--brown); fill:none; stroke-width:3; stroke-linecap:round; stroke-linejoin:round; }
-    .ing-toggle-off{
-      display:flex; align-items:center; gap:8px; flex-shrink:0;
+    .ing-card.on .ing-check-circle{ background:var(--brown); border-color:var(--brown); }
+    .ing-check-circle svg{ width:12px; height:12px; stroke:#fff; fill:none; stroke-width:3; stroke-linecap:round; stroke-linejoin:round; opacity:0; transition:opacity .12s; }
+    .ing-card.on .ing-check-circle svg{ opacity:1; }
+    .ing-removed-tag{
+      flex-shrink:0; font-size:.62rem; font-weight:700; letter-spacing:.05em; text-transform:uppercase;
+      color:#b5423a; white-space:nowrap;
     }
-    .ing-toggle-off .removed-tag{
-      font-size:.66rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:#b5423a;
-      background:rgba(181,66,58,.09); border-radius:99px; padding:5px 10px;
-    }
-    .ing-toggle-off .restore-btn{
-      display:flex; align-items:center; justify-content:center; width:28px; height:28px; border-radius:50%;
-      border:1px solid var(--border); background:#fff; cursor:pointer; flex-shrink:0; transition:border-color .15s;
-    }
-    .ing-toggle-off .restore-btn svg{ width:13px; height:13px; stroke:var(--muted); fill:none; stroke-width:2.4; }
-    .ing-toggle-off .restore-btn:hover{ border-color:var(--brown-border); }
-    .ing-toggle-off .restore-btn:hover svg{ stroke:var(--brown); }
 
     /* --- extra --- */
-    .order-extras-grid{ display:flex; flex-direction:column; gap:10px; }
+    .order-extras-grid{ display:flex; flex-direction:column; gap:10px; width:100%; }
     .extra-chip{
-      display:flex; align-items:center; gap:12px;
+      display:flex; align-items:center; gap:10px; width:100%; box-sizing:border-box;
       background:var(--card); border:1.5px solid var(--border); border-radius:14px;
-      padding:12px 14px; transition:border-color .18s, background .18s;
+      padding:12px 14px; cursor:pointer; user-select:none; transition:border-color .18s, background .18s;
     }
-    .extra-chip .emoji{ font-size:1.3rem; flex-shrink:0; width:26px; text-align:center; }
-    .extra-chip .extra-label{ font-size:.9rem; color:var(--text); flex:1; font-weight:500; }
-    .extra-chip .extra-price{ font-size:.8rem; color:var(--muted); font-weight:600; flex-shrink:0; margin-right:2px; }
+    .extra-chip .emoji{ font-size:1.15rem; flex-shrink:0; width:22px; text-align:center; }
+    .extra-chip .extra-label{ font-size:.88rem; color:var(--text); flex:1; min-width:0; overflow-wrap:break-word; font-weight:500; line-height:1.35; }
+    .extra-chip .extra-price{ font-size:.76rem; color:var(--muted); font-weight:600; flex-shrink:0; white-space:nowrap; }
     .extra-chip.on{ border-color:var(--brown-border); background:var(--brown-soft); }
-    .extra-btn{
-      flex-shrink:0; cursor:pointer; user-select:none; border-radius:99px; font-weight:700;
-      font-size:.72rem; letter-spacing:.03em; padding:7px 14px; transition:background .15s, color .15s, border-color .15s;
+    .extra-toggle-circle{
+      flex-shrink:0; width:26px; height:26px; border-radius:50%;
+      display:flex; align-items:center; justify-content:center;
       border:1.5px solid var(--brown-border); background:transparent; color:var(--brown);
-      display:flex; align-items:center; gap:5px;
+      transition:background .15s, color .15s;
     }
-    .extra-chip.on .extra-btn{ background:var(--brown); color:#fff; border-color:var(--brown); }
-    .extra-btn svg{ width:11px; height:11px; stroke:currentColor; fill:none; stroke-width:3; stroke-linecap:round; stroke-linejoin:round; }
+    .extra-chip.on .extra-toggle-circle{ background:var(--brown); color:#fff; border-color:var(--brown); }
+    .extra-toggle-circle svg{ width:12px; height:12px; stroke:currentColor; fill:none; stroke-width:3; stroke-linecap:round; stroke-linejoin:round; }
 
     .order-field-label{ display:block; font-size:.78rem; letter-spacing:.04em; color:var(--text); font-weight:600; margin-bottom:8px; }
     .order-field-hint{ font-size:.74rem; color:var(--muted); margin-top:8px; line-height:1.5; display:flex; gap:6px; align-items:flex-start; }
@@ -470,22 +464,23 @@
       display:flex; align-items:center; gap:0; border:1.5px solid var(--border); border-radius:12px; overflow:hidden; flex-shrink:0;
     }
     .order-qty-stepper button{
-      width:38px; height:46px; border:none; background:var(--card); color:var(--text);
-      font-size:1.2rem; cursor:pointer; transition:background .2s;
+      width:36px; height:44px; border:none; background:var(--card); color:var(--text);
+      font-size:1.15rem; cursor:pointer; transition:background .2s; flex-shrink:0;
     }
     .order-qty-stepper button:hover{ background:var(--brown-soft); color:var(--brown); }
-    .order-qty-stepper span{ width:30px; text-align:center; font-weight:700; font-size:.95rem; color:var(--text); }
-    .order-qty-stepper.small{ transform:scale(.86); transform-origin:left center; }
+    .order-qty-stepper span{ width:28px; text-align:center; font-weight:700; font-size:.92rem; color:var(--text); flex-shrink:0; }
+    .order-qty-stepper.small button{ width:30px; height:34px; font-size:1rem; }
+    .order-qty-stepper.small span{ width:24px; font-size:.86rem; }
 
     .order-sticky-cta{
-      flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1px;
+      flex:1; min-width:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1px;
       background:var(--brown); color:#fff; border:none; border-radius:12px;
-      height:48px; font-family:'Poppins',sans-serif; cursor:pointer; transition:background .2s;
-      padding:0 16px; line-height:1.15;
+      min-height:48px; font-family:'Poppins',sans-serif; cursor:pointer; transition:background .2s;
+      padding:6px 10px; line-height:1.2;
     }
     .order-sticky-cta:hover{ background:var(--brown-light); }
-    .order-sticky-cta .cta-label{ font-size:.78rem; font-weight:700; letter-spacing:.04em; text-transform:uppercase; }
-    .order-sticky-cta .cta-total{ font-size:.82rem; font-weight:600; opacity:.92; }
+    .order-sticky-cta .cta-label{ font-size:.7rem; font-weight:700; letter-spacing:.02em; text-transform:uppercase; text-align:center; }
+    .order-sticky-cta .cta-total{ font-size:.8rem; font-weight:600; opacity:.92; }
 
     /* --- feedback "aggiunto al carrello" --- */
     .order-added-overlay{
@@ -505,31 +500,35 @@
     .order-added-overlay h3{ font-family:'Poppins',sans-serif; font-size:1.15rem; color:var(--text); margin-bottom:26px; }
     .order-added-actions{ display:flex; flex-direction:column; gap:10px; width:100%; }
 
-    /* --- carrello --- */
+    /* --- carrello: max 2 elementi per riga, X sempre in alto a destra --- */
     .cart-line{
+      position:relative; width:100%; box-sizing:border-box;
       background:var(--card); border:1px solid var(--border); border-radius:16px;
-      padding:16px; margin-bottom:14px;
-    }
-    .cart-line-top{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:8px; }
-    .cart-line-name{ font-family:'Poppins',sans-serif; font-weight:700; font-size:1rem; color:var(--text); }
-    .cart-line-unit{ font-size:.78rem; color:var(--muted); }
-    .cart-line-custom{ margin:10px 0; }
-    .cart-line-custom-label{ font-size:.66rem; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); font-weight:700; margin-bottom:6px; }
-    .cart-line-custom ul{ list-style:none; }
-    .cart-line-custom li{ font-size:.83rem; color:var(--text); padding:2px 0; }
-    .cart-line-custom li::before{ content:'• '; color:var(--brown); }
-    .cart-line-bottom{ display:flex; align-items:center; justify-content:space-between; margin-top:12px; padding-top:12px; border-top:1px solid var(--border); }
-    .cart-line-actions{ display:flex; align-items:center; gap:10px; }
-    .cart-line-edit{
-      font-size:.74rem; font-weight:700; letter-spacing:.03em; text-transform:uppercase; color:var(--brown);
-      background:none; border:none; cursor:pointer; padding:6px 0;
+      padding:16px 44px 16px 16px; margin-bottom:14px;
     }
     .cart-line-remove{
+      position:absolute; top:14px; right:14px;
       width:26px; height:26px; border-radius:50%; border:1px solid var(--border); background:#fff;
       display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0;
     }
     .cart-line-remove svg{ width:12px; height:12px; stroke:var(--muted); fill:none; stroke-width:2.4; }
-    .cart-line-price{ font-family:'Poppins',sans-serif; font-weight:700; color:var(--text); font-size:.95rem; }
+    .cart-line-top{ margin-bottom:4px; }
+    .cart-line-name{ font-family:'Poppins',sans-serif; font-weight:700; font-size:1rem; color:var(--text); display:block; overflow-wrap:break-word; }
+    .cart-line-unit{ font-size:.78rem; color:var(--muted); }
+    .cart-line-custom{ margin:10px 0; }
+    .cart-line-custom-label{ font-size:.66rem; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); font-weight:700; margin-bottom:6px; }
+    .cart-line-custom ul{ list-style:none; }
+    .cart-line-custom li{ font-size:.83rem; color:var(--text); padding:2px 0; overflow-wrap:break-word; }
+    .cart-line-custom li::before{ content:'• '; color:var(--brown); }
+    .cart-line-edit{
+      font-size:.72rem; font-weight:700; letter-spacing:.03em; text-transform:uppercase; color:var(--brown);
+      background:none; border:none; cursor:pointer; padding:4px 0; margin-top:2px;
+    }
+    .cart-line-bottom{
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      margin-top:12px; padding-top:12px; border-top:1px solid var(--border);
+    }
+    .cart-line-price{ font-family:'Poppins',sans-serif; font-weight:700; color:var(--text); font-size:.95rem; flex-shrink:0; white-space:nowrap; }
 
     .cart-empty{ text-align:center; padding:50px 20px; color:var(--muted); font-size:.9rem; }
     .cart-empty svg{ width:40px; height:40px; stroke:var(--border); fill:none; stroke-width:1.4; margin-bottom:16px; }
@@ -599,6 +598,27 @@
     .order-hint{ color:var(--brown); font-weight:600; }
     .order-hint svg{ stroke:var(--brown); }
 
+    /* --- mobile: il modal ordine diventa un vero bottom sheet quasi a schermo intero --- */
+    @media(max-width:600px){
+      #orderModal{ padding:0; align-items:flex-end; }
+      #orderModal .order-modal-card{
+        max-width:100%; width:100%;
+        max-height:92vh; height:92vh; max-height:92dvh; height:92dvh;
+        border-radius:20px 20px 0 0;
+      }
+    }
+
+    /* --- margine di sicurezza extra su schermi molto stretti (320–360px) --- */
+    @media(max-width:380px){
+      .order-step-scroll{ padding-left:16px; padding-right:16px; }
+      .order-sticky-footer{ padding-left:16px; padding-right:16px; gap:10px; }
+      .order-qty-stepper button{ width:32px; }
+      .order-sticky-cta{ padding:6px 8px; }
+      .order-sticky-cta .cta-label{ font-size:.66rem; letter-spacing:0; }
+      .cart-fab{ left:12px; right:12px; padding:12px 14px; gap:10px; }
+      .cart-line{ padding-right:40px; }
+    }
+
     /* --- desktop: due colonne per il dettaglio prodotto --- */
     @media(min-width:820px){
       .order-modal-card{ max-width:760px; max-height:82vh; }
@@ -609,6 +629,7 @@
       #orderStepCustomize .order-detail-body{ padding:28px 30px 8px; }
       #orderStepCustomize .order-sticky-footer{ border-radius:0 0 22px 0; }
     }
+
 
 
     .scroll-top{
@@ -892,16 +913,6 @@
             <span class="cta-total" id="orderTotalStep1">€0.00</span>
           </button>
         </div>
-
-        <!-- feedback dopo l'aggiunta al carrello -->
-        <div class="order-added-overlay" id="orderAddedOverlay">
-          <div class="order-added-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
-          <h3 id="orderAddedText" data-key="order_added_text">Aggiunto al carrello</h3>
-          <div class="order-added-actions">
-            <button class="reservation-btn" style="width:100%" onclick="openCartStep()"><span data-key="btn_go_cart">Vai al carrello</span></button>
-            <button class="order-btn-ghost" style="width:100%" onclick="closeOrderModal()"><span data-key="btn_continue">Continua a scegliere</span></button>
-          </div>
-        </div>
       </div>
 
       <!-- STEP — CARRELLO -->
@@ -1016,6 +1027,17 @@
         </div>
       </div>
 
+    </div>
+
+    <!-- feedback dopo l'aggiunta al carrello — fuori dall'area scrollabile (.order-modal-body),
+         così resta sempre visibile sopra l'intero modal indipendentemente dallo scroll interno -->
+    <div class="order-added-overlay" id="orderAddedOverlay">
+      <div class="order-added-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <h3 id="orderAddedText" data-key="order_added_text">Aggiunto al carrello</h3>
+      <div class="order-added-actions">
+        <button class="reservation-btn" style="width:100%" onclick="openCartStep()"><span data-key="btn_go_cart">Vai al carrello</span></button>
+        <button class="order-btn-ghost" style="width:100%" onclick="closeOrderModal()"><span data-key="btn_continue">Continua a scegliere</span></button>
+      </div>
     </div>
   </div>
 </div>
@@ -1462,20 +1484,15 @@ function updateOrderProgress(stepId){
 function renderOrderIngredients(){
   const product = orderState.product;
   const wrap = document.getElementById('orderIngredients');
-  let html = `<div class="order-base-ingredient"><span class="emoji">${product.baseIngredient.emoji||'🍽️'}</span>${product.baseIngredient.label}<span class="tag" data-key="order_base_tag">Base</span></div>`;
+  let html = `<div class="order-base-ingredient"><span class="emoji">${product.baseIngredient.emoji||'🍽️'}</span><span class="label-text">${product.baseIngredient.label}</span><span class="tag" data-key="order_base_tag">Base</span></div>`;
   product.ingredients.forEach(ing => {
     const isOn = !orderState.removed.has(ing.key);
     html += `
-      <div class="ing-card ${isOn ? 'on' : 'off'}" id="ing-row-${ing.key}">
+      <div class="ing-card ${isOn ? 'on' : 'off'}" id="ing-row-${ing.key}" onclick="toggleIngredient('${ing.key}')">
         <span class="emoji">${ing.emoji||'🥗'}</span>
         <span class="ing-label">${ing.label}</span>
-        ${isOn
-          ? `<span class="ing-toggle-on" onclick="toggleIngredient('${ing.key}')"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span data-key="ing_included">Incluso</span></span>`
-          : `<span class="ing-toggle-off">
-               <span class="removed-tag" data-key="ing_removed">RIMOSSO</span>
-               <span class="restore-btn" onclick="toggleIngredient('${ing.key}')" aria-label="Ripristina"><svg viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg></span>
-             </span>`
-        }
+        ${isOn ? '' : `<span class="ing-removed-tag" data-key="ing_removed">RIMOSSO</span>`}
+        <span class="ing-check-circle"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
       </div>`;
   });
   wrap.innerHTML = html;
@@ -1488,16 +1505,16 @@ function renderOrderExtras(){
   product.extras.forEach(ex => {
     const isOn = orderState.extras.has(ex.key);
     html += `
-      <div class="extra-chip ${isOn ? 'on' : ''}" id="extra-row-${ex.key}">
+      <div class="extra-chip ${isOn ? 'on' : ''}" id="extra-row-${ex.key}" onclick="toggleExtra('${ex.key}')">
         <span class="emoji">${ex.emoji||'➕'}</span>
         <span class="extra-label">${ex.label}</span>
         <span class="extra-price">+€${ex.price.toFixed(2)}</span>
-        <button type="button" class="extra-btn" onclick="toggleExtra('${ex.key}')">
+        <span class="extra-toggle-circle">
           ${isOn
-            ? `<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span data-key="extra_added">Aggiunto</span>`
-            : `<span data-key="extra_add">Aggiungi</span>`
+            ? `<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>`
+            : `<svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>`
           }
-        </button>
+        </span>
       </div>`;
   });
   wrap.innerHTML = html;
@@ -1613,22 +1630,20 @@ function renderCart(){
 
     html += `
       <div class="cart-line">
+        <button class="cart-line-remove" onclick="removeCartLine('${line.lineId}')" aria-label="Rimuovi"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
         <div class="cart-line-top">
           <span class="cart-line-name">${line.product.name}</span>
           <span class="cart-line-unit">€${unit.toFixed(2)} ${i18next.t('cart_each')}</span>
         </div>
         ${customHTML}
+        <button class="cart-line-edit" onclick="editCartLine('${line.lineId}')" data-key="cart_edit">Modifica</button>
         <div class="cart-line-bottom">
           <div class="order-qty-stepper small">
             <button type="button" onclick="changeCartLineQty('${line.lineId}', -1)">−</button>
             <span>${line.qty}</span>
             <button type="button" onclick="changeCartLineQty('${line.lineId}', 1)">+</button>
           </div>
-          <div class="cart-line-actions">
-            <button class="cart-line-edit" onclick="editCartLine('${line.lineId}')" data-key="cart_edit">Modifica</button>
-            <span class="cart-line-price">€${lineTotal.toFixed(2)}</span>
-            <button class="cart-line-remove" onclick="removeCartLine('${line.lineId}')" aria-label="Rimuovi"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
-          </div>
+          <span class="cart-line-price">€${lineTotal.toFixed(2)}</span>
         </div>
       </div>`;
   });
