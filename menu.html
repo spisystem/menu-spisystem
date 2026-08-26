@@ -205,6 +205,33 @@
     .product-item:hover{background:var(--card2); border-color:var(--brown-border);}
     .product-item:active{transform:scale(.99)}
 
+    /* --- card prodotto ordinabile: due azioni esplicite --- */
+    .product-item-orderable{
+      display:flex; flex-direction:column; align-items:stretch;
+      gap:0; padding:16px; border:1px solid var(--border); border-radius:16px;
+      margin-bottom:10px; background:var(--card); cursor:default;
+      transition:border-color .2s;
+    }
+    .product-item-orderable:hover{ border-color:var(--brown-border); }
+    .product-item-top{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:14px; cursor:pointer; width:100%;
+    }
+    .product-cta-row{ display:flex; gap:10px; margin-top:14px; width:100%; }
+    .product-cta-secondary, .product-cta-primary{
+      flex:1; min-width:0; text-align:center; padding:11px 10px; border-radius:9px;
+      font-family:'Poppins',sans-serif; font-size:.74rem; font-weight:700;
+      letter-spacing:.03em; text-transform:uppercase; cursor:pointer;
+      border:1.5px solid; transition:background .18s, border-color .18s; box-sizing:border-box;
+    }
+    .product-cta-secondary{ background:transparent; border-color:var(--border); color:var(--text); }
+    .product-cta-secondary:hover{ background:var(--card2); border-color:var(--brown-border); }
+    .product-cta-primary{ background:var(--brown); border-color:var(--brown); color:#fff; }
+    .product-cta-primary:hover{ background:var(--brown-light); border-color:var(--brown-light); }
+    @media(max-width:400px){
+      .product-cta-row{ flex-direction:column; }
+    }
+
     .product-left{display:flex;align-items:center;gap:14px;flex:1;min-width:0}
 
     .product-info{display:flex;flex-direction:column;gap:4px;min-width:0}
@@ -561,6 +588,18 @@
       transition:background .2s, border-color .2s;
     }
     .order-btn-ghost:hover{ background:var(--card); border-color:var(--brown-border); }
+    /* .reservation-btn era riusata da index.html ma mai definita qui: era la causa
+       del pulsante "Vai al carrello" (e altri CTA carrello/checkout) invisibili/non cliccabili */
+    .reservation-btn{
+      width:100%; display:flex; align-items:center; justify-content:center; gap:10px;
+      position:relative; overflow:hidden; box-sizing:border-box;
+      background:var(--brown); color:#ffffff;
+      border:1px solid var(--brown); border-radius:10px;
+      padding:15px; font-family:'Poppins',sans-serif; font-size:.84rem; font-weight:600;
+      letter-spacing:.06em; text-transform:uppercase; cursor:pointer;
+      transition:background .25s, box-shadow .25s;
+    }
+    .reservation-btn:hover{ background:var(--brown-light); box-shadow:0 10px 24px rgba(0,0,0,.12); }
     .order-step-actions .reservation-btn{ flex:1.4; }
 
     .order-summary{ margin-bottom:6px; }
@@ -628,6 +667,16 @@
       #orderStepCustomize .order-product-img{ height:100%; min-height:420px; }
       #orderStepCustomize .order-detail-body{ padding:28px 30px 8px; }
       #orderStepCustomize .order-sticky-footer{ border-radius:0 0 22px 0; }
+
+      /* Carrello / checkout / riepilogo: colonna centrata e leggibile, non stirata a piena larghezza */
+      #orderProgress{ max-width:480px; margin:0 auto; }
+      #orderStepCart .order-step-scroll,
+      #orderStepCheckout .order-step-scroll,
+      #orderStepSummary .order-step-scroll,
+      #orderStepThankyou .order-step-scroll{
+        max-width:480px; margin:0 auto; width:100%; box-sizing:border-box;
+        padding:34px 30px 30px;
+      }
     }
 
 
@@ -1033,7 +1082,7 @@
          così resta sempre visibile sopra l'intero modal indipendentemente dallo scroll interno -->
     <div class="order-added-overlay" id="orderAddedOverlay">
       <div class="order-added-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
-      <h3 id="orderAddedText" data-key="order_added_text">Aggiunto al carrello</h3>
+      <h3 id="orderAddedText">Aggiunto al carrello</h3>
       <div class="order-added-actions">
         <button class="reservation-btn" style="width:100%" onclick="openCartStep()"><span data-key="btn_go_cart">Vai al carrello</span></button>
         <button class="order-btn-ghost" style="width:100%" onclick="closeOrderModal()"><span data-key="btn_continue">Continua a scegliere</span></button>
@@ -1204,7 +1253,7 @@ const UI_STRINGS = {
        footer_privacy:"Privacy Policy", footer_cookie:"Preferenze Cookie", footer_created:"Realizzato da",
        menu_loading:"Caricamento menù...", menu_error_title:"Impossibile caricare il menù",
        menu_error_text:"Controlla la connessione o riprova tra qualche istante.",
-       order_hint:"Personalizza e ordina", order_badge:"Personalizza il tuo ordine",
+       order_hint:"Personalizza e ordina", order_badge:"Personalizza il tuo ordine", order_available_hint:"Personalizzabile", btn_view_details:"Vedi dettagli",
        order_ingredients_title:"Ingredienti", order_extras_title:"Aggiungi extra", order_base_tag:"Base",
        ing_included:"Incluso", ing_removed:"RIMOSSO", extra_add:"Aggiungi", extra_added:"Aggiunto",
        order_notes_label:"Note per il panino", order_notes_placeholder:"Es. carne ben cotta, senza sale...",
@@ -1236,7 +1285,7 @@ const UI_STRINGS = {
        footer_privacy:"Privacy Policy", footer_cookie:"Cookie Preferences", footer_created:"Created by",
        menu_loading:"Loading menu...", menu_error_title:"Could not load the menu",
        menu_error_text:"Check your connection or try again shortly.",
-       order_hint:"Customize and order", order_badge:"Customize your order",
+       order_hint:"Customize and order", order_badge:"Customize your order", order_available_hint:"Customizable", btn_view_details:"View details",
        order_ingredients_title:"Ingredients", order_extras_title:"Add extras", order_base_tag:"Base",
        ing_included:"Included", ing_removed:"REMOVED", extra_add:"Add", extra_added:"Added",
        order_notes_label:"Notes for the sandwich", order_notes_placeholder:"E.g. well-done meat, no salt...",
@@ -1268,7 +1317,7 @@ const UI_STRINGS = {
        footer_privacy:"Política de Privacidad", footer_cookie:"Preferencias de Cookies", footer_created:"Creado por",
        menu_loading:"Cargando menú...", menu_error_title:"No se pudo cargar el menú",
        menu_error_text:"Comprueba la conexión o inténtalo de nuevo en breve.",
-       order_hint:"Personaliza y pide", order_badge:"Personaliza tu pedido",
+       order_hint:"Personaliza y pide", order_badge:"Personaliza tu pedido", order_available_hint:"Personalizable", btn_view_details:"Ver detalles",
        order_ingredients_title:"Ingredientes", order_extras_title:"Añadir extras", order_base_tag:"Base",
        ing_included:"Incluido", ing_removed:"QUITADO", extra_add:"Añadir", extra_added:"Añadido",
        order_notes_label:"Notas para el bocadillo", order_notes_placeholder:"Ej. carne bien hecha, sin sal...",
@@ -1300,7 +1349,7 @@ const UI_STRINGS = {
        footer_privacy:"Politique de Confidentialité", footer_cookie:"Préférences Cookies", footer_created:"Créé par",
        menu_loading:"Chargement du menu...", menu_error_title:"Impossible de charger le menu",
        menu_error_text:"Vérifiez la connexion ou réessayez bientôt.",
-       order_hint:"Personnaliser et commander", order_badge:"Personnalisez votre commande",
+       order_hint:"Personnaliser et commander", order_badge:"Personnalisez votre commande", order_available_hint:"Personnalisable", btn_view_details:"Voir les détails",
        order_ingredients_title:"Ingrédients", order_extras_title:"Ajouter des extras", order_base_tag:"Base",
        ing_included:"Inclus", ing_removed:"RETIRÉ", extra_add:"Ajouter", extra_added:"Ajouté",
        order_notes_label:"Notes pour le sandwich", order_notes_placeholder:"Ex. viande bien cuite, sans sel...",
@@ -1332,7 +1381,7 @@ const UI_STRINGS = {
        footer_privacy:"Datenschutzerklärung", footer_cookie:"Cookie-Einstellungen", footer_created:"Erstellt von",
        menu_loading:"Menü wird geladen...", menu_error_title:"Menü konnte nicht geladen werden",
        menu_error_text:"Bitte Verbindung prüfen oder später erneut versuchen.",
-       order_hint:"Anpassen und bestellen", order_badge:"Bestellung anpassen",
+       order_hint:"Anpassen und bestellen", order_badge:"Bestellung anpassen", order_available_hint:"Anpassbar", btn_view_details:"Details ansehen",
        order_ingredients_title:"Zutaten", order_extras_title:"Extras hinzufügen", order_base_tag:"Basis",
        ing_included:"Enthalten", ing_removed:"ENTFERNT", extra_add:"Hinzufügen", extra_added:"Hinzugefügt",
        order_notes_label:"Anmerkungen zum Sandwich", order_notes_placeholder:"Z.B. Fleisch gut durch, ohne Salz...",
@@ -1386,25 +1435,23 @@ function escAttr(s){ return String(s||'').replace(/'/g,"\\'"); }
 // ═══════════════════════════════════════════
 // ORDINAZIONE ASPORTO — "IL BRIGANTE"
 // Architettura concettuale (anche se per ora un solo prodotto è ordinabile):
-//   Product              → ORDERABLE_PRODUCTS[id]           (dati prodotto/ingredienti/extra)
+//   Product              → riga del Google Sheet + ORDERABLE_PRODUCTS[id] (config personalizzazione)
 //   ProductCustomization  → orderState                        (personalizzazione in corso)
-//   Cart                  → cart[]                            (righe aggiunte al carrello)
-//   Checkout              → orderState.customer + step checkout
+//   Cart                  → cart[]                            (righe aggiunte al carrello, salvate in localStorage)
+//   Checkout              → checkoutCustomer + step checkout
 //   OrderSummary          → renderOrderSummary()
 //   WhatsAppOrder          → confirmOrderWhatsApp()
-// Per aggiungere un altro prodotto ordinabile in futuro basta una nuova voce
-// in ORDERABLE_PRODUCTS: tutto il resto (carrello, checkout, riepilogo, WhatsApp)
-// è già generico e funziona per qualunque numero di articoli/prodotti.
+// Nome, prezzo, descrizione e traduzioni vengono SEMPRE dal Google Sheet (nessun duplicato hardcoded).
+// ORDERABLE_PRODUCTS contiene solo la configurazione di personalizzazione (ingredienti/extra),
+// collegata al productId. Per rendere ordinabile un altro prodotto in futuro basta:
+// 1) che esista già come riga nel foglio Prodotti, 2) aggiungere qui la sua configurazione.
 // ═══════════════════════════════════════════
 const WHATSAPP_NUMBER = '393935560714';
+const CART_STORAGE_KEY = 'spi_cart_v1';
 
 const ORDERABLE_PRODUCTS = {
   il_brigante: {
     id: 'il_brigante',
-    name: 'Il Brigante',
-    price: 10.00,
-    description: 'Puccia, hamburger di manzo, bacon jam, pomodoro al forno, caciocavallo.',
-    image: '', // es. 'images/brigante.JPG'
     baseIngredient: { key:'puccia', label:'Puccia', emoji:'🍞' }, // ingrediente fisso, non rimovibile
     ingredients: [
       { key:'hamburger',  label:'Hamburger di manzo', emoji:'🍔', removable:true, defaultOn:true },
@@ -1417,16 +1464,44 @@ const ORDERABLE_PRODUCTS = {
       { key:'extra_bacon_jam',    label:'Extra bacon jam',    emoji:'🥓', price:1.00 },
     ]
   }
-  // Per aggiungere un altro panino ordinabile in futuro, basta aggiungere qui
-  // una nuova voce con lo stesso schema (id, name, price, ingredients, extras...).
+  // Per aggiungere un altro panino ordinabile in futuro: deve già esistere come riga
+  // nel foglio Prodotti (nome/prezzo/descrizione/traduzioni), poi basta aggiungere qui
+  // la sua configurazione di personalizzazione con lo stesso schema.
 };
 
-let cart = [];            // righe nel carrello: { lineId, product, qty, removed:Set, extras:Set, notes }
-let orderState = null;    // personalizzazione in corso (prima di "aggiungi al carrello")
-let editingLineId = null; // se stiamo modificando una riga già nel carrello
+let sheetProductsById = {}; // popolato dopo il caricamento del foglio: id -> riga completa (nome_it/en/..., prezzo, descrizione_it/en/..., immagine)
+let cart = [];               // righe nel carrello: { lineId, productId, qty, removed:[...], extras:[...], notes }
+let orderState = null;       // personalizzazione in corso (prima di "aggiungi al carrello")
+let editingLineId = null;    // se stiamo modificando una riga già nel carrello
+
+// Ripristina subito il carrello salvato (se presente). La barra flottante mostrerà
+// il totale corretto appena il foglio Google e le traduzioni saranno pronti
+// (vedi updateCartFab() richiamata dentro updateTexts()).
+loadCartFromStorage();
+
+// Unisce i dati reali del foglio (nome/prezzo/descrizione, nella lingua corrente)
+// con la configurazione di personalizzazione (ingredienti/extra). Nessun dato duplicato:
+// il nome/prezzo/descrizione vengono richiesti "al volo" a i18next, quindi seguono
+// sempre la lingua attiva, anche per le righe già nel carrello.
+function getOrderableProductData(id){
+  const sheetRow = sheetProductsById[id];
+  const config = ORDERABLE_PRODUCTS[id];
+  if (!sheetRow || !config) return null;
+  const price = parsePrice(sheetRow.prezzo).num;
+  return {
+    id,
+    name: i18next.t('prod_' + id + '_nome'),
+    price,
+    description: i18next.t('prod_' + id + '_desc'),
+    image: (sheetRow.immagine && sheetRow.immagine.trim()) ? ('images/' + sheetRow.immagine.trim()) : '',
+    baseIngredient: config.baseIngredient,
+    ingredients: config.ingredients,
+    extras: config.extras
+  };
+}
 
 function openOrderModal(productId, lineIdToEdit){
-  const product = ORDERABLE_PRODUCTS[productId];
+  const product = getOrderableProductData(productId);
   if (!product) return;
 
   editingLineId = lineIdToEdit || null;
@@ -1553,11 +1628,55 @@ function updateOrderTotal(){
   document.getElementById('orderTotalStep1').textContent = '€' + total.toFixed(2);
 }
 
+// ═══════════════════════════════════════════
+// PERSISTENZA CARRELLO (localStorage)
+// Salviamo solo productId + personalizzazione: nome/prezzo/descrizione vengono
+// sempre richiesti al volo al foglio Google tramite getOrderableProductData(),
+// così il carrello resta corretto anche cambiando lingua o dopo un refresh.
+// ═══════════════════════════════════════════
+function saveCartToStorage(){
+  try {
+    const serializable = cart.map(l => ({
+      lineId: l.lineId,
+      productId: l.productId,
+      qty: l.qty,
+      removed: Array.from(l.removed),
+      extras: Array.from(l.extras),
+      notes: l.notes
+    }));
+    localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(serializable));
+  } catch(e){
+    console.warn('Impossibile salvare il carrello in localStorage:', e);
+  }
+}
+
+function loadCartFromStorage(){
+  try {
+    const raw = localStorage.getItem(CART_STORAGE_KEY);
+    if (!raw){ cart = []; return; }
+    const parsed = JSON.parse(raw);
+    if (!Array.isArray(parsed)){ cart = []; return; }
+    cart = parsed
+      .filter(item => item && typeof item === 'object' && ORDERABLE_PRODUCTS[item.productId])
+      .map(item => ({
+        lineId: typeof item.lineId === 'string' ? item.lineId : ('line_' + Date.now() + '_' + Math.floor(Math.random()*1000)),
+        productId: item.productId,
+        qty: Math.max(1, parseInt(item.qty, 10) || 1),
+        removed: new Set(Array.isArray(item.removed) ? item.removed : []),
+        extras: new Set(Array.isArray(item.extras) ? item.extras : []),
+        notes: typeof item.notes === 'string' ? item.notes : ''
+      }));
+  } catch(e){
+    console.warn('Carrello salvato non leggibile, riparto da vuoto:', e);
+    cart = [];
+  }
+}
+
 function addToCart(){
   orderState.notes = document.getElementById('orderNotes').value.trim();
   const lineData = {
     lineId: editingLineId || ('line_' + Date.now() + '_' + Math.floor(Math.random()*1000)),
-    product: orderState.product,
+    productId: orderState.product.id,
     qty: orderState.qty,
     removed: new Set(orderState.removed),
     extras: new Set(orderState.extras),
@@ -1568,12 +1687,14 @@ function addToCart(){
     const idx = cart.findIndex(l => l.lineId === editingLineId);
     if (idx > -1) cart[idx] = lineData;
     editingLineId = null;
+    saveCartToStorage();
     updateCartFab();
     openCartStep();
     return;
   }
 
   cart.push(lineData);
+  saveCartToStorage();
   updateCartFab();
 
   document.getElementById('orderAddedText').textContent = orderState.product.name + ' ' + i18next.t('order_added_suffix');
@@ -1584,7 +1705,10 @@ function updateCartFab(){
   const fab = document.getElementById('cartFab');
   const count = cart.reduce((sum, l) => sum + l.qty, 0);
   if (count === 0){ fab.classList.remove('show'); return; }
-  const total = cart.reduce((sum, l) => sum + calcUnitPrice(l.product, l.extras) * l.qty, 0);
+  const total = cart.reduce((sum, l) => {
+    const product = getOrderableProductData(l.productId);
+    return product ? sum + calcUnitPrice(product, l.extras) * l.qty : sum;
+  }, 0);
   document.getElementById('cartFabCount').textContent = count;
   document.getElementById('cartFabTotal').textContent = '€' + total.toFixed(2);
   fab.classList.add('show');
@@ -1612,12 +1736,14 @@ function renderCart(){
   let html = '';
   let total = 0;
   cart.forEach(line => {
-    const unit = calcUnitPrice(line.product, line.extras);
+    const product = getOrderableProductData(line.productId);
+    if (!product) return; // prodotto non più nel foglio: riga ignorata in modo sicuro
+    const unit = calcUnitPrice(product, line.extras);
     const lineTotal = unit * line.qty;
     total += lineTotal;
 
-    const removedNames = line.product.ingredients.filter(i => line.removed.has(i.key)).map(i => i.label);
-    const extraNames = line.product.extras.filter(e => line.extras.has(e.key));
+    const removedNames = product.ingredients.filter(i => line.removed.has(i.key)).map(i => i.label);
+    const extraNames = product.extras.filter(e => line.extras.has(e.key));
 
     let customHTML = '';
     if (removedNames.length || extraNames.length || line.notes){
@@ -1632,7 +1758,7 @@ function renderCart(){
       <div class="cart-line">
         <button class="cart-line-remove" onclick="removeCartLine('${line.lineId}')" aria-label="Rimuovi"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
         <div class="cart-line-top">
-          <span class="cart-line-name">${line.product.name}</span>
+          <span class="cart-line-name">${product.name}</span>
           <span class="cart-line-unit">€${unit.toFixed(2)} ${i18next.t('cart_each')}</span>
         </div>
         ${customHTML}
@@ -1656,6 +1782,7 @@ function changeCartLineQty(lineId, delta){
   const line = cart.find(l => l.lineId === lineId);
   if (!line) return;
   line.qty = Math.max(1, line.qty + delta);
+  saveCartToStorage();
   renderCart();
   updateCartFab();
 }
@@ -1663,11 +1790,12 @@ function changeCartLineQty(lineId, delta){
 function editCartLine(lineId){
   const line = cart.find(l => l.lineId === lineId);
   if (!line) return;
-  openOrderModal(line.product.id, lineId);
+  openOrderModal(line.productId, lineId);
 }
 
 function removeCartLine(lineId){
   cart = cart.filter(l => l.lineId !== lineId);
+  saveCartToStorage();
   renderCart();
   updateCartFab();
   if (cart.length === 0) closeOrderModal();
@@ -1708,14 +1836,16 @@ function renderOrderSummary(){
   let html = '';
 
   cart.forEach(line => {
-    const unit = calcUnitPrice(line.product, line.extras);
+    const product = getOrderableProductData(line.productId);
+    if (!product) return;
+    const unit = calcUnitPrice(product, line.extras);
     const lineTotal = unit * line.qty;
     total += lineTotal;
-    const removedNames = line.product.ingredients.filter(i => line.removed.has(i.key)).map(i => i.label);
-    const extraNames = line.product.extras.filter(e => line.extras.has(e.key));
+    const removedNames = product.ingredients.filter(i => line.removed.has(i.key)).map(i => i.label);
+    const extraNames = product.extras.filter(e => line.extras.has(e.key));
 
     html += `<div class="order-summary-block">
-      <div class="order-summary-item"><span>${line.product.name} × ${line.qty}</span><span>€${lineTotal.toFixed(2)}</span></div>`;
+      <div class="order-summary-item"><span>${product.name} × ${line.qty}</span><span>€${lineTotal.toFixed(2)}</span></div>`;
     if (removedNames.length || extraNames.length){
       html += `<ul class="order-summary-list">`;
       removedNames.forEach(n => html += `<li>${i18next.t('summary_without')} ${n}</li>`);
@@ -1748,13 +1878,15 @@ function confirmOrderWhatsApp(){
   ];
 
   cart.forEach(line => {
-    const unit = calcUnitPrice(line.product, line.extras);
+    const product = getOrderableProductData(line.productId);
+    if (!product) return;
+    const unit = calcUnitPrice(product, line.extras);
     const lineTotal = unit * line.qty;
     total += lineTotal;
-    const removedNames = line.product.ingredients.filter(i => line.removed.has(i.key)).map(i => i.label);
-    const extraNames = line.product.extras.filter(e => line.extras.has(e.key));
+    const removedNames = product.ingredients.filter(i => line.removed.has(i.key)).map(i => i.label);
+    const extraNames = product.extras.filter(e => line.extras.has(e.key));
 
-    lines.push(line.qty + '× ' + line.product.name + ' — €' + lineTotal.toFixed(2));
+    lines.push(line.qty + '× ' + product.name + ' — €' + lineTotal.toFixed(2));
     removedNames.forEach(n => lines.push('• ' + i18next.t('summary_without') + ' ' + n));
     extraNames.forEach(e => lines.push('• ' + i18next.t('wa_extra') + ' ' + e.label + ' +€' + e.price.toFixed(2)));
     if (line.notes) lines.push('• ' + line.notes);
@@ -1772,6 +1904,7 @@ function confirmOrderWhatsApp(){
   window.open(url, '_blank');
 
   cart = [];
+  saveCartToStorage();
   updateCartFab();
   showOrderStep('orderStepThankyou');
 }
@@ -1791,6 +1924,10 @@ Promise.all([fetchSheetJSON(CATEGORIES_URL), fetchSheetJSON(PRODUCTS_URL)])
     const products = prodRows
       .filter(r => r.id && r.id.trim() && r.categoria_id && r.categoria_id.trim())
       .map(r => ({ ...r, id:r.id.trim(), categoria_id:r.categoria_id.trim(), ordine: parseInt(r.ordine,10) || 0 }));
+
+    // Rende disponibile ogni riga del foglio per id, così i prodotti ordinabili (es. il_brigante)
+    // possono leggere nome/prezzo/descrizione reali invece di duplicarli nel codice.
+    products.forEach(p => { sheetProductsById[p.id] = p; });
 
     // Costruisce le risorse i18next: stringhe fisse UI + categorie + prodotti, per ogni lingua
     const resources = {};
@@ -1856,22 +1993,34 @@ function renderMenu(categories, byCategory){
       const imgPath = (p.immagine && p.immagine.trim()) ? ('images/' + p.immagine.trim()) : '';
       const badgeHTML = isTrue(p.novita) ? ` <span class="badge-new" data-key="badge_new">Novità</span>` : '';
       const isOrderable = !!ORDERABLE_PRODUCTS[p.id];
+      const openInfoCall = `openModal('${escAttr(imgPath)}','prod_${p.id}_nome','prod_${p.id}_desc','prod_${p.id}_allergeni','${price.display}')`;
       const li = document.createElement('li');
-      li.className = 'product-item';
-      if (isOrderable) {
-        li.setAttribute('onclick', `openOrderModal('${escAttr(p.id)}')`);
+
+      if (isOrderable){
+        // Prodotto ordinabile: card con due azioni esplicite, "Personalizza e ordina" come CTA primaria.
+        li.className = 'product-item product-item-orderable';
+        li.innerHTML = `
+          <div class="product-item-top" onclick="${openInfoCall}">
+            <div class="product-left"><div class="product-info">
+              <span class="product-name" data-key="prod_${p.id}_nome">${p.nome_it || p.id}${badgeHTML}</span>
+              <span class="detail-hint order-hint"><svg viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg><span data-key="order_available_hint">Personalizzabile</span></span>
+            </div></div>
+            <span class="product-price">${price.display}</span>
+          </div>
+          <div class="product-cta-row">
+            <button type="button" class="product-cta-secondary" onclick="event.stopPropagation(); ${openInfoCall}"><span data-key="btn_view_details">Vedi dettagli</span></button>
+            <button type="button" class="product-cta-primary" onclick="event.stopPropagation(); openOrderModal('${escAttr(p.id)}')"><span data-key="order_hint">Personalizza e ordina</span></button>
+          </div>`;
       } else {
-        li.setAttribute('onclick', `openModal('${escAttr(imgPath)}','prod_${p.id}_nome','prod_${p.id}_desc','prod_${p.id}_allergeni','${price.display}')`);
+        li.className = 'product-item';
+        li.setAttribute('onclick', openInfoCall);
+        li.innerHTML = `
+          <div class="product-left"><div class="product-info">
+            <span class="product-name" data-key="prod_${p.id}_nome">${p.nome_it || p.id}${badgeHTML}</span>
+            <span class="detail-hint"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span data-key="detail_hint">Tocca per dettagli</span></span>
+          </div></div>
+          <span class="product-price">${price.display}</span>`;
       }
-      const hintHTML = isOrderable
-        ? `<span class="detail-hint order-hint"><svg viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg><span data-key="order_hint">Personalizza e ordina</span></span>`
-        : `<span class="detail-hint"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span data-key="detail_hint">Tocca per dettagli</span></span>`;
-      li.innerHTML = `
-        <div class="product-left"><div class="product-info">
-          <span class="product-name" data-key="prod_${p.id}_nome">${p.nome_it || p.id}${badgeHTML}</span>
-          ${hintHTML}
-        </div></div>
-        <span class="product-price">${price.display}</span>`;
       ul.appendChild(li);
     });
 
@@ -1908,8 +2057,18 @@ function updateTexts() {
   document.getElementById('footer-cookie-link').textContent  = i18next.t('footer_cookie');
   document.getElementById('footer-created-text').textContent = i18next.t('footer_created');
   if (document.getElementById('modal').classList.contains('active') && _titleKey) renderModal();
+  if (orderState && document.getElementById('orderStepCustomize').classList.contains('active')){
+    const refreshed = getOrderableProductData(orderState.product.id);
+    if (refreshed){
+      orderState.product = refreshed;
+      document.getElementById('orderProductName').textContent = refreshed.name;
+      document.getElementById('orderProductDesc').textContent = refreshed.description;
+      updateOrderTotal();
+    }
+  }
   if (orderState && document.getElementById('orderStepSummary').classList.contains('active')) renderOrderSummary();
   if (document.getElementById('orderStepCart').classList.contains('active')) renderCart();
+  updateCartFab();
 }
 
 function changeLanguage(event, lang) {
