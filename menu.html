@@ -632,7 +632,7 @@
     .order-confirm-note svg{ width:16px; height:16px; stroke:var(--brown); fill:none; stroke-width:2; flex-shrink:0; margin-top:1px; }
 
     .order-whatsapp-btn{ display:flex; align-items:center; justify-content:center; gap:10px; }
-    .order-whatsapp-btn .wa-icon{ width:18px; height:18px; stroke:#fff; fill:none; stroke-width:1.8; flex-shrink:0; }
+    .order-whatsapp-btn .wa-icon{ width:19px; height:19px; fill:#fff; flex-shrink:0; display:block; }
 
     .order-thankyou{ text-align:center; padding:30px 0 6px; }
     .order-thankyou-icon{
@@ -698,9 +698,10 @@
       background:rgba(13,18,28,.9);backdrop-filter:blur(8px);
       color:#ffffff;cursor:pointer;
       opacity:0;visibility:hidden;transform:translateY(14px);
-      transition:opacity .3s,transform .3s,border-color .3s,box-shadow .3s;z-index:2000;
+      transition:opacity .3s,transform .3s,border-color .3s,box-shadow .3s,bottom .25s;z-index:1400;
     }
     .scroll-top.show{opacity:1;visibility:visible;transform:translateY(0)}
+    .scroll-top.cart-fab-active{ bottom:92px; }
     .scroll-top:hover{border-color:var(--brown);box-shadow:0 0 24px rgba(23,26,32,.2);transform:translateY(-4px)}
     .scroll-top svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2.2}
 
@@ -1067,7 +1068,7 @@
           </div>
 
           <button class="reservation-btn order-whatsapp-btn" style="width:100%; margin-bottom:12px" onclick="confirmOrderWhatsApp()">
-            <svg class="wa-icon" viewBox="0 0 24 24"><path d="M20.5 3.5A11 11 0 0 0 3.2 17.3L2 22l4.8-1.2A11 11 0 1 0 20.5 3.5z"/><path d="M8.5 8.7c.2-.6.6-.6 1-.6h.5c.2 0 .5 0 .7.5s.8 1.9.9 2c.1.2.1.4 0 .6-.1.2-.2.4-.4.6-.2.2-.4.4-.2.8.2.4 1 1.6 2.1 2.6 1.4 1.2 1.9 1.3 2.1 1.4.2.1.4.1.6-.1.2-.2.7-.8.9-1.1.2-.3.4-.2.7-.1.3.1 1.8.9 2.1 1 .3.1.5.2.6.3.1.2.1 1-.3 1.9-.4.9-2.2 1.7-3 1.7-.8 0-1.6.1-5-1.3-4.1-1.7-6.7-6-6.9-6.3-.2-.3-1.6-2.1-1.6-4 0-1.9 1-2.8 1.3-3.2z"/></svg>
+            <svg class="wa-icon" viewBox="0 0 32 32"><path d="M16.02 3C9.4 3 4 8.4 4 15.02c0 2.22.6 4.3 1.64 6.09L4 29l8.06-1.6a12.9 12.9 0 0 0 3.96.62h.01c6.62 0 12.02-5.4 12.02-12.02C28.05 8.4 22.65 3 16.02 3zm0 22c-1.34 0-2.65-.36-3.8-1.03l-.27-.16-4.79.95 1-4.66-.18-.29a9.93 9.93 0 0 1-1.53-5.29C6.45 9.55 10.55 5.45 16.02 5.45c4.94 0 9.95 4.02 9.55 9.55 0 5.47-4.1 9.55-9.55 9.55z"/><path d="M21.4 18.05c-.29-.15-1.72-.85-1.99-.95-.27-.1-.46-.15-.66.15-.19.29-.76.95-.93 1.14-.17.2-.34.22-.63.08-.29-.15-1.23-.45-2.34-1.44-.87-.77-1.45-1.72-1.62-2.01-.17-.29-.02-.45.13-.6.13-.13.29-.34.44-.51.14-.17.19-.29.29-.49.1-.19.05-.36-.02-.51-.08-.15-.66-1.58-.9-2.17-.24-.57-.48-.49-.66-.5h-.56c-.19 0-.51.07-.78.36-.27.29-1.02 1-1.02 2.43s1.04 2.82 1.19 3.01c.15.19 2.05 3.13 4.97 4.39.69.3 1.23.48 1.65.61.7.22 1.33.19 1.83.11.56-.08 1.72-.7 1.96-1.38.24-.68.24-1.26.17-1.38-.07-.12-.26-.19-.55-.34z"/></svg>
             <span data-key="btn_confirm_whatsapp">Conferma e ordina su WhatsApp</span>
           </button>
           <button class="order-btn-ghost" style="width:100%" onclick="backToCheckout()" data-key="btn_back">Indietro</button>
@@ -1264,7 +1265,7 @@ const UI_STRINGS = {
        menu_loading:"Caricamento menù...", menu_error_title:"Impossibile caricare il menù",
        menu_error_text:"Controlla la connessione o riprova tra qualche istante.",
        order_hint:"Personalizza e ordina", order_badge:"Personalizza il tuo ordine", order_available_hint:"Personalizzabile", btn_view_details:"Vedi dettagli",
-       order_ingredients_title:"Ingredienti", order_extras_title:"Aggiungi extra", order_base_tag:"Base",
+       order_ingredients_title:"Ingredienti", order_extras_title:"Aggiungi extra", order_base_tag:"Base", ing_puccia:"Puccia", ing_hamburger:"Hamburger di manzo", ing_bacon_jam:"Bacon jam", ing_pomodoro:"Pomodoro al forno", ing_caciocavallo:"Caciocavallo", extra_caciocavallo_label:"Extra caciocavallo", extra_bacon_jam_label:"Extra bacon jam",
        ing_included:"Incluso", ing_removed:"RIMOSSO", extra_add:"Aggiungi", extra_added:"Aggiunto",
        order_notes_label:"Note per il panino", order_notes_placeholder:"Es. carne ben cotta, senza sale...",
        order_qty_label:"Quantità", order_total_label:"Totale", order_go_checkout:"Ordina",
@@ -1296,7 +1297,7 @@ const UI_STRINGS = {
        menu_loading:"Loading menu...", menu_error_title:"Could not load the menu",
        menu_error_text:"Check your connection or try again shortly.",
        order_hint:"Customize and order", order_badge:"Customize your order", order_available_hint:"Customizable", btn_view_details:"View details",
-       order_ingredients_title:"Ingredients", order_extras_title:"Add extras", order_base_tag:"Base",
+       order_ingredients_title:"Ingredients", order_extras_title:"Add extras", order_base_tag:"Base", ing_puccia:"Puccia", ing_hamburger:"Beef burger", ing_bacon_jam:"Bacon jam", ing_pomodoro:"Baked tomato", ing_caciocavallo:"Caciocavallo", extra_caciocavallo_label:"Extra caciocavallo", extra_bacon_jam_label:"Extra bacon jam",
        ing_included:"Included", ing_removed:"REMOVED", extra_add:"Add", extra_added:"Added",
        order_notes_label:"Notes for the sandwich", order_notes_placeholder:"E.g. well-done meat, no salt...",
        order_qty_label:"Quantity", order_total_label:"Total", order_go_checkout:"Order",
@@ -1328,7 +1329,7 @@ const UI_STRINGS = {
        menu_loading:"Cargando menú...", menu_error_title:"No se pudo cargar el menú",
        menu_error_text:"Comprueba la conexión o inténtalo de nuevo en breve.",
        order_hint:"Personaliza y pide", order_badge:"Personaliza tu pedido", order_available_hint:"Personalizable", btn_view_details:"Ver detalles",
-       order_ingredients_title:"Ingredientes", order_extras_title:"Añadir extras", order_base_tag:"Base",
+       order_ingredients_title:"Ingredientes", order_extras_title:"Añadir extras", order_base_tag:"Base", ing_puccia:"Puccia", ing_hamburger:"Hamburguesa de ternera", ing_bacon_jam:"Mermelada de bacon", ing_pomodoro:"Tomate al horno", ing_caciocavallo:"Caciocavallo", extra_caciocavallo_label:"Extra de caciocavallo", extra_bacon_jam_label:"Extra de mermelada de bacon",
        ing_included:"Incluido", ing_removed:"QUITADO", extra_add:"Añadir", extra_added:"Añadido",
        order_notes_label:"Notas para el bocadillo", order_notes_placeholder:"Ej. carne bien hecha, sin sal...",
        order_qty_label:"Cantidad", order_total_label:"Total", order_go_checkout:"Pedir",
@@ -1360,7 +1361,7 @@ const UI_STRINGS = {
        menu_loading:"Chargement du menu...", menu_error_title:"Impossible de charger le menu",
        menu_error_text:"Vérifiez la connexion ou réessayez bientôt.",
        order_hint:"Personnaliser et commander", order_badge:"Personnalisez votre commande", order_available_hint:"Personnalisable", btn_view_details:"Voir les détails",
-       order_ingredients_title:"Ingrédients", order_extras_title:"Ajouter des extras", order_base_tag:"Base",
+       order_ingredients_title:"Ingrédients", order_extras_title:"Ajouter des extras", order_base_tag:"Base", ing_puccia:"Puccia", ing_hamburger:"Burger de bœuf", ing_bacon_jam:"Confiture de bacon", ing_pomodoro:"Tomate au four", ing_caciocavallo:"Caciocavallo", extra_caciocavallo_label:"Extra caciocavallo", extra_bacon_jam_label:"Extra confiture de bacon",
        ing_included:"Inclus", ing_removed:"RETIRÉ", extra_add:"Ajouter", extra_added:"Ajouté",
        order_notes_label:"Notes pour le sandwich", order_notes_placeholder:"Ex. viande bien cuite, sans sel...",
        order_qty_label:"Quantité", order_total_label:"Total", order_go_checkout:"Commander",
@@ -1392,7 +1393,7 @@ const UI_STRINGS = {
        menu_loading:"Menü wird geladen...", menu_error_title:"Menü konnte nicht geladen werden",
        menu_error_text:"Bitte Verbindung prüfen oder später erneut versuchen.",
        order_hint:"Anpassen und bestellen", order_badge:"Bestellung anpassen", order_available_hint:"Anpassbar", btn_view_details:"Details ansehen",
-       order_ingredients_title:"Zutaten", order_extras_title:"Extras hinzufügen", order_base_tag:"Basis",
+       order_ingredients_title:"Zutaten", order_extras_title:"Extras hinzufügen", order_base_tag:"Basis", ing_puccia:"Puccia", ing_hamburger:"Rindfleisch-Burger", ing_bacon_jam:"Bacon-Marmelade", ing_pomodoro:"Ofentomate", ing_caciocavallo:"Caciocavallo", extra_caciocavallo_label:"Extra Caciocavallo", extra_bacon_jam_label:"Extra Bacon-Marmelade",
        ing_included:"Enthalten", ing_removed:"ENTFERNT", extra_add:"Hinzufügen", extra_added:"Hinzugefügt",
        order_notes_label:"Anmerkungen zum Sandwich", order_notes_placeholder:"Z.B. Fleisch gut durch, ohne Salz...",
        order_qty_label:"Menge", order_total_label:"Gesamt", order_go_checkout:"Bestellen",
@@ -1462,22 +1463,27 @@ const CART_STORAGE_KEY = 'spi_cart_v1';
 const ORDERABLE_PRODUCTS = {
   il_brigante: {
     id: 'il_brigante',
-    baseIngredient: { key:'puccia', label:'Puccia', emoji:'🍞' }, // ingrediente fisso, non rimovibile
+    baseIngredient: { key:'puccia', labelKey:'ing_puccia', emoji:'🍞' }, // ingrediente fisso, non rimovibile
     ingredients: [
-      { key:'hamburger',  label:'Hamburger di manzo', emoji:'🍔', removable:true, defaultOn:true },
-      { key:'bacon_jam',  label:'Bacon jam',          emoji:'🥓', removable:true, defaultOn:true },
-      { key:'pomodoro',   label:'Pomodoro al forno',  emoji:'🍅', removable:true, defaultOn:true },
-      { key:'caciocavallo', label:'Caciocavallo',     emoji:'🧀', removable:true, defaultOn:true },
+      { key:'hamburger',  labelKey:'ing_hamburger',   emoji:'🍔', removable:true, defaultOn:true },
+      { key:'bacon_jam',  labelKey:'ing_bacon_jam',   emoji:'🥓', removable:true, defaultOn:true },
+      { key:'pomodoro',   labelKey:'ing_pomodoro',    emoji:'🍅', removable:true, defaultOn:true },
+      { key:'caciocavallo', labelKey:'ing_caciocavallo', emoji:'🧀', removable:true, defaultOn:true },
     ],
     extras: [
-      { key:'extra_caciocavallo', label:'Extra caciocavallo', emoji:'🧀', price:1.00 },
-      { key:'extra_bacon_jam',    label:'Extra bacon jam',    emoji:'🥓', price:1.00 },
+      { key:'extra_caciocavallo', labelKey:'extra_caciocavallo_label', emoji:'🧀', price:1.00 },
+      { key:'extra_bacon_jam',    labelKey:'extra_bacon_jam_label',    emoji:'🥓', price:1.00 },
     ]
   }
   // Per aggiungere un altro panino ordinabile in futuro: deve già esistere come riga
   // nel foglio Prodotti (nome/prezzo/descrizione/traduzioni), poi basta aggiungere qui
-  // la sua configurazione di personalizzazione con lo stesso schema.
+  // la sua configurazione di personalizzazione con lo stesso schema (e le relative
+  // chiavi labelKey nelle 5 lingue dentro UI_STRINGS).
 };
+
+// Ogni ingrediente/extra ha una labelKey invece del testo diretto: questa funzione
+// risolve il nome tradotto nella lingua attiva, ovunque serva (card, carrello, riepilogo, WhatsApp).
+function ingredientLabel(item){ return i18next.t(item.labelKey); }
 
 let sheetProductsById = {}; // popolato dopo il caricamento del foglio: id -> riga completa (nome_it/en/..., prezzo, descrizione_it/en/..., immagine)
 let cart = [];               // righe nel carrello: { lineId, productId, qty, removed:[...], extras:[...], notes }
@@ -1569,13 +1575,13 @@ function updateOrderProgress(stepId){
 function renderOrderIngredients(){
   const product = orderState.product;
   const wrap = document.getElementById('orderIngredients');
-  let html = `<div class="order-base-ingredient"><span class="emoji">${product.baseIngredient.emoji||'🍽️'}</span><span class="label-text">${product.baseIngredient.label}</span><span class="tag" data-key="order_base_tag">Base</span></div>`;
+  let html = `<div class="order-base-ingredient"><span class="emoji">${product.baseIngredient.emoji||'🍽️'}</span><span class="label-text">${ingredientLabel(product.baseIngredient)}</span><span class="tag" data-key="order_base_tag">Base</span></div>`;
   product.ingredients.forEach(ing => {
     const isOn = !orderState.removed.has(ing.key);
     html += `
       <div class="ing-card ${isOn ? 'on' : 'off'}" id="ing-row-${ing.key}" onclick="toggleIngredient('${ing.key}')">
         <span class="emoji">${ing.emoji||'🥗'}</span>
-        <span class="ing-label">${ing.label}</span>
+        <span class="ing-label">${ingredientLabel(ing)}</span>
         ${isOn ? '' : `<span class="ing-removed-tag" data-key="ing_removed">RIMOSSO</span>`}
         <span class="ing-check-circle"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
       </div>`;
@@ -1592,7 +1598,7 @@ function renderOrderExtras(){
     html += `
       <div class="extra-chip ${isOn ? 'on' : ''}" id="extra-row-${ex.key}" onclick="toggleExtra('${ex.key}')">
         <span class="emoji">${ex.emoji||'➕'}</span>
-        <span class="extra-label">${ex.label}</span>
+        <span class="extra-label">${ingredientLabel(ex)}</span>
         <span class="extra-price">+€${ex.price.toFixed(2)}</span>
         <span class="extra-toggle-circle">
           ${isOn
@@ -1713,8 +1719,13 @@ function addToCart(){
 
 function updateCartFab(){
   const fab = document.getElementById('cartFab');
+  const scrollBtn = document.getElementById('scrollTopBtn');
   const count = cart.reduce((sum, l) => sum + l.qty, 0);
-  if (count === 0){ fab.classList.remove('show'); return; }
+  if (count === 0){
+    fab.classList.remove('show');
+    scrollBtn.classList.remove('cart-fab-active');
+    return;
+  }
   const total = cart.reduce((sum, l) => {
     const product = getOrderableProductData(l.productId);
     return product ? sum + calcUnitPrice(product, l.extras) * l.qty : sum;
@@ -1722,6 +1733,7 @@ function updateCartFab(){
   document.getElementById('cartFabCount').textContent = count;
   document.getElementById('cartFabTotal').textContent = '€' + total.toFixed(2);
   fab.classList.add('show');
+  scrollBtn.classList.add('cart-fab-active');
 }
 
 function openCartStep(){
@@ -1752,14 +1764,14 @@ function renderCart(){
     const lineTotal = unit * line.qty;
     total += lineTotal;
 
-    const removedNames = product.ingredients.filter(i => line.removed.has(i.key)).map(i => i.label);
+    const removedNames = product.ingredients.filter(i => line.removed.has(i.key)).map(i => ingredientLabel(i));
     const extraNames = product.extras.filter(e => line.extras.has(e.key));
 
     let customHTML = '';
     if (removedNames.length || extraNames.length || line.notes){
       customHTML = `<div class="cart-line-custom"><div class="cart-line-custom-label" data-key="summary_customizations">Personalizzazioni</div><ul>`;
       removedNames.forEach(n => customHTML += `<li>${i18next.t('summary_without')} ${n}</li>`);
-      extraNames.forEach(e => customHTML += `<li>${e.label} +€${e.price.toFixed(2)}</li>`);
+      extraNames.forEach(e => customHTML += `<li>${ingredientLabel(e)} +€${e.price.toFixed(2)}</li>`);
       if (line.notes) customHTML += `<li>${line.notes}</li>`;
       customHTML += `</ul></div>`;
     }
@@ -1851,7 +1863,7 @@ function renderOrderSummary(){
     const unit = calcUnitPrice(product, line.extras);
     const lineTotal = unit * line.qty;
     total += lineTotal;
-    const removedNames = product.ingredients.filter(i => line.removed.has(i.key)).map(i => i.label);
+    const removedNames = product.ingredients.filter(i => line.removed.has(i.key)).map(i => ingredientLabel(i));
     const extraNames = product.extras.filter(e => line.extras.has(e.key));
 
     html += `<div class="order-summary-block">
@@ -1859,7 +1871,7 @@ function renderOrderSummary(){
     if (removedNames.length || extraNames.length){
       html += `<ul class="order-summary-list">`;
       removedNames.forEach(n => html += `<li>${i18next.t('summary_without')} ${n}</li>`);
-      extraNames.forEach(e => html += `<li>${e.label} +€${e.price.toFixed(2)}</li>`);
+      extraNames.forEach(e => html += `<li>${ingredientLabel(e)} +€${e.price.toFixed(2)}</li>`);
       html += `</ul>`;
     }
     if (line.notes) html += `<div class="order-summary-text" style="margin-top:6px">${line.notes}</div>`;
@@ -1893,12 +1905,12 @@ function confirmOrderWhatsApp(){
     const unit = calcUnitPrice(product, line.extras);
     const lineTotal = unit * line.qty;
     total += lineTotal;
-    const removedNames = product.ingredients.filter(i => line.removed.has(i.key)).map(i => i.label);
+    const removedNames = product.ingredients.filter(i => line.removed.has(i.key)).map(i => ingredientLabel(i));
     const extraNames = product.extras.filter(e => line.extras.has(e.key));
 
     lines.push(line.qty + '× ' + product.name + ' — €' + lineTotal.toFixed(2));
     removedNames.forEach(n => lines.push('• ' + i18next.t('summary_without') + ' ' + n));
-    extraNames.forEach(e => lines.push('• ' + i18next.t('wa_extra') + ' ' + e.label + ' +€' + e.price.toFixed(2)));
+    extraNames.forEach(e => lines.push('• ' + i18next.t('wa_extra') + ' ' + ingredientLabel(e) + ' +€' + e.price.toFixed(2)));
     if (line.notes) lines.push('• ' + line.notes);
   });
 
@@ -2004,7 +2016,10 @@ function renderMenu(categories, byCategory){
       const badgeHTML = isTrue(p.novita) ? ` <span class="badge-new" data-key="badge_new">Novità</span>` : '';
       const isOrderable = !!ORDERABLE_PRODUCTS[p.id];
       const openInfoCall = `openModal('${escAttr(imgPath)}','prod_${p.id}_nome','prod_${p.id}_desc','prod_${p.id}_allergeni','${price.display}')`;
-      const photoHTML = imgPath ? `<div class="product-photo"><img src="${imgPath}" alt="" loading="lazy"></div>` : '';
+      // Le foto restano disponibili nei dati (imgPath) per un uso futuro, ma per ora
+      // non vengono mostrate nella card: non tutti i prodotti ne hanno una, e un menù
+      // con foto solo per alcuni articoli risulterebbe disomogeneo.
+      const photoHTML = '';
       const bodyHTML = `
         <div class="product-body">
           <div class="product-head">
@@ -2079,6 +2094,8 @@ function updateTexts() {
       orderState.product = refreshed;
       document.getElementById('orderProductName').textContent = refreshed.name;
       document.getElementById('orderProductDesc').textContent = refreshed.description;
+      renderOrderIngredients();
+      renderOrderExtras();
       updateOrderTotal();
     }
   }
