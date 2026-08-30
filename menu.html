@@ -637,6 +637,33 @@
     .order-whatsapp-btn{ display:flex; align-items:center; justify-content:center; gap:10px; }
     .order-whatsapp-btn .wa-icon{ width:19px; height:19px; fill:#fff; flex-shrink:0; display:block; }
 
+    /* --- selezione metodo di pagamento --- */
+    .payment-method-option{
+      display:flex; align-items:center; gap:12px; cursor:pointer; user-select:none;
+      background:var(--card); border:1.5px solid var(--border); border-radius:14px;
+      padding:13px 14px; margin-bottom:10px; transition:border-color .18s, background .18s;
+    }
+    .payment-method-option:last-child{ margin-bottom:0; }
+    .payment-method-option input{ position:absolute; opacity:0; width:0; height:0; }
+    .payment-method-radio{
+      flex-shrink:0; width:20px; height:20px; border-radius:50%;
+      border:1.5px solid var(--border); position:relative; transition:border-color .15s;
+    }
+    .payment-method-radio::after{
+      content:''; position:absolute; inset:3px; border-radius:50%; background:var(--brown);
+      opacity:0; transition:opacity .15s;
+    }
+    .payment-method-option input:checked ~ .payment-method-radio{ border-color:var(--brown); }
+    .payment-method-option input:checked ~ .payment-method-radio::after{ opacity:1; }
+    .payment-method-option:has(input:checked){ border-color:var(--brown-border); background:var(--brown-soft); }
+    .payment-method-text{ font-size:.88rem; color:var(--text); font-weight:500; }
+
+    .order-stripe-btn .stripe-icon{ width:18px; height:18px; flex-shrink:0; }
+    .stripe-loading-spinner{
+      width:15px; height:15px; border-radius:50%; border:2px solid rgba(255,255,255,.4);
+      border-top-color:#fff; display:inline-block; animation:menuSpin .7s linear infinite; margin-right:8px; vertical-align:-2px;
+    }
+
     .order-thankyou{ text-align:center; padding:30px 0 6px; }
     .order-thankyou-icon{
       width:64px; height:64px; margin:0 auto 20px; border-radius:50%;
@@ -1050,6 +1077,20 @@
             <textarea class="order-textarea" id="orderNoteLocale" data-i18n-placeholder="checkout_notes_placeholder"></textarea>
           </div>
 
+          <div class="order-section-title" style="margin-top:8px" data-key="checkout_payment_title">Pagamento</div>
+          <div class="order-form-group" id="paymentMethodRow">
+            <label class="payment-method-option">
+              <input type="radio" name="paymentMethod" value="consegna" checked>
+              <span class="payment-method-radio"></span>
+              <span class="payment-method-text" data-key="payment_method_cash">Pagamento alla consegna / in sede</span>
+            </label>
+            <label class="payment-method-option">
+              <input type="radio" name="paymentMethod" value="online">
+              <span class="payment-method-radio"></span>
+              <span class="payment-method-text" data-key="payment_method_online">Paga online con carta</span>
+            </label>
+          </div>
+
           <p class="order-error" id="orderFormError"></p>
 
           <div class="order-step-actions">
@@ -1070,9 +1111,13 @@
             <span data-key="order_confirm_note">L'orario indicato è una richiesta: il locale ti confermerà su WhatsApp l'orario esatto di ritiro.</span>
           </div>
 
-          <button class="reservation-btn order-whatsapp-btn" style="width:100%; margin-bottom:12px" onclick="confirmOrderWhatsApp()">
+          <button class="reservation-btn order-whatsapp-btn" id="whatsappConfirmBtn" style="width:100%; margin-bottom:12px" onclick="confirmOrderWhatsApp()">
             <svg class="wa-icon" viewBox="0 0 32 32"><path d="M16.02 3C9.4 3 4 8.4 4 15.02c0 2.22.6 4.3 1.64 6.09L4 29l8.06-1.6a12.9 12.9 0 0 0 3.96.62h.01c6.62 0 12.02-5.4 12.02-12.02C28.05 8.4 22.65 3 16.02 3zm0 22c-1.34 0-2.65-.36-3.8-1.03l-.27-.16-4.79.95 1-4.66-.18-.29a9.93 9.93 0 0 1-1.53-5.29C6.45 9.55 10.55 5.45 16.02 5.45c4.94 0 9.95 4.02 9.55 9.55 0 5.47-4.1 9.55-9.55 9.55z"/><path d="M21.4 18.05c-.29-.15-1.72-.85-1.99-.95-.27-.1-.46-.15-.66.15-.19.29-.76.95-.93 1.14-.17.2-.34.22-.63.08-.29-.15-1.23-.45-2.34-1.44-.87-.77-1.45-1.72-1.62-2.01-.17-.29-.02-.45.13-.6.13-.13.29-.34.44-.51.14-.17.19-.29.29-.49.1-.19.05-.36-.02-.51-.08-.15-.66-1.58-.9-2.17-.24-.57-.48-.49-.66-.5h-.56c-.19 0-.51.07-.78.36-.27.29-1.02 1-1.02 2.43s1.04 2.82 1.19 3.01c.15.19 2.05 3.13 4.97 4.39.69.3 1.23.48 1.65.61.7.22 1.33.19 1.83.11.56-.08 1.72-.7 1.96-1.38.24-.68.24-1.26.17-1.38-.07-.12-.26-.19-.55-.34z"/></svg>
             <span data-key="btn_confirm_whatsapp">Conferma e ordina su WhatsApp</span>
+          </button>
+          <button class="reservation-btn order-stripe-btn" id="stripeCheckoutBtn" style="width:100%; margin-bottom:12px; display:none" onclick="startStripeCheckout()">
+            <svg class="stripe-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M4 7h16v2H4V7zm0 4h16v6H4v-6zm2 2v2h4v-2H6z"/></svg>
+            <span data-key="btn_pay_stripe">Paga ora con carta</span>
           </button>
           <button class="order-btn-ghost" style="width:100%" onclick="backToCheckout()" data-key="btn_back">Indietro</button>
         </div>
@@ -1288,7 +1333,7 @@ const UI_STRINGS = {
        checkout_error:"Compila tutti i campi obbligatori (nome, cognome, telefono, orario).",
        btn_back:"Indietro", btn_go_summary:"Vai al riepilogo", summary_badge:"Controlla il tuo ordine",
        summary_customizations:"Personalizzazioni", summary_without:"Senza", summary_notes:"Note",
-       summary_pickup:"Ritiro", summary_customer:"Cliente", summary_total:"Totale",
+       summary_pickup:"Ritiro", summary_customer:"Cliente", summary_total:"Totale", summary_payment:"Pagamento", checkout_payment_title:"Pagamento", payment_method_cash:"Pagamento alla consegna / in sede", payment_method_online:"Paga online con carta", btn_pay_stripe:"Paga ora con carta", stripe_loading:"Sto aprendo il pagamento...", stripe_error:"Impossibile avviare il pagamento. Riprova tra poco.", wa_paid_online:"Pagamento effettuato online",
        btn_confirm_whatsapp:"Conferma e ordina su WhatsApp",
        order_thankyou_title:"Ordine inviato!", order_thankyou_sub:"Il tuo ordine è stato inviato su WhatsApp. Il locale ti confermerà a breve l'orario di ritiro.",
        btn_close:"Chiudi", wa_msg_title:"NUOVO ORDINE ASPORTO", wa_customer:"Cliente", wa_phone:"Telefono",
@@ -1320,7 +1365,7 @@ const UI_STRINGS = {
        checkout_error:"Please fill in all required fields (name, last name, phone, time).",
        btn_back:"Back", btn_go_summary:"Go to summary", summary_badge:"Check your order",
        summary_customizations:"Customizations", summary_without:"Without", summary_notes:"Notes",
-       summary_pickup:"Pickup", summary_customer:"Customer", summary_total:"Total",
+       summary_pickup:"Pickup", summary_customer:"Customer", summary_total:"Total", summary_payment:"Payment", checkout_payment_title:"Payment", payment_method_cash:"Pay on pickup / at the venue", payment_method_online:"Pay online by card", btn_pay_stripe:"Pay now by card", stripe_loading:"Opening payment...", stripe_error:"Could not start payment. Please try again.", wa_paid_online:"Paid online",
        btn_confirm_whatsapp:"Confirm and order on WhatsApp",
        order_thankyou_title:"Order sent!", order_thankyou_sub:"Your order has been sent on WhatsApp. The venue will confirm the pickup time shortly.",
        btn_close:"Close", wa_msg_title:"NEW TAKEAWAY ORDER", wa_customer:"Customer", wa_phone:"Phone",
@@ -1352,7 +1397,7 @@ const UI_STRINGS = {
        checkout_error:"Completa todos los campos obligatorios (nombre, apellido, teléfono, hora).",
        btn_back:"Atrás", btn_go_summary:"Ir al resumen", summary_badge:"Revisa tu pedido",
        summary_customizations:"Personalizaciones", summary_without:"Sin", summary_notes:"Notas",
-       summary_pickup:"Recogida", summary_customer:"Cliente", summary_total:"Total",
+       summary_pickup:"Recogida", summary_customer:"Cliente", summary_total:"Total", summary_payment:"Pago", checkout_payment_title:"Pago", payment_method_cash:"Pago al recoger / en el local", payment_method_online:"Pagar online con tarjeta", btn_pay_stripe:"Pagar ahora con tarjeta", stripe_loading:"Abriendo el pago...", stripe_error:"No se pudo iniciar el pago. Inténtalo de nuevo.", wa_paid_online:"Pagado en línea",
        btn_confirm_whatsapp:"Confirmar y pedir por WhatsApp",
        order_thankyou_title:"¡Pedido enviado!", order_thankyou_sub:"Tu pedido se ha enviado por WhatsApp. El local confirmará pronto la hora de recogida.",
        btn_close:"Cerrar", wa_msg_title:"NUEVO PEDIDO PARA LLEVAR", wa_customer:"Cliente", wa_phone:"Teléfono",
@@ -1384,7 +1429,7 @@ const UI_STRINGS = {
        checkout_error:"Veuillez remplir tous les champs obligatoires (prénom, nom, téléphone, heure).",
        btn_back:"Retour", btn_go_summary:"Voir le résumé", summary_badge:"Vérifiez votre commande",
        summary_customizations:"Personnalisations", summary_without:"Sans", summary_notes:"Notes",
-       summary_pickup:"Retrait", summary_customer:"Client", summary_total:"Total",
+       summary_pickup:"Retrait", summary_customer:"Client", summary_total:"Total", summary_payment:"Paiement", checkout_payment_title:"Paiement", payment_method_cash:"Paiement au retrait / sur place", payment_method_online:"Payer en ligne par carte", btn_pay_stripe:"Payer maintenant par carte", stripe_loading:"Ouverture du paiement...", stripe_error:"Impossible de démarrer le paiement. Réessayez.", wa_paid_online:"Payé en ligne",
        btn_confirm_whatsapp:"Confirmer et commander sur WhatsApp",
        order_thankyou_title:"Commande envoyée !", order_thankyou_sub:"Votre commande a été envoyée sur WhatsApp. L'établissement confirmera bientôt l'heure de retrait.",
        btn_close:"Fermer", wa_msg_title:"NOUVELLE COMMANDE À EMPORTER", wa_customer:"Client", wa_phone:"Téléphone",
@@ -1416,7 +1461,7 @@ const UI_STRINGS = {
        checkout_error:"Bitte füllen Sie alle Pflichtfelder aus (Vorname, Nachname, Telefon, Uhrzeit).",
        btn_back:"Zurück", btn_go_summary:"Zur Übersicht", summary_badge:"Bestellung prüfen",
        summary_customizations:"Anpassungen", summary_without:"Ohne", summary_notes:"Anmerkungen",
-       summary_pickup:"Abholung", summary_customer:"Kunde", summary_total:"Gesamt",
+       summary_pickup:"Abholung", summary_customer:"Kunde", summary_total:"Gesamt", summary_payment:"Zahlung", checkout_payment_title:"Zahlung", payment_method_cash:"Zahlung bei Abholung / vor Ort", payment_method_online:"Online mit Karte bezahlen", btn_pay_stripe:"Jetzt mit Karte bezahlen", stripe_loading:"Zahlung wird geöffnet...", stripe_error:"Zahlung konnte nicht gestartet werden. Bitte erneut versuchen.", wa_paid_online:"Online bezahlt",
        btn_confirm_whatsapp:"Bestätigen und über WhatsApp bestellen",
        order_thankyou_title:"Bestellung gesendet!", order_thankyou_sub:"Ihre Bestellung wurde über WhatsApp gesendet. Das Lokal bestätigt in Kürze die Abholzeit.",
        btn_close:"Schließen", wa_msg_title:"NEUE BESTELLUNG ZUM MITNEHMEN", wa_customer:"Kunde", wa_phone:"Telefon",
@@ -1835,7 +1880,7 @@ function goToCheckout(){
 
 function backToCheckout(){ showOrderStep('orderStepCheckout'); }
 
-let checkoutCustomer = { nome:'', cognome:'', telefono:'', orario:'', noteLocale:'' };
+let checkoutCustomer = { nome:'', cognome:'', telefono:'', orario:'', noteLocale:'', paymentMethod:'consegna' };
 
 function goToSummary(){
   const nome = document.getElementById('orderNome').value.trim();
@@ -1843,6 +1888,8 @@ function goToSummary(){
   const telefono = document.getElementById('orderTelefono').value.trim();
   const orario = document.getElementById('orderOrario').value.trim();
   const noteLocale = document.getElementById('orderNoteLocale').value.trim();
+  const paymentMethodInput = document.querySelector('input[name="paymentMethod"]:checked');
+  const paymentMethod = paymentMethodInput ? paymentMethodInput.value : 'consegna';
   const errorEl = document.getElementById('orderFormError');
 
   if (!nome || !cognome || !telefono || !orario){
@@ -1852,7 +1899,7 @@ function goToSummary(){
   }
   errorEl.classList.remove('show');
 
-  checkoutCustomer = { nome, cognome, telefono, orario, noteLocale };
+  checkoutCustomer = { nome, cognome, telefono, orario, noteLocale, paymentMethod };
   renderOrderSummary();
   showOrderStep('orderStepSummary');
 }
@@ -1887,10 +1934,18 @@ function renderOrderSummary(){
   if (checkoutCustomer.noteLocale){
     html += `<div class="order-summary-block"><div class="order-summary-label" data-key="summary_notes">Note</div><div class="order-summary-text">${checkoutCustomer.noteLocale}</div></div>`;
   }
+  html += `<div class="order-summary-block"><div class="order-summary-label" data-key="summary_payment">Pagamento</div><div class="order-summary-text">${checkoutCustomer.paymentMethod === 'online' ? i18next.t('payment_method_online') : i18next.t('payment_method_cash')}</div></div>`;
 
   html += `<div class="order-summary-total"><span data-key="summary_total">Totale</span><span>€${total.toFixed(2)}</span></div>`;
 
   document.getElementById('orderSummaryContent').innerHTML = html;
+
+  // Mostra il pulsante corretto in base al metodo di pagamento scelto: il flusso
+  // WhatsApp esistente resta identico per "alla consegna", Stripe si aggiunge solo
+  // come alternativa per "online", senza toccare confirmOrderWhatsApp().
+  const isOnline = checkoutCustomer.paymentMethod === 'online';
+  document.getElementById('whatsappConfirmBtn').style.display = isOnline ? 'none' : 'flex';
+  document.getElementById('stripeCheckoutBtn').style.display = isOnline ? 'flex' : 'none';
 }
 
 function confirmOrderWhatsApp(){
@@ -1933,6 +1988,136 @@ function confirmOrderWhatsApp(){
   saveCartToStorage();
   updateCartFab();
   showOrderStep('orderStepThankyou');
+}
+
+// ═══════════════════════════════════════════
+// PAGAMENTO ONLINE CON STRIPE (solo se il cliente sceglie "Paga online")
+// Il flusso WhatsApp esistente sopra (confirmOrderWhatsApp) resta invariato
+// per chi sceglie "Pagamento alla consegna / in sede".
+// ═══════════════════════════════════════════
+async function startStripeCheckout(){
+  const btn = document.getElementById('stripeCheckoutBtn');
+  const span = btn.querySelector('span');
+  const originalLabel = span.textContent;
+  btn.disabled = true;
+  span.innerHTML = `<span class="stripe-loading-spinner"></span>` + i18next.t('stripe_loading');
+
+  const cartLines = cart.map(l => ({
+    productId: l.productId,
+    qty: l.qty,
+    removed: Array.from(l.removed),
+    extras: Array.from(l.extras),
+    notes: l.notes
+  }));
+
+  try {
+    const resp = await fetch('/api/create-checkout-session', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        cartLines,
+        origin: window.location.origin + window.location.pathname.replace(/[^/]*$/, ''),
+        customer: checkoutCustomer
+      })
+    });
+    const data = await resp.json();
+    if (!resp.ok || !data.url) throw new Error(data.error || 'Errore sconosciuto');
+    window.location.href = data.url; // il cliente viene mandato su Stripe
+  } catch(err){
+    console.error('Errore avvio pagamento Stripe:', err);
+    alert(i18next.t('stripe_error'));
+    btn.disabled = false;
+    span.textContent = originalLabel;
+  }
+}
+
+// Al ritorno da Stripe, la pagina viene ricaricata (nuova navigazione): lo stato in
+// memoria (orderState, checkoutCustomer) va perso. Per questo l'ordine confermato
+// viene ricostruito da ciò che Stripe stesso conferma (session.metadata), non da
+// dati locali potenzialmente non affidabili o già svuotati.
+let paymentReturnHandled = false;
+
+async function checkPaymentReturn(){
+  if (paymentReturnHandled) return;
+  const params = new URLSearchParams(window.location.search);
+  const paymentStatus = params.get('payment');
+  const sessionId = params.get('session_id');
+  if (!paymentStatus) return;
+  paymentReturnHandled = true;
+  window.history.replaceState({}, '', window.location.pathname);
+
+  if (paymentStatus === 'cancelled') return; // il carrello è rimasto intatto in localStorage
+
+  if (paymentStatus === 'success' && sessionId){
+    try {
+      const resp = await fetch('/api/get-checkout-session?session_id=' + encodeURIComponent(sessionId));
+      const data = await resp.json();
+      if (data.paid) finalizeOnlinePaymentOrder(data.metadata);
+    } catch(err){
+      console.error('Errore verifica pagamento Stripe:', err);
+    }
+  }
+}
+
+function finalizeOnlinePaymentOrder(metadata){
+  let orderLines = [];
+  try { orderLines = JSON.parse(metadata.order || '[]'); } catch(e){ orderLines = []; }
+
+  const customer = {
+    nome: metadata.customerNome || '',
+    cognome: metadata.customerCognome || '',
+    telefono: metadata.customerTelefono || '',
+    orario: metadata.customerOrario || '',
+    noteLocale: metadata.customerNoteLocale || ''
+  };
+
+  // Stesso identico formato del messaggio WhatsApp esistente, con l'aggiunta
+  // dell'indicazione che il pagamento è già stato effettuato online.
+  let total = 0;
+  const lines = [
+    '🥪 ' + i18next.t('wa_msg_title'), '',
+    i18next.t('wa_customer') + ': ' + customer.nome + ' ' + customer.cognome,
+    i18next.t('wa_phone') + ': ' + customer.telefono,
+    i18next.t('wa_pickup') + ': ' + customer.orario + ' (' + i18next.t('wa_to_confirm') + ')', '',
+    i18next.t('wa_order') + ':'
+  ];
+
+  orderLines.forEach(line => {
+    const product = getOrderableProductData(line.productId);
+    if (!product) return;
+    const extrasSet = new Set(line.extras || []);
+    const unit = calcUnitPrice(product, extrasSet);
+    const qty = line.qty || 1;
+    const lineTotal = unit * qty;
+    total += lineTotal;
+    const removedNames = product.ingredients.filter(i => (line.removed || []).includes(i.key)).map(i => ingredientLabel(i));
+    const extraNames = product.extras.filter(e => extrasSet.has(e.key));
+
+    lines.push(qty + '× ' + product.name + ' — €' + lineTotal.toFixed(2));
+    removedNames.forEach(n => lines.push('• ' + i18next.t('summary_without') + ' ' + n));
+    extraNames.forEach(e => lines.push('• ' + i18next.t('wa_extra') + ' ' + ingredientLabel(e) + ' +€' + e.price.toFixed(2)));
+    if (line.notes) lines.push('• ' + line.notes);
+  });
+
+  lines.push('');
+  lines.push(i18next.t('wa_total') + ': €' + total.toFixed(2));
+  lines.push('💳 ' + i18next.t('wa_paid_online'));
+  if (customer.noteLocale){
+    lines.push('');
+    lines.push(i18next.t('wa_notes') + ': ' + customer.noteLocale);
+  }
+
+  const message = lines.join('\n');
+  const url = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(message);
+  window.open(url, '_blank');
+
+  cart = [];
+  saveCartToStorage();
+  updateCartFab();
+
+  showOrderStep('orderStepThankyou');
+  document.getElementById('orderModal').classList.add('active');
+  document.body.style.overflow = 'hidden';
 }
 
 document.getElementById('orderModal').addEventListener('click', e => {
@@ -2106,6 +2291,7 @@ function updateTexts() {
   if (orderState && document.getElementById('orderStepSummary').classList.contains('active')) renderOrderSummary();
   if (document.getElementById('orderStepCart').classList.contains('active')) renderCart();
   updateCartFab();
+  checkPaymentReturn();
 }
 
 function changeLanguage(event, lang) {
