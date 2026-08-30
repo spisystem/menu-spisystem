@@ -1,0 +1,9 @@
+{
+  "name": "menu-spisystem",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Menu digitale SPI System con pagamento online Stripe per Il Brigante",
+  "dependencies": {
+    "stripe": "^17.4.0"
+  }
+}
