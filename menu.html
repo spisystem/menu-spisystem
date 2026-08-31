@@ -1128,8 +1128,12 @@
         <div class="order-step-scroll">
           <div class="order-thankyou">
             <div class="order-thankyou-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
-            <h2 data-key="order_thankyou_title">Ordine inviato!</h2>
-            <p data-key="order_thankyou_sub">Il tuo ordine è stato inviato su WhatsApp. Il locale confermerà a breve l'orario di ritiro effettivo.</p>
+            <h2 id="thankyouTitle" data-key="order_thankyou_title">Ordine inviato!</h2>
+            <p id="thankyouSub" data-key="order_thankyou_sub">Il tuo ordine è stato inviato su WhatsApp. Il locale confermerà a breve l'orario di ritiro effettivo.</p>
+            <button class="reservation-btn order-whatsapp-btn" id="thankyouWhatsappBtn" style="width:100%; margin-bottom:12px; display:none">
+              <svg class="wa-icon" viewBox="0 0 32 32"><path d="M16.02 3C9.4 3 4 8.4 4 15.02c0 2.22.6 4.3 1.64 6.09L4 29l8.06-1.6a12.9 12.9 0 0 0 3.96.62h.01c6.62 0 12.02-5.4 12.02-12.02C28.05 8.4 22.65 3 16.02 3zm0 22c-1.34 0-2.65-.36-3.8-1.03l-.27-.16-4.79.95 1-4.66-.18-.29a9.93 9.93 0 0 1-1.53-5.29C6.45 9.55 10.55 5.45 16.02 5.45c4.94 0 9.95 4.02 9.55 9.55 0 5.47-4.1 9.55-9.55 9.55z"/><path d="M21.4 18.05c-.29-.15-1.72-.85-1.99-.95-.27-.1-.46-.15-.66.15-.19.29-.76.95-.93 1.14-.17.2-.34.22-.63.08-.29-.15-1.23-.45-2.34-1.44-.87-.77-1.45-1.72-1.62-2.01-.17-.29-.02-.45.13-.6.13-.13.29-.34.44-.51.14-.17.19-.29.29-.49.1-.19.05-.36-.02-.51-.08-.15-.66-1.58-.9-2.17-.24-.57-.48-.49-.66-.5h-.56c-.19 0-.51.07-.78.36-.27.29-1.02 1-1.02 2.43s1.04 2.82 1.19 3.01c.15.19 2.05 3.13 4.97 4.39.69.3 1.23.48 1.65.61.7.22 1.33.19 1.83.11.56-.08 1.72-.7 1.96-1.38.24-.68.24-1.26.17-1.38-.07-.12-.26-.19-.55-.34z"/></svg>
+              <span data-key="btn_open_whatsapp">Apri WhatsApp e conferma l'ordine</span>
+            </button>
             <button class="order-btn-ghost" style="width:100%" onclick="closeOrderModal()" data-key="btn_close">Chiudi</button>
           </div>
         </div>
@@ -1335,7 +1339,7 @@ const UI_STRINGS = {
        summary_customizations:"Personalizzazioni", summary_without:"Senza", summary_notes:"Note",
        summary_pickup:"Ritiro", summary_customer:"Cliente", summary_total:"Totale", summary_payment:"Pagamento", checkout_payment_title:"Pagamento", payment_method_cash:"Pagamento alla consegna / in sede", payment_method_online:"Paga online con carta", btn_pay_stripe:"Paga ora con carta", stripe_loading:"Sto aprendo il pagamento...", stripe_error:"Impossibile avviare il pagamento. Riprova tra poco.", wa_paid_online:"Pagamento effettuato online",
        btn_confirm_whatsapp:"Conferma e ordina su WhatsApp",
-       order_thankyou_title:"Ordine inviato!", order_thankyou_sub:"Il tuo ordine è stato inviato su WhatsApp. Il locale ti confermerà a breve l'orario di ritiro.",
+       order_thankyou_title:"Ordine inviato!", order_thankyou_sub:"Il tuo ordine è stato inviato su WhatsApp. Il locale ti confermerà a breve l'orario di ritiro.", order_paid_thankyou_title:"Pagamento riuscito!", order_paid_thankyou_sub:"Il pagamento è andato a buon fine. Tocca il pulsante qui sotto per inviare la conferma dell'ordine al locale su WhatsApp.", btn_open_whatsapp:"Apri WhatsApp e conferma l'ordine",
        btn_close:"Chiudi", wa_msg_title:"NUOVO ORDINE ASPORTO", wa_customer:"Cliente", wa_phone:"Telefono",
        wa_pickup:"Ritiro", wa_order:"ORDINE", wa_total:"TOTALE", wa_notes:"NOTE", wa_extra:"Extra", wa_to_confirm:"da confermare" },
   en:{ back:"Back", menu_eyebrow:"Discover our selection", menu_title:"Our Menu", menu_sub:"Choose a category to explore",
@@ -1367,7 +1371,7 @@ const UI_STRINGS = {
        summary_customizations:"Customizations", summary_without:"Without", summary_notes:"Notes",
        summary_pickup:"Pickup", summary_customer:"Customer", summary_total:"Total", summary_payment:"Payment", checkout_payment_title:"Payment", payment_method_cash:"Pay on pickup / at the venue", payment_method_online:"Pay online by card", btn_pay_stripe:"Pay now by card", stripe_loading:"Opening payment...", stripe_error:"Could not start payment. Please try again.", wa_paid_online:"Paid online",
        btn_confirm_whatsapp:"Confirm and order on WhatsApp",
-       order_thankyou_title:"Order sent!", order_thankyou_sub:"Your order has been sent on WhatsApp. The venue will confirm the pickup time shortly.",
+       order_thankyou_title:"Order sent!", order_thankyou_sub:"Your order has been sent on WhatsApp. The venue will confirm the pickup time shortly.", order_paid_thankyou_title:"Payment successful!", order_paid_thankyou_sub:"Your payment went through. Tap the button below to send the order confirmation to the venue on WhatsApp.", btn_open_whatsapp:"Open WhatsApp and confirm the order",
        btn_close:"Close", wa_msg_title:"NEW TAKEAWAY ORDER", wa_customer:"Customer", wa_phone:"Phone",
        wa_pickup:"Pickup", wa_order:"ORDER", wa_total:"TOTAL", wa_notes:"NOTES", wa_extra:"Extra", wa_to_confirm:"to be confirmed" },
   es:{ back:"Volver", menu_eyebrow:"Descubre nuestras propuestas", menu_title:"Nuestro Menú", menu_sub:"Elige una categoría para explorar",
@@ -1399,7 +1403,7 @@ const UI_STRINGS = {
        summary_customizations:"Personalizaciones", summary_without:"Sin", summary_notes:"Notas",
        summary_pickup:"Recogida", summary_customer:"Cliente", summary_total:"Total", summary_payment:"Pago", checkout_payment_title:"Pago", payment_method_cash:"Pago al recoger / en el local", payment_method_online:"Pagar online con tarjeta", btn_pay_stripe:"Pagar ahora con tarjeta", stripe_loading:"Abriendo el pago...", stripe_error:"No se pudo iniciar el pago. Inténtalo de nuevo.", wa_paid_online:"Pagado en línea",
        btn_confirm_whatsapp:"Confirmar y pedir por WhatsApp",
-       order_thankyou_title:"¡Pedido enviado!", order_thankyou_sub:"Tu pedido se ha enviado por WhatsApp. El local confirmará pronto la hora de recogida.",
+       order_thankyou_title:"¡Pedido enviado!", order_thankyou_sub:"Tu pedido se ha enviado por WhatsApp. El local confirmará pronto la hora de recogida.", order_paid_thankyou_title:"¡Pago realizado!", order_paid_thankyou_sub:"El pago se ha completado. Toca el botón de abajo para enviar la confirmación del pedido al local por WhatsApp.", btn_open_whatsapp:"Abrir WhatsApp y confirmar el pedido",
        btn_close:"Cerrar", wa_msg_title:"NUEVO PEDIDO PARA LLEVAR", wa_customer:"Cliente", wa_phone:"Teléfono",
        wa_pickup:"Recogida", wa_order:"PEDIDO", wa_total:"TOTAL", wa_notes:"NOTAS", wa_extra:"Extra", wa_to_confirm:"a confirmar" },
   fr:{ back:"Retour", menu_eyebrow:"Découvrez nos propositions", menu_title:"Notre Menu", menu_sub:"Choisissez une catégorie à explorer",
@@ -1431,7 +1435,7 @@ const UI_STRINGS = {
        summary_customizations:"Personnalisations", summary_without:"Sans", summary_notes:"Notes",
        summary_pickup:"Retrait", summary_customer:"Client", summary_total:"Total", summary_payment:"Paiement", checkout_payment_title:"Paiement", payment_method_cash:"Paiement au retrait / sur place", payment_method_online:"Payer en ligne par carte", btn_pay_stripe:"Payer maintenant par carte", stripe_loading:"Ouverture du paiement...", stripe_error:"Impossible de démarrer le paiement. Réessayez.", wa_paid_online:"Payé en ligne",
        btn_confirm_whatsapp:"Confirmer et commander sur WhatsApp",
-       order_thankyou_title:"Commande envoyée !", order_thankyou_sub:"Votre commande a été envoyée sur WhatsApp. L'établissement confirmera bientôt l'heure de retrait.",
+       order_thankyou_title:"Commande envoyée !", order_thankyou_sub:"Votre commande a été envoyée sur WhatsApp. L'établissement confirmera bientôt l'heure de retrait.", order_paid_thankyou_title:"Paiement réussi !", order_paid_thankyou_sub:"Le paiement a été effectué. Appuyez sur le bouton ci-dessous pour envoyer la confirmation de la commande à l'établissement sur WhatsApp.", btn_open_whatsapp:"Ouvrir WhatsApp et confirmer la commande",
        btn_close:"Fermer", wa_msg_title:"NOUVELLE COMMANDE À EMPORTER", wa_customer:"Client", wa_phone:"Téléphone",
        wa_pickup:"Retrait", wa_order:"COMMANDE", wa_total:"TOTAL", wa_notes:"NOTES", wa_extra:"Extra", wa_to_confirm:"à confirmer" },
   de:{ back:"Zurück", menu_eyebrow:"Entdecken Sie unsere Angebote", menu_title:"Unsere Speisekarte", menu_sub:"Wählen Sie eine Kategorie",
@@ -1463,7 +1467,7 @@ const UI_STRINGS = {
        summary_customizations:"Anpassungen", summary_without:"Ohne", summary_notes:"Anmerkungen",
        summary_pickup:"Abholung", summary_customer:"Kunde", summary_total:"Gesamt", summary_payment:"Zahlung", checkout_payment_title:"Zahlung", payment_method_cash:"Zahlung bei Abholung / vor Ort", payment_method_online:"Online mit Karte bezahlen", btn_pay_stripe:"Jetzt mit Karte bezahlen", stripe_loading:"Zahlung wird geöffnet...", stripe_error:"Zahlung konnte nicht gestartet werden. Bitte erneut versuchen.", wa_paid_online:"Online bezahlt",
        btn_confirm_whatsapp:"Bestätigen und über WhatsApp bestellen",
-       order_thankyou_title:"Bestellung gesendet!", order_thankyou_sub:"Ihre Bestellung wurde über WhatsApp gesendet. Das Lokal bestätigt in Kürze die Abholzeit.",
+       order_thankyou_title:"Bestellung gesendet!", order_thankyou_sub:"Ihre Bestellung wurde über WhatsApp gesendet. Das Lokal bestätigt in Kürze die Abholzeit.", order_paid_thankyou_title:"Zahlung erfolgreich!", order_paid_thankyou_sub:"Die Zahlung war erfolgreich. Tippen Sie unten auf die Schaltfläche, um die Bestellbestätigung per WhatsApp an das Lokal zu senden.", btn_open_whatsapp:"WhatsApp öffnen und Bestellung bestätigen",
        btn_close:"Schließen", wa_msg_title:"NEUE BESTELLUNG ZUM MITNEHMEN", wa_customer:"Kunde", wa_phone:"Telefon",
        wa_pickup:"Abholung", wa_order:"BESTELLUNG", wa_total:"GESAMT", wa_notes:"ANMERKUNGEN", wa_extra:"Extra", wa_to_confirm:"zu bestätigen" }
 };
@@ -1987,6 +1991,14 @@ function confirmOrderWhatsApp(){
   cart = [];
   saveCartToStorage();
   updateCartFab();
+
+  // Il pulsante WhatsApp manuale serve solo per il ritorno dal pagamento online
+  // (vedi finalizeOnlinePaymentOrder): qui il messaggio è già stato aperto sopra,
+  // quindi lo teniamo nascosto e riportiamo i testi standard.
+  document.getElementById('thankyouWhatsappBtn').style.display = 'none';
+  document.getElementById('thankyouTitle').textContent = i18next.t('order_thankyou_title');
+  document.getElementById('thankyouSub').textContent = i18next.t('order_thankyou_sub');
+
   showOrderStep('orderStepThankyou');
 }
 
@@ -2109,7 +2121,16 @@ function finalizeOnlinePaymentOrder(metadata){
 
   const message = lines.join('\n');
   const url = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(message);
-  window.open(url, '_blank');
+
+  // Il browser blocca in silenzio le finestre aperte automaticamente dopo un redirect
+  // asincrono (non è un click diretto dell'utente): per questo qui NON apriamo WhatsApp
+  // da soli, ma mostriamo un pulsante ben visibile che l'utente clicca — un click reale
+  // non viene mai bloccato.
+  const waBtn = document.getElementById('thankyouWhatsappBtn');
+  waBtn.onclick = () => window.open(url, '_blank');
+  waBtn.style.display = 'flex';
+  document.getElementById('thankyouTitle').textContent = i18next.t('order_paid_thankyou_title');
+  document.getElementById('thankyouSub').textContent = i18next.t('order_paid_thankyou_sub');
 
   cart = [];
   saveCartToStorage();
