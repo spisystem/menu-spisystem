@@ -2122,23 +2122,25 @@ function finalizeOnlinePaymentOrder(metadata){
   const message = lines.join('\n');
   const url = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(message);
 
-  // Il browser blocca in silenzio le finestre aperte automaticamente dopo un redirect
-  // asincrono (non è un click diretto dell'utente): per questo qui NON apriamo WhatsApp
-  // da soli, ma mostriamo un pulsante ben visibile che l'utente clicca — un click reale
-  // non viene mai bloccato.
-  const waBtn = document.getElementById('thankyouWhatsappBtn');
-  waBtn.onclick = () => window.open(url, '_blank');
-  waBtn.style.display = 'flex';
-  document.getElementById('thankyouTitle').textContent = i18next.t('order_paid_thankyou_title');
-  document.getElementById('thankyouSub').textContent = i18next.t('order_paid_thankyou_sub');
-
   cart = [];
   saveCartToStorage();
   updateCartFab();
 
+  // Mostriamo comunque il pulsante come rete di sicurezza visiva (nel caso l'utente
+  // veda la schermata per un istante prima del redirect), ma l'invio è automatico:
+  // navigando la pagina stessa verso WhatsApp (non aprendo una nuova finestra), il
+  // browser non blocca mai questa azione, a differenza di window.open() dopo un redirect.
+  const waBtn = document.getElementById('thankyouWhatsappBtn');
+  waBtn.onclick = () => { window.location.href = url; };
+  waBtn.style.display = 'flex';
+  document.getElementById('thankyouTitle').textContent = i18next.t('order_paid_thankyou_title');
+  document.getElementById('thankyouSub').textContent = i18next.t('order_paid_thankyou_sub');
+
   showOrderStep('orderStepThankyou');
   document.getElementById('orderModal').classList.add('active');
   document.body.style.overflow = 'hidden';
+
+  window.location.href = url;
 }
 
 document.getElementById('orderModal').addEventListener('click', e => {
